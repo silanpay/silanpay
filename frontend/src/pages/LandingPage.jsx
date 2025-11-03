@@ -230,12 +230,60 @@ const LandingPage = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [services.length]);
 
+  // Floating cards animation
+  useEffect(() => {
+    // Animate all floating cards with staggered animation
+    gsap.to(".floating-card-upi", {
+      y: -30,
+      duration: 3,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
+    });
+
+    gsap.to(".floating-card-card", {
+      y: -35,
+      duration: 4,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
+      delay: 0.5,
+    });
+
+    gsap.to(".floating-card-wallet", {
+      y: -25,
+      duration: 3.5,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
+      delay: 1,
+    });
+
+    gsap.to(".floating-card-qr", {
+      y: -30,
+      duration: 3.8,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
+      delay: 1.5,
+    });
+
+    gsap.to(".floating-card-success", {
+      y: -28,
+      duration: 3.3,
+      repeat: -1,
+      yoyo: true,
+      ease: "sine.inOut",
+      delay: 2,
+    });
+  }, []);
+
   return (
     <div className="min-h-screen bg-white font-outfit">
       <Header />
 
       {/* ===== HERO SECTION WITH 3D MOBILE ===== */}
-      <section ref={heroContainerRef} className="py-12 bg-white">
+      <section ref={heroContainerRef} className="py-12 bg-white overflow-hidden">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           {/* Centered Badge */}
           <div className="flex justify-center mb-8">
@@ -252,12 +300,12 @@ const LandingPage = () => {
           </div>
 
           <div
-            className="grid items-center grid-cols-1 gap-12 lg:grid-cols-2"
+            className="grid items-center grid-cols-1 gap-8 lg:gap-12 lg:grid-cols-2"
             style={{ perspective: "1200px" }}
           >
             {/* Left Content */}
-            <div className="space-y-10 text-center lg:text-center">
-              <h1 className="text-6xl font-bold leading-tight text-gray-900 lg:text-6xl">
+            <div className="space-y-8 lg:space-y-10 text-center lg:text-center">
+              <h1 className="text-5xl lg:text-6xl font-bold leading-tight text-gray-900">
                 Transform Your Business with
                 <span style={{ color: "#228DCE" }}>
                   {" "}
@@ -265,10 +313,10 @@ const LandingPage = () => {
                 </span>
               </h1>
 
-              <div className="flex flex-col justify-center gap-4 sm:flex-row">
+              <div className="flex flex-col justify-center gap-3 lg:gap-4 sm:flex-row">
                 <Link
                   to="/register"
-                  className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white transition-colors duration-200 rounded-lg shadow-lg hover:shadow-xl"
+                  className="inline-flex items-center justify-center px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg font-semibold text-white transition-colors duration-200 rounded-lg shadow-lg hover:shadow-xl"
                   style={{ backgroundColor: "#228DCE" }}
                   onMouseEnter={(e) =>
                     (e.target.style.backgroundColor = "#1a6fa8")
@@ -278,11 +326,11 @@ const LandingPage = () => {
                   }
                 >
                   Get Started Free
-                  <ArrowRight className="ml-2" size={20} />
+                  <ArrowRight className="ml-2" size={18} />
                 </Link>
                 <Link
                   to="/docs"
-                  className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold transition-colors duration-200 border-2 rounded-lg shadow-lg hover:shadow-xl"
+                  className="inline-flex items-center justify-center px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg font-semibold transition-colors duration-200 border-2 rounded-lg shadow-lg hover:shadow-xl"
                   style={{ color: "#228DCE", borderColor: "#228DCE" }}
                   onMouseEnter={(e) =>
                     (e.target.style.backgroundColor = "#e8f4fb")
@@ -296,23 +344,27 @@ const LandingPage = () => {
               </div>
 
               {/* Trust Indicators */}
-              <div className="flex items-center justify-center pt-4 space-x-6">
-                <div className="text-sm text-gray-500">Trusted by</div>
-                <div className="flex items-center space-x-4">
-                  <div className="text-sm font-semibold text-gray-700">
+              <div className="flex flex-col sm:flex-row items-center justify-center pt-2 lg:pt-4 space-y-3 sm:space-y-0 sm:space-x-4 lg:space-x-6">
+                <div className="text-xs lg:text-sm text-gray-500">Trusted by</div>
+                <div className="flex flex-wrap items-center justify-center gap-3 lg:gap-4">
+                  <div className="text-sm lg:text-base font-semibold text-gray-700">
                     100+
                   </div>
-                  <div className="text-sm text-gray-500">Businesses</div>
-                  <div className="text-sm font-semibold text-gray-700">
+                  <div className="text-xs lg:text-sm text-gray-500">
+                    Businesses
+                  </div>
+                  <div className="text-sm lg:text-base font-semibold text-gray-700">
                     ₹2.4k+
                   </div>
-                  <div className="text-sm text-gray-500">Processed</div>
+                  <div className="text-xs lg:text-sm text-gray-500">
+                    Processed
+                  </div>
                 </div>
               </div>
             </div>
 
-            {/* Right - Realistic 3D Mobile Phone */}
-            <div className="flex justify-center lg:justify-end">
+            {/* Right - Realistic 3D Mobile Phone with Animated Floating Cards */}
+            <div className="flex justify-center lg:justify-end relative w-full" style={{ minHeight: "600px", maxHeight: "700px" }}>
               <div
                 ref={phoneRef}
                 style={{
@@ -320,14 +372,14 @@ const LandingPage = () => {
                   perspective: "1500px",
                   transform: "translateZ(0)",
                 }}
-                className="relative"
+                className="relative z-10"
               >
                 {/* === REALISTIC MOBILE PHONE START === */}
                 <div
                   className="relative"
                   style={{
-                    width: "295px",
-                    height: "590px",
+                    width: "260px",
+                    height: "520px",
                     borderRadius: "2.5rem",
                     background:
                       "linear-gradient(120deg, #212439 70%, #228DCE 120%)",
@@ -352,24 +404,24 @@ const LandingPage = () => {
                   <div
                     className="absolute left-1/2 z-30"
                     style={{
-                      top: "14px",
+                      top: "12px",
                       transform: "translateX(-50%)",
-                      width: "72px",
-                      height: "18px",
+                      width: "65px",
+                      height: "16px",
                       background: "#23273D",
-                      borderRadius: "0 0 20px 20px",
+                      borderRadius: "0 0 18px 18px",
                       boxShadow: "0 2px 5px #21243955",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
-                      gap: 4,
+                      gap: 3,
                     }}
                   >
                     {/* Speaker */}
                     <div
                       style={{
-                        width: "38px",
-                        height: "4px",
+                        width: "32px",
+                        height: "3px",
                         backgroundColor: "#828999",
                         borderRadius: "2px",
                       }}
@@ -377,11 +429,11 @@ const LandingPage = () => {
                     {/* Camera */}
                     <div
                       style={{
-                        width: "8px",
-                        height: "8px",
+                        width: "6px",
+                        height: "6px",
                         background: "#474e60",
                         borderRadius: "50%",
-                        marginLeft: "10px",
+                        marginLeft: "8px",
                         border: "2px solid #222834",
                       }}
                     ></div>
@@ -394,8 +446,8 @@ const LandingPage = () => {
                       position: "absolute",
                       left: 0,
                       right: 0,
-                      top: "38px",
-                      bottom: "34px",
+                      top: "34px",
+                      bottom: "30px",
                       background:
                         "linear-gradient(180deg,#f9fafc 40%,#e5f0f9 100%,#fff 120%)",
                       borderRadius: "1.8rem",
@@ -407,23 +459,23 @@ const LandingPage = () => {
                   >
                     {/* Status bar */}
                     <div
-                      className="flex items-center justify-between px-4 pt-1 pb-2 text-xs font-medium"
+                      className="flex items-center justify-between px-3 pt-1 pb-1 text-xs font-medium"
                       style={{
                         color: "#3e4a68",
                         letterSpacing: "0.02em",
                         fontWeight: 600,
                       }}
                     >
-                      <span>9:41</span>
-                      <div className="flex items-center gap-1">
+                      <span className="text-[10px]">9:41</span>
+                      <div className="flex items-center gap-0.5">
                         <div
                           style={{
-                            width: "21px",
-                            height: "8px",
+                            width: "16px",
+                            height: "6px",
                             border: "1px solid #5c708a",
-                            borderRadius: "2px",
+                            borderRadius: "1px",
                             position: "relative",
-                            marginRight: "2px",
+                            marginRight: "1px",
                           }}
                         >
                           <div
@@ -431,28 +483,28 @@ const LandingPage = () => {
                               position: "absolute",
                               right: 0,
                               top: 0,
-                              width: "8px",
+                              width: "6px",
                               height: "100%",
                               background: "#5c708a",
-                              borderRadius: "0 2px 2px 0",
+                              borderRadius: "0 1px 1px 0",
                             }}
                           ></div>
                         </div>
-                        <span style={{ color: "#10b981", fontWeight: 700 }}>
+                        <span style={{ color: "#10b981", fontWeight: 700, fontSize: "8px" }}>
                           ● ● ●
                         </span>
                       </div>
                     </div>
 
-                    {/* Inside the screen, inset content with padding */}
-                    <div className="px-5 pt-2 pb-2 w-full flex flex-col gap-2">
-                      <div className="text-center py-1">
-                        <h1 className="text-xl font-bold tracking-wide">
+                    {/* Inside the screen content */}
+                    <div className="px-3 pt-1.5 pb-2 w-full flex flex-col gap-1.5">
+                      <div className="text-center py-0.5">
+                        <h1 className="text-lg font-bold tracking-wide">
                           <span style={{ color: "#212439" }}>Silan</span>
                           <span style={{ color: "#228DCE" }}>Pay</span>
                         </h1>
-                        <p className="text-[11px] text-blue-800 font-medium opacity-80 mt-0.5">
-                          Digital Payment Gateway
+                        <p className="text-[9px] text-blue-800 font-medium opacity-80 mt-0.5">
+                          Digital Payment
                         </p>
                       </div>
 
@@ -461,25 +513,25 @@ const LandingPage = () => {
                         style={{
                           background:
                             "linear-gradient(90deg,#fff 80%,#e8f4fb 120%)",
-                          border: "1.5px solid #228DCE",
+                          border: "1px solid #228DCE",
                         }}
-                        className="rounded-xl py-3 px-2 mb-1 shadow"
+                        className="rounded-lg py-2 px-1.5 mb-0.5 shadow-sm"
                       >
-                        <div className="mb-2 text-2xl">📱</div>
-                        <h2 className="font-bold text-gray-900 text-[15px] mb-0.5">
+                        <div className="mb-1 text-lg">📱</div>
+                        <h2 className="font-bold text-gray-900 text-[12px] mb-0.5">
                           Scan & Pay
                         </h2>
-                        <p className="text-[12px] text-gray-600">
-                          Instant QR code payments
+                        <p className="text-[10px] text-gray-600">
+                          Instant QR
                         </p>
                       </div>
 
-                      {/* QR Code (smaller, centered) */}
+                      {/* QR Code */}
                       <div
-                        className="bg-white border border-blue-100 rounded-xl px-3 py-3 mx-auto shadow-inner"
+                        className="bg-white border border-blue-100 rounded-lg px-2 py-2 mx-auto shadow-inner"
                         style={{ width: "fit-content" }}
                       >
-                        <svg width="70" height="70" viewBox="0 0 120 120">
+                        <svg width="50" height="50" viewBox="0 0 120 120">
                           <rect width="120" height="120" fill="white" rx="8" />
                           <rect width="30" height="30" fill="#212439" />
                           <rect x="3" y="3" width="24" height="24" fill="white" />
@@ -503,37 +555,37 @@ const LandingPage = () => {
                         </svg>
                       </div>
 
-                      {/* Feature icons with background highlights */}
-                      <div className="flex justify-between mt-1">
+                      {/* Feature icons */}
+                      <div className="flex justify-between mt-1 gap-1">
                         <div className="flex flex-col items-center">
-                          <div className="rounded-full bg-blue-50 shadow p-1.5">
-                            <CreditCard size={16} color="#228DCE" />
+                          <div className="rounded-full bg-blue-50 shadow p-1">
+                            <CreditCard size={12} color="#228DCE" />
                           </div>
-                          <span className="text-[11px] text-blue-800 font-semibold mt-1">
+                          <span className="text-[8px] text-blue-800 font-semibold mt-0.5">
                             Card
                           </span>
                         </div>
                         <div className="flex flex-col items-center">
-                          <div className="rounded-full bg-green-50 shadow p-1.5">
-                            <Smartphone size={16} color="#10b981" />
+                          <div className="rounded-full bg-green-50 shadow p-1">
+                            <Smartphone size={12} color="#10b981" />
                           </div>
-                          <span className="text-[11px] text-green-700 font-semibold mt-1">
+                          <span className="text-[8px] text-green-700 font-semibold mt-0.5">
                             UPI
                           </span>
                         </div>
                         <div className="flex flex-col items-center">
-                          <div className="rounded-full bg-yellow-50 shadow p-1.5">
-                            <WalletIcon size={16} color="#f59e0b" />
+                          <div className="rounded-full bg-yellow-50 shadow p-1">
+                            <WalletIcon size={12} color="#f59e0b" />
                           </div>
-                          <span className="text-[11px] text-yellow-700 font-semibold mt-1">
+                          <span className="text-[8px] text-yellow-700 font-semibold mt-0.5">
                             Wallet
                           </span>
                         </div>
                         <div className="flex flex-col items-center">
-                          <div className="rounded-full bg-purple-50 shadow p-1.5">
-                            <QrCode size={16} color="#8b5cf6" />
+                          <div className="rounded-full bg-purple-50 shadow p-1">
+                            <QrCode size={12} color="#8b5cf6" />
                           </div>
-                          <span className="text-[11px] text-purple-700 font-semibold mt-1">
+                          <span className="text-[8px] text-purple-700 font-semibold mt-0.5">
                             QR
                           </span>
                         </div>
@@ -545,14 +597,14 @@ const LandingPage = () => {
                   <div
                     className="absolute left-1/2 z-30"
                     style={{
-                      bottom: "13px",
+                      bottom: "10px",
                       transform: "translateX(-50%)",
                     }}
                   >
                     <div
                       style={{
-                        width: "65px",
-                        height: "6px",
+                        width: "55px",
+                        height: "5px",
                         borderRadius: "5px",
                         background:
                           "linear-gradient(90deg,#e8f4fb 0%,#228DCE 100%)",
@@ -567,8 +619,8 @@ const LandingPage = () => {
                     className="absolute left-1/2"
                     style={{
                       width: "70%",
-                      bottom: "-35px",
-                      height: "40px",
+                      bottom: "-30px",
+                      height: "35px",
                       background:
                         "radial-gradient(ellipse at center,#228DCE30 65%, transparent 80%)",
                       filter: "blur(7px)",
@@ -578,11 +630,113 @@ const LandingPage = () => {
                   ></div>
                 </div>
                 {/* === REALISTIC MOBILE PHONE END === */}
+
+                {/* ===== ANIMATED FLOATING FINTECH CARDS (OPTIMIZED SIZE & POSITION - AWAY FROM MOBILE) ===== */}
+
+                {/* UPI Payment Card - TOP RIGHT */}
+                <div
+                  className="floating-card-upi absolute -right-32 top-4 lg:top-8 bg-white rounded-xl p-2.5 shadow-lg border border-gray-100"
+                  style={{
+                    width: "130px",
+                  }}
+                >
+                  <div className="flex items-center gap-2 mb-1">
+                    <div
+                      className="flex items-center justify-center w-8 h-8 rounded-lg"
+                      style={{ backgroundColor: "#228DCE" }}
+                    >
+                      <Smartphone size={16} className="text-white" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-gray-900">UPI</p>
+                      <p className="text-[10px] text-gray-600">Live</p>
+                    </div>
+                  </div>
+                  <p className="text-sm font-bold text-gray-900">₹4,580</p>
+                </div>
+
+                {/* Card Payment Card - LEFT (AWAY FROM MOBILE) */}
+                <div
+                  className="floating-card-card absolute -left-28 top-24 lg:top-32 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-2.5 shadow-lg border border-green-200"
+                  style={{
+                    width: "120px",
+                  }}
+                >
+                  <div className="flex items-center gap-2 mb-1">
+                    <div
+                      className="flex items-center justify-center w-8 h-8 rounded-lg bg-green-500"
+                    >
+                      <CreditCard size={16} className="text-white" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-gray-900">Card</p>
+                      <p className="text-[10px] text-gray-600">Active</p>
+                    </div>
+                  </div>
+                  <p className="text-sm font-bold text-gray-900">₹926.67</p>
+                </div>
+
+                {/* Wallet Card - TOP CENTER */}
+                <div
+                  className="floating-card-wallet absolute -top-10 left-1/2 transform -translate-x-1/2 bg-gradient-to-br from-purple-50 to-indigo-50 rounded-xl px-3 py-2 shadow-lg border border-purple-200"
+                  style={{
+                    width: "fit-content",
+                    whiteSpace: "nowrap",
+                  }}
+                >
+                  <div className="flex items-center gap-2">
+                    <div
+                      className="flex items-center justify-center w-8 h-8 rounded-lg bg-purple-500"
+                    >
+                      <WalletIcon size={16} className="text-white" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-gray-900">Wallet</p>
+                      <p className="text-[9px] text-gray-600">₹12.4k</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* QR Code Card - RIGHT BOTTOM (AWAY FROM MOBILE) */}
+                <div
+                  className="floating-card-qr absolute -right-32 bottom-16 lg:bottom-20 bg-gradient-to-br from-orange-50 to-amber-50 rounded-xl p-2.5 shadow-lg border border-orange-200"
+                  style={{
+                    width: "120px",
+                  }}
+                >
+                  <div className="flex items-center gap-2 mb-1">
+                    <div
+                      className="flex items-center justify-center w-8 h-8 rounded-lg bg-orange-500"
+                    >
+                      <QrCode size={16} className="text-white" />
+                    </div>
+                    <div>
+                      <p className="text-xs font-bold text-gray-900">QR Pay</p>
+                      <p className="text-[10px] text-gray-600">Scanned</p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Transaction Success Card - LEFT BOTTOM (AWAY FROM MOBILE) */}
+                <div
+                  className="floating-card-success absolute -left-28 bottom-24 lg:bottom-32 bg-white rounded-xl px-2.5 py-2 shadow-lg border-2"
+                  style={{
+                    borderColor: "#10b981",
+                    width: "fit-content",
+                  }}
+                >
+                  <div className="flex items-center gap-1.5">
+                    <CheckCircle size={16} style={{ color: "#10b981" }} />
+                    <p className="text-xs font-bold text-gray-900">Success</p>
+                  </div>
+                  <p className="text-[8px] text-gray-600 mt-0.5">Confirmed</p>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </section>
+
 
       {/* ===== OUR SERVICES - STICKY SCROLL ANIMATION ===== */}
       <section
@@ -592,7 +746,7 @@ const LandingPage = () => {
       >
         <div className="sticky top-0 flex items-center justify-center h-screen overflow-hidden">
           <div className="w-full px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
-            {/* Section Header - INSIDE the sticky container */}
+            {/* Section Header */}
             <div className="mb-8 text-center">
               <div
                 className="inline-block px-6 py-2 mb-3 text-sm font-semibold rounded-full"
@@ -626,7 +780,6 @@ const LandingPage = () => {
                 const isActive = index === activeCardIndex;
                 const isPast = index < activeCardIndex;
 
-                // Calculate card position
                 const translateY = isPast
                   ? -120
                   : isActive
@@ -653,16 +806,12 @@ const LandingPage = () => {
                       pointerEvents: isActive ? "auto" : "none",
                     }}
                   >
-                    {/* CARD - Increased size and padding */}
                     <div className="relative w-full max-w-5xl overflow-hidden bg-white border-2 border-gray-100 shadow-2xl rounded-3xl">
-                      {/* Animated Background Gradient */}
                       <div
                         className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-5 rounded-3xl`}
                       ></div>
 
-                      {/* Content - ALL INSIDE CARD */}
                       <div className="relative p-8 md:p-12">
-                        {/* Header */}
                         <div className="flex items-start mb-6 space-x-6">
                           <div
                             className={`flex items-center justify-center flex-shrink-0 w-20 h-20 rounded-2xl bg-gradient-to-br ${service.color} shadow-lg`}
@@ -690,22 +839,15 @@ const LandingPage = () => {
                           </div>
                         </div>
 
-                        {/* Description */}
                         <p className="mb-8 text-lg leading-relaxed text-gray-600">
                           {service.description}
                         </p>
 
-                        {/* Features Grid */}
                         <div className="grid grid-cols-1 gap-4 mb-6 md:grid-cols-2 lg:grid-cols-3">
                           {service.features.map((feature, featureIndex) => (
                             <div
                               key={featureIndex}
                               className="flex items-start p-4 space-x-3 transition-colors rounded-xl bg-gray-50"
-                              style={{
-                                ":hover": {
-                                  backgroundColor: "#e8f4fb",
-                                },
-                              }}
                               onMouseEnter={(e) =>
                                 (e.currentTarget.style.backgroundColor =
                                   "#e8f4fb")
@@ -727,7 +869,6 @@ const LandingPage = () => {
                           ))}
                         </div>
 
-                        {/* Footer */}
                         <div className="flex items-center justify-between pt-6 border-t border-gray-200">
                           <div className="text-sm text-gray-500">
                             {isActive && activeCardIndex < services.length - 1
@@ -749,7 +890,6 @@ const LandingPage = () => {
               })}
             </div>
 
-            {/* Progress Dots - INSIDE sticky container */}
             <div className="flex justify-center mt-6 space-x-3">
               {services.map((_, index) => (
                 <div
@@ -1047,7 +1187,6 @@ const LandingPage = () => {
           </div>
 
           <div className="grid grid-cols-1 gap-12 mb-16 lg:grid-cols-2">
-            {/* Our Vision */}
             <div
               className="p-8 rounded-2xl"
               style={{
@@ -1065,7 +1204,6 @@ const LandingPage = () => {
               </p>
             </div>
 
-            {/* Our Mission */}
             <div className="p-8 bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl">
               <h3 className="mb-4 text-2xl font-bold text-gray-900">
                 Our Mission
@@ -1079,7 +1217,6 @@ const LandingPage = () => {
             </div>
           </div>
 
-          {/* Core Values */}
           <div className="mb-12 text-center">
             <h3 className="mb-4 text-3xl font-bold text-gray-900">
               Our Core Values
@@ -1239,7 +1376,6 @@ const LandingPage = () => {
             })}
           </div>
 
-          {/* Payment Dashboard Card */}
           <div className="p-8 bg-white border border-gray-100 shadow-xl rounded-2xl">
             <h3 className="mb-6 text-2xl font-bold text-gray-900">
               Payment Dashboard
@@ -1474,11 +1610,9 @@ const LandingPage = () => {
 
       {/* ===== FOOTER ===== */}
       <footer>
-        {/* Dark Background Section */}
         <div style={{ backgroundColor: "#212439" }}>
           <div className="px-4 py-16 mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
-              {/* Products */}
               <div>
                 <h4
                   className="mb-4 text-lg font-bold"
@@ -1526,7 +1660,6 @@ const LandingPage = () => {
                 </ul>
               </div>
 
-              {/* Company */}
               <div>
                 <h4
                   className="mb-4 text-lg font-bold"
@@ -1582,7 +1715,6 @@ const LandingPage = () => {
                 </ul>
               </div>
 
-              {/* Developers */}
               <div>
                 <h4
                   className="mb-4 text-lg font-bold"
@@ -1609,14 +1741,12 @@ const LandingPage = () => {
           </div>
         </div>
 
-        {/* Company Info - Logo Right, Address Left - White Background Full Width */}
         <div
           className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] bg-white border-t"
           style={{ borderColor: "rgba(0, 0, 0, 0.1)" }}
         >
           <div className="px-4 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div className="flex flex-col items-center justify-between md:flex-row">
-              {/* Address on Left */}
               <div className="mb-4 text-sm text-center text-gray-700 md:text-left md:mb-0">
                 <p>📍 Plot No-741, 2nd Floor, Jayadev Vihar, 751013</p>
                 <p>📍 Bhubaneswar, Odisha</p>
@@ -1624,7 +1754,6 @@ const LandingPage = () => {
                 <p>🏢 Silansoftware Private Limited</p>
               </div>
 
-              {/* Logo on Right */}
               <div className="flex items-center">
                 <Link to="/" className="flex items-center gap-2">
                   <img
@@ -1638,7 +1767,6 @@ const LandingPage = () => {
           </div>
         </div>
 
-        {/* Copyright - Full Width with Pay Color */}
         <div
           className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] text-sm text-center"
           style={{
