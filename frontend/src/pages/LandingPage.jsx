@@ -737,7 +737,6 @@ const LandingPage = () => {
         </div>
       </section>
 
-
       {/* ===== OUR SERVICES - STICKY SCROLL ANIMATION ===== */}
       <section
         ref={containerRef}
