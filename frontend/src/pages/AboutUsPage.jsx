@@ -257,7 +257,7 @@ const AboutUsPage = () => {
               <div className="flex items-center">
                 <Link to="/" className="flex items-center gap-2">
                   <img
-                    src="/src/assets/silanpaylogo.png"
+                    src="/public/silanpaylogo.png"
                     alt="SilanPay logo"
                     className="object-contain w-auto h-10 sm:h-12"
                   />
