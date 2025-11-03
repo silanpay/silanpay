@@ -309,7 +309,7 @@ const LandingPage = () => {
                 Transform Your Business with
                 <span style={{ color: "#228DCE" }}>
                   {" "}
-                  Smart Payment Gatways
+                  Smart Payment Solutions
                 </span>
               </h1>
 
