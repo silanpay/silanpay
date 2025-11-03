@@ -181,7 +181,7 @@ const Header = () => {
           {/* ✅ Logo with Image + Text */}
           <Link to="/" className="flex items-center gap-0">
             <img
-              src="/src/assets/silanpaylogo.png"
+              src="/public/assets/silanpaylogo.png"
               alt="SilanPay logo"
               className="object-contain w-auto h-8 sm:h-10"
             />
