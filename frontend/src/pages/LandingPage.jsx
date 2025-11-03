@@ -33,15 +33,21 @@ import {
   QrCode,
   Wallet as WalletIcon,
 } from "lucide-react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Header from "../components/layout/Header";
 import AboutUs from "../components/AboutUs";
 import ScrollToTop from "../components/common/ScrollToTop";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
+gsap.registerPlugin(ScrollTrigger);
+
 const LandingPage = () => {
   const [activeCardIndex, setActiveCardIndex] = useState(0);
   const servicesRef = useRef(null);
   const containerRef = useRef(null);
+  const phoneRef = useRef(null);
+  const heroContainerRef = useRef(null);
 
   // Services data
   const services = [
@@ -115,6 +121,91 @@ const LandingPage = () => {
     },
   ];
 
+  // GSAP 3D Mobile Animation
+  useEffect(() => {
+    const phone = phoneRef.current;
+    const hero = heroContainerRef.current;
+
+    if (!phone || !hero) return;
+
+    // Scroll-triggered animation
+    const scrollTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: hero,
+        start: "top center",
+        end: "bottom center",
+        scrub: 1,
+        markers: false,
+      },
+    });
+
+    scrollTl
+      .fromTo(
+        phone,
+        {
+          opacity: 0,
+          rotationY: 90,
+          rotationX: 20,
+          z: -200,
+          scale: 0.8,
+        },
+        {
+          opacity: 1,
+          rotationY: 0,
+          rotationX: 0,
+          z: 0,
+          scale: 1,
+          duration: 1,
+        }
+      )
+      .to(
+        phone,
+        {
+          rotationY: 360,
+          duration: 3,
+        },
+        0
+      )
+      .to(
+        phone,
+        {
+          y: -40,
+          duration: 2,
+        },
+        0.2
+      )
+      .to(
+        phone,
+        {
+          y: 0,
+          duration: 2,
+        },
+        2.2
+      );
+
+    // Mouse follow effect
+    const handleMouseMove = (e) => {
+      if (!phone) return;
+      const centerX = window.innerWidth / 2;
+      const centerY = window.innerHeight / 2;
+      const x = e.clientX - centerX;
+      const y = e.clientY - centerY;
+
+      gsap.to(phone, {
+        rotationY: (x / centerX) * 10,
+        rotationX: (y / centerY) * -10,
+        duration: 0.8,
+      });
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+
+    return () => {
+      window.removeEventListener("mousemove", handleMouseMove);
+      scrollTl.kill();
+    };
+  }, []);
+
   // Scroll handler for sticky cards
   useEffect(() => {
     const handleScroll = () => {
@@ -123,13 +214,13 @@ const LandingPage = () => {
       const container = containerRef.current;
       const rect = container.getBoundingClientRect();
       const scrollProgress = -rect.top / (rect.height - window.innerHeight);
-      
+
       // Calculate which card should be active based on scroll
       const cardIndex = Math.min(
         Math.floor(scrollProgress * services.length),
         services.length - 1
       );
-      
+
       setActiveCardIndex(Math.max(0, cardIndex));
     };
 
@@ -143,64 +234,48 @@ const LandingPage = () => {
     <div className="min-h-screen bg-white font-outfit">
       <Header />
 
-      {/* Hero Section */}
-      <section className="py-12 bg-white">
+      {/* ===== HERO SECTION WITH 3D MOBILE ===== */}
+      <section ref={heroContainerRef} className="py-12 bg-white">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           {/* Centered Badge */}
           <div className="flex justify-center mb-8">
-            <div className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-full" style={{ backgroundColor: '#e8f4fb', color: '#228DCE' }}>
-              <span className="w-2 h-2 mr-2 rounded-full" style={{ backgroundColor: '#228DCE' }}></span>
-              Empowering Digital Financial Solutions
+            <div
+              className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-full"
+              style={{ backgroundColor: "#e8f4fb", color: "#228DCE" }}
+            >
+              <span
+                className="w-2 h-2 mr-2 rounded-full"
+                style={{ backgroundColor: "#228DCE" }}
+              ></span>
+              Accelerate Your Business Success Smooth Onboarding
             </div>
           </div>
 
-          <div className="grid items-center grid-cols-1 gap-12 lg:grid-cols-2">
+          <div
+            className="grid items-center grid-cols-1 gap-12 lg:grid-cols-2"
+            style={{ perspective: "1200px" }}
+          >
             {/* Left Content */}
             <div className="space-y-10 text-center lg:text-center">
-              <h1 className="text-5xl font-bold leading-tight text-gray-900 lg:text-6xl">
+              <h1 className="text-6xl font-bold leading-tight text-gray-900 lg:text-6xl">
                 Transform Your Business with
-                <span style={{ color: '#228DCE' }}>
+                <span style={{ color: "#228DCE" }}>
                   {" "}
                   Smart Payment Solutions
                 </span>
               </h1>
-              <p className="text-xl leading-relaxed text-gray-600">
-                Experience lightning-fast payments, seamless integrations, and
-                enterprise-grade security.
-              </p>
-
-              {/* Key Benefits */}
-              <div className="grid max-w-2xl grid-cols-1 gap-4 mx-auto sm:grid-cols-2">
-                {[
-                  { text: "Instant Settlement", icon: Zap },
-                  { text: "Bank-Grade Security", icon: Lock },
-                  { text: "48-Hour Integration", icon: Rocket },
-                  { text: "Real-Time Analytics", icon: BarChart },
-                  { text: "100+ Payment Methods", icon: CreditCard },
-                  { text: "Global Reach", icon: Globe },
-                ].map((benefit, index) => {
-                  const IconComponent = benefit.icon;
-                  return (
-                    <div
-                      key={index}
-                      className="flex items-center justify-center space-x-3"
-                    >
-                      <IconComponent className="flex-shrink-0 w-5 h-5" style={{ color: '#228DCE' }} />
-                      <span className="text-lg text-gray-700">
-                        {benefit.text}
-                      </span>
-                    </div>
-                  );
-                })}
-              </div>
 
               <div className="flex flex-col justify-center gap-4 sm:flex-row">
                 <Link
                   to="/register"
                   className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-white transition-colors duration-200 rounded-lg shadow-lg hover:shadow-xl"
-                  style={{ backgroundColor: '#228DCE' }}
-                  onMouseEnter={(e) => e.target.style.backgroundColor = '#1a6fa8'}
-                  onMouseLeave={(e) => e.target.style.backgroundColor = '#228DCE'}
+                  style={{ backgroundColor: "#228DCE" }}
+                  onMouseEnter={(e) =>
+                    (e.target.style.backgroundColor = "#1a6fa8")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.target.style.backgroundColor = "#228DCE")
+                  }
                 >
                   Get Started Free
                   <ArrowRight className="ml-2" size={20} />
@@ -208,16 +283,20 @@ const LandingPage = () => {
                 <Link
                   to="/docs"
                   className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold transition-colors duration-200 border-2 rounded-lg shadow-lg hover:shadow-xl"
-                  style={{ color: '#228DCE', borderColor: '#228DCE' }}
-                  onMouseEnter={(e) => e.target.style.backgroundColor = '#e8f4fb'}
-                  onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}
+                  style={{ color: "#228DCE", borderColor: "#228DCE" }}
+                  onMouseEnter={(e) =>
+                    (e.target.style.backgroundColor = "#e8f4fb")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.target.style.backgroundColor = "transparent")
+                  }
                 >
                   View Documentation
                 </Link>
               </div>
 
               {/* Trust Indicators */}
-              <div className="flex items-center justify-center pt-8 space-x-6">
+              <div className="flex items-center justify-center pt-4 space-x-6">
                 <div className="text-sm text-gray-500">Trusted by</div>
                 <div className="flex items-center space-x-4">
                   <div className="text-sm font-semibold text-gray-700">
@@ -232,85 +311,280 @@ const LandingPage = () => {
               </div>
             </div>
 
-            {/* Right Content - Animated Orbital Design */}
+            {/* Right - Realistic 3D Mobile Phone */}
             <div className="flex justify-center lg:justify-end">
-              <div className="relative w-full max-w-lg h-[500px] lg:h-[600px] flex items-center justify-center">
-                {/* Central Circle - DECREASED SIZE */}
-                <div className="relative z-10 flex flex-col items-center justify-center w-48 h-48 rounded-full shadow-2xl" style={{ background: `linear-gradient(135deg, #228DCE 0%, #1a6fa8 100%)` }}>
-                  <div className="text-center text-white">
-                    <div className="mb-1 text-2xl font-bold">SilanPay</div>
-                    <div className="text-xs opacity-90">Payment Solutions</div>
+              <div
+                ref={phoneRef}
+                style={{
+                  transformStyle: "preserve-3d",
+                  perspective: "1500px",
+                  transform: "translateZ(0)",
+                }}
+                className="relative"
+              >
+                {/* === REALISTIC MOBILE PHONE START === */}
+                <div
+                  className="relative"
+                  style={{
+                    width: "295px",
+                    height: "590px",
+                    borderRadius: "2.5rem",
+                    background:
+                      "linear-gradient(120deg, #212439 70%, #228DCE 120%)",
+                    boxShadow:
+                      "0 20px 40px 0 rgba(34,141,206,0.20), 0 0 0 7px #f4f8fb inset, 0 2px 32px 0 #21243980",
+                    border: "3px solid #e8f4fb",
+                    zIndex: 1,
+                  }}
+                >
+                  {/* Glass reflection */}
+                  <div
+                    className="absolute left-0 top-0 z-20"
+                    style={{
+                      width: "100%",
+                      height: "40%",
+                      background:
+                        "linear-gradient(110deg,rgba(255,255,255,0.06) 60%, rgba(255,255,255,0.15) 100%)",
+                    }}
+                  ></div>
+
+                  {/* Realistic notch */}
+                  <div
+                    className="absolute left-1/2 z-30"
+                    style={{
+                      top: "14px",
+                      transform: "translateX(-50%)",
+                      width: "72px",
+                      height: "18px",
+                      background: "#23273D",
+                      borderRadius: "0 0 20px 20px",
+                      boxShadow: "0 2px 5px #21243955",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      gap: 4,
+                    }}
+                  >
+                    {/* Speaker */}
+                    <div
+                      style={{
+                        width: "38px",
+                        height: "4px",
+                        backgroundColor: "#828999",
+                        borderRadius: "2px",
+                      }}
+                    ></div>
+                    {/* Camera */}
+                    <div
+                      style={{
+                        width: "8px",
+                        height: "8px",
+                        background: "#474e60",
+                        borderRadius: "50%",
+                        marginLeft: "10px",
+                        border: "2px solid #222834",
+                      }}
+                    ></div>
                   </div>
-                </div>
 
-                {/* Orbital Rings - DARKER & MORE VISIBLE */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  {/* Ring 1 - Darker */}
-                  <div className="absolute w-[320px] h-[320px] border-[3px] rounded-full opacity-60 animate-spin-slow" style={{ borderColor: '#228DCE', borderStyle: 'dashed' }}></div>
-                  
-                  {/* Ring 2 - Darker */}
-                  <div className="absolute w-[420px] h-[420px] border-[3px] rounded-full opacity-40 animate-spin-slower" style={{ borderColor: '#228DCE', borderStyle: 'dashed' }}></div>
-                </div>
+                  {/* Screen */}
+                  <div
+                    className="relative"
+                    style={{
+                      position: "absolute",
+                      left: 0,
+                      right: 0,
+                      top: "38px",
+                      bottom: "34px",
+                      background:
+                        "linear-gradient(180deg,#f9fafc 40%,#e5f0f9 100%,#fff 120%)",
+                      borderRadius: "1.8rem",
+                      margin: "0 8px",
+                      overflow: "hidden",
+                      boxShadow: "0 1px 1.5px #cbe3f7 inset",
+                      zIndex: 5,
+                    }}
+                  >
+                    {/* Status bar */}
+                    <div
+                      className="flex items-center justify-between px-4 pt-1 pb-2 text-xs font-medium"
+                      style={{
+                        color: "#3e4a68",
+                        letterSpacing: "0.02em",
+                        fontWeight: 600,
+                      }}
+                    >
+                      <span>9:41</span>
+                      <div className="flex items-center gap-1">
+                        <div
+                          style={{
+                            width: "21px",
+                            height: "8px",
+                            border: "1px solid #5c708a",
+                            borderRadius: "2px",
+                            position: "relative",
+                            marginRight: "2px",
+                          }}
+                        >
+                          <div
+                            style={{
+                              position: "absolute",
+                              right: 0,
+                              top: 0,
+                              width: "8px",
+                              height: "100%",
+                              background: "#5c708a",
+                              borderRadius: "0 2px 2px 0",
+                            }}
+                          ></div>
+                        </div>
+                        <span style={{ color: "#10b981", fontWeight: 700 }}>
+                          ● ● ●
+                        </span>
+                      </div>
+                    </div>
 
-                {/* Floating Icons with Orbital Animation */}
-                {/* UPI Icon */}
-                <div className="absolute animate-orbit-1">
-                  <div className="flex items-center px-4 py-2 space-x-2 bg-white rounded-full shadow-lg">
-                    <Smartphone className="w-5 h-5" style={{ color: '#228DCE' }} />
-                    <span className="text-sm font-semibold text-gray-700">UPI</span>
+                    {/* Inside the screen, inset content with padding */}
+                    <div className="px-5 pt-2 pb-2 w-full flex flex-col gap-2">
+                      <div className="text-center py-1">
+                        <h1 className="text-xl font-bold tracking-wide">
+                          <span style={{ color: "#212439" }}>Silan</span>
+                          <span style={{ color: "#228DCE" }}>Pay</span>
+                        </h1>
+                        <p className="text-[11px] text-blue-800 font-medium opacity-80 mt-0.5">
+                          Digital Payment Gateway
+                        </p>
+                      </div>
+
+                      {/* Main feature */}
+                      <div
+                        style={{
+                          background:
+                            "linear-gradient(90deg,#fff 80%,#e8f4fb 120%)",
+                          border: "1.5px solid #228DCE",
+                        }}
+                        className="rounded-xl py-3 px-2 mb-1 shadow"
+                      >
+                        <div className="mb-2 text-2xl">📱</div>
+                        <h2 className="font-bold text-gray-900 text-[15px] mb-0.5">
+                          Scan & Pay
+                        </h2>
+                        <p className="text-[12px] text-gray-600">
+                          Instant QR code payments
+                        </p>
+                      </div>
+
+                      {/* QR Code (smaller, centered) */}
+                      <div
+                        className="bg-white border border-blue-100 rounded-xl px-3 py-3 mx-auto shadow-inner"
+                        style={{ width: "fit-content" }}
+                      >
+                        <svg width="70" height="70" viewBox="0 0 120 120">
+                          <rect width="120" height="120" fill="white" rx="8" />
+                          <rect width="30" height="30" fill="#212439" />
+                          <rect x="3" y="3" width="24" height="24" fill="white" />
+                          <rect x="6" y="6" width="18" height="18" fill="#228DCE" />
+                          <rect x="90" width="30" height="30" fill="#212439" />
+                          <rect x="93" y="3" width="24" height="24" fill="white" />
+                          <rect x="96" y="6" width="18" height="18" fill="#228DCE" />
+                          <rect y="90" width="30" height="30" fill="#212439" />
+                          <rect x="3" y="93" width="24" height="24" fill="white" />
+                          <rect x="6" y="96" width="18" height="18" fill="#228DCE" />
+                          {[...Array(18)].map((_, i) => (
+                            <rect
+                              key={i}
+                              x={35 + (i % 4) * 12}
+                              y={35 + Math.floor(i / 4) * 12}
+                              width="7"
+                              height="7"
+                              fill={i % 3 === 0 ? "#228DCE" : "#212439"}
+                            />
+                          ))}
+                        </svg>
+                      </div>
+
+                      {/* Feature icons with background highlights */}
+                      <div className="flex justify-between mt-1">
+                        <div className="flex flex-col items-center">
+                          <div className="rounded-full bg-blue-50 shadow p-1.5">
+                            <CreditCard size={16} color="#228DCE" />
+                          </div>
+                          <span className="text-[11px] text-blue-800 font-semibold mt-1">
+                            Card
+                          </span>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <div className="rounded-full bg-green-50 shadow p-1.5">
+                            <Smartphone size={16} color="#10b981" />
+                          </div>
+                          <span className="text-[11px] text-green-700 font-semibold mt-1">
+                            UPI
+                          </span>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <div className="rounded-full bg-yellow-50 shadow p-1.5">
+                            <WalletIcon size={16} color="#f59e0b" />
+                          </div>
+                          <span className="text-[11px] text-yellow-700 font-semibold mt-1">
+                            Wallet
+                          </span>
+                        </div>
+                        <div className="flex flex-col items-center">
+                          <div className="rounded-full bg-purple-50 shadow p-1.5">
+                            <QrCode size={16} color="#8b5cf6" />
+                          </div>
+                          <span className="text-[11px] text-purple-700 font-semibold mt-1">
+                            QR
+                          </span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                </div>
 
-                {/* QR Code Icon */}
-                <div className="absolute animate-orbit-2">
-                  <div className="flex items-center justify-center w-12 h-12 bg-white rounded-full shadow-lg">
-                    <QrCode className="w-6 h-6 text-purple-600" />
+                  {/* Bottom Home Bar */}
+                  <div
+                    className="absolute left-1/2 z-30"
+                    style={{
+                      bottom: "13px",
+                      transform: "translateX(-50%)",
+                    }}
+                  >
+                    <div
+                      style={{
+                        width: "65px",
+                        height: "6px",
+                        borderRadius: "5px",
+                        background:
+                          "linear-gradient(90deg,#e8f4fb 0%,#228DCE 100%)",
+                        boxShadow: "0 2px 5px #228DCE44",
+                        opacity: 0.8,
+                      }}
+                    />
                   </div>
-                </div>
 
-                {/* Payment Link Icon */}
-                <div className="absolute animate-orbit-3">
-                  <div className="flex items-center px-4 py-2 space-x-2 bg-white rounded-full shadow-lg">
-                    <LinkIcon className="w-5 h-5 text-green-600" />
-                    <span className="text-sm font-semibold text-gray-700">Payment Links</span>
-                  </div>
+                  {/* Subtle shadow backdrop */}
+                  <div
+                    className="absolute left-1/2"
+                    style={{
+                      width: "70%",
+                      bottom: "-35px",
+                      height: "40px",
+                      background:
+                        "radial-gradient(ellipse at center,#228DCE30 65%, transparent 80%)",
+                      filter: "blur(7px)",
+                      transform: "translateX(-50%)",
+                      zIndex: 1,
+                    }}
+                  ></div>
                 </div>
-
-                {/* API Icon */}
-                <div className="absolute animate-orbit-4">
-                  <div className="flex items-center justify-center w-12 h-12 bg-white rounded-full shadow-lg">
-                    <Code className="w-6 h-6 text-orange-600" />
-                  </div>
-                </div>
-
-                {/* Cards Icon */}
-                <div className="absolute animate-orbit-5">
-                  <div className="flex items-center px-4 py-2 space-x-2 bg-white rounded-full shadow-lg">
-                    <CreditCard className="w-5 h-5" style={{ color: '#228DCE' }} />
-                    <span className="text-sm font-semibold text-gray-700">Cards</span>
-                  </div>
-                </div>
-
-                {/* Wallet Icon */}
-                <div className="absolute animate-orbit-6">
-                  <div className="flex items-center justify-center w-12 h-12 bg-white rounded-full shadow-lg">
-                    <WalletIcon className="w-6 h-6 text-indigo-600" />
-                  </div>
-                </div>
-
-                {/* Floating Decorative Elements */}
-                <div className="absolute w-3 h-3 rounded-full top-10 left-10 animate-float-1" style={{ backgroundColor: '#228DCE', opacity: 0.6 }}></div>
-                <div className="absolute w-2 h-2 bg-purple-400 rounded-full top-20 right-16 animate-float-2"></div>
-                <div className="absolute w-3 h-3 bg-green-400 rounded-full bottom-16 left-20 animate-float-3"></div>
-                <div className="absolute w-2 h-2 bg-orange-400 rounded-full bottom-20 right-12 animate-float-1"></div>
+                {/* === REALISTIC MOBILE PHONE END === */}
               </div>
             </div>
-
           </div>
         </div>
       </section>
 
-      {/* Our Services - Sticky Scroll Animation */}
+      {/* ===== OUR SERVICES - STICKY SCROLL ANIMATION ===== */}
       <section
         ref={containerRef}
         className="relative bg-gradient-to-b from-white to-gray-50"
@@ -320,12 +594,20 @@ const LandingPage = () => {
           <div className="w-full px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
             {/* Section Header - INSIDE the sticky container */}
             <div className="mb-8 text-center">
-              <div className="inline-block px-6 py-2 mb-3 text-sm font-semibold rounded-full" style={{ backgroundColor: '#e8f4fb', color: '#228DCE' }}>
+              <div
+                className="inline-block px-6 py-2 mb-3 text-sm font-semibold rounded-full"
+                style={{ backgroundColor: "#e8f4fb", color: "#228DCE" }}
+              >
                 Comprehensive business solutions
               </div>
               <h2 className="mb-3 text-3xl font-bold text-gray-900 lg:text-4xl">
                 Empowering your business with{" "}
-                <span className="text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(to right, #228DCE, #228DCE)' }}>
+                <span
+                  className="text-transparent bg-clip-text"
+                  style={{
+                    backgroundImage: "linear-gradient(to right, #228DCE, #228DCE)",
+                  }}
+                >
                   SilanPay
                 </span>
               </h2>
@@ -335,16 +617,29 @@ const LandingPage = () => {
             </div>
 
             {/* Cards Stack */}
-            <div className="relative flex items-center justify-center w-full max-w-6xl mx-auto" style={{ minHeight: "70vh" }}>
+            <div
+              className="relative flex items-center justify-center w-full max-w-6xl mx-auto"
+              style={{ minHeight: "70vh" }}
+            >
               {services.map((service, index) => {
                 const IconComponent = service.icon;
                 const isActive = index === activeCardIndex;
                 const isPast = index < activeCardIndex;
-                
+
                 // Calculate card position
-                const translateY = isPast ? -120 : isActive ? 0 : (index - activeCardIndex) * 20;
-                const scale = isActive ? 1 : 0.95 - (index - activeCardIndex) * 0.02;
-                const opacity = isPast ? 0 : isActive ? 1 : Math.max(0.3, 1 - (index - activeCardIndex) * 0.2);
+                const translateY = isPast
+                  ? -120
+                  : isActive
+                  ? 0
+                  : (index - activeCardIndex) * 20;
+                const scale = isActive
+                  ? 1
+                  : 0.95 - (index - activeCardIndex) * 0.02;
+                const opacity = isPast
+                  ? 0
+                  : isActive
+                  ? 1
+                  : Math.max(0.3, 1 - (index - activeCardIndex) * 0.2);
                 const zIndex = services.length - Math.abs(index - activeCardIndex);
 
                 return (
@@ -383,7 +678,10 @@ const LandingPage = () => {
                             </p>
                           </div>
                           <div className="flex flex-col items-center flex-shrink-0 space-y-2">
-                            <div className="flex items-center justify-center w-10 h-10 rounded-full" style={{ backgroundColor: '#228DCE' }}>
+                            <div
+                              className="flex items-center justify-center w-10 h-10 rounded-full"
+                              style={{ backgroundColor: "#228DCE" }}
+                            >
                               <div className="w-3 h-3 bg-white rounded-full"></div>
                             </div>
                             <span className="text-sm font-semibold text-gray-400">
@@ -403,14 +701,24 @@ const LandingPage = () => {
                             <div
                               key={featureIndex}
                               className="flex items-start p-4 space-x-3 transition-colors rounded-xl bg-gray-50"
-                              style={{ ':hover': { backgroundColor: '#e8f4fb' } }}
-                              onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#e8f4fb'}
-                              onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#f9fafb'}
+                              style={{
+                                ":hover": {
+                                  backgroundColor: "#e8f4fb",
+                                },
+                              }}
+                              onMouseEnter={(e) =>
+                                (e.currentTarget.style.backgroundColor =
+                                  "#e8f4fb")
+                              }
+                              onMouseLeave={(e) =>
+                                (e.currentTarget.style.backgroundColor =
+                                  "#f9fafb")
+                              }
                             >
                               <CheckCircle
                                 className="flex-shrink-0 mt-1"
                                 size={20}
-                                style={{ color: '#228DCE' }}
+                                style={{ color: "#228DCE" }}
                               />
                               <span className="text-sm font-medium leading-snug text-gray-900">
                                 {feature}
@@ -422,13 +730,17 @@ const LandingPage = () => {
                         {/* Footer */}
                         <div className="flex items-center justify-between pt-6 border-t border-gray-200">
                           <div className="text-sm text-gray-500">
-                            {isActive && activeCardIndex < services.length - 1 
-                              ? "Scroll down to see next service" 
-                              : isActive && activeCardIndex === services.length - 1
+                            {isActive && activeCardIndex < services.length - 1
+                              ? "Scroll down to see next service"
+                              : isActive &&
+                                activeCardIndex === services.length - 1
                               ? "Last service - scroll to continue"
                               : ""}
                           </div>
-                          <ArrowRight className="w-6 h-6" style={{ color: '#228DCE' }} />
+                          <ArrowRight
+                            className="w-6 h-6"
+                            style={{ color: "#228DCE" }}
+                          />
                         </div>
                       </div>
                     </div>
@@ -443,11 +755,13 @@ const LandingPage = () => {
                 <div
                   key={index}
                   className={`h-2 rounded-full transition-all duration-300 ${
-                    activeCardIndex === index
-                      ? "w-8"
-                      : "w-2 bg-gray-300"
+                    activeCardIndex === index ? "w-8" : "w-2 bg-gray-300"
                   }`}
-                  style={activeCardIndex === index ? { backgroundColor: '#228DCE' } : {}}
+                  style={
+                    activeCardIndex === index
+                      ? { backgroundColor: "#228DCE" }
+                      : {}
+                  }
                 />
               ))}
             </div>
@@ -455,20 +769,20 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Bottom CTA after services */}
+      {/* ===== BOTTOM CTA AFTER SERVICES ===== */}
       <section className="py-16 bg-white">
         <div className="px-4 mx-auto text-center max-w-7xl sm:px-6 lg:px-8">
           <p className="mb-6 text-xl text-gray-600">
             Each service is tailored to your specific needs and objectives,
-            ensuring that we deliver solutions that are aligned with your
-            goals and drive meaningful results.
+            ensuring that we deliver solutions that are aligned with your goals
+            and drive meaningful results.
           </p>
           <Link
             to="/register"
             className="inline-flex items-center px-8 py-4 text-lg font-semibold text-white transition-all duration-300 rounded-full shadow-lg hover:shadow-xl hover:scale-105"
-            style={{ backgroundColor: '#228DCE' }}
-            onMouseEnter={(e) => e.target.style.backgroundColor = '#1a6fa8'}
-            onMouseLeave={(e) => e.target.style.backgroundColor = '#228DCE'}
+            style={{ backgroundColor: "#228DCE" }}
+            onMouseEnter={(e) => (e.target.style.backgroundColor = "#1a6fa8")}
+            onMouseLeave={(e) => (e.target.style.backgroundColor = "#228DCE")}
           >
             Get Started Now
             <ArrowRight className="ml-2" size={20} />
@@ -476,7 +790,7 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Comprehensive Payment Solutions */}
+      {/* ===== COMPREHENSIVE PAYMENT SOLUTIONS ===== */}
       <section className="py-16 bg-white">
         <div className="px-4 mx-auto text-center max-w-7xl sm:px-6 lg:px-8">
           <h2 className="mb-4 text-3xl font-bold text-gray-900">
@@ -501,11 +815,18 @@ const LandingPage = () => {
                 <div
                   key={index}
                   className="p-4 transition-colors duration-200 border border-gray-100 rounded-lg bg-gray-50"
-                  onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#e8f4fb'}
-                  onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#f9fafb'}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.backgroundColor = "#e8f4fb")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.backgroundColor = "#f9fafb")
+                  }
                 >
                   <div className="flex flex-col items-center space-y-2">
-                    <IconComponent className="w-6 h-6" style={{ color: '#228DCE' }} />
+                    <IconComponent
+                      className="w-6 h-6"
+                      style={{ color: "#228DCE" }}
+                    />
                     <div className="text-sm font-medium text-center text-gray-700">
                       {method.name}
                     </div>
@@ -517,7 +838,7 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Customer Testimonials */}
+      {/* ===== CUSTOMER TESTIMONIALS ===== */}
       <section className="py-20 bg-gray-50">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="mb-16 text-center">
@@ -575,8 +896,14 @@ const LandingPage = () => {
                   "{testimonial.content}"
                 </p>
                 <div className="flex items-center">
-                  <div className="flex items-center justify-center w-12 h-12 mr-4 rounded-full" style={{ backgroundColor: '#e8f4fb' }}>
-                    <span className="font-semibold" style={{ color: '#228DCE' }}>
+                  <div
+                    className="flex items-center justify-center w-12 h-12 mr-4 rounded-full"
+                    style={{ backgroundColor: "#e8f4fb" }}
+                  >
+                    <span
+                      className="font-semibold"
+                      style={{ color: "#228DCE" }}
+                    >
                       {testimonial.avatar}
                     </span>
                   </div>
@@ -595,7 +922,7 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* T+1 Settlement */}
+      {/* ===== T+1 SETTLEMENT ===== */}
       <section className="py-16 bg-white">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="grid items-center grid-cols-1 gap-12 lg:grid-cols-2">
@@ -618,16 +945,24 @@ const LandingPage = () => {
                     <CheckCircle
                       className="flex-shrink-0"
                       size={20}
-                      style={{ color: '#228DCE' }}
+                      style={{ color: "#228DCE" }}
                     />
                     <span className="text-gray-700">{feature}</span>
                   </div>
                 ))}
               </div>
             </div>
-            <div className="p-8 rounded-2xl" style={{ background: 'linear-gradient(135deg, #e8f4fb 0%, #d4ebf7 100%)' }}>
+            <div
+              className="p-8 rounded-2xl"
+              style={{
+                background: "linear-gradient(135deg, #e8f4fb 0%, #d4ebf7 100%)",
+              }}
+            >
               <div className="text-center">
-                <div className="mb-2 text-4xl font-bold" style={{ color: '#228DCE' }}>
+                <div
+                  className="mb-2 text-4xl font-bold"
+                  style={{ color: "#228DCE" }}
+                >
                   T+1
                 </div>
                 <div className="mb-4 text-lg text-gray-600">
@@ -642,7 +977,7 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Get to Know Our Story */}
+      {/* ===== GET TO KNOW OUR STORY ===== */}
       <section className="py-16 bg-white">
         <div className="px-4 mx-auto text-center max-w-7xl sm:px-6 lg:px-8">
           <h2 className="mb-4 text-3xl font-bold text-gray-900">
@@ -672,9 +1007,16 @@ const LandingPage = () => {
                   className={`bg-white rounded-xl shadow-lg p-8 border ${
                     index === 0 ? "" : "border-gray-100"
                   }`}
-                  style={index === 0 ? { borderColor: '#228DCE', borderWidth: '2px' } : {}}
+                  style={
+                    index === 0
+                      ? { borderColor: "#228DCE", borderWidth: "2px" }
+                      : {}
+                  }
                 >
-                  <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full" style={{ backgroundColor: '#228DCE' }}>
+                  <div
+                    className="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full"
+                    style={{ backgroundColor: "#228DCE" }}
+                  >
                     <IconComponent className="w-8 h-8 text-white" />
                   </div>
                   <div className="mb-2 text-3xl font-bold text-gray-900">
@@ -688,10 +1030,10 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* About Us Component */}
+      {/* ===== ABOUT US COMPONENT ===== */}
       <AboutUs />
 
-      {/* Mission, Vision & Core Values */}
+      {/* ===== MISSION, VISION & CORE VALUES ===== */}
       <section className="py-20 bg-white">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="mb-16 text-center">
@@ -706,7 +1048,13 @@ const LandingPage = () => {
 
           <div className="grid grid-cols-1 gap-12 mb-16 lg:grid-cols-2">
             {/* Our Vision */}
-            <div className="p-8 rounded-2xl" style={{ background: 'linear-gradient(135deg, #e8f4fb 0%, #d4ebf7 100%)' }}>
+            <div
+              className="p-8 rounded-2xl"
+              style={{
+                background:
+                  "linear-gradient(135deg, #e8f4fb 0%, #d4ebf7 100%)",
+              }}
+            >
               <h3 className="mb-4 text-2xl font-bold text-gray-900">
                 Our Vision
               </h3>
@@ -779,7 +1127,10 @@ const LandingPage = () => {
                   className={`bg-gradient-to-br ${value.color} rounded-2xl p-8 border border-gray-100`}
                 >
                   <div className="flex items-start space-x-4">
-                    <div className="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-full" style={{ backgroundColor: '#228DCE' }}>
+                    <div
+                      className="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-full"
+                      style={{ backgroundColor: "#228DCE" }}
+                    >
                       <IconComponent className="w-6 h-6 text-white" />
                     </div>
                     <div>
@@ -798,10 +1149,13 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Our Products */}
+      {/* ===== OUR PRODUCTS ===== */}
       <section className="py-16 bg-gray-50">
         <div className="px-4 mx-auto text-center max-w-7xl sm:px-6 lg:px-8">
-          <div className="inline-block px-6 py-2 mb-6 text-white rounded-lg" style={{ backgroundColor: '#228DCE' }}>
+          <div
+            className="inline-block px-6 py-2 mb-6 text-white rounded-lg"
+            style={{ backgroundColor: "#228DCE" }}
+          >
             <span className="font-semibold">Our Products</span>
           </div>
           <h2 className="mb-4 text-3xl font-bold text-gray-900">
@@ -811,13 +1165,13 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Unlock Business Growth */}
+      {/* ===== UNLOCK BUSINESS GROWTH ===== */}
       <section className="py-16 bg-gray-50">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="mb-12 text-center">
             <h2 className="mb-4 text-3xl font-bold text-gray-900">
               Unlock access to{" "}
-              <span style={{ color: '#228DCE' }}>
+              <span style={{ color: "#228DCE" }}>
                 limitless business growth
               </span>
             </h2>
@@ -854,7 +1208,11 @@ const LandingPage = () => {
                 icon: Building2,
                 color: "bg-orange-100",
               },
-              { name: "Webhook Integration", icon: LinkIcon, color: "bg-cyan-100" },
+              {
+                name: "Webhook Integration",
+                icon: LinkIcon,
+                color: "bg-cyan-100",
+              },
               { name: "Mobile SDK", icon: Code, color: "bg-pink-100" },
               {
                 name: "White-label Solutions",
@@ -894,12 +1252,17 @@ const LandingPage = () => {
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Success Rate</span>
-                    <span className="font-semibold" style={{ color: '#228DCE' }}>98.5%</span>
+                    <span
+                      className="font-semibold"
+                      style={{ color: "#228DCE" }}
+                    >
+                      98.5%
+                    </span>
                   </div>
                   <div className="w-full h-2 bg-gray-200 rounded-full">
                     <div
                       className="h-2 rounded-full"
-                      style={{ width: "98.5%", backgroundColor: '#228DCE' }}
+                      style={{ width: "98.5%", backgroundColor: "#228DCE" }}
                     ></div>
                   </div>
                 </div>
@@ -908,8 +1271,10 @@ const LandingPage = () => {
                 <h4 className="font-semibold text-gray-900">
                   Revenue Analytics
                 </h4>
-                <div className="text-2xl font-bold" style={{ color: '#228DCE' }}>₹3.1M</div>
-                <div className="text-sm" style={{ color: '#228DCE' }}>
+                <div className="text-2xl font-bold" style={{ color: "#228DCE" }}>
+                  ₹3.1M
+                </div>
+                <div className="text-sm" style={{ color: "#228DCE" }}>
                   +12% from last month
                 </div>
               </div>
@@ -917,7 +1282,9 @@ const LandingPage = () => {
                 <h4 className="font-semibold text-gray-900">
                   Active Transactions
                 </h4>
-                <div className="text-2xl font-bold" style={{ color: '#228DCE' }}>1,247</div>
+                <div className="text-2xl font-bold" style={{ color: "#228DCE" }}>
+                  1,247
+                </div>
                 <div className="text-sm text-gray-600">Processing now</div>
               </div>
             </div>
@@ -925,12 +1292,12 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Built for Fintechs */}
+      {/* ===== BUILT FOR FINTECHS ===== */}
       <section className="py-16 bg-white">
         <div className="px-4 mx-auto text-center max-w-7xl sm:px-6 lg:px-8">
           <h2 className="mb-4 text-4xl font-bold text-gray-900">
             Built for fintechs.{" "}
-            <span style={{ color: '#228DCE' }}>Trusted by Businesses.</span>
+            <span style={{ color: "#228DCE" }}>Trusted by Businesses.</span>
           </h2>
 
           <div className="grid grid-cols-1 gap-8 mt-12 md:grid-cols-2 lg:grid-cols-3">
@@ -978,8 +1345,14 @@ const LandingPage = () => {
                   className="p-8 transition-shadow duration-300 bg-white border border-gray-100 shadow-lg rounded-xl hover:shadow-xl"
                 >
                   <div className="text-center">
-                    <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full" style={{ backgroundColor: '#e8f4fb' }}>
-                      <IconComponent className="w-8 h-8" style={{ color: '#228DCE' }} />
+                    <div
+                      className="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full"
+                      style={{ backgroundColor: "#e8f4fb" }}
+                    >
+                      <IconComponent
+                        className="w-8 h-8"
+                        style={{ color: "#228DCE" }}
+                      />
                     </div>
                     <h3 className="mb-3 text-xl font-bold text-gray-900">
                       {item.title}
@@ -995,13 +1368,13 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Final CTA Section */}
-      <section className="py-16" style={{ backgroundColor: '#228DCE' }}>
+      {/* ===== FINAL CTA SECTION ===== */}
+      <section className="py-16" style={{ backgroundColor: "#228DCE" }}>
         <div className="px-4 mx-auto text-center max-w-7xl sm:px-6 lg:px-8">
           <h2 className="mb-4 text-3xl font-bold text-white">
             Elevate Your Business with SilanPay
           </h2>
-          <p className="max-w-2xl mx-auto mb-8 text-xl" style={{ color: '#e8f4fb' }}>
+          <p className="max-w-2xl mx-auto mb-8 text-xl" style={{ color: "#e8f4fb" }}>
             Join 10,000+ businesses that trust SilanPay for lightning-fast,
             secure payment processing with QR code integration.
           </p>
@@ -1030,14 +1403,14 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Contact & Support Section */}
-      <section className="py-16" style={{ backgroundColor: '#228DCE' }}>
+      {/* ===== CONTACT & SUPPORT SECTION ===== */}
+      <section className="py-16" style={{ backgroundColor: "#228DCE" }}>
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="mb-12 text-center">
             <h2 className="mb-4 text-3xl font-bold text-white">
               Ready to Get Started?
             </h2>
-            <p className="mb-8 text-xl" style={{ color: '#e8f4fb' }}>
+            <p className="mb-8 text-xl" style={{ color: "#e8f4fb" }}>
               Get in touch with our team for personalized assistance and support
             </p>
           </div>
@@ -1050,8 +1423,12 @@ const LandingPage = () => {
               <h3 className="mb-2 text-xl font-semibold text-white">
                 Phone Support
               </h3>
-              <p className="mb-2" style={{ color: '#e8f4fb' }}>+91 98765 43210</p>
-              <p className="text-sm" style={{ color: '#d4ebf7' }}>Mon-Fri, 9AM-6PM IST</p>
+              <p className="mb-2" style={{ color: "#e8f4fb" }}>
+                +91 98765 43210
+              </p>
+              <p className="text-sm" style={{ color: "#d4ebf7" }}>
+                Mon-Fri, 9AM-6PM IST
+              </p>
             </div>
             <div className="text-center">
               <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-white rounded-full bg-opacity-20">
@@ -1060,8 +1437,12 @@ const LandingPage = () => {
               <h3 className="mb-2 text-xl font-semibold text-white">
                 Email Support
               </h3>
-              <p className="mb-2" style={{ color: '#e8f4fb' }}>support@silansoftware.com</p>
-              <p className="text-sm" style={{ color: '#d4ebf7' }}>24/7 Response</p>
+              <p className="mb-2" style={{ color: "#e8f4fb" }}>
+                support@silansoftware.com
+              </p>
+              <p className="text-sm" style={{ color: "#d4ebf7" }}>
+                24/7 Response
+              </p>
             </div>
             <div className="text-center">
               <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-white rounded-full bg-opacity-20">
@@ -1070,8 +1451,12 @@ const LandingPage = () => {
               <h3 className="mb-2 text-xl font-semibold text-white">
                 Live Chat
               </h3>
-              <p className="mb-2" style={{ color: '#e8f4fb' }}>Available 24/7</p>
-              <p className="text-sm" style={{ color: '#d4ebf7' }}>Instant Support</p>
+              <p className="mb-2" style={{ color: "#e8f4fb" }}>
+                Available 24/7
+              </p>
+              <p className="text-sm" style={{ color: "#d4ebf7" }}>
+                Instant Support
+              </p>
             </div>
           </div>
 
@@ -1087,169 +1472,207 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-16 bg-gray-50">
-        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
-            {/* Products */}
-            <div>
-              <h4 className="mb-4 text-lg font-bold" style={{ color: '#228DCE' }}>
-                Products
-                <div className="w-8 h-0.5 mt-1" style={{ backgroundColor: '#228DCE' }}></div>
-              </h4>
-              <ul className="space-y-3 text-sm text-gray-700">
-                <li>
-                  <Link
-                    to="/upi-payments"
-                    className="transition-colors"
-                    onMouseEnter={(e) => e.target.style.color = '#228DCE'}
-                    onMouseLeave={(e) => e.target.style.color = '#374151'}
-                  >
-                    UPI Payments
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="#"
-                    className="transition-colors"
-                    onMouseEnter={(e) => e.target.style.color = '#228DCE'}
-                    onMouseLeave={(e) => e.target.style.color = '#374151'}
-                  >
-                    IMPS Transfer
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="#"
-                    className="transition-colors"
-                    onMouseEnter={(e) => e.target.style.color = '#228DCE'}
-                    onMouseLeave={(e) => e.target.style.color = '#374151'}
-                  >
-                    API Integration
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="#"
-                    className="transition-colors"
-                    onMouseEnter={(e) => e.target.style.color = '#228DCE'}
-                    onMouseLeave={(e) => e.target.style.color = '#374151'}
-                  >
-                    Wallet
-                  </Link>
-                </li>
-              </ul>
-            </div>
+      {/* ===== FOOTER ===== */}
+      <footer>
+        {/* Dark Background Section */}
+        <div style={{ backgroundColor: "#212439" }}>
+          <div className="px-4 py-16 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
+              {/* Products */}
+              <div>
+                <h4
+                  className="mb-4 text-lg font-bold"
+                  style={{ color: "#228DCE" }}
+                >
+                  Products
+                  <div
+                    className="w-8 h-0.5 mt-1"
+                    style={{ backgroundColor: "#228DCE" }}
+                  ></div>
+                </h4>
+                <ul className="space-y-3 text-sm text-gray-300">
+                  <li>
+                    <Link
+                      to="/upi-payments"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      UPI Payments
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="#"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      IMPS Transfer
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="#"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      API Integration
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="#"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      Wallet
+                    </Link>
+                  </li>
+                </ul>
+              </div>
 
-            {/* Company */}
-            <div>
-              <h4 className="mb-4 text-lg font-bold" style={{ color: '#228DCE' }}>
-                Company
-                <div className="w-8 h-0.5 mt-1" style={{ backgroundColor: '#228DCE' }}></div>
-              </h4>
-              <ul className="space-y-3 text-sm text-gray-700">
-                <li>
-                  <Link
-                    to="/about-us"
-                    className="transition-colors"
-                    onMouseEnter={(e) => e.target.style.color = '#228DCE'}
-                    onMouseLeave={(e) => e.target.style.color = '#374151'}
-                  >
-                    About Us
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/contact-us"
-                    className="transition-colors"
-                    onMouseEnter={(e) => e.target.style.color = '#228DCE'}
-                    onMouseLeave={(e) => e.target.style.color = '#374151'}
-                  >
-                    Contact Us
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/terms"
-                    className="transition-colors"
-                    onMouseEnter={(e) => e.target.style.color = '#228DCE'}
-                    onMouseLeave={(e) => e.target.style.color = '#374151'}
-                  >
-                    Terms & Conditions
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/privacy-policy"
-                    className="transition-colors"
-                    onMouseEnter={(e) => e.target.style.color = '#228DCE'}
-                    onMouseLeave={(e) => e.target.style.color = '#374151'}
-                  >
-                    Privacy Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/refund-policy"
-                    className="transition-colors"
-                    onMouseEnter={(e) => e.target.style.color = '#228DCE'}
-                    onMouseLeave={(e) => e.target.style.color = '#374151'}
-                  >
-                    Refund Policy
-                  </Link>
-                </li>
-              </ul>
-            </div>
+              {/* Company */}
+              <div>
+                <h4
+                  className="mb-4 text-lg font-bold"
+                  style={{ color: "#228DCE" }}
+                >
+                  Company
+                  <div
+                    className="w-8 h-0.5 mt-1"
+                    style={{ backgroundColor: "#228DCE" }}
+                  ></div>
+                </h4>
+                <ul className="space-y-3 text-sm text-gray-300">
+                  <li>
+                    <Link
+                      to="/about-us"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      About Us
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/contact-us"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      Contact Us
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/terms"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      Terms & Conditions
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/privacy-policy"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      Privacy Policy
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/refund-policy"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      Refund Policy
+                    </Link>
+                  </li>
+                </ul>
+              </div>
 
-            {/* Developers */}
-            <div>
-              <h4 className="mb-4 text-lg font-bold" style={{ color: '#228DCE' }}>
-                Developers
-                <div className="w-8 h-0.5 mt-1" style={{ backgroundColor: '#228DCE' }}></div>
-              </h4>
-              <ul className="space-y-3 text-sm text-gray-700">
-                <li>
-                  <Link
-                    to="#"
-                    className="transition-colors"
-                    onMouseEnter={(e) => e.target.style.color = '#228DCE'}
-                    onMouseLeave={(e) => e.target.style.color = '#374151'}
-                  >
-                    API Documentation
-                  </Link>
-                </li>
-              </ul>
+              {/* Developers */}
+              <div>
+                <h4
+                  className="mb-4 text-lg font-bold"
+                  style={{ color: "#228DCE" }}
+                >
+                  Developers
+                  <div
+                    className="w-8 h-0.5 mt-1"
+                    style={{ backgroundColor: "#228DCE" }}
+                  ></div>
+                </h4>
+                <ul className="space-y-3 text-sm text-gray-300">
+                  <li>
+                    <Link
+                      to="#"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      API Documentation
+                    </Link>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
+        </div>
 
-          {/* Company Info */}
-          <div className="pt-8 mt-12 border-t border-gray-200">
+        {/* Company Info - Logo Right, Address Left - White Background Full Width */}
+        <div
+          className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] bg-white border-t"
+          style={{ borderColor: "rgba(0, 0, 0, 0.1)" }}
+        >
+          <div className="px-4 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div className="flex flex-col items-center justify-between md:flex-row">
-              <div className="flex items-center mb-4 space-x-3 md:mb-0">
-                <span className="text-2xl font-bold">
-                  <span style={{ color: '#212439' }}>Silan</span>
-                  <span style={{ color: '#228DCE' }}>Pay</span>
-                </span>
-              </div>
-              <div className="text-sm text-center text-gray-600 md:text-right">
+              {/* Address on Left */}
+              <div className="mb-4 text-sm text-center text-gray-700 md:text-left md:mb-0">
                 <p>📍 Plot No-741, 2nd Floor, Jayadev Vihar, 751013</p>
                 <p>📍 Bhubaneswar, Odisha</p>
                 <p>📞 Call: +91-89842 89279</p>
                 <p>🏢 Silansoftware Private Limited</p>
               </div>
+
+              {/* Logo on Right */}
+              <div className="flex items-center">
+                <Link to="/" className="flex items-center gap-2">
+                  <img
+                    src="/src/assets/silanpaylogo.png"
+                    alt="SilanPay logo"
+                    className="object-contain w-auto h-10 sm:h-12"
+                  />
+                </Link>
+              </div>
             </div>
           </div>
+        </div>
 
-          <div className="pt-6 mt-8 text-sm text-center text-gray-500 border-t border-gray-200">
-            <p>
+        {/* Copyright - Full Width with Pay Color */}
+        <div
+          className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] text-sm text-center"
+          style={{
+            backgroundColor: "#228DCE",
+            borderColor: "rgba(255, 255, 255, 0.2)",
+          }}
+        >
+          <div className="px-4 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <p style={{ color: "rgba(255, 255, 255, 0.9)" }}>
               &copy; 2025 Silansoftware Private Limited. All Rights Reserved.
             </p>
           </div>
         </div>
       </footer>
 
-      {/* Scroll to Top Button */}
+      {/* ===== SCROLL TO TOP BUTTON ===== */}
       <ScrollToTop />
+
+      <style>{`
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-20px);
+          }
+        }
+        
+        @media (prefers-reduced-motion: no-preference) {
+          * {
+            scroll-behavior: smooth;
+          }
+        }
+      `}</style>
     </div>
   );
 };

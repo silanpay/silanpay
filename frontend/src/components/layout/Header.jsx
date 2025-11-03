@@ -19,6 +19,14 @@ import {
   Scale,
   ChevronDown,
   Circle,
+  TrendingUp,
+  DollarSign,
+  Smartphone,
+  ShoppingCart,
+  Zap,
+  Code,
+  Webhook,
+  Package,
 } from "lucide-react";
 
 const Header = () => {
@@ -66,83 +74,97 @@ const Header = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Dropdown data
-  const productsDropdownSections = [
+  // Product cards data
+  const productCards = [
     {
-      heading: "Payments",
-      items: [
-        { name: "UPI Payments", href: "/upi-payments" },
-        { name: "Payment Links", href: "/payment-links" },
-        { name: "QR Code Payments", href: "/qr" },
-        { name: "Subscriptions & Recurring", href: "/subscriptions" },
-        { name: "Invoices", href: "/invoices" },
-        { name: "Smart Routing", href: "/smart-routing" },
-      ],
+      name: "UPI",
+      icon: CreditCard,
+      href: "/upi-payments",
+      bgColor: "#e8f4fb",
+      iconColor: "#212439",
     },
     {
-      heading: "Payouts",
-      items: [
-        { name: "Bulk Payouts (UPI/IMPS/NEFT)", href: "/payouts" },
-        { name: "Vendor/Partner Settlements", href: "/settlements" },
-        { name: "Refunds", href: "/refunds" },
-      ],
+      name: "Collection",
+      icon: Repeat,
+      href: "/collection-service",
+      bgColor: "#e8f4fb",
+      iconColor: "#212439",
     },
     {
-      heading: "Accounts",
-      items: [
-        { name: "Virtual Accounts", href: "/virtual-accounts" },
-        { name: "Escrow/Split Payments", href: "/split-payments" },
-        { name: "Wallets", href: "/wallet" },
-      ],
+      name: "Payout",
+      icon: Send,
+      href: "/payouts",
+      bgColor: "#e8f4fb",
+      iconColor: "#212439",
     },
     {
-      heading: "Risk & Compliance",
-      items: [
-        { name: "Fraud & Risk Engine", href: "/risk" },
-        { name: "KYC/Onboarding", href: "/kyc" },
-        { name: "Disputes/Chargebacks", href: "/disputes" },
-      ],
+      name: "Checkout",
+      icon: ShoppingCart,
+      href: "/smart-checkout",
+      bgColor: "#e8f4fb",
+      iconColor: "#212439",
+    },
+    {
+      name: "Wallet",
+      icon: Wallet,
+      href: "/wallet",
+      bgColor: "#e8f4fb",
+      iconColor: "#212439",
+    },
+    {
+      name: "Gateway",
+      icon: Building2,
+      href: "/payment-gateway",
+      bgColor: "#e8f4fb",
+      iconColor: "#212439",
+    },
+    {
+      name: "Sound Box",
+      icon: Zap,
+      href: "/sound-box",
+      bgColor: "#e8f4fb",
+      iconColor: "#212439",
+    },
+    {
+      name: "Mobile App",
+      icon: Smartphone,
+      href: "/mobile-app",
+      bgColor: "#e8f4fb",
+      iconColor: "#212439",
     },
   ];
 
-  // Icons based on item name (updated color to #228DCE)
-  const getItemIcon = (name) => {
-    const iconColor = "#228DCE";
-    switch (name) {
-      case "UPI Payments":
-        return <CreditCard size={16} style={{ color: iconColor }} />;
-      case "Payment Links":
-        return <LinkIcon size={16} style={{ color: iconColor }} />;
-      case "QR Code Payments":
-        return <QrCode size={16} style={{ color: iconColor }} />;
-      case "Subscriptions & Recurring":
-        return <Repeat size={16} style={{ color: iconColor }} />;
-      case "Invoices":
-        return <FileText size={16} style={{ color: iconColor }} />;
-      case "Smart Routing":
-        return <Shuffle size={16} style={{ color: iconColor }} />;
-      case "Bulk Payouts (UPI/IMPS/NEFT)":
-        return <Send size={16} style={{ color: iconColor }} />;
-      case "Vendor/Partner Settlements":
-        return <Users size={16} style={{ color: iconColor }} />;
-      case "Refunds":
-        return <RotateCcw size={16} style={{ color: iconColor }} />;
-      case "Virtual Accounts":
-        return <Building2 size={16} style={{ color: iconColor }} />;
-      case "Escrow/Split Payments":
-        return <Scale size={16} style={{ color: iconColor }} />;
-      case "Wallets":
-        return <Wallet size={16} style={{ color: iconColor }} />;
-      case "Fraud & Risk Engine":
-        return <ShieldCheck size={16} style={{ color: iconColor }} />;
-      case "KYC/Onboarding":
-        return <UserCheck size={16} style={{ color: iconColor }} />;
-      case "Disputes/Chargebacks":
-        return <Scale size={16} style={{ color: iconColor }} />;
-      default:
-        return <Circle size={16} style={{ color: iconColor }} />;
-    }
-  };
+  // Developer cards data - GRID LAYOUT
+  const developerCards = [
+    {
+      name: "API & SDKs",
+      icon: Code,
+      href: "/api-sdks",
+      bgColor: "#e8f4fb",
+      iconColor: "#212439",
+    },
+    {
+      name: "Webhooks",
+      icon: Zap,
+      href: "/webhooks",
+      bgColor: "#e8f4fb",
+      iconColor: "#212439",
+    },
+    {
+      name: "Plugins",
+      icon: Package,
+      href: "/plugins",
+      bgColor: "#e8f4fb",
+      iconColor: "#212439",
+    },
+    {
+      name: "Documentation",
+      icon: FileText,
+      href: "/documentation",
+      bgColor: "#e8f4fb",
+      iconColor: "#212439",
+    },
+  ];
 
   const navLinks = [
     { name: "Products", href: "#", hasDropdown: true },
@@ -156,17 +178,13 @@ const Header = () => {
     <header className={`w-full sticky top-0 z-50 backdrop-blur-md border-b border-gray-200 ${headerBgClass}`}>
       <nav className="px-4 py-3 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* ✅ Logo with Image + Text (Responsive & Animated) - CLOSER SPACING */}
+          {/* ✅ Logo with Image + Text */}
           <Link to="/" className="flex items-center gap-0">
             <img
-              src="/src/assets/splogo.png"
+              src="/src/assets/silanpaylogo.png"
               alt="SilanPay logo"
               className="object-contain w-auto h-8 sm:h-10"
             />
-            <div className="flex items-baseline text-lg font-bold sm:text-2xl">
-              <span style={{ color: "#212439" }}>Silan</span>
-              <span style={{ color: "#228DCE" }}>Pay</span>
-            </div>
           </Link>
 
           {/* ✅ Desktop Navigation */}
@@ -192,55 +210,121 @@ const Header = () => {
                     {/* ✅ Products Dropdown */}
                     {link.name === "Products" && isProductsDropdownOpen && (
                       <div
-                        className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white rounded-lg shadow-xl border border-gray-200 z-50 w-[720px]"
+                        className="absolute top-full left-1/2 -translate-x-1/2 mt-3 bg-white rounded-2xl shadow-2xl border border-gray-200 z-50"
+                        style={{ width: "520px" }}
                         onMouseEnter={handleProductsEnter}
                         onMouseLeave={handleProductsLeave}
                       >
-                        <div className="grid grid-cols-1 gap-4 p-6 md:grid-cols-3">
-                          {productsDropdownSections.map((section) => (
-                            <div key={section.heading}>
-                              <div className="mb-3 text-sm font-semibold text-gray-600 uppercase">
-                                {section.heading}
-                              </div>
-                              <ul className="space-y-2">
-                                {section.items.map((item) => (
-                                  <li key={item.name}>
-                                    <Link
-                                      to={item.href}
-                                      className="flex items-center gap-2 px-2 py-1 text-gray-700 rounded-md hover:text-[#228DCE] hover:bg-gray-50"
-                                    >
-                                      {getItemIcon(item.name)}
-                                      <span>{item.name}</span>
-                                    </Link>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
-                          ))}
+                        {/* Dropdown Container */}
+                        <div className="p-8">
+                          {/* Title */}
+                          <div className="mb-6">
+                            <h3 className="text-lg font-bold" style={{ color: "#212439" }}>
+                              Products
+                            </h3>
+                          </div>
+
+                          {/* Grid Layout - 4 Columns */}
+                          <div className="grid grid-cols-4 gap-5">
+                            {productCards.map((product, index) => (
+                              <Link
+                                key={index}
+                                to={product.href}
+                                className="group flex flex-col items-center"
+                              >
+                                <div
+                                  className="w-full rounded-2xl p-5 h-40 flex flex-col items-center justify-center transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer border-2"
+                                  style={{
+                                    borderColor: "#228DCE",
+                                    backgroundColor: "#f8f9fa",
+                                  }}
+                                  onMouseEnter={(e) => {
+                                    e.currentTarget.style.backgroundColor = "#e8f4fb";
+                                  }}
+                                  onMouseLeave={(e) => {
+                                    e.currentTarget.style.backgroundColor = "#f8f9fa";
+                                  }}
+                                >
+                                  {/* Icon Background */}
+                                  <div
+                                    className="w-16 h-16 rounded-2xl flex items-center justify-center mb-3 transition-all"
+                                    style={{ backgroundColor: product.bgColor }}
+                                  >
+                                    <product.icon
+                                      size={32}
+                                      style={{ color: product.iconColor }}
+                                    />
+                                  </div>
+
+                                  {/* Product Name */}
+                                  <p className="text-sm font-semibold text-center" style={{ color: "#212439" }}>
+                                    {product.name}
+                                  </p>
+                                </div>
+                              </Link>
+                            ))}
+                          </div>
                         </div>
                       </div>
                     )}
 
-                    {/* ✅ Developers Dropdown */}
+                    {/* ✅ Developers Dropdown - GRID BOX LAYOUT */}
                     {link.name === "Developers" && isDevelopersDropdownOpen && (
                       <div
-                        className="absolute top-full left-1/2 -translate-x-1/2 mt-2 bg-white rounded-lg shadow-xl border border-gray-200 z-50 w-[360px]"
+                        className="absolute top-full left-1/2 -translate-x-1/2 mt-3 bg-white rounded-2xl shadow-2xl border border-gray-200 z-50"
+                        style={{ width: "520px" }}
                         onMouseEnter={handleDevelopersEnter}
                         onMouseLeave={handleDevelopersLeave}
                       >
-                        <div className="p-6">
-                          <div className="mb-3 text-sm font-semibold text-gray-600 uppercase">
-                            Developer Tools
+                        {/* Dropdown Container */}
+                        <div className="p-8">
+                          {/* Title */}
+                          <div className="mb-6">
+                            <h3 className="text-lg font-bold" style={{ color: "#212439" }}>
+                              Developer Tools
+                            </h3>
                           </div>
-                          <ul className="space-y-2">
-                            {["API & SDKs", "Webhooks", "Plugins (Shopify/WordPress/etc.)"].map((name) => (
-                              <li key={name}>
-                                <div className="block px-2 py-1 text-gray-700 rounded-md hover:text-[#228DCE] hover:bg-gray-50">
-                                  {name}
+
+                          {/* Grid Layout - 2 Columns */}
+                          <div className="grid grid-cols-2 gap-5">
+                            {developerCards.map((item, index) => (
+                              <Link
+                                key={index}
+                                to={item.href}
+                                className="group flex flex-col items-center"
+                              >
+                                <div
+                                  className="w-full rounded-2xl p-5 h-40 flex flex-col items-center justify-center transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer border-2"
+                                  style={{
+                                    borderColor: "#228DCE",
+                                    backgroundColor: "#f8f9fa",
+                                  }}
+                                  onMouseEnter={(e) => {
+                                    e.currentTarget.style.backgroundColor = "#e8f4fb";
+                                  }}
+                                  onMouseLeave={(e) => {
+                                    e.currentTarget.style.backgroundColor = "#f8f9fa";
+                                  }}
+                                >
+                                  {/* Icon Background */}
+                                  <div
+                                    className="w-16 h-16 rounded-2xl flex items-center justify-center mb-3 transition-all"
+                                    style={{ backgroundColor: item.bgColor }}
+                                  >
+                                    <item.icon
+                                      size={32}
+                                      style={{ color: item.iconColor }}
+                                    />
+                                  </div>
+
+                                  {/* Item Name */}
+                                  <p className="text-sm font-semibold text-center" style={{ color: "#212439" }}>
+                                    {item.name}
+                                  </p>
                                 </div>
-                              </li>
+                              </Link>
                             ))}
-                          </ul>
+                          </div>
                         </div>
                       </div>
                     )}
@@ -281,35 +365,90 @@ const Header = () => {
               </button>
             </div>
 
-            {/* ✅ Mobile Navigation Links */}
-            <div className="flex flex-col p-4 space-y-6">
+            {/* ✅ Mobile Navigation - Grid Layout */}
+            <div className="flex flex-col p-4">
               {navLinks.map((link) => (
                 <div key={link.name}>
                   {link.hasDropdown ? (
                     <div>
-                      <div className="mb-2 font-semibold text-gray-900">{link.name}</div>
+                      <div className="mb-4 font-semibold text-gray-900 text-lg">{link.name}</div>
+
                       {link.name === "Products" && (
-                        <div className="ml-2 space-y-5">
-                          {productsDropdownSections.map((section) => (
-                            <div key={section.heading}>
-                              <div className="mb-2 text-sm font-semibold text-gray-600 uppercase">
-                                {section.heading}
+                        <div className="grid grid-cols-2 gap-4 mb-6">
+                          {productCards.map((product, index) => (
+                            <Link
+                              key={index}
+                              to={product.href}
+                              onClick={() => setIsMobileMenuOpen(false)}
+                              className="group"
+                            >
+                              <div
+                                className="rounded-xl p-4 h-32 flex flex-col items-center justify-center transition-all border-2"
+                                style={{
+                                  borderColor: "#228DCE",
+                                  backgroundColor: "#f8f9fa",
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.currentTarget.style.backgroundColor = "#e8f4fb";
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.currentTarget.style.backgroundColor = "#f8f9fa";
+                                }}
+                              >
+                                <div
+                                  className="w-12 h-12 rounded-lg flex items-center justify-center mb-2"
+                                  style={{ backgroundColor: product.bgColor }}
+                                >
+                                  <product.icon
+                                    size={24}
+                                    style={{ color: product.iconColor }}
+                                  />
+                                </div>
+                                <p className="text-xs font-semibold text-center" style={{ color: "#212439" }}>
+                                  {product.name}
+                                </p>
                               </div>
-                              <ul className="space-y-2">
-                                {section.items.map((item) => (
-                                  <li key={item.name}>
-                                    <Link
-                                      to={item.href}
-                                      className="flex items-center gap-2 text-gray-700 hover:text-[#228DCE]"
-                                      onClick={() => setIsMobileMenuOpen(false)}
-                                    >
-                                      {getItemIcon(item.name)}
-                                      <span>{item.name}</span>
-                                    </Link>
-                                  </li>
-                                ))}
-                              </ul>
-                            </div>
+                            </Link>
+                          ))}
+                        </div>
+                      )}
+
+                      {link.name === "Developers" && (
+                        <div className="grid grid-cols-2 gap-4 mb-6">
+                          {developerCards.map((item, index) => (
+                            <Link
+                              key={index}
+                              to={item.href}
+                              onClick={() => setIsMobileMenuOpen(false)}
+                              className="group"
+                            >
+                              <div
+                                className="rounded-xl p-4 h-32 flex flex-col items-center justify-center transition-all border-2"
+                                style={{
+                                  borderColor: "#228DCE",
+                                  backgroundColor: "#f8f9fa",
+                                }}
+                                onMouseEnter={(e) => {
+                                  e.currentTarget.style.backgroundColor = "#e8f4fb";
+                                }}
+                                onMouseLeave={(e) => {
+                                  e.currentTarget.style.backgroundColor = "#f8f9fa";
+                                }}
+                              >
+                                <div
+                                  className="w-12 h-12 rounded-lg flex items-center justify-center mb-2"
+                                  style={{ backgroundColor: item.bgColor }}
+                                >
+                                  <item.icon
+                                    size={24}
+                                    style={{ color: item.iconColor }}
+                                  />
+                                </div>
+                                <p className="text-xs font-semibold text-center" style={{ color: "#212439" }}>
+                                  {item.name}
+                                </p>
+                              </div>
+                            </Link>
                           ))}
                         </div>
                       )}
@@ -317,7 +456,7 @@ const Header = () => {
                   ) : (
                     <Link
                       to={link.href}
-                      className="text-gray-900 hover:text-[#228DCE]"
+                      className="text-gray-900 hover:text-[#228DCE] block py-2"
                       onClick={() => setIsMobileMenuOpen(false)}
                     >
                       {link.name}
@@ -334,7 +473,3 @@ const Header = () => {
 };
 
 export default Header;
-
-
-
-

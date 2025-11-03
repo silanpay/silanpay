@@ -122,141 +122,155 @@ const AboutUsPage = () => {
         </div>
       </section>
 
-      {/* Footer */}
-      <footer className="py-16 bg-gray-50">
-        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
-            {/* Products */}
-            <div>
-              <h4 className="mb-4 text-lg font-bold text-blue-600">
-                Products
-                <div className="w-8 h-0.5 bg-blue-600 mt-1"></div>
-              </h4>
-              <ul className="space-y-3 text-sm text-gray-700">
-                <li>
-                  <Link
-                    to="/upi-payments"
-                    className="transition-colors hover:text-blue-600"
-                  >
-                    UPI Payments
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="#"
-                    className="transition-colors hover:text-blue-600"
-                  >
-                    IMPS Transfer
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="#"
-                    className="transition-colors hover:text-blue-600"
-                  >
-                    API Integration
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="#"
-                    className="transition-colors hover:text-blue-600"
-                  >
-                    Wallet
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Company */}
-            <div>
-              <h4 className="mb-4 text-lg font-bold text-blue-600">
-                Company
-                <div className="w-8 h-0.5 bg-blue-600 mt-1"></div>
-              </h4>
-              <ul className="space-y-3 text-sm text-gray-700">
-                <li>
-                  <Link
-                    to="/about-us"
-                    className="transition-colors hover:text-blue-600"
-                  >
-                    About Us
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/contact-us"
-                    className="transition-colors hover:text-blue-600"
-                  >
-                    Contact Us
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/terms"
-                    className="transition-colors hover:text-blue-600"
-                  >
-                    Terms & Conditions
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/privacy-policy"
-                    className="transition-colors hover:text-blue-600"
-                  >
-                    Privacy Policy
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to="/refund-policy"
-                    className="transition-colors hover:text-blue-600"
-                  >
-                    Refund Policy
-                  </Link>
-                </li>
-              </ul>
-            </div>
-
-            {/* Developers */}
-            <div>
-              <h4 className="mb-4 text-lg font-bold text-blue-600">
-                Developers
-                <div className="w-8 h-0.5 bg-blue-600 mt-1"></div>
-              </h4>
-              <ul className="space-y-3 text-sm text-gray-700">
-                <li>
-                  <Link
-                    to="#"
-                    className="transition-colors hover:text-blue-600"
-                  >
-                    API Documentation
-                  </Link>
-                </li>
-              </ul>
+            {/* Footer */}
+      <footer>
+        {/* Dark Background Section */}
+        <div style={{ backgroundColor: '#212439' }}>
+          <div className="px-4 py-16 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
+              {/* Products */}
+              <div>
+                <h4 className="mb-4 text-lg font-bold" style={{ color: '#228DCE' }}>
+                  Products
+                  <div className="w-8 h-0.5 mt-1" style={{ backgroundColor: '#228DCE' }}></div>
+                </h4>
+                <ul className="space-y-3 text-sm text-gray-300">
+                  <li>
+                    <Link
+                      to="/upi-payments"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      UPI Payments
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="#"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      IMPS Transfer
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="#"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      API Integration
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="#"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      Wallet
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+      
+              {/* Company */}
+              <div>
+                <h4 className="mb-4 text-lg font-bold" style={{ color: '#228DCE' }}>
+                  Company
+                  <div className="w-8 h-0.5 mt-1" style={{ backgroundColor: '#228DCE' }}></div>
+                </h4>
+                <ul className="space-y-3 text-sm text-gray-300">
+                  <li>
+                    <Link
+                      to="/about-us"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      About Us
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/contact-us"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      Contact Us
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/terms"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      Terms & Conditions
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/privacy-policy"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      Privacy Policy
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/refund-policy"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      Refund Policy
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+      
+              {/* Developers */}
+              <div>
+                <h4 className="mb-4 text-lg font-bold" style={{ color: '#228DCE' }}>
+                  Developers
+                  <div className="w-8 h-0.5 mt-1" style={{ backgroundColor: '#228DCE' }}></div>
+                </h4>
+                <ul className="space-y-3 text-sm text-gray-300">
+                  <li>
+                    <Link
+                      to="#"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      API Documentation
+                    </Link>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
-
-          {/* Company Info */}
-          <div className="pt-8 mt-12 border-t border-gray-200">
+        </div>
+      
+        {/* Company Info - Logo Right, Address Left - White Background Full Width */}
+        <div className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] bg-white border-t" style={{ borderColor: 'rgba(0, 0, 0, 0.1)' }}>
+          <div className="px-4 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
             <div className="flex flex-col items-center justify-between md:flex-row">
-              <div className="flex items-center mb-4 space-x-3 md:mb-0">
-                <span className="text-2xl font-bold">
-                  <span className="text-slate-800">Silan</span>
-                  <span className="text-blue-600">Pay</span>
-                </span>
-              </div>
-              <div className="text-sm text-center text-gray-600 md:text-right">
+              {/* Address on Left */}
+              <div className="text-sm text-center text-gray-700 md:text-left mb-4 md:mb-0">
                 <p>📍 Plot No-741, 2nd Floor, Jayadev Vihar, 751013</p>
                 <p>📍 Bhubaneswar, Odisha</p>
-                <p>📞 Call +91-89842 89279</p>
+                <p>📞 Call: +91-89842 89279</p>
                 <p>🏢 Silansoftware Private Limited</p>
+              </div>
+      
+              {/* Logo on Right */}
+              <div className="flex items-center">
+                <Link to="/" className="flex items-center gap-2">
+                  <img
+                    src="/src/assets/silanpaylogo.png"
+                    alt="SilanPay logo"
+                    className="object-contain w-auto h-10 sm:h-12"
+                  />
+                </Link>
               </div>
             </div>
           </div>
-
-          <div className="pt-6 mt-8 text-sm text-center text-gray-500 border-t border-gray-200">
-            <p>
+        </div>
+      
+        {/* Copyright - Full Width with Pay Color */}
+        <div className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] text-sm text-center" style={{ backgroundColor: '#228DCE', borderColor: 'rgba(255, 255, 255, 0.2)' }}>
+          <div className="px-4 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <p style={{ color: 'rgba(255, 255, 255, 0.9)' }}>
               &copy; 2025 Silansoftware Private Limited. All Rights Reserved.
             </p>
           </div>
