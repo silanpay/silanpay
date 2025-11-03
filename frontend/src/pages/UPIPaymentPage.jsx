@@ -190,11 +190,12 @@ const UPIPaymentPage = () => {
             {/* Company Info */}
             <div>
               <div className="flex items-center mb-4 space-x-3">
-                <span className="text-xl font-bold">
-                  <span className="text-gray-300">Silan</span>
-                  <span style={{ color: BRAND_BLUE }}>Pay</span>
-                </span>
-              </div>
+  <span className="text-xl font-bold">
+    <span style={{ color: '#212439' }}>Silan</span>
+    <span style={{ color: '#228DCE' }}>Pay</span>
+  </span>
+</div>
+
               <p className="mb-4 text-sm leading-relaxed text-gray-400">
                 India's trusted payment gateway with 99.99% uptime, ensuring
                 secure, fast, and reliable payment processing for businesses of
@@ -215,7 +216,7 @@ const UPIPaymentPage = () => {
                 </div>
                 <div className="flex items-center">
                   <Mail size={14} className="mr-2" />
-                  <span>support@silansoftware.com</span>
+                  <span>info@silanpay.com</span>
                 </div>
               </div>
               <div className="flex items-center mt-4 space-x-3">

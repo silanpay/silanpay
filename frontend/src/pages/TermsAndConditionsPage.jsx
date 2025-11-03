@@ -80,18 +80,26 @@ const TermsAndConditionsPage = () => {
     const flushLists = () => {
       if (inUl) {
         elements.push(
-          <ul className="pl-6 space-y-1 list-disc" key={`ul-${elements.length}`}>
-            {ulItems}
+          <ul className="pl-6 space-y-2 list-disc" key={`ul-${elements.length}`}>
+            {ulItems.map((item, idx) => (
+              <li key={idx} className="text-gray-700">
+                {item}
+              </li>
+            ))}
           </ul>
         );
       }
       if (inOl) {
         elements.push(
           <ol
-            className="pl-6 space-y-1 list-decimal"
+            className="pl-6 space-y-2 list-decimal"
             key={`ol-${elements.length}`}
           >
-            {olItems}
+            {olItems.map((item, idx) => (
+              <li key={idx} className="text-gray-700">
+                {item}
+              </li>
+            ))}
           </ol>
         );
       }
@@ -101,7 +109,7 @@ const TermsAndConditionsPage = () => {
       if (paragraphBuffer.length > 0) {
         const joined = paragraphBuffer.join(" ").replace(/\s+/g, " ");
         elements.push(
-          <p className="leading-7 text-gray-800" key={`p-${idxKey}`}>
+          <p className="leading-7 text-gray-700 text-base" key={`p-${idxKey}`}>
             {parseInline(joined)}
           </p>
         );
@@ -134,21 +142,34 @@ const TermsAndConditionsPage = () => {
 
         if (h1) {
           elements.push(
-            <h1
-              id={id}
-              className="mt-2 mb-4 text-3xl font-bold md:text-4xl"
-              key={`h1-${idx}`}
-            >
-              {parseInline(title)}
-            </h1>
+            <div className="flex items-center gap-3 mt-2 mb-6" key={`h1-${idx}`}>
+              <div
+                className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg"
+                style={{ backgroundColor: '#228DCE' }}
+              >
+                {idx + 1}
+              </div>
+              <h1
+                id={id}
+                className="text-3xl font-bold md:text-4xl"
+                style={{ color: '#212439' }}
+              >
+                {parseInline(title)}
+              </h1>
+            </div>
           );
         } else if (h2) {
           elements.push(
             <h2
               id={id}
-              className="mt-8 mb-3 text-2xl font-semibold"
+              className="mt-8 mb-4 text-2xl font-semibold flex items-center gap-3"
+              style={{ color: '#212439' }}
               key={`h2-${idx}`}
             >
+              <div
+                className="w-8 h-0.5"
+                style={{ backgroundColor: '#228DCE' }}
+              ></div>
               {parseInline(title)}
             </h2>
           );
@@ -156,7 +177,8 @@ const TermsAndConditionsPage = () => {
           elements.push(
             <h3
               id={id}
-              className="mt-6 mb-2 text-xl font-semibold"
+              className="mt-6 mb-3 text-xl font-semibold"
+              style={{ color: '#212439' }}
               key={`h3-${idx}`}
             >
               {parseInline(title)}
@@ -178,7 +200,7 @@ const TermsAndConditionsPage = () => {
           inUl = true;
         }
         ulItems.push(
-          <li key={`li-${idx}`}>{parseInline(line.replace(/^\-\s+/, ""))}</li>
+          <span key={`li-${idx}`}>{parseInline(line.replace(/^\-\s+/, ""))}</span>
         );
         return;
       }
@@ -195,9 +217,9 @@ const TermsAndConditionsPage = () => {
           inOl = true;
         }
         olItems.push(
-          <li key={`oli-${idx}`}>
+          <span key={`oli-${idx}`}>
             {parseInline(line.replace(/^\d+\.\s+/, ""))}
-          </li>
+          </span>
         );
         return;
       }
@@ -212,7 +234,7 @@ const TermsAndConditionsPage = () => {
           olItems = [];
         }
         flushParagraph(idx);
-        elements.push(<div className="h-2" key={`sp-${idx}`} />);
+        elements.push(<div className="h-4" key={`sp-${idx}`} />);
         return;
       }
 
@@ -223,24 +245,59 @@ const TermsAndConditionsPage = () => {
     if (inUl || inOl) flushLists();
     flushParagraph(lines.length + 1);
 
-    return <article className="space-y-2">{elements}</article>;
+    return <article className="space-y-4">{elements}</article>;
   }, [content]);
 
   return (
     <div className="min-h-screen text-gray-900 bg-white font-outfit">
       <Header />
+      
       <section className="py-12 bg-white">
-        <div className="max-w-screen-xl px-4 mx-auto sm:px-6 lg:px-8">
-          <header className="mb-8">
-            <h1 className="text-4xl font-bold tracking-tight">
+        <div className="max-w-5xl px-4 mx-auto sm:px-6 lg:px-8">
+          {/* Page Header */}
+          <div className="mb-8 text-center">
+            <div className="inline-block px-6 py-2 mb-4 text-sm font-semibold text-white rounded-full" style={{ backgroundColor: '#228DCE' }}>
+              Legal Agreement
+            </div>
+            <h1 className="mb-4 text-4xl font-bold" style={{ color: '#212439' }}>
               Terms & Conditions
             </h1>
-          </header>
+            <p className="text-lg text-gray-600">
+              Silan Software Private Limited
+            </p>
+          </div>
 
-          <div className="w-full p-6 bg-white border border-gray-100 shadow-lg rounded-2xl md:p-8">
-            {loading && <p className="text-gray-600">Loading terms...</p>}
-            {error && <p className="text-red-600">{error}</p>}
-            {!loading && !error && rendered}
+          {/* Content Container */}
+          <div className="p-8 bg-white border-2 shadow-lg rounded-2xl" style={{ borderColor: '#228DCE' }}>
+            {loading && (
+              <div className="text-center py-12">
+                <p className="text-gray-600 text-lg">Loading terms...</p>
+              </div>
+            )}
+            {error && (
+              <div className="p-6 bg-red-50 border border-red-200 rounded-lg">
+                <p className="text-red-600 font-semibold">Error: {error}</p>
+              </div>
+            )}
+            {!loading && !error && rendered && (
+              <div className="prose prose-sm max-w-none" style={{ color: '#374151' }}>
+                {rendered}
+              </div>
+            )}
+          </div>
+
+          {/* Footer Note */}
+          <div className="p-6 mt-8 text-center border-2 rounded-2xl" style={{ borderColor: '#228DCE', backgroundColor: '#f8f9fa' }}>
+            <p className="text-sm text-gray-600">
+              For any questions regarding these Terms & Conditions, please contact us at{" "}
+              <a
+                href="mailto:info@silansoftware.com"
+                className="font-semibold transition-colors hover:underline"
+                style={{ color: '#228DCE' }}
+              >
+                info@silanpay.com
+              </a>
+            </p>
           </div>
         </div>
       </section>
