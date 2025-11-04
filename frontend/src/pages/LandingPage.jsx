@@ -206,29 +206,30 @@ const LandingPage = () => {
     };
   }, []);
 
-  // Scroll handler for sticky cards
-  useEffect(() => {
-    const handleScroll = () => {
-      if (!containerRef.current) return;
+// Scroll handler for sticky cards - SMOOTH VERSION
+useEffect(() => {
+  const handleScroll = () => {
+    if (!containerRef.current) return;
 
-      const container = containerRef.current;
-      const rect = container.getBoundingClientRect();
-      const scrollProgress = -rect.top / (rect.height - window.innerHeight);
+    const container = containerRef.current;
+    const rect = container.getBoundingClientRect();
+    const scrollProgress = -rect.top / (rect.height - window.innerHeight);
 
-      // Calculate which card should be active based on scroll
-      const cardIndex = Math.min(
-        Math.floor(scrollProgress * services.length),
-        services.length - 1
-      );
+    // Calculate which card should be active based on scroll
+    const cardIndex = Math.min(
+      Math.floor(scrollProgress * services.length),
+      services.length - 1
+    );
 
-      setActiveCardIndex(Math.max(0, cardIndex));
-    };
+    setActiveCardIndex(Math.max(0, cardIndex));
+  };
 
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
+  window.addEventListener("scroll", handleScroll);
+  handleScroll();
 
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [services.length]);
+  return () => window.removeEventListener("scroll", handleScroll);
+}, [services.length]);
+
 
   // Floating cards animation
   useEffect(() => {
