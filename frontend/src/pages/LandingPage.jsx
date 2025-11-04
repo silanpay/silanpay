@@ -741,12 +741,12 @@ const LandingPage = () => {
       <section
         ref={containerRef}
         className="relative bg-gradient-to-b from-white to-gray-50"
-        style={{ height: `${services.length * 100}vh` }}
+        style={{ height: `${services.length * 50}vh` }}
       >
         <div className="sticky top-0 flex items-center justify-center h-screen overflow-hidden">
           <div className="w-full px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
             {/* Section Header */}
-            <div className="mb-8 text-center">
+            <div className="mb-0 text-center">
               <div
                 className="inline-block px-6 py-2 mb-3 text-sm font-semibold rounded-full"
                 style={{ backgroundColor: "#e8f4fb", color: "#228DCE" }}
@@ -889,7 +889,7 @@ const LandingPage = () => {
               })}
             </div>
 
-            <div className="flex justify-center mt-6 space-x-3">
+            {/* <div className="flex justify-center mt-6 space-x-3">
               {services.map((_, index) => (
                 <div
                   key={index}
@@ -903,7 +903,7 @@ const LandingPage = () => {
                   }
                 />
               ))}
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
