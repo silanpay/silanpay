@@ -1,33 +1,33 @@
 import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   Menu,
   X,
   CreditCard,
-  Link as LinkIcon,
-  QrCode,
   Repeat,
-  FileText,
-  Shuffle,
   Send,
-  Users,
-  RotateCcw,
+  ShoppingCart,
   Wallet,
   Building2,
-  ShieldCheck,
-  UserCheck,
-  Scale,
-  ChevronDown,
-  Circle,
-  TrendingUp,
-  DollarSign,
-  Smartphone,
-  ShoppingCart,
   Zap,
+  Smartphone,
   Code,
-  Webhook,
   Package,
+  FileText,
+  ChevronDown,
 } from "lucide-react";
+
+const dropdownVariants = {
+  hidden: { opacity: 0, y: -10, scale: 0.98 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: { duration: 0.25, ease: "easeOut" },
+  },
+  exit: { opacity: 0, y: -8, scale: 0.97, transition: { duration: 0.2 } },
+};
 
 const Header = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -37,7 +37,6 @@ const Header = () => {
   const productsCloseTimerRef = useRef(null);
   const developersCloseTimerRef = useRef(null);
 
-  // Hover logic for dropdowns
   const handleProductsEnter = () => {
     clearTimeout(productsCloseTimerRef.current);
     setIsProductsDropdownOpen(true);
@@ -57,7 +56,6 @@ const Header = () => {
     }, 150);
   };
 
-  // Prevent body scroll when mobile menu open
   useEffect(() => {
     if (isMobileMenuOpen) {
       const originalOverflow = document.body.style.overflow;
@@ -66,7 +64,6 @@ const Header = () => {
     }
   }, [isMobileMenuOpen]);
 
-  // Sticky header shadow on scroll
   useEffect(() => {
     const onScroll = () => setIsScrolled(window.scrollY > 8);
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -74,96 +71,22 @@ const Header = () => {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Product cards data
   const productCards = [
-    {
-      name: "UPI",
-      icon: CreditCard,
-      href: "/upi-payments",
-      bgColor: "#e8f4fb",
-      iconColor: "#212439",
-    },
-    {
-      name: "Collection",
-      icon: Repeat,
-      href: "/collection-service",
-      bgColor: "#e8f4fb",
-      iconColor: "#212439",
-    },
-    {
-      name: "Payout",
-      icon: Send,
-      href: "/payouts",
-      bgColor: "#e8f4fb",
-      iconColor: "#212439",
-    },
-    {
-      name: "Checkout",
-      icon: ShoppingCart,
-      href: "/smart-checkout",
-      bgColor: "#e8f4fb",
-      iconColor: "#212439",
-    },
-    {
-      name: "Wallet",
-      icon: Wallet,
-      href: "/wallet",
-      bgColor: "#e8f4fb",
-      iconColor: "#212439",
-    },
-    {
-      name: "Gateway",
-      icon: Building2,
-      href: "/payment-gateway",
-      bgColor: "#e8f4fb",
-      iconColor: "#212439",
-    },
-    {
-      name: "Sound Box",
-      icon: Zap,
-      href: "/sound-box",
-      bgColor: "#e8f4fb",
-      iconColor: "#212439",
-    },
-    {
-      name: "Mobile App",
-      icon: Smartphone,
-      href: "/mobile-app",
-      bgColor: "#e8f4fb",
-      iconColor: "#212439",
-    },
+    { name: "UPI", icon: CreditCard, href: "/upi-payments" },
+    { name: "Collection", icon: Repeat, href: "/collection-service" },
+    { name: "Payout", icon: Send, href: "/payouts" },
+    { name: "Checkout", icon: ShoppingCart, href: "/smart-checkout" },
+    { name: "Wallet", icon: Wallet, href: "/wallet" },
+    { name: "Gateway", icon: Building2, href: "/payment-gateway" },
+    { name: "Sound Box", icon: Zap, href: "/sound-box" },
+    { name: "Mobile App", icon: Smartphone, href: "/mobile-app" },
   ];
 
-  // Developer cards data - GRID LAYOUT
   const developerCards = [
-    {
-      name: "API & SDKs",
-      icon: Code,
-      href: "/api-sdks",
-      bgColor: "#e8f4fb",
-      iconColor: "#212439",
-    },
-    {
-      name: "Webhooks",
-      icon: Zap,
-      href: "/webhooks",
-      bgColor: "#e8f4fb",
-      iconColor: "#212439",
-    },
-    {
-      name: "Plugins",
-      icon: Package,
-      href: "/plugins",
-      bgColor: "#e8f4fb",
-      iconColor: "#212439",
-    },
-    {
-      name: "Documentation",
-      icon: FileText,
-      href: "/documentation",
-      bgColor: "#e8f4fb",
-      iconColor: "#212439",
-    },
+    { name: "API & SDKs", icon: Code, href: "/api-sdks" },
+    { name: "Webhooks", icon: Zap, href: "/webhooks" },
+    { name: "Plugins", icon: Package, href: "/plugins" },
+    { name: "Documentation", icon: FileText, href: "/documentation" },
   ];
 
   const navLinks = [
@@ -175,10 +98,12 @@ const Header = () => {
   const headerBgClass = isScrolled ? "bg-white/90 shadow-md" : "bg-white/70 shadow-sm";
 
   return (
-    <header className={`w-full sticky top-0 z-50 backdrop-blur-md border-b border-gray-200 ${headerBgClass}`}>
+    <header
+      className={`w-full sticky top-0 z-[1000] backdrop-blur-md border-b border-gray-200 ${headerBgClass}`}
+    >
       <nav className="px-4 py-3 mx-auto max-w-7xl sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          {/* ✅ Logo with Image + Text */}
+          {/* ✅ Logo */}
           <Link to="/" className="flex items-center gap-0">
             <img
               src="/silanpaylogo.png"
@@ -202,137 +127,130 @@ const Header = () => {
                       if (link.name === "Developers") handleDevelopersLeave();
                     }}
                   >
-                    <button className="flex items-center space-x-1 text-gray-700 transition-colors duration-200 hover:text-[#228DCE]">
+                    <button className="flex items-center space-x-1 text-gray-700 hover:text-[#228DCE] transition-colors duration-200">
                       <span>{link.name}</span>
                       <ChevronDown size={16} />
                     </button>
 
-                    {/* ✅ Products Dropdown */}
-                    {link.name === "Products" && isProductsDropdownOpen && (
-                      <div
-                        className="absolute top-full left-1/2 -translate-x-1/2 mt-3 bg-white rounded-2xl shadow-2xl border border-gray-200 z-50"
-                        style={{ width: "520px" }}
-                        onMouseEnter={handleProductsEnter}
-                        onMouseLeave={handleProductsLeave}
-                      >
-                        {/* Dropdown Container */}
-                        <div className="p-8">
-                          {/* Title */}
-                          <div className="mb-6">
-                            <h3 className="text-lg font-bold" style={{ color: "#212439" }}>
-                              Products
-                            </h3>
-                          </div>
-
-                          {/* Grid Layout - 4 Columns */}
-                          <div className="grid grid-cols-4 gap-5">
-                            {productCards.map((product, index) => (
+                    {/* 🟢 PRODUCTS DROPDOWN */}
+                    <AnimatePresence>
+                      {link.name === "Products" && isProductsDropdownOpen && (
+                        <motion.div
+                          variants={dropdownVariants}
+                          initial="hidden"
+                          animate="visible"
+                          exit="exit"
+                          className="fixed top-[70px] left-1/2 -translate-x-1/2 w-[720px] bg-[#f7faf9] rounded-2xl shadow-2xl border border-gray-200 z-[9999] overflow-hidden"
+                          onMouseEnter={handleProductsEnter}
+                          onMouseLeave={handleProductsLeave}
+                        >
+                          <div className="flex">
+                            {/* Left Info */}
+                            <div className="w-1/3 bg-[#edf6f3] p-5 border-r border-gray-200 flex flex-col justify-between">
+                              <div>
+                                <h3 className="text-base font-bold text-gray-900 mb-3">
+                                  Products
+                                </h3>
+                                <p className="text-sm text-gray-600 leading-tight">
+                                  Discover our payment solutions.
+                                </p>
+                              </div>
                               <Link
-                                key={index}
-                                to={product.href}
-                                className="group flex flex-col items-center"
+                                to="/products"
+                                className="mt-4 text-[#228DCE] font-semibold text-sm hover:underline"
                               >
-                                <div
-                                  className="w-full rounded-2xl p-5 h-40 flex flex-col items-center justify-center transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer border-2"
-                                  style={{
-                                    borderColor: "#228DCE",
-                                    backgroundColor: "#f8f9fa",
-                                  }}
-                                  onMouseEnter={(e) => {
-                                    e.currentTarget.style.backgroundColor = "#e8f4fb";
-                                  }}
-                                  onMouseLeave={(e) => {
-                                    e.currentTarget.style.backgroundColor = "#f8f9fa";
-                                  }}
-                                >
-                                  {/* Icon Background */}
-                                  <div
-                                    className="w-16 h-16 rounded-2xl flex items-center justify-center mb-3 transition-all"
-                                    style={{ backgroundColor: product.bgColor }}
-                                  >
-                                    <product.icon
-                                      size={32}
-                                      style={{ color: product.iconColor }}
-                                    />
-                                  </div>
-
-                                  {/* Product Name */}
-                                  <p className="text-sm font-semibold text-center" style={{ color: "#212439" }}>
-                                    {product.name}
-                                  </p>
-                                </div>
+                                Know More →
                               </Link>
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                    )}
+                            </div>
 
-                    {/* ✅ Developers Dropdown - GRID BOX LAYOUT */}
-                    {link.name === "Developers" && isDevelopersDropdownOpen && (
-                      <div
-                        className="absolute top-full left-1/2 -translate-x-1/2 mt-3 bg-white rounded-2xl shadow-2xl border border-gray-200 z-50"
-                        style={{ width: "520px" }}
-                        onMouseEnter={handleDevelopersEnter}
-                        onMouseLeave={handleDevelopersLeave}
-                      >
-                        {/* Dropdown Container */}
-                        <div className="p-8">
-                          {/* Title */}
-                          <div className="mb-6">
-                            <h3 className="text-lg font-bold" style={{ color: "#212439" }}>
-                              Developer Tools
-                            </h3>
+                            {/* Right Grid */}
+                            <div className="w-2/3 p-5">
+                              <div className="grid grid-cols-4 gap-3">
+                                {productCards.map((product, index) => (
+                                  <Link
+                                    key={index}
+                                    to={product.href}
+                                    className="group flex flex-col items-center bg-white border border-gray-200 rounded-xl p-3 h-28 justify-center transition-all duration-300 hover:bg-[#e8f4fb] hover:border-[#228DCE] hover:shadow-md"
+                                  >
+                                    <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-1 bg-gradient-to-br from-[#e6f3ff] to-[#f5f9ff] group-hover:scale-110 transition-transform">
+                                      <product.icon
+                                        size={22}
+                                        className="text-[#228DCE]"
+                                      />
+                                    </div>
+                                    <p className="text-[11px] font-semibold text-center text-gray-800 group-hover:text-[#228DCE]">
+                                      {product.name}
+                                    </p>
+                                  </Link>
+                                ))}
+                              </div>
+                            </div>
                           </div>
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
 
-                          {/* Grid Layout - 2 Columns */}
-                          <div className="grid grid-cols-2 gap-5">
-                            {developerCards.map((item, index) => (
+                    {/* 🟣 DEVELOPERS DROPDOWN */}
+                    <AnimatePresence>
+                      {link.name === "Developers" && isDevelopersDropdownOpen && (
+                        <motion.div
+                          variants={dropdownVariants}
+                          initial="hidden"
+                          animate="visible"
+                          exit="exit"
+                          className="fixed top-[70px] left-1/2 -translate-x-1/2 max-w-[580px] w-full bg-[#f7faf9] rounded-2xl shadow-2xl border border-gray-200 z-[9999]"
+                          onMouseEnter={handleDevelopersEnter}
+                          onMouseLeave={handleDevelopersLeave}
+                        >
+                          <div className="flex">
+                            <div className="w-1/3 bg-[#edf6f3] p-5 border-r border-gray-200 flex flex-col justify-between">
+                              <div>
+                                <h3 className="text-base font-bold text-gray-900 mb-2">
+                                  Developers
+                                </h3>
+                                <p className="text-sm text-gray-600 leading-tight">
+                                  Build & integrate faster.
+                                </p>
+                              </div>
                               <Link
-                                key={index}
-                                to={item.href}
-                                className="group flex flex-col items-center"
+                                to="/developers"
+                                className="mt-3 text-[#228DCE] font-semibold text-sm hover:underline"
                               >
-                                <div
-                                  className="w-full rounded-2xl p-5 h-40 flex flex-col items-center justify-center transition-all duration-300 hover:shadow-lg hover:scale-105 cursor-pointer border-2"
-                                  style={{
-                                    borderColor: "#228DCE",
-                                    backgroundColor: "#f8f9fa",
-                                  }}
-                                  onMouseEnter={(e) => {
-                                    e.currentTarget.style.backgroundColor = "#e8f4fb";
-                                  }}
-                                  onMouseLeave={(e) => {
-                                    e.currentTarget.style.backgroundColor = "#f8f9fa";
-                                  }}
-                                >
-                                  {/* Icon Background */}
-                                  <div
-                                    className="w-16 h-16 rounded-2xl flex items-center justify-center mb-3 transition-all"
-                                    style={{ backgroundColor: item.bgColor }}
-                                  >
-                                    <item.icon
-                                      size={32}
-                                      style={{ color: item.iconColor }}
-                                    />
-                                  </div>
-
-                                  {/* Item Name */}
-                                  <p className="text-sm font-semibold text-center" style={{ color: "#212439" }}>
-                                    {item.name}
-                                  </p>
-                                </div>
+                                Explore Docs →
                               </Link>
-                            ))}
+                            </div>
+
+                            {/* Right Grid */}
+                            <div className="w-2/3 p-5 max-h-[300px] overflow-auto">
+                              <div className="grid grid-cols-2 gap-4">
+                                {developerCards.map((item, index) => (
+                                  <Link
+                                    key={index}
+                                    to={item.href}
+                                    className="group flex flex-col items-center bg-white border border-gray-200 rounded-xl p-3 h-24 justify-center transition-all duration-300 hover:bg-[#e8f4fb] hover:border-[#228DCE] hover:shadow-md"
+                                  >
+                                    <div className="w-9 h-9 rounded-xl flex items-center justify-center mb-1 bg-gradient-to-br from-[#e6f3ff] to-[#f5f9ff] group-hover:scale-110 transition-transform">
+                                      <item.icon
+                                        size={20}
+                                        className="text-[#228DCE]"
+                                      />
+                                    </div>
+                                    <p className="text-[11px] font-semibold text-center text-gray-800 group-hover:text-[#228DCE]">
+                                      {item.name}
+                                    </p>
+                                  </Link>
+                                ))}
+                              </div>
+                            </div>
                           </div>
-                        </div>
-                      </div>
-                    )}
+                        </motion.div>
+                      )}
+                    </AnimatePresence>
                   </div>
                 ) : (
                   <Link
                     to={link.href}
-                    className="text-gray-700 transition-colors duration-200 hover:text-[#228DCE]"
+                    className="text-gray-700 hover:text-[#228DCE] transition-colors duration-200"
                   >
                     {link.name}
                   </Link>
@@ -345,128 +263,107 @@ const Header = () => {
           <div className="lg:hidden">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-gray-700 transition-colors duration-200 hover:text-[#228DCE]"
+              className="text-gray-700 hover:text-[#228DCE]"
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
           </div>
         </div>
 
-        {/* ✅ Mobile Menu Overlay */}
-        {isMobileMenuOpen && (
-          <div className="lg:hidden fixed inset-0 z-[9999] bg-white overflow-y-auto min-h-screen">
-            <div className="flex items-center justify-between px-4 pt-4 pb-8 border-b border-gray-200">
-              <span className="text-lg font-semibold text-gray-900">Menu</span>
-              <button
-                onClick={() => setIsMobileMenuOpen(false)}
-                className="text-gray-700 hover:text-[#228DCE]"
+        {/* ✅ Mobile Menu with Framer Animation */}
+        <AnimatePresence>
+          {isMobileMenuOpen && (
+            <motion.div
+              variants={dropdownVariants}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="lg:hidden fixed inset-0 z-[9999] bg-white overflow-y-auto min-h-screen px-4 pb-8"
+            >
+              <div className="flex items-center justify-between pt-4 pb-6 border-b border-gray-200">
+                <span className="text-lg font-semibold text-gray-900">Menu</span>
+                <button
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="text-gray-700 hover:text-[#228DCE]"
+                >
+                  <X size={24} />
+                </button>
+              </div>
+
+              <motion.div
+                variants={dropdownVariants}
+                initial="hidden"
+                animate="visible"
+                className="mt-6 space-y-8"
               >
-                <X size={24} />
-              </button>
-            </div>
-
-            {/* ✅ Mobile Navigation - Grid Layout */}
-            <div className="flex flex-col p-4">
-              {navLinks.map((link) => (
-                <div key={link.name}>
-                  {link.hasDropdown ? (
-                    <div>
-                      <div className="mb-4 font-semibold text-gray-900 text-lg">{link.name}</div>
-
-                      {link.name === "Products" && (
-                        <div className="grid grid-cols-2 gap-4 mb-6">
-                          {productCards.map((product, index) => (
-                            <Link
-                              key={index}
-                              to={product.href}
-                              onClick={() => setIsMobileMenuOpen(false)}
-                              className="group"
-                            >
-                              <div
-                                className="rounded-xl p-4 h-32 flex flex-col items-center justify-center transition-all border-2"
-                                style={{
-                                  borderColor: "#228DCE",
-                                  backgroundColor: "#f8f9fa",
-                                }}
-                                onMouseEnter={(e) => {
-                                  e.currentTarget.style.backgroundColor = "#e8f4fb";
-                                }}
-                                onMouseLeave={(e) => {
-                                  e.currentTarget.style.backgroundColor = "#f8f9fa";
-                                }}
-                              >
-                                <div
-                                  className="w-12 h-12 rounded-lg flex items-center justify-center mb-2"
-                                  style={{ backgroundColor: product.bgColor }}
-                                >
-                                  <product.icon
-                                    size={24}
-                                    style={{ color: product.iconColor }}
-                                  />
-                                </div>
-                                <p className="text-xs font-semibold text-center" style={{ color: "#212439" }}>
-                                  {product.name}
-                                </p>
-                              </div>
-                            </Link>
-                          ))}
+                {/* Products */}
+                <div>
+                  <h3 className="text-base font-bold text-gray-900 mb-3">
+                    Products
+                  </h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    {productCards.map((product, index) => (
+                      <Link
+                        key={index}
+                        to={product.href}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="group flex flex-col items-center bg-[#f9fafb] border border-gray-200 rounded-xl p-3 h-28 justify-center hover:bg-[#e8f4fb] hover:border-[#228DCE] transition-all"
+                      >
+                        <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-1 bg-gradient-to-br from-[#e6f3ff] to-[#f5f9ff] group-hover:scale-110 transition-transform">
+                          <product.icon
+                            size={22}
+                            className="text-[#228DCE]"
+                          />
                         </div>
-                      )}
-
-                      {link.name === "Developers" && (
-                        <div className="grid grid-cols-2 gap-4 mb-6">
-                          {developerCards.map((item, index) => (
-                            <Link
-                              key={index}
-                              to={item.href}
-                              onClick={() => setIsMobileMenuOpen(false)}
-                              className="group"
-                            >
-                              <div
-                                className="rounded-xl p-4 h-32 flex flex-col items-center justify-center transition-all border-2"
-                                style={{
-                                  borderColor: "#228DCE",
-                                  backgroundColor: "#f8f9fa",
-                                }}
-                                onMouseEnter={(e) => {
-                                  e.currentTarget.style.backgroundColor = "#e8f4fb";
-                                }}
-                                onMouseLeave={(e) => {
-                                  e.currentTarget.style.backgroundColor = "#f8f9fa";
-                                }}
-                              >
-                                <div
-                                  className="w-12 h-12 rounded-lg flex items-center justify-center mb-2"
-                                  style={{ backgroundColor: item.bgColor }}
-                                >
-                                  <item.icon
-                                    size={24}
-                                    style={{ color: item.iconColor }}
-                                  />
-                                </div>
-                                <p className="text-xs font-semibold text-center" style={{ color: "#212439" }}>
-                                  {item.name}
-                                </p>
-                              </div>
-                            </Link>
-                          ))}
-                        </div>
-                      )}
-                    </div>
-                  ) : (
-                    <Link
-                      to={link.href}
-                      className="text-gray-900 hover:text-[#228DCE] block py-2"
-                      onClick={() => setIsMobileMenuOpen(false)}
-                    >
-                      {link.name}
-                    </Link>
-                  )}
+                        <p className="text-[11px] font-semibold text-gray-800 group-hover:text-[#228DCE]">
+                          {product.name}
+                        </p>
+                      </Link>
+                    ))}
+                  </div>
                 </div>
-              ))}
-            </div>
-          </div>
-        )}
+
+                {/* Developers */}
+                <div>
+                  <h3 className="text-base font-bold text-gray-900 mb-3">
+                    Developers
+                  </h3>
+                  <div className="grid grid-cols-2 gap-3">
+                    {developerCards.map((item, index) => (
+                      <Link
+                        key={index}
+                        to={item.href}
+                        onClick={() => setIsMobileMenuOpen(false)}
+                        className="group flex flex-col items-center bg-[#f9fafb] border border-gray-200 rounded-xl p-3 h-28 justify-center hover:bg-[#e8f4fb] hover:border-[#228DCE] transition-all"
+                      >
+                        <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-1 bg-gradient-to-br from-[#e6f3ff] to-[#f5f9ff] group-hover:scale-110 transition-transform">
+                          <item.icon
+                            size={22}
+                            className="text-[#228DCE]"
+                          />
+                        </div>
+                        <p className="text-[11px] font-semibold text-gray-800 group-hover:text-[#228DCE]">
+                          {item.name}
+                        </p>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+
+                {/* About */}
+                <div>
+                  <Link
+                    to="/about-us"
+                    onClick={() => setIsMobileMenuOpen(false)}
+                    className="text-gray-900 font-semibold hover:text-[#228DCE]"
+                  >
+                    About Us →
+                  </Link>
+                </div>
+              </motion.div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </nav>
     </header>
   );

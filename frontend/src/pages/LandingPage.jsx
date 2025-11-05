@@ -40,6 +40,7 @@ import AboutUs from "../components/AboutUs";
 import ScrollToTop from "../components/common/ScrollToTop";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
 
+
 gsap.registerPlugin(ScrollTrigger);
 
 const LandingPage = () => {
