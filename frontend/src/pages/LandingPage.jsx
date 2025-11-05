@@ -1574,7 +1574,7 @@ useEffect(() => {
                 Email Support
               </h3>
               <p className="mb-2" style={{ color: "#e8f4fb" }}>
-                support@silansoftware.com
+                info@silanpay.com
               </p>
               <p className="text-sm" style={{ color: "#d4ebf7" }}>
                 24/7 Response
@@ -1775,10 +1775,17 @@ useEffect(() => {
           }}
         >
           <div className="px-4 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <p style={{ color: "rgba(255, 255, 255, 0.9)" }}>
-              &copy; 2025 Silansoftware Private Limited. All Rights Reserved.
-            </p>
-          </div>
+  <p style={{ color: "rgba(255, 255, 255, 0.9)" }}>
+    &copy; 2025{" "}
+    <Link
+      to="https://www.silansoft.com/"
+      className="text-whit hover:underline"
+    >
+      Silansoftware Private Limited
+    </Link>
+    . All Rights Reserved.
+  </p>
+</div>
         </div>
       </footer>
 
