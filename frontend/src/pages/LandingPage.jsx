@@ -1846,7 +1846,7 @@ useEffect(() => {
         <div className="flex items-center">
           <Link to="/" className="flex items-center gap-2">
             <img
-              src="/public/silanpaylogo.png"
+              src="/silanpaylogo.png"
               alt="SilanPay logo"
               className="object-contain w-auto h-10 sm:h-12"
             />
@@ -1855,7 +1855,7 @@ useEffect(() => {
       </div>
     </div>
   </div>
-
+  
   {/* Copyright - Full Width with Pay Color */}
   <div
     className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] text-sm text-center"
