@@ -1784,7 +1784,7 @@ useEffect(() => {
       Silansoftware Private Limited
     </Link>
     . All Rights Reserved.
-  </p>
+  </p>npm i
 </div>
         </div>
       </footer>
