@@ -1,6 +1,8 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Building2, Shield, Lock } from "lucide-react";
 import Header from "../components/layout/Header";
+import ScrollToTop from "../components/common/ScrollToTop";
 
 const PrivacyPolicyPage = () => {
   return (
@@ -11,10 +13,13 @@ const PrivacyPolicyPage = () => {
         <div className="max-w-5xl px-4 mx-auto sm:px-6 lg:px-8">
           {/* Page Header */}
           <div className="mb-8 text-center">
-            <div className="inline-block px-6 py-2 mb-4 text-sm font-semibold text-white rounded-full" style={{ backgroundColor: '#228DCE' }}>
+            <div
+              className="inline-block px-6 py-2 mb-4 text-sm font-semibold text-white rounded-full"
+              style={{ backgroundColor: "#228DCE" }}
+            >
               Legal & Privacy
             </div>
-            <h1 className="mb-4 text-4xl font-bold" style={{ color: '#212439' }}>
+            <h1 className="mb-4 text-4xl font-bold" style={{ color: "#212439" }}>
               Privacy Policy
             </h1>
             <p className="text-lg text-gray-600">
@@ -23,12 +28,25 @@ const PrivacyPolicyPage = () => {
           </div>
 
           {/* Introduction Section */}
-          <div className="p-8 mb-8 border-2 shadow-lg rounded-2xl" style={{ borderColor: '#228DCE', backgroundColor: '#f8f9fa' }}>
+          <div
+            className="p-8 mb-8 border-2 shadow-lg rounded-2xl"
+            style={{ borderColor: "#228DCE", backgroundColor: "#f8f9fa" }}
+          >
             <p className="mb-4 text-gray-700 leading-relaxed">
-              <strong>Silan Software Private Limited</strong>, a company duly incorporated under the provisions of the Companies Act, 2013, bearing <strong>Corporate Identification Number (CIN): U72900OR2020PTC033921</strong>, and having its registered office at <strong>Plot No-741, 2nd Floor, Jayadev Vihar, Bhubaneswar – 751013, Odisha, India</strong>, and <strong>GST No: 21ABECS3045H1ZP</strong>, operates as a Fintech and Software Development Company, offering a suite of digital solutions.
+              <strong>Silan Software Private Limited</strong>, a company duly
+              incorporated under the provisions of the Companies Act, 2013,
+              bearing <strong>Corporate Identification Number (CIN): U72900OR2020PTC033921</strong>,
+              and having its registered office at{" "}
+              <strong>
+                Plot No-741, 2nd Floor, Jayadev Vihar, Bhubaneswar – 751013,
+                Odisha, India
+              </strong>
+              , and <strong>GST No: 21ABECS3045H1ZP</strong>, operates as a Fintech and Software Development Company, offering a suite of
+              digital solutions.
             </p>
             <p className="text-gray-700 leading-relaxed">
-              This Privacy Policy governs the manner in which we collect, process, use, store, and safeguard personal and sensitive data of individuals and entities who access or use our digital platforms.
+              This Privacy Policy governs the manner in which we collect, process, use, store, and safeguard
+              personal and sensitive data of individuals and entities who access or use our digital platforms.
             </p>
           </div>
 
@@ -36,19 +54,29 @@ const PrivacyPolicyPage = () => {
           <div className="space-y-6">
             {/* 1. Legal Framework */}
             <div className="p-8 bg-white border border-gray-200 shadow-md rounded-2xl">
-              <h2 className="mb-4 text-2xl font-bold flex items-center gap-3" style={{ color: '#212439' }}>
-                <span className="flex items-center justify-center w-10 h-10 text-white rounded-full" style={{ backgroundColor: '#228DCE' }}>
+              <h2
+                className="mb-4 text-2xl font-bold flex items-center gap-3"
+                style={{ color: "#212439" }}
+              >
+                <span
+                  className="flex items-center justify-center w-10 h-10 text-white rounded-full"
+                  style={{ backgroundColor: "#228DCE" }}
+                >
                   1
                 </span>
                 Legal Framework and Applicable Laws
               </h2>
               <p className="mb-4 text-gray-700">
-                Silan Software conducts its business in accordance with the following Acts, Rules, and Regulations of India:
+                Silan Software conducts its business in accordance with the following Acts, Rules, and Regulations
+                of India:
               </p>
               <ul className="space-y-2 ml-6 list-disc text-gray-700">
                 <li>Companies Act, 2013</li>
                 <li>Information Technology Act, 2000</li>
-                <li>Information Technology (Reasonable Security Practices and Procedures and Sensitive Personal Data or Information) Rules, 2011</li>
+                <li>
+                  Information Technology (Reasonable Security Practices and Procedures and Sensitive Personal Data
+                  or Information) Rules, 2011
+                </li>
                 <li>Digital Personal Data Protection Act, 2023 (DPDP Act)</li>
                 <li>Payment and Settlement Systems Act, 2007</li>
                 <li>Prevention of Money Laundering Act, 2002 (PMLA)</li>
@@ -62,8 +90,14 @@ const PrivacyPolicyPage = () => {
 
             {/* 2. Collection of Information */}
             <div className="p-8 bg-white border border-gray-200 shadow-md rounded-2xl">
-              <h2 className="mb-4 text-2xl font-bold flex items-center gap-3" style={{ color: '#212439' }}>
-                <span className="flex items-center justify-center w-10 h-10 text-white rounded-full" style={{ backgroundColor: '#228DCE' }}>
+              <h2
+                className="mb-4 text-2xl font-bold flex items-center gap-3"
+                style={{ color: "#212439" }}
+              >
+                <span
+                  className="flex items-center justify-center w-10 h-10 text-white rounded-full"
+                  style={{ backgroundColor: "#228DCE" }}
+                >
                   2
                 </span>
                 Collection of Information
@@ -73,32 +107,68 @@ const PrivacyPolicyPage = () => {
               </p>
               <ul className="space-y-3 ml-6">
                 <li className="flex items-start gap-3 text-gray-700">
-                  <span className="flex-shrink-0 w-2 h-2 mt-2 rounded-full" style={{ backgroundColor: '#228DCE' }}></span>
-                  <span><strong>Personal Information:</strong> Name, email address, phone number, address, and identification details such as PAN, Aadhaar, or Passport.</span>
+                  <span
+                    className="flex-shrink-0 w-2 h-2 mt-2 rounded-full"
+                    style={{ backgroundColor: "#228DCE" }}
+                  ></span>
+                  <span>
+                    <strong>Personal Information:</strong> Name, email address, phone number, address, and
+                    identification details such as PAN, Aadhaar, or Passport.
+                  </span>
                 </li>
                 <li className="flex items-start gap-3 text-gray-700">
-                  <span className="flex-shrink-0 w-2 h-2 mt-2 rounded-full" style={{ backgroundColor: '#228DCE' }}></span>
-                  <span><strong>Business Information:</strong> Company name, GSTIN, CIN, business type, and incorporation documents.</span>
+                  <span
+                    className="flex-shrink-0 w-2 h-2 mt-2 rounded-full"
+                    style={{ backgroundColor: "#228DCE" }}
+                  ></span>
+                  <span>
+                    <strong>Business Information:</strong> Company name, GSTIN, CIN, business type, and
+                    incorporation documents.
+                  </span>
                 </li>
                 <li className="flex items-start gap-3 text-gray-700">
-                  <span className="flex-shrink-0 w-2 h-2 mt-2 rounded-full" style={{ backgroundColor: '#228DCE' }}></span>
-                  <span><strong>Financial Information:</strong> Bank account details, UPI IDs, transaction details, and payment history.</span>
+                  <span
+                    className="flex-shrink-0 w-2 h-2 mt-2 rounded-full"
+                    style={{ backgroundColor: "#228DCE" }}
+                  ></span>
+                  <span>
+                    <strong>Financial Information:</strong> Bank account details, UPI IDs, transaction details, and
+                    payment history.
+                  </span>
                 </li>
                 <li className="flex items-start gap-3 text-gray-700">
-                  <span className="flex-shrink-0 w-2 h-2 mt-2 rounded-full" style={{ backgroundColor: '#228DCE' }}></span>
-                  <span><strong>Technical Data:</strong> Device ID, IP address, browser type, system logs, and usage data.</span>
+                  <span
+                    className="flex-shrink-0 w-2 h-2 mt-2 rounded-full"
+                    style={{ backgroundColor: "#228DCE" }}
+                  ></span>
+                  <span>
+                    <strong>Technical Data:</strong> Device ID, IP address, browser type, system logs, and usage
+                    data.
+                  </span>
                 </li>
                 <li className="flex items-start gap-3 text-gray-700">
-                  <span className="flex-shrink-0 w-2 h-2 mt-2 rounded-full" style={{ backgroundColor: '#228DCE' }}></span>
-                  <span><strong>KYC and Compliance Data:</strong> Identity proofs, cancelled cheques, and other information required under RBI and PMLA guidelines.</span>
+                  <span
+                    className="flex-shrink-0 w-2 h-2 mt-2 rounded-full"
+                    style={{ backgroundColor: "#228DCE" }}
+                  ></span>
+                  <span>
+                    <strong>KYC and Compliance Data:</strong> Identity proofs, cancelled cheques, and other
+                    information required under RBI and PMLA guidelines.
+                  </span>
                 </li>
               </ul>
             </div>
 
             {/* 3. Use of Information */}
             <div className="p-8 bg-white border border-gray-200 shadow-md rounded-2xl">
-              <h2 className="mb-4 text-2xl font-bold flex items-center gap-3" style={{ color: '#212439' }}>
-                <span className="flex items-center justify-center w-10 h-10 text-white rounded-full" style={{ backgroundColor: '#228DCE' }}>
+              <h2
+                className="mb-4 text-2xl font-bold flex items-center gap-3"
+                style={{ color: "#212439" }}
+              >
+                <span
+                  className="flex items-center justify-center w-10 h-10 text-white rounded-full"
+                  style={{ backgroundColor: "#228DCE" }}
+                >
                   3
                 </span>
                 Use of Information
@@ -119,8 +189,14 @@ const PrivacyPolicyPage = () => {
 
             {/* 4. Data Protection and Security */}
             <div className="p-8 bg-white border border-gray-200 shadow-md rounded-2xl">
-              <h2 className="mb-4 text-2xl font-bold flex items-center gap-3" style={{ color: '#212439' }}>
-                <span className="flex items-center justify-center w-10 h-10 text-white rounded-full" style={{ backgroundColor: '#228DCE' }}>
+              <h2
+                className="mb-4 text-2xl font-bold flex items-center gap-3"
+                style={{ color: "#212439" }}
+              >
+                <span
+                  className="flex items-center justify-center w-10 h-10 text-white rounded-full"
+                  style={{ backgroundColor: "#228DCE" }}
+                >
                   4
                 </span>
                 Data Protection and Security Practices
@@ -140,32 +216,67 @@ const PrivacyPolicyPage = () => {
 
             {/* 5. Data Retention and Deletion */}
             <div className="p-8 bg-white border border-gray-200 shadow-md rounded-2xl">
-              <h2 className="mb-4 text-2xl font-bold flex items-center gap-3" style={{ color: '#212439' }}>
-                <span className="flex items-center justify-center w-10 h-10 text-white rounded-full" style={{ backgroundColor: '#228DCE' }}>
+              <h2
+                className="mb-4 text-2xl font-bold flex items-center gap-3"
+                style={{ color: "#212439" }}
+              >
+                <span
+                  className="flex items-center justify-center w-10 h-10 text-white rounded-full"
+                  style={{ backgroundColor: "#228DCE" }}
+                >
                   5
                 </span>
                 Data Retention and Deletion
               </h2>
               <ul className="space-y-3 ml-6">
                 <li className="flex items-start gap-3 text-gray-700">
-                  <span className="flex-shrink-0 w-2 h-2 mt-2 rounded-full" style={{ backgroundColor: '#228DCE' }}></span>
-                  <span>We retain data only as long as required to fulfill contractual and regulatory obligations.</span>
+                  <span
+                    className="flex-shrink-0 w-2 h-2 mt-2 rounded-full"
+                    style={{ backgroundColor: "#228DCE" }}
+                  ></span>
+                  <span>
+                    We retain data only as long as required to fulfill contractual and regulatory obligations.
+                  </span>
                 </li>
                 <li className="flex items-start gap-3 text-gray-700">
-                  <span className="flex-shrink-0 w-2 h-2 mt-2 rounded-full" style={{ backgroundColor: '#228DCE' }}></span>
-                  <span>After the retention period, all personal data is anonymized or permanently deleted in accordance with Indian data protection laws.</span>
+                  <span
+                    className="flex-shrink-0 w-2 h-2 mt-2 rounded-full"
+                    style={{ backgroundColor: "#228DCE" }}
+                  ></span>
+                  <span>
+                    After the retention period, all personal data is anonymized or permanently deleted in
+                    accordance with Indian data protection laws.
+                  </span>
                 </li>
                 <li className="flex items-start gap-3 text-gray-700">
-                  <span className="flex-shrink-0 w-2 h-2 mt-2 rounded-full" style={{ backgroundColor: '#228DCE' }}></span>
-                  <span>Users may request deletion by writing to <a href="mailto:info@silansoftware.com" style={{ color: '#228DCE', fontWeight: 'bold' }}>info@silanpay.com</a>, subject to statutory requirements.</span>
+                  <span
+                    className="flex-shrink-0 w-2 h-2 mt-2 rounded-full"
+                    style={{ backgroundColor: "#228DCE" }}
+                  ></span>
+                  <span>
+                    Users may request deletion by writing to{" "}
+                    <a
+                      href="mailto:info@silanpay.com"
+                      style={{ color: "#228DCE", fontWeight: "bold" }}
+                    >
+                      info@silanpay.com
+                    </a>
+                    , subject to statutory requirements.
+                  </span>
                 </li>
               </ul>
             </div>
 
             {/* 6. Disclosure of Information */}
             <div className="p-8 bg-white border border-gray-200 shadow-md rounded-2xl">
-              <h2 className="mb-4 text-2xl font-bold flex items-center gap-3" style={{ color: '#212439' }}>
-                <span className="flex items-center justify-center w-10 h-10 text-white rounded-full" style={{ backgroundColor: '#228DCE' }}>
+              <h2
+                className="mb-4 text-2xl font-bold flex items-center gap-3"
+                style={{ color: "#212439" }}
+              >
+                <span
+                  className="flex items-center justify-center w-10 h-10 text-white rounded-full"
+                  style={{ backgroundColor: "#228DCE" }}
+                >
                   6
                 </span>
                 Disclosure of Information
@@ -187,8 +298,14 @@ const PrivacyPolicyPage = () => {
 
             {/* 7. Cookies and Tracking */}
             <div className="p-8 bg-white border border-gray-200 shadow-md rounded-2xl">
-              <h2 className="mb-4 text-2xl font-bold flex items-center gap-3" style={{ color: '#212439' }}>
-                <span className="flex items-center justify-center w-10 h-10 text-white rounded-full" style={{ backgroundColor: '#228DCE' }}>
+              <h2
+                className="mb-4 text-2xl font-bold flex items-center gap-3"
+                style={{ color: "#212439" }}
+              >
+                <span
+                  className="flex items-center justify-center w-10 h-10 text-white rounded-full"
+                  style={{ backgroundColor: "#228DCE" }}
+                >
                   7
                 </span>
                 Cookies and Tracking
@@ -202,8 +319,14 @@ const PrivacyPolicyPage = () => {
 
             {/* 8. User Rights */}
             <div className="p-8 bg-white border border-gray-200 shadow-md rounded-2xl">
-              <h2 className="mb-4 text-2xl font-bold flex items-center gap-3" style={{ color: '#212439' }}>
-                <span className="flex items-center justify-center w-10 h-10 text-white rounded-full" style={{ backgroundColor: '#228DCE' }}>
+              <h2
+                className="mb-4 text-2xl font-bold flex items-center gap-3"
+                style={{ color: "#212439" }}
+              >
+                <span
+                  className="flex items-center justify-center w-10 h-10 text-white rounded-full"
+                  style={{ backgroundColor: "#228DCE" }}
+                >
                   8
                 </span>
                 User Rights under Indian Law
@@ -213,67 +336,122 @@ const PrivacyPolicyPage = () => {
               </p>
               <ul className="space-y-3 ml-6">
                 <li className="flex items-start gap-3 text-gray-700">
-                  <span className="flex-shrink-0 w-2 h-2 mt-2 rounded-full" style={{ backgroundColor: '#228DCE' }}></span>
-                  <span><strong>Right to Access:</strong> Obtain a copy of your stored data</span>
+                  <span
+                    className="flex-shrink-0 w-2 h-2 mt-2 rounded-full"
+                    style={{ backgroundColor: "#228DCE" }}
+                  ></span>
+                  <span>
+                    <strong>Right to Access:</strong> Obtain a copy of your stored data
+                  </span>
                 </li>
                 <li className="flex items-start gap-3 text-gray-700">
-                  <span className="flex-shrink-0 w-2 h-2 mt-2 rounded-full" style={{ backgroundColor: '#228DCE' }}></span>
-                  <span><strong>Right to Correction:</strong> Update inaccurate or incomplete data</span>
+                  <span
+                    className="flex-shrink-0 w-2 h-2 mt-2 rounded-full"
+                    style={{ backgroundColor: "#228DCE" }}
+                  ></span>
+                  <span>
+                    <strong>Right to Correction:</strong> Update inaccurate or incomplete data
+                  </span>
                 </li>
                 <li className="flex items-start gap-3 text-gray-700">
-                  <span className="flex-shrink-0 w-2 h-2 mt-2 rounded-full" style={{ backgroundColor: '#228DCE' }}></span>
-                  <span><strong>Right to Deletion:</strong> Request deletion of data (subject to legal obligations)</span>
+                  <span
+                    className="flex-shrink-0 w-2 h-2 mt-2 rounded-full"
+                    style={{ backgroundColor: "#228DCE" }}
+                  ></span>
+                  <span>
+                    <strong>Right to Deletion:</strong> Request deletion of data (subject to legal obligations)
+                  </span>
                 </li>
                 <li className="flex items-start gap-3 text-gray-700">
-                  <span className="flex-shrink-0 w-2 h-2 mt-2 rounded-full" style={{ backgroundColor: '#228DCE' }}></span>
-                  <span><strong>Right to Withdraw Consent:</strong> Stop data processing at any time</span>
+                  <span
+                    className="flex-shrink-0 w-2 h-2 mt-2 rounded-full"
+                    style={{ backgroundColor: "#228DCE" }}
+                  ></span>
+                  <span>
+                    <strong>Right to Withdraw Consent:</strong> Stop data processing at any time
+                  </span>
                 </li>
                 <li className="flex items-start gap-3 text-gray-700">
-                  <span className="flex-shrink-0 w-2 h-2 mt-2 rounded-full" style={{ backgroundColor: '#228DCE' }}></span>
-                  <span><strong>Right to Grievance Redressal:</strong> File a complaint if your data rights are violated</span>
+                  <span
+                    className="flex-shrink-0 w-2 h-2 mt-2 rounded-full"
+                    style={{ backgroundColor: "#228DCE" }}
+                  ></span>
+                  <span>
+                    <strong>Right to Grievance Redressal:</strong> File a complaint if your data rights are violated
+                  </span>
                 </li>
               </ul>
             </div>
 
             {/* 9. Grievance Redressal */}
-            <div className="p-8 border-2 shadow-lg rounded-2xl" style={{ borderColor: '#228DCE', backgroundColor: '#e8f4fb' }}>
-              <h2 className="mb-6 text-2xl font-bold flex items-center gap-3" style={{ color: '#212439' }}>
-                <span className="flex items-center justify-center w-10 h-10 text-white rounded-full" style={{ backgroundColor: '#228DCE' }}>
+            <div
+              className="p-8 border-2 shadow-lg rounded-2xl"
+              style={{ borderColor: "#228DCE", backgroundColor: "#e8f4fb" }}
+            >
+              <h2
+                className="mb-6 text-2xl font-bold flex items-center gap-3"
+                style={{ color: "#212439" }}
+              >
+                <span
+                  className="flex items-center justify-center w-10 h-10 text-white rounded-full"
+                  style={{ backgroundColor: "#228DCE" }}
+                >
                   9
                 </span>
                 Grievance Redressal and Data Protection Officer
               </h2>
               <div className="space-y-4">
                 <p className="text-gray-700">
-                  In compliance with Rule 5(9) of the Information Technology Rules, 2011 and Section 10 of the DPDP Act, 2023, Silan Software has appointed a Grievance cum Nodal Officer.
+                  In compliance with Rule 5(9) of the Information Technology Rules, 2011 and Section 10 of the DPDP
+                  Act, 2023, Silan Software has appointed a Grievance cum Nodal Officer.
                 </p>
                 <div className="p-4 bg-white rounded-lg space-y-3">
                   <div className="flex items-start gap-3">
-                    <Building2 className="flex-shrink-0 mt-0.5" size={18} style={{ color: '#228DCE' }} />
+                    <Building2
+                      className="flex-shrink-0 mt-0.5"
+                      size={18}
+                      style={{ color: "#228DCE" }}
+                    />
                     <div>
                       <p className="font-semibold text-gray-900">Name</p>
                       <p className="text-gray-700">Mr. Trilochan Tarai</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <Mail className="flex-shrink-0 mt-0.5" size={18} style={{ color: '#228DCE' }} />
+                    <Mail
+                      className="flex-shrink-0 mt-0.5"
+                      size={18}
+                      style={{ color: "#228DCE" }}
+                    />
                     <div>
                       <p className="font-semibold text-gray-900">Email</p>
-                      <a href="mailto:info@silansoftware.com" style={{ color: '#228DCE' }}>info@silansoftware.com</a>
+                      <a href="mailto:info@silanpay.com" style={{ color: "#228DCE" }}>
+                        info@silanpay.com
+                      </a>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <Phone className="flex-shrink-0 mt-0.5" size={18} style={{ color: '#228DCE' }} />
+                    <Phone
+                      className="flex-shrink-0 mt-0.5"
+                      size={18}
+                      style={{ color: "#228DCE" }}
+                    />
                     <div>
                       <p className="font-semibold text-gray-900">Phone</p>
                       <p className="text-gray-700">+91-89842 89279</p>
                     </div>
                   </div>
                   <div className="flex items-start gap-3">
-                    <MapPin className="flex-shrink-0 mt-0.5" size={18} style={{ color: '#228DCE' }} />
+                    <MapPin
+                      className="flex-shrink-0 mt-0.5"
+                      size={18}
+                      style={{ color: "#228DCE" }}
+                    />
                     <div>
                       <p className="font-semibold text-gray-900">Address</p>
-                      <p className="text-gray-700">Plot No-741, 2nd Floor, Jayadev Vihar, Bhubaneswar – 751013, Odisha, India</p>
+                      <p className="text-gray-700">
+                        Plot No-741, 2nd Floor, Jayadev Vihar, Bhubaneswar – 751013, Odisha, India
+                      </p>
                     </div>
                   </div>
                   <div className="pt-4 border-t border-gray-200">
@@ -287,21 +465,35 @@ const PrivacyPolicyPage = () => {
 
             {/* 10. Intellectual Property Rights */}
             <div className="p-8 bg-white border border-gray-200 shadow-md rounded-2xl">
-              <h2 className="mb-4 text-2xl font-bold flex items-center gap-3" style={{ color: '#212439' }}>
-                <span className="flex items-center justify-center w-10 h-10 text-white rounded-full" style={{ backgroundColor: '#228DCE' }}>
+              <h2
+                className="mb-4 text-2xl font-bold flex items-center gap-3"
+                style={{ color: "#212439" }}
+              >
+                <span
+                  className="flex items-center justify-center w-10 h-10 text-white rounded-full"
+                  style={{ backgroundColor: "#228DCE" }}
+                >
                   10
                 </span>
                 Intellectual Property Rights
               </h2>
               <p className="text-gray-700">
-                All intellectual property rights, including the Platform design, content, code, and trademarks, belong exclusively to Silan Software Private Limited. No user shall copy, modify, or distribute our materials without written authorization.
+                All intellectual property rights, including the Platform design, content, code, and trademarks,
+                belong exclusively to Silan Software Private Limited. No user shall copy, modify, or distribute our
+                materials without written authorization.
               </p>
             </div>
 
             {/* 11. Limitation of Liability */}
             <div className="p-8 bg-white border border-gray-200 shadow-md rounded-2xl">
-              <h2 className="mb-4 text-2xl font-bold flex items-center gap-3" style={{ color: '#212439' }}>
-                <span className="flex items-center justify-center w-10 h-10 text-white rounded-full" style={{ backgroundColor: '#228DCE' }}>
+              <h2
+                className="mb-4 text-2xl font-bold flex items-center gap-3"
+                style={{ color: "#212439" }}
+              >
+                <span
+                  className="flex items-center justify-center w-10 h-10 text-white rounded-full"
+                  style={{ backgroundColor: "#228DCE" }}
+                >
                   11
                 </span>
                 Limitation of Liability
@@ -321,22 +513,37 @@ const PrivacyPolicyPage = () => {
 
             {/* 12. Governing Law */}
             <div className="p-8 bg-white border border-gray-200 shadow-md rounded-2xl">
-              <h2 className="mb-4 text-2xl font-bold flex items-center gap-3" style={{ color: '#212439' }}>
-                <span className="flex items-center justify-center w-10 h-10 text-white rounded-full" style={{ backgroundColor: '#228DCE' }}>
+              <h2
+                className="mb-4 text-2xl font-bold flex items-center gap-3"
+                style={{ color: "#212439" }}
+              >
+                <span
+                  className="flex items-center justify-center w-10 h-10 text-white rounded-full"
+                  style={{ backgroundColor: "#228DCE" }}
+                >
                   12
                 </span>
                 Governing Law and Jurisdiction
               </h2>
               <ul className="space-y-2 ml-6 list-disc text-gray-700">
                 <li>This Privacy Policy shall be governed by the laws of India</li>
-                <li>The exclusive jurisdiction for any legal proceedings shall rest with the competent courts of Bhubaneswar, Odisha</li>
+                <li>
+                  The exclusive jurisdiction for any legal proceedings shall rest with the competent courts of
+                  Bhubaneswar, Odisha
+                </li>
               </ul>
             </div>
 
             {/* 13. Updates to the Policy */}
             <div className="p-8 bg-white border border-gray-200 shadow-md rounded-2xl">
-              <h2 className="mb-4 text-2xl font-bold flex items-center gap-3" style={{ color: '#212439' }}>
-                <span className="flex items-center justify-center w-10 h-10 text-white rounded-full" style={{ backgroundColor: '#228DCE' }}>
+              <h2
+                className="mb-4 text-2xl font-bold flex items-center gap-3"
+                style={{ color: "#212439" }}
+              >
+                <span
+                  className="flex items-center justify-center w-10 h-10 text-white rounded-full"
+                  style={{ backgroundColor: "#228DCE" }}
+                >
                   13
                 </span>
                 Updates to the Policy
@@ -349,32 +556,56 @@ const PrivacyPolicyPage = () => {
             </div>
 
             {/* 14. Contact Information */}
-            <div className="p-8 border-2 shadow-lg rounded-2xl" style={{ borderColor: '#228DCE', backgroundColor: '#e8f4fb' }}>
-              <h2 className="mb-6 text-2xl font-bold flex items-center gap-3" style={{ color: '#212439' }}>
-                <span className="flex items-center justify-center w-10 h-10 text-white rounded-full" style={{ backgroundColor: '#228DCE' }}>
+            <div
+              className="p-8 border-2 shadow-lg rounded-2xl"
+              style={{ borderColor: "#228DCE", backgroundColor: "#e8f4fb" }}
+            >
+              <h2
+                className="mb-6 text-2xl font-bold flex items-center gap-3"
+                style={{ color: "#212439" }}
+              >
+                <span
+                  className="flex items-center justify-center w-10 h-10 text-white rounded-full"
+                  style={{ backgroundColor: "#228DCE" }}
+                >
                   14
                 </span>
                 Contact Information
               </h2>
               <div className="space-y-4">
                 <div className="flex items-start gap-3">
-                  <MapPin className="flex-shrink-0 mt-1" size={20} style={{ color: '#228DCE' }} />
+                  <MapPin
+                    className="flex-shrink-0 mt-1"
+                    size={20}
+                    style={{ color: "#228DCE" }}
+                  />
                   <div>
                     <p className="font-semibold text-gray-900">Address</p>
-                    <p className="text-gray-700">Plot No-741, 2nd Floor, Jayadev Vihar, Bhubaneswar – 751013, Odisha, India</p>
+                    <p className="text-gray-700">
+                      Plot No-741, 2nd Floor, Jayadev Vihar, Bhubaneswar – 751013, Odisha, India
+                    </p>
                   </div>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Phone className="flex-shrink-0" size={20} style={{ color: '#228DCE' }} />
+                  <Phone className="flex-shrink-0" size={20} style={{ color: "#228DCE" }} />
                   <span className="text-gray-700">+91-89842 89279</span>
                 </div>
                 <div className="flex items-center gap-3">
-                  <Mail className="flex-shrink-0" size={20} style={{ color: '#228DCE' }} />
-                  <a href="mailto:info@silanpay.com" style={{ color: '#228DCE' }}>info@silanpay.com</a>
+                  <Mail className="flex-shrink-0" size={20} style={{ color: "#228DCE" }} />
+                  <a href="mailto:info@silanpay.com" style={{ color: "#228DCE" }}>
+                    info@silanpay.com
+                  </a>
                 </div>
                 <div className="flex items-center gap-3">
-                  <MapPin className="flex-shrink-0" size={20} style={{ color: '#228DCE' }} />
-                  <a href="https://www.silanpay.com/" target="_blank" rel="noopener noreferrer" style={{ color: '#228DCE' }}>www.silanpay.com</a>
+                  <MapPin className="flex-shrink-0" size={20} style={{ color: "#228DCE" }} />
+                  <a
+                    href="https://www.silanpay.com/"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    style={{ color: "#228DCE" }}
+                  >
+                    www.silanpay.com
+                  </a>
                 </div>
               </div>
               <div className="pt-6 mt-6 space-y-2 border-t border-gray-300">
@@ -389,13 +620,16 @@ const PrivacyPolicyPage = () => {
           </div>
 
           {/* Footer Note */}
-          <div className="p-6 mt-8 text-center border-2 rounded-2xl" style={{ borderColor: '#228DCE', backgroundColor: '#f8f9fa' }}>
+          <div
+            className="p-6 mt-8 text-center border-2 rounded-2xl"
+            style={{ borderColor: "#228DCE", backgroundColor: "#f8f9fa" }}
+          >
             <p className="text-sm text-gray-600">
               For any concerns or clarifications regarding this Privacy Policy, please contact us at{" "}
               <a
                 href="mailto:info@silanpay.com"
                 className="font-semibold transition-colors hover:underline"
-                style={{ color: '#228DCE' }}
+                style={{ color: "#228DCE" }}
               >
                 info@silanpay.com
               </a>
@@ -403,6 +637,296 @@ const PrivacyPolicyPage = () => {
           </div>
         </div>
       </section>
+
+      {/* ===== FOOTER ===== */}
+      <footer>
+        {/* Dark Background Section */}
+        <div style={{ backgroundColor: "#212439" }}>
+          <div className="px-4 py-16 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
+              {/* Products */}
+              <div>
+                <h4
+                  className="mb-4 text-lg font-bold"
+                  style={{ color: "#228DCE" }}
+                >
+                  Products
+                  <div
+                    className="w-8 h-0.5 mt-1"
+                    style={{ backgroundColor: "#228DCE" }}
+                  ></div>
+                </h4>
+                <ul className="space-y-3 text-sm text-gray-300">
+                  <li>
+                    <Link
+                      to="/upi-payments"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      UPI Payments
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="#"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      IMPS Transfer
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="#"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      API Integration
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="#"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      Wallet
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Company */}
+              <div>
+                <h4
+                  className="mb-4 text-lg font-bold"
+                  style={{ color: "#228DCE" }}
+                >
+                  Company
+                  <div
+                    className="w-8 h-0.5 mt-1"
+                    style={{ backgroundColor: "#228DCE" }}
+                  ></div>
+                </h4>
+                <ul className="space-y-3 text-sm text-gray-300">
+                  <li>
+                    <Link
+                      to="/about-us"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      About Us
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/contact-us"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      Contact Us
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/terms"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      Terms & Conditions
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/privacy-policy"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      Privacy Policy
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/refund-policy"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      Refund Policy
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Developers */}
+              <div>
+                <h4
+                  className="mb-4 text-lg font-bold"
+                  style={{ color: "#228DCE" }}
+                >
+                  Developers
+                  <div
+                    className="w-8 h-0.5 mt-1"
+                    style={{ backgroundColor: "#228DCE" }}
+                  ></div>
+                </h4>
+                <ul className="space-y-3 text-sm text-gray-300">
+                  <li>
+                    <Link
+                      to="#"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      API Documentation
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ===== CERTIFICATES & BADGES SECTION ===== */}
+        <div className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 border-t border-blue-700 py-8">
+          <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div className="text-center mb-6">
+              <h3 className="text-lg font-bold text-white mb-2">
+                Certifications & Recognitions
+              </h3>
+              <p className="text-sm text-gray-300">
+                We are recognized by leading organizations in India
+              </p>
+            </div>
+
+            {/* Certificates Grid */}
+            <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8">
+              {/* Startup Odisha */}
+              <div className="flex items-center justify-center">
+                <a
+                  href="https://startupodisha.gov.in/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group"
+                >
+                  <img
+                    src="/certificates/startupodisa.png"
+                    alt="Startup Odisha"
+                    className="h-16 md:h-20 object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+                  />
+                </a>
+              </div>
+
+              {/* Digital India */}
+              <div className="flex items-center justify-center">
+                <a
+                  href="https://www.digitalindia.gov.in/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group"
+                >
+                  <img
+                    src="/certificates/digitaindia.png"
+                    alt="Digital India"
+                    className="h-16 md:h-20 object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+                  />
+                </a>
+              </div>
+
+              {/* ISO Certificate */}
+              <div className="flex items-center justify-center">
+                <a
+                  href="https://www.iso.org/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group"
+                >
+                  <img
+                    src="/certificates/isocertificate.png"
+                    alt="ISO"
+                    className="h-16 md:h-20 object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+                  />
+                </a>
+              </div>
+
+              {/* MSME Registration */}
+              <div className="flex items-center justify-center">
+                <a
+                  href="https://www.msme.gov.in/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group"
+                >
+                  <img
+                    src="/certificates/msme.png"
+                    alt="MSME Certified"
+                    className="h-16 md:h-20 object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+                  />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Company Info - Logo Right, Address Left - White Background Full Width */}
+        <div
+          className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] bg-white border-t"
+          style={{ borderColor: "rgba(0, 0, 0, 0.1)" }}
+        >
+          <div className="px-4 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div className="flex flex-col items-center justify-between md:flex-row">
+              {/* Address on Left */}
+              <div className="mb-4 text-sm text-center text-gray-700 md:text-left md:mb-0">
+                <p>📍 Plot No-741, 2nd Floor, Jayadev Vihar, 751013</p>
+                <p> Bhubaneswar, Odisha</p>
+                <p>📞 Call: +91-89842 89279</p>
+                <p>🏢 Silansoftware Private Limited</p>
+              </div>
+
+              {/* Logo on Right */}
+              <div className="flex items-center">
+                <Link to="/" className="flex items-center gap-2">
+                  <img
+                    src="/silanpaylogo.png"
+                    alt="SilanPay logo"
+                    className="object-contain w-auto h-10 sm:h-12"
+                  />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Copyright - Full Width with Pay Color */}
+        <div
+          className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] text-sm text-center"
+          style={{
+            backgroundColor: "#228DCE",
+            borderColor: "rgba(255, 255, 255, 0.2)",
+          }}
+        >
+          <div className="px-4 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <p style={{ color: "rgba(255, 255, 255, 0.9)" }}>
+              &copy; 2025{" "}
+              <Link
+                to="/"
+                className="text-white hover:underline transition-colors"
+              >
+                Silansoftware Private Limited
+              </Link>
+              . All Rights Reserved.
+            </p>
+          </div>
+        </div>
+      </footer>
+
+      {/* ===== SCROLL TO TOP BUTTON ===== */}
+      <ScrollToTop />
+
+      <style>{`
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-20px);
+          }
+        }
+        
+        @media (prefers-reduced-motion: no-preference) {
+          * {
+            scroll-behavior: smooth;
+          }
+        }
+      `}</style>
     </div>
   );
 };

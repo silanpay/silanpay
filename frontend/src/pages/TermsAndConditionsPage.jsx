@@ -1,5 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import Header from "../components/layout/Header";
+import ScrollToTop from "../components/common/ScrollToTop";
 
 const TermsAndConditionsPage = () => {
   const [content, setContent] = useState("");
@@ -145,14 +147,14 @@ const TermsAndConditionsPage = () => {
             <div className="flex items-center gap-3 mt-2 mb-6" key={`h1-${idx}`}>
               <div
                 className="w-12 h-12 rounded-full flex items-center justify-center text-white font-bold text-lg"
-                style={{ backgroundColor: '#228DCE' }}
+                style={{ backgroundColor: "#228DCE" }}
               >
                 {idx + 1}
               </div>
               <h1
                 id={id}
                 className="text-3xl font-bold md:text-4xl"
-                style={{ color: '#212439' }}
+                style={{ color: "#212439" }}
               >
                 {parseInline(title)}
               </h1>
@@ -163,12 +165,12 @@ const TermsAndConditionsPage = () => {
             <h2
               id={id}
               className="mt-8 mb-4 text-2xl font-semibold flex items-center gap-3"
-              style={{ color: '#212439' }}
+              style={{ color: "#212439" }}
               key={`h2-${idx}`}
             >
               <div
                 className="w-8 h-0.5"
-                style={{ backgroundColor: '#228DCE' }}
+                style={{ backgroundColor: "#228DCE" }}
               ></div>
               {parseInline(title)}
             </h2>
@@ -178,7 +180,7 @@ const TermsAndConditionsPage = () => {
             <h3
               id={id}
               className="mt-6 mb-3 text-xl font-semibold"
-              style={{ color: '#212439' }}
+              style={{ color: "#212439" }}
               key={`h3-${idx}`}
             >
               {parseInline(title)}
@@ -251,15 +253,18 @@ const TermsAndConditionsPage = () => {
   return (
     <div className="min-h-screen text-gray-900 bg-white font-outfit">
       <Header />
-      
+
       <section className="py-12 bg-white">
         <div className="max-w-5xl px-4 mx-auto sm:px-6 lg:px-8">
           {/* Page Header */}
           <div className="mb-8 text-center">
-            <div className="inline-block px-6 py-2 mb-4 text-sm font-semibold text-white rounded-full" style={{ backgroundColor: '#228DCE' }}>
+            <div
+              className="inline-block px-6 py-2 mb-4 text-sm font-semibold text-white rounded-full"
+              style={{ backgroundColor: "#228DCE" }}
+            >
               Legal Agreement
             </div>
-            <h1 className="mb-4 text-4xl font-bold" style={{ color: '#212439' }}>
+            <h1 className="mb-4 text-4xl font-bold" style={{ color: "#212439" }}>
               Terms & Conditions
             </h1>
             <p className="text-lg text-gray-600">
@@ -268,7 +273,10 @@ const TermsAndConditionsPage = () => {
           </div>
 
           {/* Content Container */}
-          <div className="p-8 bg-white border-2 shadow-lg rounded-2xl" style={{ borderColor: '#228DCE' }}>
+          <div
+            className="p-8 bg-white border-2 shadow-lg rounded-2xl"
+            style={{ borderColor: "#228DCE" }}
+          >
             {loading && (
               <div className="text-center py-12">
                 <p className="text-gray-600 text-lg">Loading terms...</p>
@@ -280,20 +288,23 @@ const TermsAndConditionsPage = () => {
               </div>
             )}
             {!loading && !error && rendered && (
-              <div className="prose prose-sm max-w-none" style={{ color: '#374151' }}>
+              <div className="prose prose-sm max-w-none" style={{ color: "#374151" }}>
                 {rendered}
               </div>
             )}
           </div>
 
           {/* Footer Note */}
-          <div className="p-6 mt-8 text-center border-2 rounded-2xl" style={{ borderColor: '#228DCE', backgroundColor: '#f8f9fa' }}>
+          <div
+            className="p-6 mt-8 text-center border-2 rounded-2xl"
+            style={{ borderColor: "#228DCE", backgroundColor: "#f8f9fa" }}
+          >
             <p className="text-sm text-gray-600">
               For any questions regarding these Terms & Conditions, please contact us at{" "}
               <a
-                href="mailto:info@silansoftware.com"
+                href="mailto:info@silanpay.com"
                 className="font-semibold transition-colors hover:underline"
-                style={{ color: '#228DCE' }}
+                style={{ color: "#228DCE" }}
               >
                 info@silanpay.com
               </a>
@@ -301,6 +312,296 @@ const TermsAndConditionsPage = () => {
           </div>
         </div>
       </section>
+
+      {/* ===== FOOTER ===== */}
+      <footer>
+        {/* Dark Background Section */}
+        <div style={{ backgroundColor: "#212439" }}>
+          <div className="px-4 py-16 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
+              {/* Products */}
+              <div>
+                <h4
+                  className="mb-4 text-lg font-bold"
+                  style={{ color: "#228DCE" }}
+                >
+                  Products
+                  <div
+                    className="w-8 h-0.5 mt-1"
+                    style={{ backgroundColor: "#228DCE" }}
+                  ></div>
+                </h4>
+                <ul className="space-y-3 text-sm text-gray-300">
+                  <li>
+                    <Link
+                      to="/upi-payments"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      UPI Payments
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="#"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      IMPS Transfer
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="#"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      API Integration
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="#"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      Wallet
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Company */}
+              <div>
+                <h4
+                  className="mb-4 text-lg font-bold"
+                  style={{ color: "#228DCE" }}
+                >
+                  Company
+                  <div
+                    className="w-8 h-0.5 mt-1"
+                    style={{ backgroundColor: "#228DCE" }}
+                  ></div>
+                </h4>
+                <ul className="space-y-3 text-sm text-gray-300">
+                  <li>
+                    <Link
+                      to="/about-us"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      About Us
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/contact-us"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      Contact Us
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/terms"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      Terms & Conditions
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/privacy-policy"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      Privacy Policy
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      to="/refund-policy"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      Refund Policy
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+
+              {/* Developers */}
+              <div>
+                <h4
+                  className="mb-4 text-lg font-bold"
+                  style={{ color: "#228DCE" }}
+                >
+                  Developers
+                  <div
+                    className="w-8 h-0.5 mt-1"
+                    style={{ backgroundColor: "#228DCE" }}
+                  ></div>
+                </h4>
+                <ul className="space-y-3 text-sm text-gray-300">
+                  <li>
+                    <Link
+                      to="#"
+                      className="transition-colors hover:text-[#228DCE]"
+                    >
+                      API Documentation
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* ===== CERTIFICATES & BADGES SECTION ===== */}
+        <div className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 border-t border-blue-700 py-8">
+          <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div className="text-center mb-6">
+              <h3 className="text-lg font-bold text-white mb-2">
+                Certifications & Recognitions
+              </h3>
+              <p className="text-sm text-gray-300">
+                We are recognized by leading organizations in India
+              </p>
+            </div>
+
+            {/* Certificates Grid */}
+            <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8">
+              {/* Startup Odisha */}
+              <div className="flex items-center justify-center">
+                <a
+                  href="https://startupodisha.gov.in/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group"
+                >
+                  <img
+                    src="/certificates/startupodisa.png"
+                    alt="Startup Odisha"
+                    className="h-16 md:h-20 object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+                  />
+                </a>
+              </div>
+
+              {/* Digital India */}
+              <div className="flex items-center justify-center">
+                <a
+                  href="https://www.digitalindia.gov.in/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group"
+                >
+                  <img
+                    src="/certificates/digitaindia.png"
+                    alt="Digital India"
+                    className="h-16 md:h-20 object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+                  />
+                </a>
+              </div>
+
+              {/* ISO Certificate */}
+              <div className="flex items-center justify-center">
+                <a
+                  href="https://www.iso.org/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group"
+                >
+                  <img
+                    src="/certificates/isocertificate.png"
+                    alt="ISO"
+                    className="h-16 md:h-20 object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+                  />
+                </a>
+              </div>
+
+              {/* MSME Registration */}
+              <div className="flex items-center justify-center">
+                <a
+                  href="https://www.msme.gov.in/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group"
+                >
+                  <img
+                    src="/certificates/msme.png"
+                    alt="MSME Certified"
+                    className="h-16 md:h-20 object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300"
+                  />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Company Info - Logo Right, Address Left - White Background Full Width */}
+        <div
+          className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] bg-white border-t"
+          style={{ borderColor: "rgba(0, 0, 0, 0.1)" }}
+        >
+          <div className="px-4 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div className="flex flex-col items-center justify-between md:flex-row">
+              {/* Address on Left */}
+              <div className="mb-4 text-sm text-center text-gray-700 md:text-left md:mb-0">
+                <p>📍 Plot No-741, 2nd Floor, Jayadev Vihar, 751013</p>
+                <p> Bhubaneswar, Odisha</p>
+                <p>📞 Call: +91-89842 89279</p>
+                <p>🏢 Silansoftware Private Limited</p>
+              </div>
+
+              {/* Logo on Right */}
+              <div className="flex items-center">
+                <Link to="/" className="flex items-center gap-2">
+                  <img
+                    src="/silanpaylogo.png"
+                    alt="SilanPay logo"
+                    className="object-contain w-auto h-10 sm:h-12"
+                  />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Copyright - Full Width with Pay Color */}
+        <div
+          className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] text-sm text-center"
+          style={{
+            backgroundColor: "#228DCE",
+            borderColor: "rgba(255, 255, 255, 0.2)",
+          }}
+        >
+          <div className="px-4 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <p style={{ color: "rgba(255, 255, 255, 0.9)" }}>
+              &copy; 2025{" "}
+              <Link
+                to="/"
+                className="text-white hover:underline transition-colors"
+              >
+                Silansoftware Private Limited
+              </Link>
+              . All Rights Reserved.
+            </p>
+          </div>
+        </div>
+      </footer>
+
+      {/* ===== SCROLL TO TOP BUTTON ===== */}
+      <ScrollToTop />
+
+      <style>{`
+        @keyframes float {
+          0%, 100% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-20px);
+          }
+        }
+        
+        @media (prefers-reduced-motion: no-preference) {
+          * {
+            scroll-behavior: smooth;
+          }
+        }
+      `}</style>
     </div>
   );
 };

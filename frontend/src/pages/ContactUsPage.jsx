@@ -15,6 +15,7 @@ const ContactUsPage = () => {
     message: "",
   });
 
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -320,5 +321,9 @@ const ContactUsPage = () => {
     </div>
   );
 };
+
+
+
+
 
 export default ContactUsPage;

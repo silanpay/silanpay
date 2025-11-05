@@ -1609,7 +1609,6 @@ useEffect(() => {
       </section>
 
       {/* ===== FOOTER ===== */}
-      {/* ===== FOOTER ===== */}
 <footer>
   {/* Dark Background Section */}
   <div style={{ backgroundColor: "#212439" }}>
@@ -1795,7 +1794,7 @@ useEffect(() => {
         {/* Make In India */}
         <div className="flex items-center justify-center">
           <a
-            href="https://www.makeinindia.com/"
+            href="https://www.iso.org/home.html"
             target="_blank"
             rel="noopener noreferrer"
             className="group"
@@ -1837,7 +1836,7 @@ useEffect(() => {
         {/* Address on Left */}
         <div className="mb-4 text-sm text-center text-gray-700 md:text-left md:mb-0">
           <p>📍 Plot No-741, 2nd Floor, Jayadev Vihar, 751013</p>
-          <p>📍 Bhubaneswar, Odisha</p>
+          <p> Bhubaneswar, Odisha</p>
           <p>📞 Call: +91-89842 89279</p>
           <p>🏢 Silansoftware Private Limited</p>
         </div>
