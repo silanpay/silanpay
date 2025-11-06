@@ -288,17 +288,7 @@ useEffect(() => {
       <section ref={heroContainerRef} className="py-12 bg-white overflow-hidden">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           {/* Centered Badge */}
-          <div className="flex justify-center mb-8">
-            <div
-              className="inline-flex items-center px-4 py-2 text-sm font-medium rounded-full"
-              style={{ backgroundColor: "#e8f4fb", color: "#228DCE" }}
-            >
-              <span
-                className="w-2 h-2 mr-2 rounded-full"
-                style={{ backgroundColor: "#228DCE" }}
-              ></span>
-              Accelerate Your Business Success Smooth Onboarding
-            </div>
+          <div className="flex justify-center mb-12 ml-14">
           </div>
 
           <div
@@ -1402,7 +1392,7 @@ useEffect(() => {
       </section>
 
       {/* ===== FINAL CTA SECTION ===== */}
-      <section className="py-16" style={{ backgroundColor: "#228DCE" }}>
+      <section className="py-20" style={{ backgroundColor: "#228DCE" }}>
         <div className="px-4 mx-auto text-center max-w-7xl sm:px-6 lg:px-8">
           <h2 className="mb-4 text-3xl font-bold text-white">
             Elevate Your Business with SilanPay
@@ -1425,19 +1415,11 @@ useEffect(() => {
               )
             )}
           </div>
-
-          <Link
-            to="/register"
-            className="inline-flex items-center px-8 py-4 text-lg font-semibold text-white transition-colors duration-200 rounded-lg shadow-lg bg-slate-800 hover:bg-slate-900"
-          >
-            Get Started
-            <ArrowRight className="ml-2" size={20} />
-          </Link>
         </div>
       </section>
 
       {/* ===== CONTACT & SUPPORT SECTION ===== */}
-      <section className="py-16" style={{ backgroundColor: "#228DCE" }}>
+      <section className="py-1" style={{ backgroundColor: "#228DCE" }}>
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="mb-12 text-center">
             <h2 className="mb-4 text-3xl font-bold text-white">
@@ -1491,16 +1473,6 @@ useEffect(() => {
                 Instant Support
               </p>
             </div>
-          </div>
-
-          <div className="text-center">
-            <Link
-              to="/register"
-              className="inline-flex items-center px-8 py-4 text-lg font-semibold text-white transition-colors duration-200 rounded-lg shadow-lg bg-slate-800 hover:bg-slate-900"
-            >
-              Start Your Free Trial
-              <ArrowRight className="ml-2" size={20} />
-            </Link>
           </div>
         </div>
       </section>
