@@ -1836,8 +1836,7 @@ useEffect(() => {
       <div className="flex flex-col items-center justify-between md:flex-row">
         {/* Address on Left */}
         <div className="mb-4 text-sm text-center text-gray-700 md:text-left md:mb-0">
-          <p>📍 Plot No-741, 2nd Floor, Jayadev Vihar, 751013</p>
-          <p> Bhubaneswar, Odisha</p>
+          <p>📍 Plot No-741, 2nd Floor, Jayadev Vihar, Bhubaneswar, Odisha 751013</p>
           <p>📞 Call: +91-89842 89279</p>
           <p>🏢 Silansoftware Private Limited</p>
         </div>

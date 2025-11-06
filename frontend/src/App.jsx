@@ -32,11 +32,13 @@ import NotFoundPage from "./pages/NotFoundPage";
 // Components
 import ProtectedRoute from "./components/common/ProtectedRoute";
 import ErrorBoundary from "./components/common/ErrorBoundary";
+import ScrollToTop from "./components/common/ScrollToTop";
+import ScrollToTopOnRouteChange from "./components/common/ScrollToTopOnRouteChange"; // ✅ ADD THIS
 
 // Styles
 import "./styles/globals.css";
 
-// ✅ Create a QueryClient instance (fixed syntax)
+// ✅ Create a QueryClient instance
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -53,6 +55,9 @@ function App() {
         <QueryClientProvider client={queryClient}>
           <ThemeProvider>
             <Router>
+              {/* ✅ ADD THIS - Scrolls to top on route change */}
+              <ScrollToTopOnRouteChange />
+              
               <AuthProvider>
                 <PaymentProvider>
                   <div className="min-h-screen bg-gray-50 dark:bg-gray-900">
@@ -115,7 +120,10 @@ function App() {
                       <Route path="*" element={<NotFoundPage />} />
                     </Routes>
 
-                    {/* ✅ Toast Notifications (fixed syntax) */}
+                    {/* ✅ Scroll to Top Button */}
+                    <ScrollToTop />
+
+                    {/* ✅ Toast Notifications */}
                     <Toaster
                       position="top-right"
                       toastOptions={{

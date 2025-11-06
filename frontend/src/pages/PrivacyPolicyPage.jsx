@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Building2, Shield, Lock } from "lucide-react";
+import { Mail, Phone, MapPin, Building2, Shield, Lock,Globe } from "lucide-react";
 import Header from "../components/layout/Header";
 import ScrollToTop from "../components/common/ScrollToTop";
 
@@ -597,7 +597,7 @@ const PrivacyPolicyPage = () => {
                   </a>
                 </div>
                 <div className="flex items-center gap-3">
-                  <MapPin className="flex-shrink-0" size={20} style={{ color: "#228DCE" }} />
+                  <Globe className="flex-shrink-0" size={20} style={{ color: "#228DCE" }} />
                   <a
                     href="https://www.silanpay.com/"
                     target="_blank"
