@@ -910,27 +910,6 @@ useEffect(() => {
         </div>
       </section>
 
-      {/* ===== BOTTOM CTA AFTER SERVICES ===== */}
-      <section className="py-16 bg-white">
-        <div className="px-4 mx-auto text-center max-w-7xl sm:px-6 lg:px-8">
-          <p className="mb-6 text-xl text-gray-600">
-            Each service is tailored to your specific needs and objectives,
-            ensuring that we deliver solutions that are aligned with your goals
-            and drive meaningful results.
-          </p>
-          <Link
-            to="/register"
-            className="inline-flex items-center px-8 py-4 text-lg font-semibold text-white transition-all duration-300 rounded-full shadow-lg hover:shadow-xl hover:scale-105"
-            style={{ backgroundColor: "#228DCE" }}
-            onMouseEnter={(e) => (e.target.style.backgroundColor = "#1a6fa8")}
-            onMouseLeave={(e) => (e.target.style.backgroundColor = "#228DCE")}
-          >
-            Get Started Now
-            <ArrowRight className="ml-2" size={20} />
-          </Link>
-        </div>
-      </section>
-
       {/* ===== COMPREHENSIVE PAYMENT SOLUTIONS ===== */}
       <section className="py-16 bg-white">
         <div className="px-4 mx-auto text-center max-w-7xl sm:px-6 lg:px-8">
@@ -979,90 +958,7 @@ useEffect(() => {
         </div>
       </section>
 
-      {/* ===== CUSTOMER TESTIMONIALS ===== */}
-      <section className="py-20 bg-gray-50">
-        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div className="mb-16 text-center">
-            <h2 className="mb-6 text-4xl font-bold text-gray-900">
-              What Our Customers Say
-            </h2>
-            <p className="max-w-3xl mx-auto text-xl text-gray-600">
-              Join thousands of businesses that trust SilanPay for their
-              payment processing needs
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                name: "Rajesh Kumar",
-                company: "TechStart Solutions",
-                role: "CEO",
-                content:
-                  "SilanPay transformed our payment processing. The integration was seamless and the support team is exceptional. We've seen a 40% increase in successful transactions.",
-                rating: 5,
-                avatar: "RK",
-              },
-              {
-                name: "Priya Sharma",
-                company: "E-commerce Plus",
-                role: "Operations Head",
-                content:
-                  "The real-time analytics and instant settlements have been game-changers for our business. SilanPay's platform is incredibly reliable and user-friendly.",
-                rating: 5,
-                avatar: "PS",
-              },
-              {
-                name: "Amit Patel",
-                company: "Digital Services Co.",
-                role: "CTO",
-                content:
-                  "The API documentation is excellent and the webhook integration works flawlessly. We were up and running in just 2 days. Highly recommended!",
-                rating: 5,
-                avatar: "AP",
-              },
-            ].map((testimonial, index) => (
-              <div
-                key={index}
-                className="p-8 bg-white border border-gray-100 shadow-lg rounded-2xl"
-              >
-                <div className="flex items-center mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
-                    <span key={i} className="text-lg text-yellow-400">
-                      ★
-                    </span>
-                  ))}
-                </div>
-                <p className="mb-6 italic text-gray-600">
-                  "{testimonial.content}"
-                </p>
-                <div className="flex items-center">
-                  <div
-                    className="flex items-center justify-center w-12 h-12 mr-4 rounded-full"
-                    style={{ backgroundColor: "#e8f4fb" }}
-                  >
-                    <span
-                      className="font-semibold"
-                      style={{ color: "#228DCE" }}
-                    >
-                      {testimonial.avatar}
-                    </span>
-                  </div>
-                  <div>
-                    <div className="font-semibold text-gray-900">
-                      {testimonial.name}
-                    </div>
-                    <div className="text-sm text-gray-600">
-                      {testimonial.role}, {testimonial.company}
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
+      
       {/* ===== T+1 SETTLEMENT ===== */}
       <section className="py-16 bg-white">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
