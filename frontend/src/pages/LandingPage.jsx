@@ -232,62 +232,13 @@ useEffect(() => {
 }, [services.length]);
 
 
-  // Floating cards animation
-  useEffect(() => {
-    // Animate all floating cards with staggered animation
-    gsap.to(".floating-card-upi", {
-      y: -30,
-      duration: 3,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut",
-    });
-
-    gsap.to(".floating-card-card", {
-      y: -35,
-      duration: 4,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut",
-      delay: 0.5,
-    });
-
-    gsap.to(".floating-card-wallet", {
-      y: -25,
-      duration: 3.5,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut",
-      delay: 1,
-    });
-
-    gsap.to(".floating-card-qr", {
-      y: -30,
-      duration: 3.8,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut",
-      delay: 1.5,
-    });
-
-    gsap.to(".floating-card-success", {
-      y: -28,
-      duration: 3.3,
-      repeat: -1,
-      yoyo: true,
-      ease: "sine.inOut",
-      delay: 2,
-    });
-  }, []);
-
   return (
     <div className="min-h-screen bg-white font-outfit">
       <Header />
 
       {/* ===== HERO SECTION WITH 3D MOBILE ===== */}
-      <section ref={heroContainerRef} className="py-12 bg-white overflow-hidden">
+      <section className="py-12 bg-white overflow-hidden">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          {/* Centered Badge */}
           <div className="flex justify-center mb-12 ml-14">
           </div>
 
@@ -355,550 +306,384 @@ useEffect(() => {
               </div>
             </div>
 
-            {/* Right - Realistic 3D Mobile Phone with Animated Floating Cards */}
-            <div className="flex justify-center lg:justify-end relative w-full" style={{ minHeight: "600px", maxHeight: "700px" }}>
+ <div className="flex justify-center lg:justify-end">
+  <div className="relative w-full max-w-lg h-[500px] lg:h-[600px] flex items-center justify-center">
+    {/* Central Circle - RESPONSIVE */}
+    <div className="relative z-10 flex flex-col items-center justify-center w-40 h-40 lg:w-48 lg:h-48 rounded-full shadow-2xl" style={{ background: `linear-gradient(135deg, #228DCE 0%, #1a6fa8 100%)` }}>
+      <div className="text-center text-white">
+        <div className="mb-1 text-lg lg:text-2xl font-bold">SilanPay</div>
+        <div className="text-xs opacity-90">Payment Solutions</div>
+      </div>
+    </div>
+
+    {/* Orbital Rings Container */}
+    <div className="absolute inset-0 flex items-center justify-center">
+      {/* MOBILE: Ring 1 - Inner Ring */}
+      <div 
+        className="absolute border-2 rounded-full opacity-60"
+        style={{ 
+          borderColor: '#228DCE', 
+          borderStyle: 'dashed',
+          width: '200px',
+          height: '200px',
+          animation: 'spin-orbit 20s linear infinite',
+          display: 'block',
+          '@media (min-width: 1024px)': {
+            display: 'none'
+          }
+        }}
+      />
+
+      {/* MOBILE: Ring 2 - Outer Ring */}
+      <div 
+        className="absolute border-2 rounded-full opacity-40"
+        style={{ 
+          borderColor: '#228DCE', 
+          borderStyle: 'dashed',
+          width: '300px',
+          height: '300px',
+          animation: 'spin-orbit-reverse 30s linear infinite',
+          display: 'block',
+          '@media (min-width: 1024px)': {
+            display: 'none'
+          }
+        }}
+      />
+
+      {/* DESKTOP: Ring 1 - Inner Ring - ALWAYS SHOW */}
+      <div 
+        style={{ 
+          position: 'absolute',
+          borderColor: '#228DCE', 
+          borderStyle: 'dashed',
+          borderWidth: '3px',
+          borderRadius: '50%',
+          width: '300px',
+          height: '300px',
+          opacity: 0.6,
+          animation: 'spin-orbit 20s linear infinite'
+        }}
+      />
+
+      {/* DESKTOP: Ring 2 - Outer Ring - ALWAYS SHOW */}
+      <div 
+        style={{ 
+          position: 'absolute',
+          borderColor: '#228DCE', 
+          borderStyle: 'dashed',
+          borderWidth: '3px',
+          borderRadius: '50%',
+          width: '420px',
+          height: '420px',
+          opacity: 0.4,
+          animation: 'spin-orbit-reverse 30s linear infinite'
+        }}
+      />
+    </div>
+
+    {/* Floating Icons with Orbital Animation */}
+    {/* UPI Icon */}
+    <div className="absolute animate-orbit-1 scale-75 lg:scale-100 origin-center">
+      <div className="flex items-center px-3 lg:px-4 py-2 space-x-2 bg-white rounded-full shadow-lg">
+        <Smartphone className="w-4 lg:w-5 h-4 lg:h-5" style={{ color: '#228DCE' }} />
+        <span className="text-xs lg:text-sm font-semibold text-gray-700">UPI</span>
+      </div>
+    </div>
+
+    {/* QR Code Icon */}
+    <div className="absolute animate-orbit-2 scale-75 lg:scale-100 origin-center">
+      <div className="flex items-center justify-center w-10 lg:w-12 h-10 lg:h-12 bg-white rounded-full shadow-lg">
+        <QrCode className="w-5 lg:w-6 h-5 lg:h-6 text-purple-600" />
+      </div>
+    </div>
+
+    {/* Payment Link Icon */}
+    <div className="absolute animate-orbit-3 scale-75 lg:scale-100 origin-center">
+      <div className="flex items-center px-3 lg:px-4 py-2 space-x-2 bg-white rounded-full shadow-lg">
+        <LinkIcon className="w-4 lg:w-5 h-4 lg:h-5 text-green-600" />
+        <span className="text-xs lg:text-sm font-semibold text-gray-700">Payment Links</span>
+      </div>
+    </div>
+
+    {/* API Icon */}
+    <div className="absolute animate-orbit-4 scale-75 lg:scale-100 origin-center">
+      <div className="flex items-center justify-center w-10 lg:w-12 h-10 lg:h-12 bg-white rounded-full shadow-lg">
+        <Code className="w-5 lg:w-6 h-5 lg:h-6 text-orange-600" />
+      </div>
+    </div>
+
+    {/* Cards Icon */}
+    <div className="absolute animate-orbit-5 scale-75 lg:scale-100 origin-center">
+      <div className="flex items-center px-3 lg:px-4 py-2 space-x-2 bg-white rounded-full shadow-lg">
+        <CreditCard className="w-4 lg:w-5 h-4 lg:h-5" style={{ color: '#228DCE' }} />
+        <span className="text-xs lg:text-sm font-semibold text-gray-700">Cards</span>
+      </div>
+    </div>
+
+    {/* Wallet Icon */}
+    <div className="absolute animate-orbit-6 scale-75 lg:scale-100 origin-center">
+      <div className="flex items-center justify-center w-10 lg:w-12 h-10 lg:h-12 bg-white rounded-full shadow-lg">
+        <WalletIcon className="w-5 lg:w-6 h-5 lg:h-6 text-indigo-600" />
+      </div>
+    </div>
+
+    {/* Floating Decorative Elements */}
+    <div className="absolute w-2 lg:w-3 h-2 lg:h-3 rounded-full top-10 left-10 animate-float-1" style={{ backgroundColor: '#228DCE', opacity: 0.6 }}></div>
+    <div className="absolute w-1.5 lg:w-2 h-1.5 lg:h-2 bg-purple-400 rounded-full top-20 right-16 animate-float-2"></div>
+    <div className="absolute w-2 lg:w-3 h-2 lg:h-3 bg-green-400 rounded-full bottom-16 left-20 animate-float-3"></div>
+    <div className="absolute w-1.5 lg:w-2 h-1.5 lg:h-2 bg-orange-400 rounded-full bottom-20 right-12 animate-float-1"></div>
+  </div>
+</div>
+
+          </div>
+        </div>
+      </section>
+
+      
+{/* ===== OUR SERVICES - STICKY SCROLL ANIMATION (DESKTOP) / PLAIN LIST (MOBILE) ===== */}
+<section
+  ref={containerRef}
+  className="relative bg-gradient-to-b from-white to-gray-50"
+>
+  {/* ===== DESKTOP VIEW - With Sticky Effects ===== */}
+  <div
+    className="hidden lg:block"
+    style={{ height: `${services.length * 30}vh` }}
+  >
+    {/* Header Section - Desktop */}
+<div className="relative z-10 bg-gradient-to-b from-white to-transparent pt-12 pb-0 px-4 sm:px-6 lg:px-8">
+      <div className="mx-auto max-w-7xl text-center">
+        <div
+          className="inline-block px-6 py-2 mb-4 text-sm font-semibold rounded-full"
+          style={{ backgroundColor: "#e8f4fb", color: "#228DCE" }}
+        >
+          Comprehensive business solutions
+        </div>
+        <h2 className="mb-3 text-4xl font-bold text-gray-900">
+          Empowering your business with{" "}
+          <span
+            className="text-transparent bg-clip-text"
+            style={{
+              backgroundImage: "linear-gradient(to right, #228DCE, #228DCE)",
+            }}
+          >
+            SilanPay
+          </span>
+        </h2>
+        <p className="max-w-2xl mx-auto text-base text-gray-600">
+          Scroll to explore our comprehensive services
+        </p>
+      </div>
+    </div>
+
+    {/* Sticky Container - Desktop Only */}
+    <div className="sticky top-0 flex items-center justify-center h-screen overflow-hidden">
+      <div className="w-full px-4 py-10 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        {/* Cards Stack */}
+        <div
+          className="relative flex items-center justify-center w-full max-w-6xl mx-auto"
+          style={{ minHeight: "65vh" }}
+        >
+          {services.map((service, index) => {
+            const IconComponent = service.icon;
+            const isActive = index === activeCardIndex;
+            const isPast = index < activeCardIndex;
+
+            const translateY = isPast
+              ? -120
+              : isActive
+              ? 0
+              : (index - activeCardIndex) * 20;
+            const scale = isActive
+              ? 1
+              : 0.95 - (index - activeCardIndex) * 0.02;
+            const opacity = isPast
+              ? 0
+              : isActive
+              ? 1
+              : Math.max(0.3, 1 - (index - activeCardIndex) * 0.2);
+            const zIndex = services.length - Math.abs(index - activeCardIndex);
+
+            return (
               <div
-                ref={phoneRef}
+                key={index}
+                className="absolute inset-0 flex items-center justify-center w-full transition-all duration-500 ease-out"
                 style={{
-                  transformStyle: "preserve-3d",
-                  perspective: "1500px",
-                  transform: "translateZ(0)",
+                  transform: `translateY(${translateY}%) scale(${scale})`,
+                  opacity: opacity,
+                  zIndex: zIndex,
+                  pointerEvents: isActive ? "auto" : "none",
                 }}
-                className="relative z-10"
               >
-                {/* === REALISTIC MOBILE PHONE START === */}
-                <div
-                  className="relative"
-                  style={{
-                    width: "260px",
-                    height: "520px",
-                    borderRadius: "2.5rem",
-                    background:
-                      "linear-gradient(120deg, #212439 70%, #228DCE 120%)",
-                    boxShadow:
-                      "0 20px 40px 0 rgba(34,141,206,0.20), 0 0 0 7px #f4f8fb inset, 0 2px 32px 0 #21243980",
-                    border: "3px solid #e8f4fb",
-                    zIndex: 1,
-                  }}
-                >
-                  {/* Glass reflection */}
+                <div className="relative w-full max-w-5xl overflow-hidden bg-white border-2 border-gray-100 shadow-2xl rounded-3xl">
                   <div
-                    className="absolute left-0 top-0 z-20"
-                    style={{
-                      width: "100%",
-                      height: "40%",
-                      background:
-                        "linear-gradient(110deg,rgba(255,255,255,0.06) 60%, rgba(255,255,255,0.15) 100%)",
-                    }}
+                    className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-5 rounded-3xl`}
                   ></div>
 
-                  {/* Realistic notch */}
-                  <div
-                    className="absolute left-1/2 z-30"
-                    style={{
-                      top: "12px",
-                      transform: "translateX(-50%)",
-                      width: "65px",
-                      height: "16px",
-                      background: "#23273D",
-                      borderRadius: "0 0 18px 18px",
-                      boxShadow: "0 2px 5px #21243955",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      gap: 3,
-                    }}
-                  >
-                    {/* Speaker */}
-                    <div
-                      style={{
-                        width: "32px",
-                        height: "3px",
-                        backgroundColor: "#828999",
-                        borderRadius: "2px",
-                      }}
-                    ></div>
-                    {/* Camera */}
-                    <div
-                      style={{
-                        width: "6px",
-                        height: "6px",
-                        background: "#474e60",
-                        borderRadius: "50%",
-                        marginLeft: "8px",
-                        border: "2px solid #222834",
-                      }}
-                    ></div>
-                  </div>
-
-                  {/* Screen */}
-                  <div
-                    className="relative"
-                    style={{
-                      position: "absolute",
-                      left: 0,
-                      right: 0,
-                      top: "34px",
-                      bottom: "30px",
-                      background:
-                        "linear-gradient(180deg,#f9fafc 40%,#e5f0f9 100%,#fff 120%)",
-                      borderRadius: "1.8rem",
-                      margin: "0 8px",
-                      overflow: "hidden",
-                      boxShadow: "0 1px 1.5px #cbe3f7 inset",
-                      zIndex: 5,
-                    }}
-                  >
-                    {/* Status bar */}
-                    <div
-                      className="flex items-center justify-between px-3 pt-1 pb-1 text-xs font-medium"
-                      style={{
-                        color: "#3e4a68",
-                        letterSpacing: "0.02em",
-                        fontWeight: 600,
-                      }}
-                    >
-                      <span className="text-[10px]">9:41</span>
-                      <div className="flex items-center gap-0.5">
+                  <div className="relative p-12">
+                    <div className="flex items-start mb-6 space-x-6">
+                      <div
+                        className={`flex items-center justify-center flex-shrink-0 w-20 h-20 rounded-2xl bg-gradient-to-br ${service.color} shadow-lg`}
+                      >
+                        <IconComponent className="w-10 h-10 text-white" />
+                      </div>
+                      <div className="flex-1">
+                        <h3 className="mb-2 text-4xl font-bold text-gray-900">
+                          {service.title}
+                        </h3>
+                        <p className="text-lg font-medium text-gray-500">
+                          {service.subtitle}
+                        </p>
+                      </div>
+                      <div className="flex flex-col items-center flex-shrink-0 space-y-2">
                         <div
-                          style={{
-                            width: "16px",
-                            height: "6px",
-                            border: "1px solid #5c708a",
-                            borderRadius: "1px",
-                            position: "relative",
-                            marginRight: "1px",
-                          }}
+                          className="flex items-center justify-center w-10 h-10 rounded-full"
+                          style={{ backgroundColor: "#228DCE" }}
                         >
-                          <div
-                            style={{
-                              position: "absolute",
-                              right: 0,
-                              top: 0,
-                              width: "6px",
-                              height: "100%",
-                              background: "#5c708a",
-                              borderRadius: "0 1px 1px 0",
-                            }}
-                          ></div>
+                          <div className="w-3 h-3 bg-white rounded-full"></div>
                         </div>
-                        <span style={{ color: "#10b981", fontWeight: 700, fontSize: "8px" }}>
-                          ● ● ●
+                        <span className="text-sm font-semibold text-gray-400">
+                          {index + 1} / {services.length}
                         </span>
                       </div>
                     </div>
 
-                    {/* Inside the screen content */}
-                    <div className="px-3 pt-1.5 pb-2 w-full flex flex-col gap-1.5">
-                      <div className="text-center py-0.5">
-                        <h1 className="text-lg font-bold tracking-wide">
-                          <span style={{ color: "#212439" }}>Silan</span>
-                          <span style={{ color: "#228DCE" }}>Pay</span>
-                        </h1>
-                        <p className="text-[9px] text-blue-800 font-medium opacity-80 mt-0.5">
-                          Digital Payment
-                        </p>
-                      </div>
+                    <p className="mb-8 text-lg leading-relaxed text-gray-600">
+                      {service.description}
+                    </p>
 
-                      {/* Main feature */}
-                      <div
-                        style={{
-                          background:
-                            "linear-gradient(90deg,#fff 80%,#e8f4fb 120%)",
-                          border: "1px solid #228DCE",
-                        }}
-                        className="rounded-lg py-2 px-1.5 mb-0.5 shadow-sm"
-                      >
-                        <div className="mb-1 text-lg">📱</div>
-                        <h2 className="font-bold text-gray-900 text-[12px] mb-0.5">
-                          Scan & Pay
-                        </h2>
-                        <p className="text-[10px] text-gray-600">
-                          Instant QR
-                        </p>
-                      </div>
-
-                      {/* QR Code */}
-                      <div
-                        className="bg-white border border-blue-100 rounded-lg px-2 py-2 mx-auto shadow-inner"
-                        style={{ width: "fit-content" }}
-                      >
-                        <svg width="50" height="50" viewBox="0 0 120 120">
-                          <rect width="120" height="120" fill="white" rx="8" />
-                          <rect width="30" height="30" fill="#212439" />
-                          <rect x="3" y="3" width="24" height="24" fill="white" />
-                          <rect x="6" y="6" width="18" height="18" fill="#228DCE" />
-                          <rect x="90" width="30" height="30" fill="#212439" />
-                          <rect x="93" y="3" width="24" height="24" fill="white" />
-                          <rect x="96" y="6" width="18" height="18" fill="#228DCE" />
-                          <rect y="90" width="30" height="30" fill="#212439" />
-                          <rect x="3" y="93" width="24" height="24" fill="white" />
-                          <rect x="6" y="96" width="18" height="18" fill="#228DCE" />
-                          {[...Array(18)].map((_, i) => (
-                            <rect
-                              key={i}
-                              x={35 + (i % 4) * 12}
-                              y={35 + Math.floor(i / 4) * 12}
-                              width="7"
-                              height="7"
-                              fill={i % 3 === 0 ? "#228DCE" : "#212439"}
-                            />
-                          ))}
-                        </svg>
-                      </div>
-
-                      {/* Feature icons */}
-                      <div className="flex justify-between mt-1 gap-1">
-                        <div className="flex flex-col items-center">
-                          <div className="rounded-full bg-blue-50 shadow p-1">
-                            <CreditCard size={12} color="#228DCE" />
-                          </div>
-                          <span className="text-[8px] text-blue-800 font-semibold mt-0.5">
-                            Card
-                          </span>
-                        </div>
-                        <div className="flex flex-col items-center">
-                          <div className="rounded-full bg-green-50 shadow p-1">
-                            <Smartphone size={12} color="#10b981" />
-                          </div>
-                          <span className="text-[8px] text-green-700 font-semibold mt-0.5">
-                            UPI
-                          </span>
-                        </div>
-                        <div className="flex flex-col items-center">
-                          <div className="rounded-full bg-yellow-50 shadow p-1">
-                            <WalletIcon size={12} color="#f59e0b" />
-                          </div>
-                          <span className="text-[8px] text-yellow-700 font-semibold mt-0.5">
-                            Wallet
-                          </span>
-                        </div>
-                        <div className="flex flex-col items-center">
-                          <div className="rounded-full bg-purple-50 shadow p-1">
-                            <QrCode size={12} color="#8b5cf6" />
-                          </div>
-                          <span className="text-[8px] text-purple-700 font-semibold mt-0.5">
-                            QR
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Bottom Home Bar */}
-                  <div
-                    className="absolute left-1/2 z-30"
-                    style={{
-                      bottom: "10px",
-                      transform: "translateX(-50%)",
-                    }}
-                  >
-                    <div
-                      style={{
-                        width: "55px",
-                        height: "5px",
-                        borderRadius: "5px",
-                        background:
-                          "linear-gradient(90deg,#e8f4fb 0%,#228DCE 100%)",
-                        boxShadow: "0 2px 5px #228DCE44",
-                        opacity: 0.8,
-                      }}
-                    />
-                  </div>
-
-                  {/* Subtle shadow backdrop */}
-                  <div
-                    className="absolute left-1/2"
-                    style={{
-                      width: "70%",
-                      bottom: "-30px",
-                      height: "35px",
-                      background:
-                        "radial-gradient(ellipse at center,#228DCE30 65%, transparent 80%)",
-                      filter: "blur(7px)",
-                      transform: "translateX(-50%)",
-                      zIndex: 1,
-                    }}
-                  ></div>
-                </div>
-                {/* === REALISTIC MOBILE PHONE END === */}
-
-                {/* ===== ANIMATED FLOATING FINTECH CARDS (OPTIMIZED SIZE & POSITION - AWAY FROM MOBILE) ===== */}
-
-                {/* UPI Payment Card - TOP RIGHT */}
-                <div
-                  className="floating-card-upi absolute -right-32 top-4 lg:top-8 bg-white rounded-xl p-2.5 shadow-lg border border-gray-100"
-                  style={{
-                    width: "130px",
-                  }}
-                >
-                  <div className="flex items-center gap-2 mb-1">
-                    <div
-                      className="flex items-center justify-center w-8 h-8 rounded-lg"
-                      style={{ backgroundColor: "#228DCE" }}
-                    >
-                      <Smartphone size={16} className="text-white" />
-                    </div>
-                    <div>
-                      <p className="text-xs font-bold text-gray-900">UPI</p>
-                      <p className="text-[10px] text-gray-600">Live</p>
-                    </div>
-                  </div>
-                  <p className="text-sm font-bold text-gray-900">₹4,580</p>
-                </div>
-
-                {/* Card Payment Card - LEFT (AWAY FROM MOBILE) */}
-                <div
-                  className="floating-card-card absolute -left-28 top-24 lg:top-32 bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-2.5 shadow-lg border border-green-200"
-                  style={{
-                    width: "120px",
-                  }}
-                >
-                  <div className="flex items-center gap-2 mb-1">
-                    <div
-                      className="flex items-center justify-center w-8 h-8 rounded-lg bg-green-500"
-                    >
-                      <CreditCard size={16} className="text-white" />
-                    </div>
-                    <div>
-                      <p className="text-xs font-bold text-gray-900">Card</p>
-                      <p className="text-[10px] text-gray-600">Active</p>
-                    </div>
-                  </div>
-                  <p className="text-sm font-bold text-gray-900">₹926.67</p>
-                </div>
-
-                {/* Wallet Card - TOP CENTER */}
-                <div
-                  className="floating-card-wallet absolute -top-10 left-1/2 transform -translate-x-1/2 bg-gradient-to-br from-purple-50 to-indigo-50 rounded-xl px-3 py-2 shadow-lg border border-purple-200"
-                  style={{
-                    width: "fit-content",
-                    whiteSpace: "nowrap",
-                  }}
-                >
-                  <div className="flex items-center gap-2">
-                    <div
-                      className="flex items-center justify-center w-8 h-8 rounded-lg bg-purple-500"
-                    >
-                      <WalletIcon size={16} className="text-white" />
-                    </div>
-                    <div>
-                      <p className="text-xs font-bold text-gray-900">Wallet</p>
-                      <p className="text-[9px] text-gray-600">₹12.4k</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* QR Code Card - RIGHT BOTTOM (AWAY FROM MOBILE) */}
-                <div
-                  className="floating-card-qr absolute -right-32 bottom-16 lg:bottom-20 bg-gradient-to-br from-orange-50 to-amber-50 rounded-xl p-2.5 shadow-lg border border-orange-200"
-                  style={{
-                    width: "120px",
-                  }}
-                >
-                  <div className="flex items-center gap-2 mb-1">
-                    <div
-                      className="flex items-center justify-center w-8 h-8 rounded-lg bg-orange-500"
-                    >
-                      <QrCode size={16} className="text-white" />
-                    </div>
-                    <div>
-                      <p className="text-xs font-bold text-gray-900">QR Pay</p>
-                      <p className="text-[10px] text-gray-600">Scanned</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Transaction Success Card - LEFT BOTTOM (AWAY FROM MOBILE) */}
-                <div
-                  className="floating-card-success absolute -left-28 bottom-24 lg:bottom-32 bg-white rounded-xl px-2.5 py-2 shadow-lg border-2"
-                  style={{
-                    borderColor: "#10b981",
-                    width: "fit-content",
-                  }}
-                >
-                  <div className="flex items-center gap-1.5">
-                    <CheckCircle size={16} style={{ color: "#10b981" }} />
-                    <p className="text-xs font-bold text-gray-900">Success</p>
-                  </div>
-                  <p className="text-[8px] text-gray-600 mt-0.5">Confirmed</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ===== OUR SERVICES - STICKY SCROLL ANIMATION ===== */}
-      <section
-        ref={containerRef}
-        className="relative bg-gradient-to-b from-white to-gray-50"
-        style={{ height: `${services.length * 50}vh` }}
-      >
-        <div className="sticky top-0 flex items-center justify-center h-screen overflow-hidden">
-          <div className="w-full px-4 py-12 mx-auto max-w-7xl sm:px-6 lg:px-8">
-            {/* Section Header */}
-            <div className="mb-0 text-center">
-              <div
-                className="inline-block px-6 py-2 mb-3 text-sm font-semibold rounded-full"
-                style={{ backgroundColor: "#e8f4fb", color: "#228DCE" }}
-              >
-                Comprehensive business solutions
-              </div>
-              <h2 className="mb-3 text-3xl font-bold text-gray-900 lg:text-4xl">
-                Empowering your business with{" "}
-                <span
-                  className="text-transparent bg-clip-text"
-                  style={{
-                    backgroundImage: "linear-gradient(to right, #228DCE, #228DCE)",
-                  }}
-                >
-                  SilanPay
-                </span>
-              </h2>
-              <p className="max-w-2xl mx-auto text-base text-gray-600">
-                Scroll to explore our comprehensive services
-              </p>
-            </div>
-
-            {/* Cards Stack */}
-            <div
-              className="relative flex items-center justify-center w-full max-w-6xl mx-auto"
-              style={{ minHeight: "70vh" }}
-            >
-              {services.map((service, index) => {
-                const IconComponent = service.icon;
-                const isActive = index === activeCardIndex;
-                const isPast = index < activeCardIndex;
-
-                const translateY = isPast
-                  ? -120
-                  : isActive
-                  ? 0
-                  : (index - activeCardIndex) * 20;
-                const scale = isActive
-                  ? 1
-                  : 0.95 - (index - activeCardIndex) * 0.02;
-                const opacity = isPast
-                  ? 0
-                  : isActive
-                  ? 1
-                  : Math.max(0.3, 1 - (index - activeCardIndex) * 0.2);
-                const zIndex = services.length - Math.abs(index - activeCardIndex);
-
-                return (
-                  <div
-                    key={index}
-                    className="absolute inset-0 flex items-center justify-center w-full transition-all duration-500 ease-out"
-                    style={{
-                      transform: `translateY(${translateY}%) scale(${scale})`,
-                      opacity: opacity,
-                      zIndex: zIndex,
-                      pointerEvents: isActive ? "auto" : "none",
-                    }}
-                  >
-                    <div className="relative w-full max-w-5xl overflow-hidden bg-white border-2 border-gray-100 shadow-2xl rounded-3xl">
-                      <div
-                        className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-5 rounded-3xl`}
-                      ></div>
-
-                      <div className="relative p-8 md:p-12">
-                        <div className="flex items-start mb-6 space-x-6">
-                          <div
-                            className={`flex items-center justify-center flex-shrink-0 w-20 h-20 rounded-2xl bg-gradient-to-br ${service.color} shadow-lg`}
-                          >
-                            <IconComponent className="w-10 h-10 text-white" />
-                          </div>
-                          <div className="flex-1">
-                            <h3 className="mb-2 text-3xl font-bold text-gray-900 md:text-4xl">
-                              {service.title}
-                            </h3>
-                            <p className="text-base font-medium text-gray-500 md:text-lg">
-                              {service.subtitle}
-                            </p>
-                          </div>
-                          <div className="flex flex-col items-center flex-shrink-0 space-y-2">
-                            <div
-                              className="flex items-center justify-center w-10 h-10 rounded-full"
-                              style={{ backgroundColor: "#228DCE" }}
-                            >
-                              <div className="w-3 h-3 bg-white rounded-full"></div>
-                            </div>
-                            <span className="text-sm font-semibold text-gray-400">
-                              {index + 1} / {services.length}
-                            </span>
-                          </div>
-                        </div>
-
-                        <p className="mb-8 text-lg leading-relaxed text-gray-600">
-                          {service.description}
-                        </p>
-
-                        <div className="grid grid-cols-1 gap-4 mb-6 md:grid-cols-2 lg:grid-cols-3">
-                          {service.features.map((feature, featureIndex) => (
-                            <div
-                              key={featureIndex}
-                              className="flex items-start p-4 space-x-3 transition-colors rounded-xl bg-gray-50"
-                              onMouseEnter={(e) =>
-                                (e.currentTarget.style.backgroundColor =
-                                  "#e8f4fb")
-                              }
-                              onMouseLeave={(e) =>
-                                (e.currentTarget.style.backgroundColor =
-                                  "#f9fafb")
-                              }
-                            >
-                              <CheckCircle
-                                className="flex-shrink-0 mt-1"
-                                size={20}
-                                style={{ color: "#228DCE" }}
-                              />
-                              <span className="text-sm font-medium leading-snug text-gray-900">
-                                {feature}
-                              </span>
-                            </div>
-                          ))}
-                        </div>
-
-                        <div className="flex items-center justify-between pt-6 border-t border-gray-200">
-                          <div className="text-sm text-gray-500">
-                            {isActive && activeCardIndex < services.length - 1
-                              ? "Scroll down to see next service"
-                              : isActive &&
-                                activeCardIndex === services.length - 1
-                              ? "Last service - scroll to continue"
-                              : ""}
-                          </div>
-                          <ArrowRight
-                            className="w-6 h-6"
+                    <div className="grid grid-cols-1 gap-4 mb-6 md:grid-cols-2 lg:grid-cols-3">
+                      {service.features.map((feature, featureIndex) => (
+                        <div
+                          key={featureIndex}
+                          className="flex items-start p-4 space-x-3 transition-colors rounded-xl bg-gray-50"
+                          onMouseEnter={(e) =>
+                            (e.currentTarget.style.backgroundColor = "#e8f4fb")
+                          }
+                          onMouseLeave={(e) =>
+                            (e.currentTarget.style.backgroundColor = "#f9fafb")
+                          }
+                        >
+                          <CheckCircle
+                            className="flex-shrink-0 mt-1"
+                            size={20}
                             style={{ color: "#228DCE" }}
                           />
+                          <span className="text-sm font-medium leading-snug text-gray-900">
+                            {feature}
+                          </span>
                         </div>
+                      ))}
+                    </div>
+
+                    <div className="flex items-center justify-between pt-6 border-t border-gray-200">
+                      <div className="text-sm text-gray-500">
+                        {isActive && activeCardIndex < services.length - 1
+                          ? "Scroll down to see next service"
+                          : isActive &&
+                            activeCardIndex === services.length - 1
+                          ? "Last service - scroll to continue"
+                          : ""}
                       </div>
+                      <ArrowRight
+                        className="w-6 h-6"
+                        style={{ color: "#228DCE" }}
+                      />
                     </div>
                   </div>
-                );
-              })}
-            </div>
-
-            {/* <div className="flex justify-center mt-6 space-x-3">
-              {services.map((_, index) => (
-                <div
-                  key={index}
-                  className={`h-2 rounded-full transition-all duration-300 ${
-                    activeCardIndex === index ? "w-8" : "w-2 bg-gray-300"
-                  }`}
-                  style={
-                    activeCardIndex === index
-                      ? { backgroundColor: "#228DCE" }
-                      : {}
-                  }
-                />
-              ))}
-            </div> */}
-          </div>
+                </div>
+              </div>
+            );
+          })}
         </div>
-      </section>
+      </div>
+    </div>
+  </div>
+
+  {/* ===== MOBILE & TABLET VIEW - Plain Vertical List (No Sticky) ===== */}
+  <div className="lg:hidden">
+    {/* Header Section - Mobile */}
+    <div className="relative z-10 bg-gradient-to-b from-white to-transparent pt-10 pb-6 px-4 sm:px-6">
+      <div className="mx-auto max-w-4xl text-center">
+        <div
+          className="inline-block px-4 md:px-6 py-2 mb-3 md:mb-4 text-xs md:text-sm font-semibold rounded-full"
+          style={{ backgroundColor: "#e8f4fb", color: "#228DCE" }}
+        >
+          Comprehensive business solutions
+        </div>
+        <h2 className="mb-2 md:mb-3 text-2xl md:text-3xl font-bold text-gray-900">
+          Empowering your business with{" "}
+          <span
+            className="text-transparent bg-clip-text"
+            style={{
+              backgroundImage: "linear-gradient(to right, #228DCE, #228DCE)",
+            }}
+          >
+            SilanPay
+          </span>
+        </h2>
+      </div>
+    </div>
+
+    {/* Plain Vertical List - Mobile & Tablet */}
+    <div className="py-8 md:py-12 px-4 sm:px-6">
+      <div className="mx-auto max-w-7xl">
+        <div className="flex flex-col gap-4 md:gap-6">
+          {services.map((service, index) => {
+            const IconComponent = service.icon;
+            return (
+              <div
+                key={index}
+                className="relative w-full overflow-hidden bg-white border border-gray-100 shadow rounded-2xl p-4 md:p-6"
+              >
+                <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
+                  <div
+                    className={`flex items-center justify-center flex-shrink-0 w-12 md:w-14 h-12 md:h-14 rounded-lg bg-gradient-to-br ${service.color}`}
+                  >
+                    <IconComponent className="w-6 md:w-7 h-6 md:h-7 text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg md:text-xl font-bold text-gray-900">
+                      {service.title}
+                    </h3>
+                    <p className="text-xs md:text-sm font-medium text-gray-500">
+                      {service.subtitle}
+                    </p>
+                  </div>
+                </div>
+
+                <p className="text-xs md:text-sm leading-relaxed text-gray-600 mb-3 md:mb-4">
+                  {service.description}
+                </p>
+
+                <div className="flex gap-2 flex-wrap">
+                  {service.features.slice(0, 3).map((feature, idx) => (
+                    <div
+                      key={idx}
+                      className="text-[10px] md:text-xs font-semibold px-2 md:px-2.5 py-1 rounded-full"
+                      style={{
+                        backgroundColor: "#e8f4fb",
+                        color: "#228DCE",
+                      }}
+                    >
+                      {feature.split(" ")[0]}
+                    </div>
+                  ))}
+                </div>
+
+                {/* Card number - Desktop info for reference */}
+                <div className="mt-3 text-xs text-gray-400">
+                  Service {index + 1} of {services.length}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 
       {/* ===== COMPREHENSIVE PAYMENT SOLUTIONS ===== */}
       <section className="py-16 bg-white">
@@ -907,7 +692,7 @@ useEffect(() => {
             Comprehensive Payment Solutions
           </h2>
           <p className="mb-12 text-lg text-gray-600">
-            Accept payments through 100+ methods including QR codes, UPI, cards,
+            Accept payments through 10+ methods including QR codes, UPI, cards,
             wallets, and more.
           </p>
 
@@ -955,7 +740,7 @@ useEffect(() => {
           <div className="grid items-center grid-cols-1 gap-12 lg:grid-cols-2">
             <div>
               <h2 className="mb-6 text-3xl font-bold text-gray-900">
-                T+1 Settlement
+                T+0 & T+1 Settlement
               </h2>
               <p className="mb-6 text-lg text-gray-600">
                 Get your money faster with our T+1 settlement feature. Funds are
@@ -963,7 +748,7 @@ useEffect(() => {
               </p>
               <div className="space-y-4">
                 {[
-                  "T+1 settlement for QR code payments",
+                  "T+0 &T+1 settlement for QR code payments",
                   "Next business day processing for all transactions",
                   "Fast fund availability within 24 hours",
                   "Automated reconciliation",
@@ -990,7 +775,7 @@ useEffect(() => {
                   className="mb-2 text-4xl font-bold"
                   style={{ color: "#228DCE" }}
                 >
-                  T+1
+                  T+0 & T+1
                 </div>
                 <div className="mb-4 text-lg text-gray-600">
                   Settlement Time
@@ -1174,20 +959,14 @@ useEffect(() => {
       </section>
 
       {/* ===== OUR PRODUCTS ===== */}
-      <section className="py-16 bg-gray-50">
+      {/* <section className="py-16 bg-gray-50">
         <div className="px-4 mx-auto text-center max-w-7xl sm:px-6 lg:px-8">
-          <div
-            className="inline-block px-6 py-2 mb-6 text-white rounded-lg"
-            style={{ backgroundColor: "#228DCE" }}
-          >
-            <span className="font-semibold">Our Products</span>
-          </div>
           <h2 className="mb-4 text-3xl font-bold text-gray-900">
             Innovative solutions designed to streamline your business operations
             and enhance customer experience.
           </h2>
         </div>
-      </section>
+      </section> */}
 
       {/* ===== UNLOCK BUSINESS GROWTH ===== */}
       <section className="py-16 bg-gray-50">
