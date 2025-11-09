@@ -32,6 +32,9 @@ import {
   ShoppingCart,
   QrCode,
   Wallet as WalletIcon,
+  Clock,
+  CalendarDays,
+  Activity,
 } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -39,6 +42,8 @@ import Header from "../components/layout/Header";
 import AboutUs from "../components/AboutUs";
 import ScrollToTop from "../components/common/ScrollToTop";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+
+
 
 
 gsap.registerPlugin(ScrollTrigger);
@@ -49,6 +54,126 @@ const LandingPage = () => {
   const containerRef = useRef(null);
   const phoneRef = useRef(null);
   const heroContainerRef = useRef(null);
+  const paymentsRef = useRef(null);
+  const trackRef = useRef(null);
+  const autoTweenRef = useRef(null);
+  const resumeTimeoutRef = useRef(null);
+  const settlementCardRef = useRef(null);
+  const settlementContentRef = useRef(null);
+  // Unlock Business Growth section refs
+  const unlockSectionRef = useRef(null);
+  const unlockCardsRef = useRef(null);
+
+  // GSAP Settlement Section Animation
+  useEffect(() => {
+    const card = settlementCardRef.current;
+    const content = settlementContentRef.current;
+    if (!card || !content) return;
+
+    // Create a timeline for the settlement card
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: card,
+        start: "top center",
+        end: "bottom center",
+        scrub: 1,
+      }
+    });
+
+    // Animate the card
+    tl.fromTo(card, 
+      { 
+        y: 100,
+        opacity: 0,
+        rotate: 15,
+        scale: 0.8
+      },
+      { 
+        y: 0,
+        opacity: 1,
+        rotate: 0,
+        scale: 1,
+        duration: 1.5,
+        ease: "power3.out"
+      }
+    );
+
+    // Create a timeline for the content
+    const contentTl = gsap.timeline({
+      scrollTrigger: {
+        trigger: content,
+        start: "top center+=100",
+        end: "center center",
+        scrub: 1,
+      }
+    });
+
+    // Animate the content elements
+    contentTl.fromTo(content.querySelectorAll('.feature-card'),
+      {
+        y: 50,
+        opacity: 0,
+        stagger: 0.2
+      },
+      {
+        y: 0,
+        opacity: 1,
+        stagger: 0.2,
+        duration: 1,
+        ease: "power2.out"
+      }
+    );
+
+    return () => {
+      tl.kill();
+      contentTl.kill();
+    };
+  }, []);
+
+  // Unlock Business Growth - GSAP ScrollTrigger animation (pin + stagger)
+  useEffect(() => {
+    const section = unlockSectionRef.current;
+    const container = unlockCardsRef.current;
+    if (!section || !container) return;
+
+    const cards = container.querySelectorAll('.unlock-card');
+    const dashboard = container.querySelector('.dashboard-card');
+
+    // Pin the section and animate cards in with a stagger
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: section,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true,
+        pin: true,
+        pinSpacing: false,
+      }
+    });
+
+    tl.fromTo(cards,
+      { y: 40, opacity: 0, scale: 0.96 },
+      { y: 0, opacity: 1, scale: 1, duration: 0.7, stagger: 0.14, ease: 'power3.out' }
+    );
+
+    // subtle floating pulse for dashboard card
+    if (dashboard) {
+      gsap.to(dashboard, { y: -10, repeat: -1, yoyo: true, duration: 3.2, ease: 'sine.inOut' });
+    }
+
+    // small parallax on background blobs (if any)
+    const blobs = section.querySelectorAll('.bg-blob');
+    if (blobs.length) {
+      blobs.forEach((b, i) => {
+        gsap.to(b, { y: (i % 2 === 0 ? -20 : 20), duration: 10 + i * 3, repeat: -1, yoyo: true, ease: 'sine.inOut' });
+      });
+    }
+
+    return () => {
+      tl.kill();
+      ScrollTrigger.getAll().forEach(s => s.kill());
+    };
+  }, []);
 
   // Services data
   const services = [
@@ -230,6 +355,115 @@ useEffect(() => {
 
   return () => window.removeEventListener("scroll", handleScroll);
 }, [services.length]);
+
+  // Payments track: autoplay left<>right and user-controlled via scroll/touch
+  useEffect(() => {
+    const section = paymentsRef.current;
+    const track = trackRef.current;
+    if (!section || !track) return;
+
+    const updateSizes = () => ({
+      containerWidth: section.offsetWidth,
+      trackWidth: track.scrollWidth,
+    });
+
+    let { containerWidth, trackWidth } = updateSizes();
+    const minX = Math.min(0, containerWidth - trackWidth); // negative or 0
+    const maxX = 0;
+
+    // Enhanced autoplay: continuous smooth movement
+    const autoplayDistance = Math.abs(minX);
+    autoTweenRef.current = gsap.timeline({ repeat: -1 })
+      .to(track, {
+        x: -autoplayDistance,
+        duration: 15,
+        ease: "none",
+      })
+      .to(track, {
+        x: 0,
+        duration: 0.1,
+        ease: "none",
+      });
+
+    // Helper: check section in viewport
+    const isInView = () => {
+      const rect = section.getBoundingClientRect();
+      return rect.top < window.innerHeight && rect.bottom > 0;
+    };
+
+    // Wheel handler: scroll down -> cards move left, scroll up -> move right
+    const onWheel = (e) => {
+      if (!isInView()) return;
+      // Read current x
+      const currentX = gsap.getProperty(track, "x");
+      // deltaY positive when scrolling down; we want translate left on down -> negative change
+      const delta = -e.deltaY * 1.5; // sensitivity
+      let newX = currentX + delta;
+      newX = gsap.utils.clamp(minX, maxX, newX);
+
+      // Pause autoplay while user interacts
+      if (autoTweenRef.current && autoTweenRef.current.isActive()) {
+        autoTweenRef.current.pause();
+      }
+
+      gsap.to(track, { x: newX, duration: 0.6, ease: "power3.out" });
+
+      // resume autoplay after inactivity
+      clearTimeout(resumeTimeoutRef.current);
+      resumeTimeoutRef.current = setTimeout(() => {
+        autoTweenRef.current && autoTweenRef.current.play();
+      }, 1200);
+    };
+
+    // Touch handlers for mobile
+    let lastTouchX = null;
+    const onTouchStart = (e) => {
+      if (!isInView()) return;
+      lastTouchX = e.touches[0].clientX;
+      autoTweenRef.current && autoTweenRef.current.pause();
+    };
+    const onTouchMove = (e) => {
+      if (lastTouchX == null) return;
+      const touchX = e.touches[0].clientX;
+      const delta = touchX - lastTouchX; // positive when moving right
+      const currentX = gsap.getProperty(track, "x");
+      let newX = currentX + delta;
+      newX = gsap.utils.clamp(minX, maxX, newX);
+      gsap.set(track, { x: newX });
+      lastTouchX = touchX;
+    };
+    const onTouchEnd = () => {
+      lastTouchX = null;
+      clearTimeout(resumeTimeoutRef.current);
+      resumeTimeoutRef.current = setTimeout(() => {
+        autoTweenRef.current && autoTweenRef.current.play();
+      }, 900);
+    };
+
+    // Recalculate sizes on resize
+    const onResize = () => {
+      ({ containerWidth, trackWidth } = updateSizes());
+    };
+
+    window.addEventListener("wheel", onWheel, { passive: true });
+    window.addEventListener("touchstart", onTouchStart, { passive: true });
+    window.addEventListener("touchmove", onTouchMove, { passive: true });
+    window.addEventListener("touchend", onTouchEnd, { passive: true });
+    window.addEventListener("resize", onResize);
+
+    return () => {
+      window.removeEventListener("wheel", onWheel);
+      window.removeEventListener("touchstart", onTouchStart);
+      window.removeEventListener("touchmove", onTouchMove);
+      window.removeEventListener("touchend", onTouchEnd);
+      window.removeEventListener("resize", onResize);
+      if (autoTweenRef.current) {
+        autoTweenRef.current.kill();
+        autoTweenRef.current = null;
+      }
+      clearTimeout(resumeTimeoutRef.current);
+    };
+  }, []);
 
 
   return (
@@ -696,92 +930,204 @@ useEffect(() => {
             wallets, and more.
           </p>
 
-          <div className="grid grid-cols-2 gap-6 md:grid-cols-4 lg:grid-cols-6">
-            {[
-              { name: "QR Code Payments", icon: QrCode },
-              { name: "UPI", icon: Smartphone },
-              { name: "Wallets", icon: WalletIcon },
-              { name: "Net Banking", icon: Building2 },
-              { name: "NEFT/RTGS", icon: ArrowLeftRight },
-              { name: "Cards", icon: CreditCard },
-            ].map((method, index) => {
-              const IconComponent = method.icon;
-              return (
-                <div
-                  key={index}
-                  className="p-4 transition-colors duration-200 border border-gray-100 rounded-lg bg-gray-50"
-                  onMouseEnter={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#e8f4fb")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.currentTarget.style.backgroundColor = "#f9fafb")
-                  }
-                >
-                  <div className="flex flex-col items-center space-y-2">
-                    <IconComponent
-                      className="w-6 h-6"
-                      style={{ color: "#228DCE" }}
-                    />
-                    <div className="text-sm font-medium text-center text-gray-700">
-                      {method.name}
+          <div ref={paymentsRef} className="relative mt-6 overflow-hidden">
+            <div
+              ref={trackRef}
+              className="flex items-stretch gap-8 px-6 py-8 will-change-transform"
+              style={{ touchAction: "pan-y", transform: "translateX(0)" }}
+            >
+              {[
+                { name: "QR Code Payments", icon: QrCode, color: "bg-purple-50" },
+                { name: "UPI", icon: Smartphone, color: "bg-cyan-50" },
+                { name: "Wallets", icon: WalletIcon, color: "bg-indigo-50" },
+                { name: "Net Banking", icon: Building2, color: "bg-emerald-50" },
+                { name: "NEFT/RTGS", icon: ArrowLeftRight, color: "bg-yellow-50" },
+                { name: "Cards", icon: CreditCard, color: "bg-pink-50" },
+              ].map((method, index) => {
+                const IconComponent = method.icon;
+                return (
+                  <div
+                    key={index}
+                    className={`min-w-[320px] sm:min-w-[380px] md:min-w-[420px] lg:min-w-[480px] relative overflow-hidden transform transition-all duration-300 ease-out bg-white border border-gray-100 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 hover:scale-[1.02] ${method.color} p-8 lg:p-10`}
+                  >
+                    <div className="flex flex-col h-full justify-between items-center min-h-[380px] text-center">
+                      <div>
+                        <div className="flex flex-col items-center space-y-6">
+                          <div className="flex items-center justify-center w-20 h-20 lg:w-24 lg:h-24 rounded-2xl transform transition-transform hover:scale-110" 
+                               style={{ background: 'linear-gradient(135deg,#228DCE 0%, #1a6fa8 100%)' }}>
+                            <IconComponent className="w-10 h-10 lg:w-12 lg:h-12 text-white" />
+                          </div>
+                          <div>
+                            <div className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">{method.name}</div>
+                            <div className="text-base lg:text-lg text-gray-500 font-medium">
+                              {method.name === "QR Code Payments" && "Scan & Pay in seconds"}
+                              {method.name === "UPI" && "Direct bank transfers"}
+                              {method.name === "Wallets" && "Digital wallet convenience"}
+                              {method.name === "Net Banking" && "Bank-grade security"}
+                              {method.name === "NEFT/RTGS" && "Large value transfers"}
+                              {method.name === "Cards" && "Global payment acceptance"}
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="mt-10 space-y-6">
+                          <div className="text-base lg:text-lg text-gray-700 leading-relaxed px-4">
+                            {method.name === "QR Code Payments" && "Enable instant payments through dynamic & static QR codes. Perfect for retail, restaurants, and service businesses."}
+                            {method.name === "UPI" && "Accept payments from any UPI app with instant confirmation. India's fastest-growing payment method."}
+                            {method.name === "Wallets" && "Support all major digital wallets with seamless integration. Tap into the digital-first customer base."}
+                            {method.name === "Net Banking" && "Direct integration with 100+ banks for secure online transactions. Trusted by millions."}
+                            {method.name === "NEFT/RTGS" && "Handle high-value transactions with enterprise-grade security. Perfect for B2B payments."}
+                            {method.name === "Cards" && "Accept credit & debit cards from all major networks. International payment ready."}
+                          </div>
+                          
+                          <div className="flex flex-wrap justify-center gap-3">
+                            {method.name === "QR Code Payments" && (
+                              <>
+                                <span className="px-4 py-2 text-sm font-medium bg-blue-50 text-blue-600 rounded-full transform transition-transform hover:scale-105">Dynamic QR</span>
+                                <span className="px-4 py-2 text-sm font-medium bg-green-50 text-green-600 rounded-full transform transition-transform hover:scale-105">Instant Scan</span>
+                                <span className="px-4 py-2 text-sm font-medium bg-purple-50 text-purple-600 rounded-full transform transition-transform hover:scale-105">Auto Reconcile</span>
+                              </>
+                            )}
+                            {method.name === "UPI" && (
+                              <>
+                                <span className="px-4 py-2 text-sm font-medium bg-cyan-50 text-cyan-600 rounded-full transform transition-transform hover:scale-105">24/7 Available</span>
+                                <span className="px-4 py-2 text-sm font-medium bg-teal-50 text-teal-600 rounded-full transform transition-transform hover:scale-105">Instant Transfer</span>
+                                <span className="px-4 py-2 text-sm font-medium bg-emerald-50 text-emerald-600 rounded-full transform transition-transform hover:scale-105">Secure</span>
+                              </>
+                            )}
+                          </div>
+                        </div>
+                      </div>  
                     </div>
                   </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
           </div>
         </div>
       </section>
 
       
-      {/* ===== T+1 SETTLEMENT ===== */}
-      <section className="py-16 bg-white">
-        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+      {/* ===== T+0 & T+1 SETTLEMENT ===== */}
+      <section className="min-h-screen flex items-center py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
+        {/* Background Animated Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute w-96 h-96 -top-12 -right-12 bg-blue-50 rounded-full blur-3xl opacity-30 animate-pulse"></div>
+          <div className="absolute w-96 h-96 bottom-0 left-0 bg-cyan-50 rounded-full blur-3xl opacity-30 animate-pulse delay-1000"></div>
+          <div className="absolute w-64 h-64 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-purple-50 rounded-full blur-3xl opacity-20 animate-pulse delay-500"></div>
+        </div>
+
+        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8 relative z-10">
           <div className="grid items-center grid-cols-1 gap-12 lg:grid-cols-2">
-            <div>
-              <h2 className="mb-6 text-3xl font-bold text-gray-900">
-                T+0 & T+1 Settlement
+            {/* Left Content */}
+            <div ref={settlementContentRef} className="space-y-8">
+              <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 text-blue-600">
+                <Clock className="w-4 h-4 mr-2" />
+                <span className="text-sm font-semibold">Rapid Settlement System</span>
+              </div>
+              
+              <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+                Get Paid Faster with{" "}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
+                  T+0 & T+1
+                </span>{" "}
+                Settlement
               </h2>
-              <p className="mb-6 text-lg text-gray-600">
-                Get your money faster with our T+1 settlement feature. Funds are
-                credited to your account within one business day of transaction.
+              
+              <p className="text-xl text-gray-600 leading-relaxed">
+                Experience lightning-fast settlements. Your funds are credited to your account within the same day or next business day of transaction.
               </p>
-              <div className="space-y-4">
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {[
-                  "T+0 &T+1 settlement for QR code payments",
-                  "Next business day processing for all transactions",
-                  "Fast fund availability within 24 hours",
-                  "Automated reconciliation",
+                  {
+                    title: "Instant Settlement",
+                    description: "Get T+0 settlement for selected payment methods",
+                    icon: Zap,
+                    color: "bg-green-50 text-green-600"
+                  },
+                  {
+                    title: "Next Day Funds",
+                    description: "T+1 settlement for all other transactions",
+                    icon: CalendarDays,
+                    color: "bg-blue-50 text-blue-600"
+                  },
+                  {
+                    title: "Auto Reconciliation",
+                    description: "Automated matching and settlement process",
+                    icon: RefreshCw,
+                    color: "bg-purple-50 text-purple-600"
+                  },
+                  {
+                    title: "Real-time Tracking",
+                    description: "Monitor settlement status 24/7",
+                    icon: Activity,
+                    color: "bg-amber-50 text-amber-600"
+                  }
                 ].map((feature, index) => (
-                  <div key={index} className="flex items-center space-x-3">
-                    <CheckCircle
-                      className="flex-shrink-0"
-                      size={20}
-                      style={{ color: "#228DCE" }}
-                    />
-                    <span className="text-gray-700">{feature}</span>
+                  <div 
+                    key={index}
+                    className="p-6 rounded-xl bg-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+                  >
+                    <div className={`w-12 h-12 rounded-lg ${feature.color} flex items-center justify-center mb-4`}>
+                      <feature.icon className="w-6 h-6" />
+                    </div>
+                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{feature.title}</h3>
+                    <p className="text-gray-600">{feature.description}</p>
                   </div>
                 ))}
               </div>
             </div>
-            <div
-              className="p-8 rounded-2xl"
-              style={{
-                background: "linear-gradient(135deg, #e8f4fb 0%, #d4ebf7 100%)",
-              }}
-            >
-              <div className="text-center">
-                <div
-                  className="mb-2 text-4xl font-bold"
-                  style={{ color: "#228DCE" }}
-                >
-                  T+0 & T+1
-                </div>
-                <div className="mb-4 text-lg text-gray-600">
-                  Settlement Time
-                </div>
-                <div className="text-sm text-gray-500">
-                  Your funds are available the same day
+
+            {/* Right Content - Interactive Settlement Card */}
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-400/10 to-cyan-400/10 rounded-3xl transform rotate-6 blur"></div>
+              <div ref={settlementCardRef} className="relative p-8 rounded-2xl bg-white shadow-2xl border border-gray-100">
+                <div className="space-y-6">
+                  {/* Settlement Time Display */}
+                  <div className="text-center space-y-4">
+                    <div className="inline-flex items-center px-4 py-2 rounded-full bg-green-50 text-green-600">
+                      <span className="animate-pulse mr-2">●</span>
+                      <span className="font-medium">Processing Live</span>
+                    </div>
+                    <div className="text-5xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 text-transparent bg-clip-text">
+                      T+0 & T+1
+                    </div>
+                    <div className="text-xl text-gray-600">Settlement Time</div>
+                  </div>
+
+                  {/* Animated Progress Timeline */}
+                  <div className="space-y-4 pt-6">
+                    {[
+                      { time: "10:00 AM", status: "Payment Received", amount: "₹25,000" },
+                      { time: "10:01 AM", status: "Processing", amount: "In Progress" },
+                      { time: "10:15 AM", status: "Settlement Initiated", amount: "Pending" },
+                      { time: "11:00 AM", status: "Funds Available", amount: "Completed" }
+                    ].map((step, index) => (
+                      <div key={index} className="flex items-center space-x-4">
+                        <div className="w-16 text-sm text-gray-500">{step.time}</div>
+                        <div className="w-3 h-3 rounded-full bg-green-400 animate-pulse"></div>
+                        <div className="flex-1">
+                          <div className="text-sm font-medium text-gray-900">{step.status}</div>
+                          <div className="text-sm text-gray-500">{step.amount}</div>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {/* Real-time Stats */}
+                  <div className="grid grid-cols-2 gap-4 pt-6">
+                    <div className="p-4 rounded-xl bg-gray-50">
+                      <div className="text-sm text-gray-500">Today's Settlements</div>
+                      <div className="text-2xl font-bold text-gray-900">₹12.4M</div>
+                      <div className="text-sm text-green-600">+12.5%</div>
+                    </div>
+                    <div className="p-4 rounded-xl bg-gray-50">
+                      <div className="text-sm text-gray-500">Success Rate</div>
+                      <div className="text-2xl font-bold text-gray-900">99.9%</div>
+                      <div className="text-sm text-green-600">+0.5%</div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -790,7 +1136,7 @@ useEffect(() => {
       </section>
 
       {/* ===== GET TO KNOW OUR STORY ===== */}
-      <section className="py-16 bg-white">
+      {/* <section className="py-16 bg-white">
         <div className="px-4 mx-auto text-center max-w-7xl sm:px-6 lg:px-8">
           <h2 className="mb-4 text-3xl font-bold text-gray-900">
             Get to Know Our Story
@@ -840,13 +1186,15 @@ useEffect(() => {
             })}
           </div>
         </div>
-      </section>
+      </section> */}
+
+
 
       {/* ===== ABOUT US COMPONENT ===== */}
       <AboutUs />
 
       {/* ===== MISSION, VISION & CORE VALUES ===== */}
-      <section className="py-20 bg-white">
+      {/* <section className="py-20 bg-white">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="mb-16 text-center">
             <h2 className="mb-6 text-4xl font-bold text-gray-900">
@@ -956,7 +1304,7 @@ useEffect(() => {
             })}
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* ===== OUR PRODUCTS ===== */}
       {/* <section className="py-16 bg-gray-50">
@@ -969,22 +1317,22 @@ useEffect(() => {
       </section> */}
 
       {/* ===== UNLOCK BUSINESS GROWTH ===== */}
-      <section className="py-16 bg-gray-50">
-        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div className="mb-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold text-gray-900">
+      <section className="py-15 bg-gray-50">
+        <div className="px-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div className="mb-8 text-center">
+            <h2 className="mb-4 text-5xl font-bold text-gray-900">
               Unlock access to{" "}
               <span style={{ color: "#228DCE" }}>
                 limitless business growth
               </span>
             </h2>
-            <p className="max-w-3xl mx-auto text-lg text-gray-600">
+            <p className="max-w-2xl mx-auto text-lg text-gray-600">
               We're more than a payments partner. Get smoother payment processes
               and offer an outstanding experience.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-6 mb-12 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-5 mb-4 md:grid-cols-2 lg:grid-cols-4">
             {[
               {
                 name: "Realtime Analytics",
@@ -1042,7 +1390,7 @@ useEffect(() => {
             })}
           </div>
 
-          <div className="p-8 bg-white border border-gray-100 shadow-xl rounded-2xl">
+          {/* <div className="p-8 bg-white border border-gray-100 shadow-xl rounded-2xl">
             <h3 className="mb-6 text-2xl font-bold text-gray-900">
               Payment Dashboard
             </h3>
@@ -1090,7 +1438,7 @@ useEffect(() => {
                 <div className="text-sm text-gray-600">Processing now</div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
 
@@ -1530,19 +1878,61 @@ useEffect(() => {
       <ScrollToTop />
 
       <style>{`
+        /* subtle float used elsewhere */
         @keyframes float {
-          0%, 100% {
-            transform: translateY(0px);
-          }
-          50% {
-            transform: translateY(-20px);
-          }
+          0%, 100% { transform: translateY(0px); }
+          50% { transform: translateY(-20px); }
         }
-        
+
+        /* Unlock section entrance animation */
+        @keyframes unlock-entrance {
+          0% { opacity: 0; transform: translateY(18px) scale(0.995); }
+          60% { opacity: 1; transform: translateY(-6px) scale(1.002); }
+          100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Dashboard initial pop */
+        @keyframes dashboard-entrance {
+          0% { opacity: 0; transform: translateY(20px) scale(0.98); }
+          100% { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        /* Gentle float for the dashboard once visible */
+        @keyframes dashboard-float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
+        }
+
+        /* Unlock cards base styles */
+        .unlock-card {
+          opacity: 0;
+          transform-origin: center;
+          animation: unlock-entrance 700ms cubic-bezier(.2,.9,.2,1) forwards;
+          transition: box-shadow 220ms ease, transform 220ms ease;
+        }
+
+        /* Slight hover lift */
+        .unlock-card:hover {
+          transform: translateY(-6px) scale(1.01);
+          box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
+        }
+
+        /* Dashboard card enters slightly later and then floats */
+        .dashboard-card {
+          opacity: 0;
+          /* first run entrance, then start floating (float has a delay) */
+          animation: dashboard-entrance 850ms cubic-bezier(.2,.9,.2,1) 140ms forwards,
+                     dashboard-float 4s ease-in-out infinite 1200ms;
+        }
+
+        /* Respect reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+          * { scroll-behavior: auto !important; }
+          .unlock-card, .dashboard-card, .bg-blob { animation: none !important; transition: none !important; }
+        }
+
         @media (prefers-reduced-motion: no-preference) {
-          * {
-            scroll-behavior: smooth;
-          }
+          * { scroll-behavior: smooth; }
         }
       `}</style>
     </div>
