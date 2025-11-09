@@ -34,6 +34,11 @@ const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isProductsDropdownOpen, setIsProductsDropdownOpen] = useState(false);
   const [isDevelopersDropdownOpen, setIsDevelopersDropdownOpen] = useState(false);
+  
+  // Mobile dropdown states
+  const [isMobileProductsOpen, setIsMobileProductsOpen] = useState(false);
+  const [isMobileDevelopersOpen, setIsMobileDevelopersOpen] = useState(false);
+  
   const productsCloseTimerRef = useRef(null);
   const developersCloseTimerRef = useRef(null);
 
@@ -263,7 +268,7 @@ const Header = () => {
           <div className="lg:hidden">
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="text-gray-700 hover:text-[#228DCE]"
+              className="p-2 text-gray-700 hover:text-[#228DCE] active:scale-90 transition-all duration-200"
             >
               {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -284,7 +289,7 @@ const Header = () => {
                 <span className="text-lg font-semibold text-gray-900">Menu</span>
                 <button
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="text-gray-700 hover:text-[#228DCE]"
+                  className="p-2 text-gray-700 hover:text-[#228DCE] active:scale-90 transition-all duration-200"
                 >
                   <X size={24} />
                 </button>
@@ -296,58 +301,106 @@ const Header = () => {
                 animate="visible"
                 className="mt-6 space-y-8"
               >
-                {/* Products */}
+                {/* Products Dropdown */}
                 <div>
-                  <h3 className="text-base font-bold text-gray-900 mb-3">
+                  <button
+                    onClick={() => setIsMobileProductsOpen(!isMobileProductsOpen)}
+                    className="w-full flex items-center justify-between text-base font-bold text-gray-900 hover:text-[#228DCE] active:text-[#228DCE] active:scale-95 px-3 py-2 rounded-lg transition-all duration-200 hover:bg-[#f0f9ff]"
+                  >
                     Products
-                  </h3>
-                  <div className="grid grid-cols-2 gap-3">
-                    {productCards.map((product, index) => (
-                      <Link
-                        key={index}
-                        to={product.href}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="group flex flex-col items-center bg-[#f9fafb] border border-gray-200 rounded-xl p-3 h-28 justify-center hover:bg-[#e8f4fb] hover:border-[#228DCE] transition-all"
+                    <ChevronDown
+                      size={20}
+                      className={`transform transition-transform duration-300 ${
+                        isMobileProductsOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+
+                  {/* Products Cards - Hidden by default, shown on click */}
+                  <AnimatePresence>
+                    {isMobileProductsOpen && (
+                      <motion.div
+                        variants={dropdownVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                        className="mt-4 grid grid-cols-2 gap-3"
                       >
-                        <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-1 bg-gradient-to-br from-[#e6f3ff] to-[#f5f9ff] group-hover:scale-110 transition-transform">
-                          <product.icon
-                            size={22}
-                            className="text-[#228DCE]"
-                          />
-                        </div>
-                        <p className="text-[11px] font-semibold text-gray-800 group-hover:text-[#228DCE]">
-                          {product.name}
-                        </p>
-                      </Link>
-                    ))}
-                  </div>
+                        {productCards.map((product, index) => (
+                          <Link
+                            key={index}
+                            to={product.href}
+                            onClick={() => {
+                              setIsMobileMenuOpen(false);
+                              setIsMobileProductsOpen(false);
+                            }}
+                            className="group flex flex-col items-center bg-[#f9fafb] border-2 border-gray-200 rounded-xl p-3 h-28 justify-center active:bg-[#e8f4fb] active:border-[#228DCE] active:scale-95 transition-all duration-200 hover:bg-[#f5f9fc] hover:border-[#228DCE]/50"
+                          >
+                            <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-1 bg-gradient-to-br from-[#e6f3ff] to-[#f5f9ff] group-active:scale-90 group-hover:scale-105 transition-transform duration-200">
+                              <product.icon
+                                size={22}
+                                className="text-[#228DCE]"
+                              />
+                            </div>
+                            <p className="text-[11px] font-semibold text-gray-800 group-hover:text-[#228DCE] group-active:text-[#228DCE]">
+                              {product.name}
+                            </p>
+                          </Link>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
 
-                {/* Developers */}
+                {/* Developers Dropdown */}
                 <div>
-                  <h3 className="text-base font-bold text-gray-900 mb-3">
+                  <button
+                    onClick={() => setIsMobileDevelopersOpen(!isMobileDevelopersOpen)}
+                    className="w-full flex items-center justify-between text-base font-bold text-gray-900 hover:text-[#228DCE] active:text-[#228DCE] active:scale-95 px-3 py-2 rounded-lg transition-all duration-200 hover:bg-[#f0f9ff]"
+                  >
                     Developers
-                  </h3>
-                  <div className="grid grid-cols-2 gap-3">
-                    {developerCards.map((item, index) => (
-                      <Link
-                        key={index}
-                        to={item.href}
-                        onClick={() => setIsMobileMenuOpen(false)}
-                        className="group flex flex-col items-center bg-[#f9fafb] border border-gray-200 rounded-xl p-3 h-28 justify-center hover:bg-[#e8f4fb] hover:border-[#228DCE] transition-all"
+                    <ChevronDown
+                      size={20}
+                      className={`transform transition-transform duration-300 ${
+                        isMobileDevelopersOpen ? "rotate-180" : ""
+                      }`}
+                    />
+                  </button>
+
+                  {/* Developers Cards - Hidden by default, shown on click */}
+                  <AnimatePresence>
+                    {isMobileDevelopersOpen && (
+                      <motion.div
+                        variants={dropdownVariants}
+                        initial="hidden"
+                        animate="visible"
+                        exit="exit"
+                        className="mt-4 grid grid-cols-2 gap-3"
                       >
-                        <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-1 bg-gradient-to-br from-[#e6f3ff] to-[#f5f9ff] group-hover:scale-110 transition-transform">
-                          <item.icon
-                            size={22}
-                            className="text-[#228DCE]"
-                          />
-                        </div>
-                        <p className="text-[11px] font-semibold text-gray-800 group-hover:text-[#228DCE]">
-                          {item.name}
-                        </p>
-                      </Link>
-                    ))}
-                  </div>
+                        {developerCards.map((item, index) => (
+                          <Link
+                            key={index}
+                            to={item.href}
+                            onClick={() => {
+                              setIsMobileMenuOpen(false);
+                              setIsMobileDevelopersOpen(false);
+                            }}
+                            className="group flex flex-col items-center bg-[#f9fafb] border-2 border-gray-200 rounded-xl p-3 h-28 justify-center active:bg-[#e8f4fb] active:border-[#228DCE] active:scale-95 transition-all duration-200 hover:bg-[#f5f9fc] hover:border-[#228DCE]/50"
+                          >
+                            <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-1 bg-gradient-to-br from-[#e6f3ff] to-[#f5f9ff] group-active:scale-90 group-hover:scale-105 transition-transform duration-200">
+                              <item.icon
+                                size={22}
+                                className="text-[#228DCE]"
+                              />
+                            </div>
+                            <p className="text-[11px] font-semibold text-gray-800 group-hover:text-[#228DCE] group-active:text-[#228DCE]">
+                              {item.name}
+                            </p>
+                          </Link>
+                        ))}
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
                 </div>
 
                 {/* About */}
@@ -355,7 +408,7 @@ const Header = () => {
                   <Link
                     to="/about-us"
                     onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-gray-900 font-semibold hover:text-[#228DCE]"
+                    className="block text-gray-900 font-semibold hover:text-[#228DCE] active:text-[#228DCE] px-3 py-2 rounded-lg transition-all duration-200 hover:bg-[#f0f9ff] active:bg-[#e8f4fb] active:scale-95"
                   >
                     About Us →
                   </Link>
