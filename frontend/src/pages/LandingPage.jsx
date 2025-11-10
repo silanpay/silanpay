@@ -42,6 +42,7 @@ import Header from "../components/layout/Header";
 import AboutUs from "../components/AboutUs";
 import ScrollToTop from "../components/common/ScrollToTop";
 import { DotLottieReact } from "@lottiefiles/dotlottie-react";
+import PaymentSolutionsWithCursorScroll from './PaymentSolutions-CursorScroll';
 
 
 
@@ -471,7 +472,7 @@ useEffect(() => {
       <Header />
 
       {/* ===== HERO SECTION WITH 3D MOBILE ===== */}
-      <section className="py-12 bg-white overflow-hidden">
+      <section className="py-2 bg-white overflow-hidden">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="flex justify-center mb-12 ml-14">
           </div>
@@ -920,7 +921,7 @@ useEffect(() => {
 
 
       {/* ===== COMPREHENSIVE PAYMENT SOLUTIONS ===== */}
-      <section className="py-16 bg-white">
+      {/* <section className="py-16 bg-white">
         <div className="px-4 mx-auto text-center max-w-7xl sm:px-6 lg:px-8">
           <h2 className="mb-4 text-3xl font-bold text-gray-900">
             Comprehensive Payment Solutions
@@ -1005,7 +1006,8 @@ useEffect(() => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
+      <PaymentSolutionsWithCursorScroll />
 
       
       {/* ===== T+0 & T+1 SETTLEMENT ===== */}
