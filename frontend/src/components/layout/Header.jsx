@@ -108,7 +108,7 @@ const Header = () => {
     { name: "Checkout", icon: ShoppingCart, href: "/smart-checkout", comingSoon: false },
     { name: "Wallet", icon: Wallet, href: "/wallet", comingSoon: false },
     { name: "Gateway", icon: Building2, href: "/payment-gateway", comingSoon: false },
-    { name: "Sound Box", icon: Zap, href: "/sound-box", comingSoon: true }, // 🔥 Coming Soon
+    { name: "Sound Box", icon: Zap, href: "/sound-box", comingSoon: false }, // ✅ Now Active
     { name: "Mobile App", icon: Smartphone, href: "/mobile-app", comingSoon: true }, // 🔥 Coming Soon
   ];
 
