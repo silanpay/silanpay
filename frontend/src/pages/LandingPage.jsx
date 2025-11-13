@@ -35,1099 +35,878 @@ import {
   Clock,
   CalendarDays,
   Activity,
+  Star,
+  Users,
+  TrendingUp,
+  Award,
+  Target,
+  Coffee,
+  PlayCircle,
+  ChevronRight,
+  Sparkles,
+  Repeat,
+  Bell,
 } from "lucide-react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Header from "../components/layout/Header";
-import AboutUs from "../components/AboutUs";
 import ScrollToTop from "../components/common/ScrollToTop";
-import { DotLottieReact } from "@lottiefiles/dotlottie-react";
-import PaymentSolutionsWithCursorScroll from './PaymentSolutions-CursorScroll';
-
-
-
 
 gsap.registerPlugin(ScrollTrigger);
 
 const LandingPage = () => {
-  const [activeCardIndex, setActiveCardIndex] = useState(0);
+  const [activeTab, setActiveTab] = useState(0);
+
+  // Animation refs
+  const heroRef = useRef(null);
+  const featuresRef = useRef(null);
   const servicesRef = useRef(null);
-  const containerRef = useRef(null);
-  const phoneRef = useRef(null);
-  const heroContainerRef = useRef(null);
-  const paymentsRef = useRef(null);
-  const trackRef = useRef(null);
-  const autoTweenRef = useRef(null);
-  const resumeTimeoutRef = useRef(null);
-  const settlementCardRef = useRef(null);
-  const settlementContentRef = useRef(null);
-  // Unlock Business Growth section refs
-  const unlockSectionRef = useRef(null);
-  const unlockCardsRef = useRef(null);
+  const partnersRef = useRef(null);
+  const aboutRef = useRef(null);
+  const contactRef = useRef(null);
 
-  // GSAP Settlement Section Animation
-  useEffect(() => {
-    const card = settlementCardRef.current;
-    const content = settlementContentRef.current;
-    if (!card || !content) return;
+  // Data for various sections
+  const stats = [
+    { number: "10K+", label: "Happy Customers", icon: Users },
+    { number: "99.9%", label: "Uptime", icon: Activity },
+    { number: "₹100Cr+", label: "Processed", icon: TrendingUp },
+    { number: "24/7", label: "Support", icon: Clock },
+  ];
 
-    // Create a timeline for the settlement card
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: card,
-        start: "top center",
-        end: "bottom center",
-        scrub: 1,
-      }
-    });
-
-    // Animate the card
-    tl.fromTo(card, 
-      { 
-        y: 100,
-        opacity: 0,
-        rotate: 15,
-        scale: 0.8
-      },
-      { 
-        y: 0,
-        opacity: 1,
-        rotate: 0,
-        scale: 1,
-        duration: 1.5,
-        ease: "power3.out"
-      }
-    );
-
-    // Create a timeline for the content
-    const contentTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: content,
-        start: "top center+=100",
-        end: "center center",
-        scrub: 1,
-      }
-    });
-
-    // Animate the content elements
-    contentTl.fromTo(content.querySelectorAll('.feature-card'),
-      {
-        y: 50,
-        opacity: 0,
-        stagger: 0.2
-      },
-      {
-        y: 0,
-        opacity: 1,
-        stagger: 0.2,
-        duration: 1,
-        ease: "power2.out"
-      }
-    );
-
-    return () => {
-      tl.kill();
-      contentTl.kill();
-    };
-  }, []);
-
-  // Unlock Business Growth - GSAP ScrollTrigger animation (pin + stagger)
-  useEffect(() => {
-    const section = unlockSectionRef.current;
-    const container = unlockCardsRef.current;
-    if (!section || !container) return;
-
-    const cards = container.querySelectorAll('.unlock-card');
-    const dashboard = container.querySelector('.dashboard-card');
-
-    // Pin the section and animate cards in with a stagger
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: section,
-        start: 'top top',
-        end: 'bottom top',
-        scrub: true,
-        pin: true,
-        pinSpacing: false,
-      }
-    });
-
-    tl.fromTo(cards,
-      { y: 40, opacity: 0, scale: 0.96 },
-      { y: 0, opacity: 1, scale: 1, duration: 0.7, stagger: 0.14, ease: 'power3.out' }
-    );
-
-    // subtle floating pulse for dashboard card
-    if (dashboard) {
-      gsap.to(dashboard, { y: -10, repeat: -1, yoyo: true, duration: 3.2, ease: 'sine.inOut' });
-    }
-
-    // small parallax on background blobs (if any)
-    const blobs = section.querySelectorAll('.bg-blob');
-    if (blobs.length) {
-      blobs.forEach((b, i) => {
-        gsap.to(b, { y: (i % 2 === 0 ? -20 : 20), duration: 10 + i * 3, repeat: -1, yoyo: true, ease: 'sine.inOut' });
-      });
-    }
-
-    return () => {
-      tl.kill();
-      ScrollTrigger.getAll().forEach(s => s.kill());
-    };
-  }, []);
-
-  // Services data
-  const services = [
-    {
-      icon: Globe,
-      title: "UPI Payment Collection",
-      subtitle: "Accept payments instantly",
-      description:
-        "Efficient, secure, real-time UPI payment solutions for quick and hassle-free transactions. Accept payments instantly through India's most popular payment method with industry-leading success rates.",
-      features: [
-        "Real-time UPI payments with instant confirmation",
-        "T+1 settlement for faster fund availability",
-        "99.8% transaction success rates",
-        "Easy API integration with comprehensive documentation",
-        "Support for all major UPI apps",
-        "Automated reconciliation and reporting",
-      ],
-      color: "from-[#228DCE] to-[#1a6fa8]",
-      bgColor: "bg-[#e8f4fb]",
-    },
-    {
-      icon: Wrench,
-      title: "API Integration Service",
-      subtitle: "Powerful developer tools",
-      description:
-        "Seamless API integration solutions to enhance system functionality. We cover strategic planning, development, deployment, and maintenance for optimal performance with 24/7 technical support.",
-      features: [
-        "RESTful API with JSON responses",
-        "Comprehensive SDK for multiple languages",
-        "Strategic planning and consultation",
-        "Seamless deployment and monitoring",
-        "Performance optimization and caching",
-        "24/7 technical support and documentation",
-      ],
-      color: "from-purple-500 to-purple-600",
-      bgColor: "bg-purple-50",
-    },
+  const features = [
     {
       icon: Zap,
-      title: "Instant Payouts",
-      subtitle: "Lightning-fast bulk transfers",
+      title: "Instant Payments",
       description:
-        "Innovation, security, and efficiency in delivering seamless payout services via UPI and IMPS. Enhanced transaction speed and reliability for all your payout needs with real-time tracking.",
-      features: [
-        "Instant UPI payouts in under 5 seconds",
-        "IMPS transfers 24/7 including holidays",
-        "Bulk payout processing for multiple recipients",
-        "Real-time status tracking and notifications",
-        "Automated retry mechanism for failed transactions",
-        "Comprehensive dashboard with analytics",
-      ],
-      color: "from-green-500 to-green-600",
-      bgColor: "bg-green-50",
+        "Lightning-fast UPI payments with real-time confirmation and settlement",
     },
     {
-      icon: CheckIcon,
-      title: "Payment Solution Provider",
-      subtitle: "Complete payment ecosystem",
+      icon: Shield,
+      title: "Bank-Grade Security",
       description:
-        "Innovative and secure payment solutions for streamlining transactions. Online and mobile payment processing for businesses of all sizes with enterprise-grade security and compliance.",
-      features: [
-        "Multi-channel payment acceptance",
-        "Mobile and web SDK integration",
-        "PCI DSS Level 1 compliance",
-        "Advanced fraud detection and prevention",
-        "Scalable infrastructure for high volume",
-        "Customizable checkout experience",
-      ],
-      color: "from-orange-500 to-orange-600",
-      bgColor: "bg-orange-50",
+        "Advanced encryption and fraud protection for all your transactions",
+    },
+    {
+      icon: Code,
+      title: "Easy Integration",
+      description: "Simple APIs and SDKs for seamless integration in minutes",
+    },
+    {
+      icon: Globe,
+      title: "Multi-Platform",
+      description: "Works across web, mobile, and all major payment platforms",
+    },
+    {
+      icon: BarChart3,
+      title: "Real-time Analytics",
+      description:
+        "Comprehensive dashboard with insights and transaction analytics",
+    },
+    {
+      icon: Heart,
+      title: "24/7 Support",
+      description: "Round-the-clock customer support and technical assistance",
     },
   ];
 
-  // GSAP 3D Mobile Animation
+  const services = [
+    {
+      icon: QrCode,
+      title: "QR Code Payments",
+      description: "Dynamic and static QR codes for instant payment collection",
+      price: "Starting at ₹999/month",
+    },
+    {
+      icon: Smartphone,
+      title: "UPI Integration",
+      description: "Complete UPI payment gateway integration with all apps",
+      price: "Starting at ₹1,499/month",
+    },
+    {
+      icon: CreditCard,
+      title: "Payment Gateway",
+      description: "Full-featured payment gateway supporting all major cards",
+      price: "Starting at ₹2,999/month",
+    },
+    {
+      icon: Building2,
+      title: "Enterprise Solutions",
+      description: "Custom payment solutions for large enterprises",
+      price: "Custom pricing",
+    },
+  ];
+
+  const testimonials = [
+    {
+      name: "Rajesh Kumar",
+      company: "TechStart Solutions",
+      text: "SilanPay has revolutionized our payment process. The integration was seamless and the support team is fantastic!",
+      rating: 5,
+    },
+    {
+      name: "Priya Sharma",
+      company: "E-Commerce Plus",
+      text: "Amazing service! Our transaction success rate increased by 15% after switching to SilanPay.",
+      rating: 5,
+    },
+    {
+      name: "Amit Patel",
+      company: "Retail Chain Co.",
+      text: "The real-time analytics and reporting features have helped us optimize our business operations significantly.",
+      rating: 5,
+    },
+  ];
+
+  const pricingPlans = [
+    {
+      name: "Starter",
+      price: "₹999",
+      period: "/month",
+      description: "Perfect for small businesses",
+      features: [
+        "Up to 1,000 transactions/month",
+        "Basic UPI integration",
+        "Email support",
+        "Standard analytics",
+      ],
+      popular: false,
+    },
+    {
+      name: "Professional",
+      price: "₹2,999",
+      period: "/month",
+      description: "Ideal for growing businesses",
+      features: [
+        "Up to 10,000 transactions/month",
+        "Full payment gateway",
+        "Priority support",
+        "Advanced analytics",
+        "Custom branding",
+      ],
+      popular: true,
+    },
+    {
+      name: "Enterprise",
+      price: "Custom",
+      period: "",
+      description: "For large organizations",
+      features: [
+        "Unlimited transactions",
+        "Custom integrations",
+        "Dedicated support",
+        "Advanced security",
+        "SLA guarantee",
+      ],
+      popular: false,
+    },
+  ];
+
+  // GSAP Animations
   useEffect(() => {
-    const phone = phoneRef.current;
-    const hero = heroContainerRef.current;
-
-    if (!phone || !hero) return;
-
-    // Scroll-triggered animation
-    const scrollTl = gsap.timeline({
-      scrollTrigger: {
-        trigger: hero,
-        start: "top center",
-        end: "bottom center",
-        scrub: 1,
-        markers: false,
-      },
-    });
-
-    scrollTl
-      .fromTo(
-        phone,
-        {
-          opacity: 0,
-          rotationY: 90,
-          rotationX: 20,
-          z: -200,
-          scale: 0.8,
-        },
-        {
-          opacity: 1,
-          rotationY: 0,
-          rotationX: 0,
-          z: 0,
-          scale: 1,
-          duration: 1,
-        }
-      )
-      .to(
-        phone,
-        {
-          rotationY: 360,
-          duration: 3,
-        },
-        0
-      )
-      .to(
-        phone,
-        {
-          y: -40,
-          duration: 2,
-        },
-        0.2
-      )
-      .to(
-        phone,
-        {
-          y: 0,
-          duration: 2,
-        },
-        2.2
+    const ctx = gsap.context(() => {
+      // Hero section animation
+      gsap.fromTo(
+        ".hero-content",
+        { opacity: 0, y: 50 },
+        { opacity: 1, y: 0, duration: 1, stagger: 0.2 }
       );
 
-    // Mouse follow effect
-    const handleMouseMove = (e) => {
-      if (!phone) return;
-      const centerX = window.innerWidth / 2;
-      const centerY = window.innerHeight / 2;
-      const x = e.clientX - centerX;
-      const y = e.clientY - centerY;
+      // Stats animation on scroll
+      gsap.fromTo(
+        ".stat-item",
+        { opacity: 0, scale: 0.8 },
+        {
+          opacity: 1,
+          scale: 1,
+          duration: 0.6,
+          stagger: 0.1,
+          scrollTrigger: {
+            trigger: ".stats-section",
+            start: "top 80%",
+          },
+        }
+      );
 
-      gsap.to(phone, {
-        rotationY: (x / centerX) * 10,
-        rotationX: (y / centerY) * -10,
-        duration: 0.8,
-      });
-    };
-
-    window.addEventListener("mousemove", handleMouseMove);
-
-    return () => {
-      window.removeEventListener("mousemove", handleMouseMove);
-      scrollTl.kill();
-    };
-  }, []);
-
-// Scroll handler for sticky cards - SMOOTH VERSION
-useEffect(() => {
-  const handleScroll = () => {
-    if (!containerRef.current) return;
-
-    const container = containerRef.current;
-    const rect = container.getBoundingClientRect();
-    const scrollProgress = -rect.top / (rect.height - window.innerHeight);
-
-    // Calculate which card should be active based on scroll
-    const cardIndex = Math.min(
-      Math.floor(scrollProgress * services.length),
-      services.length - 1
-    );
-
-    setActiveCardIndex(Math.max(0, cardIndex));
-  };
-
-  window.addEventListener("scroll", handleScroll);
-  handleScroll();
-
-  return () => window.removeEventListener("scroll", handleScroll);
-}, [services.length]);
-
-  // Payments track: autoplay left<>right and user-controlled via scroll/touch
-  useEffect(() => {
-    const section = paymentsRef.current;
-    const track = trackRef.current;
-    if (!section || !track) return;
-
-    const updateSizes = () => ({
-      containerWidth: section.offsetWidth,
-      trackWidth: track.scrollWidth,
+      // Features animation
+      gsap.fromTo(
+        ".feature-card",
+        { opacity: 0, y: 30 },
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.6,
+          stagger: 0.1,
+          scrollTrigger: {
+            trigger: ".features-section",
+            start: "top 80%",
+          },
+        }
+      );
     });
 
-    let { containerWidth, trackWidth } = updateSizes();
-    const minX = Math.min(0, containerWidth - trackWidth); // negative or 0
-    const maxX = 0;
-
-    // Enhanced autoplay: continuous smooth movement
-    const autoplayDistance = Math.abs(minX);
-    autoTweenRef.current = gsap.timeline({ repeat: -1 })
-      .to(track, {
-        x: -autoplayDistance,
-        duration: 15,
-        ease: "none",
-      })
-      .to(track, {
-        x: 0,
-        duration: 0.1,
-        ease: "none",
-      });
-
-    // Helper: check section in viewport
-    const isInView = () => {
-      const rect = section.getBoundingClientRect();
-      return rect.top < window.innerHeight && rect.bottom > 0;
-    };
-
-    // Wheel handler: scroll down -> cards move left, scroll up -> move right
-    const onWheel = (e) => {
-      if (!isInView()) return;
-      // Read current x
-      const currentX = gsap.getProperty(track, "x");
-      // deltaY positive when scrolling down; we want translate left on down -> negative change
-      const delta = -e.deltaY * 1.5; // sensitivity
-      let newX = currentX + delta;
-      newX = gsap.utils.clamp(minX, maxX, newX);
-
-      // Pause autoplay while user interacts
-      if (autoTweenRef.current && autoTweenRef.current.isActive()) {
-        autoTweenRef.current.pause();
-      }
-
-      gsap.to(track, { x: newX, duration: 0.6, ease: "power3.out" });
-
-      // resume autoplay after inactivity
-      clearTimeout(resumeTimeoutRef.current);
-      resumeTimeoutRef.current = setTimeout(() => {
-        autoTweenRef.current && autoTweenRef.current.play();
-      }, 1200);
-    };
-
-    // Touch handlers for mobile
-    let lastTouchX = null;
-    const onTouchStart = (e) => {
-      if (!isInView()) return;
-      lastTouchX = e.touches[0].clientX;
-      autoTweenRef.current && autoTweenRef.current.pause();
-    };
-    const onTouchMove = (e) => {
-      if (lastTouchX == null) return;
-      const touchX = e.touches[0].clientX;
-      const delta = touchX - lastTouchX; // positive when moving right
-      const currentX = gsap.getProperty(track, "x");
-      let newX = currentX + delta;
-      newX = gsap.utils.clamp(minX, maxX, newX);
-      gsap.set(track, { x: newX });
-      lastTouchX = touchX;
-    };
-    const onTouchEnd = () => {
-      lastTouchX = null;
-      clearTimeout(resumeTimeoutRef.current);
-      resumeTimeoutRef.current = setTimeout(() => {
-        autoTweenRef.current && autoTweenRef.current.play();
-      }, 900);
-    };
-
-    // Recalculate sizes on resize
-    const onResize = () => {
-      ({ containerWidth, trackWidth } = updateSizes());
-    };
-
-    window.addEventListener("wheel", onWheel, { passive: true });
-    window.addEventListener("touchstart", onTouchStart, { passive: true });
-    window.addEventListener("touchmove", onTouchMove, { passive: true });
-    window.addEventListener("touchend", onTouchEnd, { passive: true });
-    window.addEventListener("resize", onResize);
-
-    return () => {
-      window.removeEventListener("wheel", onWheel);
-      window.removeEventListener("touchstart", onTouchStart);
-      window.removeEventListener("touchmove", onTouchMove);
-      window.removeEventListener("touchend", onTouchEnd);
-      window.removeEventListener("resize", onResize);
-      if (autoTweenRef.current) {
-        autoTweenRef.current.kill();
-        autoTweenRef.current = null;
-      }
-      clearTimeout(resumeTimeoutRef.current);
-    };
+    return () => ctx.revert();
   }, []);
 
-
   return (
-    <div className="min-h-screen bg-white font-outfit">
+    <div className="min-h-screen bg-white">
       <Header />
 
-      {/* ===== HERO SECTION WITH 3D MOBILE ===== */}
-      <section className="py-2 bg-white overflow-hidden">
-        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div className="flex justify-center mb-12 ml-14">
-          </div>
-
-          <div
-            className="grid items-center grid-cols-1 gap-8 lg:gap-12 lg:grid-cols-2"
-            style={{ perspective: "1200px" }}
-          >
-            {/* Left Content */}
-            <div className="space-y-8 lg:space-y-10 text-center lg:text-center">
-              <h1 className="text-5xl lg:text-6xl font-bold leading-tight text-gray-900">
-                Transform Your Business with
-                <span style={{ color: "#228DCE" }}>
-                  {" "}
-                  Smart Payment Solutions
-                </span>
-              </h1>
-
-              <div className="flex flex-col justify-center gap-3 lg:gap-4 sm:flex-row">
-                <Link
-                  to="/register"
-                  className="inline-flex items-center justify-center px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg font-semibold text-white transition-colors duration-200 rounded-lg shadow-lg hover:shadow-xl"
-                  style={{ backgroundColor: "#228DCE" }}
-                  onMouseEnter={(e) =>
-                    (e.target.style.backgroundColor = "#1a6fa8")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.target.style.backgroundColor = "#228DCE")
-                  }
-                >
-                  Get Started Free
-                  <ArrowRight className="ml-2" size={18} />
-                </Link>
-                <Link
-                  to="/docs"
-                  className="inline-flex items-center justify-center px-6 lg:px-8 py-3 lg:py-4 text-base lg:text-lg font-semibold transition-colors duration-200 border-2 rounded-lg shadow-lg hover:shadow-xl"
-                  style={{ color: "#228DCE", borderColor: "#228DCE" }}
-                  onMouseEnter={(e) =>
-                    (e.target.style.backgroundColor = "#e8f4fb")
-                  }
-                  onMouseLeave={(e) =>
-                    (e.target.style.backgroundColor = "transparent")
-                  }
-                >
-                  View Documentation
-                </Link>
-              </div>
-
-              {/* Trust Indicators */}
-              <div className="flex flex-col sm:flex-row items-center justify-center pt-2 lg:pt-4 space-y-3 sm:space-y-0 sm:space-x-4 lg:space-x-6">
-                <div className="text-xs lg:text-sm text-gray-500">Trusted by</div>
-                <div className="flex flex-wrap items-center justify-center gap-3 lg:gap-4">
-                  <div className="text-sm lg:text-base font-semibold text-gray-700">
-                    100+
-                  </div>
-                  <div className="text-xs lg:text-sm text-gray-500">
-                    Businesses
-                  </div>
-                  <div className="text-sm lg:text-base font-semibold text-gray-700">
-                    ₹2.4k+
-                  </div>
-                  <div className="text-xs lg:text-sm text-gray-500">
-                    Processed
-                  </div>
-                </div>
-              </div>
-            </div>
-
- <div className="flex justify-center lg:justify-end">
-  <div className="relative w-full max-w-lg h-[500px] lg:h-[600px] flex items-center justify-center">
-    {/* Central Circle - RESPONSIVE */}
-    <div className="relative z-10 flex flex-col items-center justify-center w-40 h-40 lg:w-48 lg:h-48 rounded-full shadow-2xl" style={{ background: `linear-gradient(135deg, #228DCE 0%, #1a6fa8 100%)` }}>
-      <div className="text-center text-white">
-        <div className="mb-1 text-lg lg:text-2xl font-bold">SilanPay</div>
-        <div className="text-xs opacity-90">Payment Solutions</div>
-      </div>
-    </div>
-
-    {/* Orbital Rings Container */}
-    <div className="absolute inset-0 flex items-center justify-center">
-      {/* MOBILE: Ring 1 - Inner Ring */}
-      <div 
-        className="absolute border-2 rounded-full opacity-60"
-        style={{ 
-          borderColor: '#228DCE', 
-          borderStyle: 'dashed',
-          width: '200px',
-          height: '200px',
-          animation: 'spin-orbit 20s linear infinite',
-          display: 'block',
-          '@media (min-width: 1024px)': {
-            display: 'none'
-          }
-        }}
-      />
-
-      {/* MOBILE: Ring 2 - Outer Ring */}
-      <div 
-        className="absolute border-2 rounded-full opacity-40"
-        style={{ 
-          borderColor: '#228DCE', 
-          borderStyle: 'dashed',
-          width: '300px',
-          height: '300px',
-          animation: 'spin-orbit-reverse 30s linear infinite',
-          display: 'block',
-          '@media (min-width: 1024px)': {
-            display: 'none'
-          }
-        }}
-      />
-
-      {/* DESKTOP: Ring 1 - Inner Ring - ALWAYS SHOW */}
-      <div 
-        style={{ 
-          position: 'absolute',
-          borderColor: '#228DCE', 
-          borderStyle: 'dashed',
-          borderWidth: '3px',
-          borderRadius: '50%',
-          width: '300px',
-          height: '300px',
-          opacity: 0.6,
-          animation: 'spin-orbit 20s linear infinite'
-        }}
-      />
-
-      {/* DESKTOP: Ring 2 - Outer Ring - ALWAYS SHOW */}
-      <div 
-        style={{ 
-          position: 'absolute',
-          borderColor: '#228DCE', 
-          borderStyle: 'dashed',
-          borderWidth: '3px',
-          borderRadius: '50%',
-          width: '420px',
-          height: '420px',
-          opacity: 0.4,
-          animation: 'spin-orbit-reverse 30s linear infinite'
-        }}
-      />
-    </div>
-
-    {/* Floating Icons with Orbital Animation */}
-    {/* UPI Icon */}
-    <div className="absolute animate-orbit-1 scale-75 lg:scale-100 origin-center">
-      <div className="flex items-center px-3 lg:px-4 py-2 space-x-2 bg-white rounded-full shadow-lg">
-        <Smartphone className="w-4 lg:w-5 h-4 lg:h-5" style={{ color: '#228DCE' }} />
-        <span className="text-xs lg:text-sm font-semibold text-gray-700">UPI</span>
-      </div>
-    </div>
-
-    {/* QR Code Icon */}
-    <div className="absolute animate-orbit-2 scale-75 lg:scale-100 origin-center">
-      <div className="flex items-center justify-center w-10 lg:w-12 h-10 lg:h-12 bg-white rounded-full shadow-lg">
-        <QrCode className="w-5 lg:w-6 h-5 lg:h-6 text-purple-600" />
-      </div>
-    </div>
-
-    {/* Payment Link Icon */}
-    <div className="absolute animate-orbit-3 scale-75 lg:scale-100 origin-center">
-      <div className="flex items-center px-3 lg:px-4 py-2 space-x-2 bg-white rounded-full shadow-lg">
-        <LinkIcon className="w-4 lg:w-5 h-4 lg:h-5 text-green-600" />
-        <span className="text-xs lg:text-sm font-semibold text-gray-700">Payment Links</span>
-      </div>
-    </div>
-
-    {/* API Icon */}
-    <div className="absolute animate-orbit-4 scale-75 lg:scale-100 origin-center">
-      <div className="flex items-center justify-center w-10 lg:w-12 h-10 lg:h-12 bg-white rounded-full shadow-lg">
-        <Code className="w-5 lg:w-6 h-5 lg:h-6 text-orange-600" />
-      </div>
-    </div>
-
-    {/* Cards Icon */}
-    <div className="absolute animate-orbit-5 scale-75 lg:scale-100 origin-center">
-      <div className="flex items-center px-3 lg:px-4 py-2 space-x-2 bg-white rounded-full shadow-lg">
-        <CreditCard className="w-4 lg:w-5 h-4 lg:h-5" style={{ color: '#228DCE' }} />
-        <span className="text-xs lg:text-sm font-semibold text-gray-700">Cards</span>
-      </div>
-    </div>
-
-    {/* Wallet Icon */}
-    <div className="absolute animate-orbit-6 scale-75 lg:scale-100 origin-center">
-      <div className="flex items-center justify-center w-10 lg:w-12 h-10 lg:h-12 bg-white rounded-full shadow-lg">
-        <WalletIcon className="w-5 lg:w-6 h-5 lg:h-6 text-indigo-600" />
-      </div>
-    </div>
-
-    {/* Floating Decorative Elements */}
-    <div className="absolute w-2 lg:w-3 h-2 lg:h-3 rounded-full top-10 left-10 animate-float-1" style={{ backgroundColor: '#228DCE', opacity: 0.6 }}></div>
-    <div className="absolute w-1.5 lg:w-2 h-1.5 lg:h-2 bg-purple-400 rounded-full top-20 right-16 animate-float-2"></div>
-    <div className="absolute w-2 lg:w-3 h-2 lg:h-3 bg-green-400 rounded-full bottom-16 left-20 animate-float-3"></div>
-    <div className="absolute w-1.5 lg:w-2 h-1.5 lg:h-2 bg-orange-400 rounded-full bottom-20 right-12 animate-float-1"></div>
-  </div>
-</div>
-
-          </div>
+      {/* ===== 1. HERO SECTION ===== */}
+      <section
+        ref={heroRef}
+        className="relative -mt-1 overflow-hidden bg-white"
+      >
+        {/* Subtle Background Pattern */}
+        <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-white">
+          <div className="absolute inset-0 bg-grid-pattern opacity-5"></div>
         </div>
-      </section>
 
-      
-{/* ===== OUR SERVICES - STICKY SCROLL ANIMATION (DESKTOP) / PLAIN LIST (MOBILE) ===== */}
-<section
-  ref={containerRef}
-  className="relative bg-gradient-to-b from-white to-gray-50"
->
-  {/* ===== DESKTOP VIEW - With Sticky Effects ===== */}
-  <div
-    className="hidden lg:block"
-    style={{ height: `${services.length * 30}vh` }}
-  >
-    {/* Header Section - Desktop */}
-<div className="relative z-10 bg-gradient-to-b from-white to-transparent pt-12 pb-0 px-4 sm:px-6 lg:px-8">
-      <div className="mx-auto max-w-7xl text-center">
-        <div
-          className="inline-block px-6 py-2 mb-4 text-sm font-semibold rounded-full"
-          style={{ backgroundColor: "#e8f4fb", color: "#228DCE" }}
-        >
-          Comprehensive business solutions
-        </div>
-        <h2 className="mb-3 text-4xl font-bold text-gray-900">
-          Empowering your business with{" "}
-          <span
-            className="text-transparent bg-clip-text"
-            style={{
-              backgroundImage: "linear-gradient(to right, #228DCE, #228DCE)",
-            }}
-          >
-            SilanPay
-          </span>
-        </h2>
-        <p className="max-w-2xl mx-auto text-base text-gray-600">
-          Scroll to explore our comprehensive services
-        </p>
-      </div>
-    </div>
-
-    {/* Sticky Container - Desktop Only */}
-    <div className="sticky top-0 flex items-center justify-center h-screen overflow-hidden">
-      <div className="w-full px-4 py-10 mx-auto max-w-7xl sm:px-6 lg:px-8">
-        {/* Cards Stack */}
-        <div
-          className="relative flex items-center justify-center w-full max-w-6xl mx-auto"
-          style={{ minHeight: "65vh" }}
-        >
-          {services.map((service, index) => {
-            const IconComponent = service.icon;
-            const isActive = index === activeCardIndex;
-            const isPast = index < activeCardIndex;
-
-            const translateY = isPast
-              ? -120
-              : isActive
-              ? 0
-              : (index - activeCardIndex) * 20;
-            const scale = isActive
-              ? 1
-              : 0.95 - (index - activeCardIndex) * 0.02;
-            const opacity = isPast
-              ? 0
-              : isActive
-              ? 1
-              : Math.max(0.3, 1 - (index - activeCardIndex) * 0.2);
-            const zIndex = services.length - Math.abs(index - activeCardIndex);
-
-            return (
-              <div
-                key={index}
-                className="absolute inset-0 flex items-center justify-center w-full transition-all duration-500 ease-out"
-                style={{
-                  transform: `translateY(${translateY}%) scale(${scale})`,
-                  opacity: opacity,
-                  zIndex: zIndex,
-                  pointerEvents: isActive ? "auto" : "none",
-                }}
-              >
-                <div className="relative w-full max-w-5xl overflow-hidden bg-white border-2 border-gray-100 shadow-2xl rounded-3xl">
-                  <div
-                    className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-5 rounded-3xl`}
-                  ></div>
-
-                  <div className="relative p-12">
-                    <div className="flex items-start mb-6 space-x-6">
-                      <div
-                        className={`flex items-center justify-center flex-shrink-0 w-20 h-20 rounded-2xl bg-gradient-to-br ${service.color} shadow-lg`}
-                      >
-                        <IconComponent className="w-10 h-10 text-white" />
-                      </div>
-                      <div className="flex-1">
-                        <h3 className="mb-2 text-4xl font-bold text-gray-900">
-                          {service.title}
-                        </h3>
-                        <p className="text-lg font-medium text-gray-500">
-                          {service.subtitle}
-                        </p>
-                      </div>
-                      <div className="flex flex-col items-center flex-shrink-0 space-y-2">
-                        <div
-                          className="flex items-center justify-center w-10 h-10 rounded-full"
-                          style={{ backgroundColor: "#228DCE" }}
-                        >
-                          <div className="w-3 h-3 bg-white rounded-full"></div>
-                        </div>
-                        <span className="text-sm font-semibold text-gray-400">
-                          {index + 1} / {services.length}
-                        </span>
-                      </div>
-                    </div>
-
-                    <p className="mb-8 text-lg leading-relaxed text-gray-600">
-                      {service.description}
-                    </p>
-
-                    <div className="grid grid-cols-1 gap-4 mb-6 md:grid-cols-2 lg:grid-cols-3">
-                      {service.features.map((feature, featureIndex) => (
-                        <div
-                          key={featureIndex}
-                          className="flex items-start p-4 space-x-3 transition-colors rounded-xl bg-gray-50"
-                          onMouseEnter={(e) =>
-                            (e.currentTarget.style.backgroundColor = "#e8f4fb")
-                          }
-                          onMouseLeave={(e) =>
-                            (e.currentTarget.style.backgroundColor = "#f9fafb")
-                          }
-                        >
-                          <CheckCircle
-                            className="flex-shrink-0 mt-1"
-                            size={20}
-                            style={{ color: "#228DCE" }}
-                          />
-                          <span className="text-sm font-medium leading-snug text-gray-900">
-                            {feature}
-                          </span>
-                        </div>
-                      ))}
-                    </div>
-
-                    <div className="flex items-center justify-between pt-6 border-t border-gray-200">
-                      <div className="text-sm text-gray-500">
-                        {isActive && activeCardIndex < services.length - 1
-                          ? "Scroll down to see next service"
-                          : isActive &&
-                            activeCardIndex === services.length - 1
-                          ? "Last service - scroll to continue"
-                          : ""}
-                      </div>
-                      <ArrowRight
-                        className="w-6 h-6"
-                        style={{ color: "#228DCE" }}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  </div>
-
-  {/* ===== MOBILE & TABLET VIEW - Plain Vertical List (No Sticky) ===== */}
-  <div className="lg:hidden">
-    {/* Header Section - Mobile */}
-    <div className="relative z-10 bg-gradient-to-b from-white to-transparent pt-10 pb-6 px-4 sm:px-6">
-      <div className="mx-auto max-w-4xl text-center">
-        <div
-          className="inline-block px-4 md:px-6 py-2 mb-3 md:mb-4 text-xs md:text-sm font-semibold rounded-full"
-          style={{ backgroundColor: "#e8f4fb", color: "#228DCE" }}
-        >
-          Comprehensive business solutions
-        </div>
-        <h2 className="mb-2 md:mb-3 text-2xl md:text-3xl font-bold text-gray-900">
-          Empowering your business with{" "}
-          <span
-            className="text-transparent bg-clip-text"
-            style={{
-              backgroundImage: "linear-gradient(to right, #228DCE, #228DCE)",
-            }}
-          >
-            SilanPay
-          </span>
-        </h2>
-      </div>
-    </div>
-
-    {/* Plain Vertical List - Mobile & Tablet */}
-    <div className="py-8 md:py-12 px-4 sm:px-6">
-      <div className="mx-auto max-w-7xl">
-        <div className="flex flex-col gap-4 md:gap-6">
-          {services.map((service, index) => {
-            const IconComponent = service.icon;
-            return (
-              <div
-                key={index}
-                className="relative w-full overflow-hidden bg-white border border-gray-100 shadow rounded-2xl p-4 md:p-6"
-              >
-                <div className="flex items-start gap-3 md:gap-4 mb-3 md:mb-4">
-                  <div
-                    className={`flex items-center justify-center flex-shrink-0 w-12 md:w-14 h-12 md:h-14 rounded-lg bg-gradient-to-br ${service.color}`}
-                  >
-                    <IconComponent className="w-6 md:w-7 h-6 md:h-7 text-white" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg md:text-xl font-bold text-gray-900">
-                      {service.title}
-                    </h3>
-                    <p className="text-xs md:text-sm font-medium text-gray-500">
-                      {service.subtitle}
-                    </p>
-                  </div>
+        {/* Content Container */}
+        <div className="relative z-10 px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div className="h-[calc(100vh-4rem)] flex items-center">
+            <div className="grid items-center w-full grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12">
+              {/* Left Side - Content */}
+              <div className="space-y-6 text-center lg:text-left">
+                {/* Trust Badge */}
+                <div className="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-700 border border-blue-100 rounded-full bg-blue-50 hero-content">
+                  <Shield className="w-4 h-4 mr-2" />
+                  Trusted by 10,000+ Businesses
                 </div>
 
-                <p className="text-xs md:text-sm leading-relaxed text-gray-600 mb-3 md:mb-4">
-                  {service.description}
+                {/* Main Heading */}
+                <h1 className="text-4xl font-bold leading-tight text-gray-900 sm:text-5xl lg:text-6xl hero-content">
+                  Secure Payments
+                  <span className="block text-blue-600">Made Simple</span>
+                </h1>
+
+                {/* Subtitle */}
+                <p className="max-w-lg mx-auto text-lg leading-relaxed text-gray-600 sm:text-xl lg:mx-0 hero-content">
+                  Accept payments seamlessly with our reliable UPI, QR codes,
+                  and payment gateway solutions. Start processing payments in
+                  minutes.
                 </p>
 
-                <div className="flex gap-2 flex-wrap">
-                  {service.features.slice(0, 3).map((feature, idx) => (
-                    <div
-                      key={idx}
-                      className="text-[10px] md:text-xs font-semibold px-2 md:px-2.5 py-1 rounded-full"
-                      style={{
-                        backgroundColor: "#e8f4fb",
-                        color: "#228DCE",
-                      }}
-                    >
-                      {feature.split(" ")[0]}
+                {/* CTA Buttons */}
+                <div className="flex flex-col justify-center gap-4 sm:flex-row lg:justify-start hero-content">
+                  <Link
+                    to="/register"
+                    className="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white text-lg font-semibold rounded-xl hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                  >
+                    Get Started Free
+                    <ArrowRight className="w-5 h-5 ml-2" />
+                  </Link>
+                  <Link
+                    to="/demo"
+                    className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-blue-600 transition-all duration-300 bg-white border-2 border-blue-600 rounded-xl hover:bg-blue-50"
+                  >
+                    <PlayCircle className="w-5 h-5 mr-2" />
+                    View Demo
+                  </Link>
+                </div>
+
+                {/* Trust Indicators */}
+                <div className="grid grid-cols-2 gap-6 pt-8 lg:grid-cols-4 hero-content">
+                  {stats.map((stat, index) => (
+                    <div key={index} className="text-center lg:text-left">
+                      <div className="flex items-center justify-center w-12 h-12 mx-auto mb-2 bg-blue-100 rounded-lg lg:mx-0">
+                        <stat.icon className="w-6 h-6 text-blue-600" />
+                      </div>
+                      <div className="text-2xl font-bold text-gray-900">
+                        {stat.number}
+                      </div>
+                      <div className="text-sm text-gray-600">{stat.label}</div>
                     </div>
                   ))}
                 </div>
-
-                {/* Card number - Desktop info for reference */}
-                <div className="mt-3 text-xs text-gray-400">
-                  Service {index + 1} of {services.length}
-                </div>
               </div>
-            );
-          })}
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-
-      {/* ===== COMPREHENSIVE PAYMENT SOLUTIONS ===== */}
-      {/* <section className="py-16 bg-white">
-        <div className="px-4 mx-auto text-center max-w-7xl sm:px-6 lg:px-8">
-          <h2 className="mb-4 text-3xl font-bold text-gray-900">
-            Comprehensive Payment Solutions
-          </h2>
-          <p className="mb-12 text-lg text-gray-600">
-            Accept payments through 10+ methods including QR codes, UPI, cards,
-            wallets, and more.
-          </p>
-
-          <div ref={paymentsRef} className="relative mt-6 overflow-hidden">
-            <div
-              ref={trackRef}
-              className="flex items-stretch gap-8 px-6 py-8 will-change-transform"
-              style={{ touchAction: "pan-y", transform: "translateX(0)" }}
-            >
-              {[
-                { name: "QR Code Payments", icon: QrCode, color: "bg-purple-50" },
-                { name: "UPI", icon: Smartphone, color: "bg-cyan-50" },
-                { name: "Wallets", icon: WalletIcon, color: "bg-indigo-50" },
-                { name: "Net Banking", icon: Building2, color: "bg-emerald-50" },
-                { name: "NEFT/RTGS", icon: ArrowLeftRight, color: "bg-yellow-50" },
-                { name: "Cards", icon: CreditCard, color: "bg-pink-50" },
-              ].map((method, index) => {
-                const IconComponent = method.icon;
-                return (
-                  <div
-                    key={index}
-                    className={`min-w-[320px] sm:min-w-[380px] md:min-w-[420px] lg:min-w-[480px] relative overflow-hidden transform transition-all duration-300 ease-out bg-white border border-gray-100 rounded-2xl shadow-lg hover:shadow-2xl hover:-translate-y-2 hover:scale-[1.02] ${method.color} p-8 lg:p-10`}
-                  >
-                    <div className="flex flex-col h-full justify-between items-center min-h-[380px] text-center">
-                      <div>
-                        <div className="flex flex-col items-center space-y-6">
-                          <div className="flex items-center justify-center w-20 h-20 lg:w-24 lg:h-24 rounded-2xl transform transition-transform hover:scale-110" 
-                               style={{ background: 'linear-gradient(135deg,#228DCE 0%, #1a6fa8 100%)' }}>
-                            <IconComponent className="w-10 h-10 lg:w-12 lg:h-12 text-white" />
+              {/* Right Side - Professional Payment Card */}
+              <div className="flex justify-center lg:justify-end">
+                <div className="relative w-full max-w-sm">
+                  {/* Card Container */}
+                  <div className="overflow-hidden bg-white border border-gray-100 shadow-xl rounded-2xl">
+                    {/* Card Header */}
+                    <div className="p-4 text-white bg-gradient-to-r from-blue-600 to-blue-700">
+                      <div className="flex items-center justify-between mb-3">
+                        <div className="flex items-center space-x-2">
+                          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/20">
+                            <CreditCard className="w-4 h-4" />
                           </div>
                           <div>
-                            <div className="text-2xl lg:text-3xl font-bold text-gray-900 mb-3">{method.name}</div>
-                            <div className="text-base lg:text-lg text-gray-500 font-medium">
-                              {method.name === "QR Code Payments" && "Scan & Pay in seconds"}
-                              {method.name === "UPI" && "Direct bank transfers"}
-                              {method.name === "Wallets" && "Digital wallet convenience"}
-                              {method.name === "Net Banking" && "Bank-grade security"}
-                              {method.name === "NEFT/RTGS" && "Large value transfers"}
-                              {method.name === "Cards" && "Global payment acceptance"}
+                            <h3 className="font-bold">SilanPay</h3>
+                            <p className="text-xs text-blue-100">
+                              Payment Gateway
+                            </p>
+                          </div>
+                        </div>
+                        <div className="text-right">
+                          <div className="text-xs text-blue-100">
+                            Success Rate
+                          </div>
+                          <div className="text-lg font-bold">99.9%</div>
+                        </div>
+                      </div>
+
+                      {/* Status Indicator */}
+                      <div className="flex items-center space-x-2">
+                        <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+                        <span className="text-xs">Live & Processing</span>
+                      </div>
+                    </div>
+
+                    {/* Payment Methods */}
+                    <div className="p-4">
+                      <h4 className="mb-3 text-sm font-semibold text-center text-gray-900">
+                        Supported Payment Methods
+                      </h4>
+
+                      <div className="grid grid-cols-3 gap-2 mb-4">
+                        {[
+                          {
+                            icon: QrCode,
+                            name: "QR",
+                            color: "text-purple-600",
+                          },
+                          {
+                            icon: Smartphone,
+                            name: "UPI",
+                            color: "text-blue-600",
+                          },
+                          {
+                            icon: CreditCard,
+                            name: "Cards",
+                            color: "text-green-600",
+                          },
+                          {
+                            icon: WalletIcon,
+                            name: "Wallets",
+                            color: "text-orange-600",
+                          },
+                          {
+                            icon: Building2,
+                            name: "Banking",
+                            color: "text-cyan-600",
+                          },
+                          { icon: Globe, name: "More", color: "text-gray-600" },
+                        ].map((method, index) => (
+                          <div
+                            key={index}
+                            className="p-2 text-center transition-colors rounded-lg bg-gray-50 hover:bg-gray-100"
+                          >
+                            <method.icon
+                              className={`w-5 h-5 ${method.color} mx-auto mb-1`}
+                            />
+                            <div className="text-xs font-medium text-gray-700">
+                              {method.name}
                             </div>
                           </div>
-                        </div>
+                        ))}
+                      </div>
 
-                        <div className="mt-10 space-y-6">
-                          <div className="text-base lg:text-lg text-gray-700 leading-relaxed px-4">
-                            {method.name === "QR Code Payments" && "Enable instant payments through dynamic & static QR codes. Perfect for retail, restaurants, and service businesses."}
-                            {method.name === "UPI" && "Accept payments from any UPI app with instant confirmation. India's fastest-growing payment method."}
-                            {method.name === "Wallets" && "Support all major digital wallets with seamless integration. Tap into the digital-first customer base."}
-                            {method.name === "Net Banking" && "Direct integration with 100+ banks for secure online transactions. Trusted by millions."}
-                            {method.name === "NEFT/RTGS" && "Handle high-value transactions with enterprise-grade security. Perfect for B2B payments."}
-                            {method.name === "Cards" && "Accept credit & debit cards from all major networks. International payment ready."}
+                      {/* Key Features */}
+                      <div className="mb-4 space-y-2">
+                        {[
+                          { icon: Zap, text: "Instant Processing" },
+                          { icon: Shield, text: "Secure Transactions" },
+                          { icon: Clock, text: "24/7 Support" },
+                        ].map((feature, index) => (
+                          <div
+                            key={index}
+                            className="flex items-center space-x-3"
+                          >
+                            <div className="flex items-center justify-center w-8 h-8 bg-green-100 rounded-lg">
+                              <feature.icon className="w-4 h-4 text-green-600" />
+                            </div>
+                            <span className="text-sm font-medium text-gray-700">
+                              {feature.text}
+                            </span>
                           </div>
-                          
-                          <div className="flex flex-wrap justify-center gap-3">
-                            {method.name === "QR Code Payments" && (
-                              <>
-                                <span className="px-4 py-2 text-sm font-medium bg-blue-50 text-blue-600 rounded-full transform transition-transform hover:scale-105">Dynamic QR</span>
-                                <span className="px-4 py-2 text-sm font-medium bg-green-50 text-green-600 rounded-full transform transition-transform hover:scale-105">Instant Scan</span>
-                                <span className="px-4 py-2 text-sm font-medium bg-purple-50 text-purple-600 rounded-full transform transition-transform hover:scale-105">Auto Reconcile</span>
-                              </>
-                            )}
-                            {method.name === "UPI" && (
-                              <>
-                                <span className="px-4 py-2 text-sm font-medium bg-cyan-50 text-cyan-600 rounded-full transform transition-transform hover:scale-105">24/7 Available</span>
-                                <span className="px-4 py-2 text-sm font-medium bg-teal-50 text-teal-600 rounded-full transform transition-transform hover:scale-105">Instant Transfer</span>
-                                <span className="px-4 py-2 text-sm font-medium bg-emerald-50 text-emerald-600 rounded-full transform transition-transform hover:scale-105">Secure</span>
-                              </>
-                            )}
+                        ))}
+                      </div>
+
+                      {/* Bottom Stats */}
+                      <div className="grid grid-cols-3 gap-4 pt-4 border-t border-gray-100">
+                        <div className="text-center">
+                          <div className="text-lg font-bold text-blue-600">
+                            10K+
                           </div>
+                          <div className="text-xs text-gray-500">Merchants</div>
                         </div>
-                      </div>  
+                        <div className="text-center">
+                          <div className="text-lg font-bold text-green-600">
+                            99.9%
+                          </div>
+                          <div className="text-xs text-gray-500">Uptime</div>
+                        </div>
+                        <div className="text-center">
+                          <div className="text-lg font-bold text-purple-600">
+                            24/7
+                          </div>
+                          <div className="text-xs text-gray-500">Support</div>
+                        </div>
+                      </div>
                     </div>
                   </div>
-                );
-              })}
+
+                  {/* Floating Success Badge */}
+                  <div className="absolute flex items-center justify-center w-12 h-12 bg-green-500 rounded-full shadow-lg -top-3 -right-3">
+                    <CheckCircle className="w-6 h-6 text-white" />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </section> */}
-      <PaymentSolutionsWithCursorScroll />
+      </section>
 
-      
-      {/* ===== T+0 & T+1 SETTLEMENT ===== */}
-      <section className="min-h-screen flex items-center py-20 bg-gradient-to-br from-gray-50 to-white relative overflow-hidden">
-        {/* Background Animated Elements */}
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute w-96 h-96 -top-12 -right-12 bg-blue-50 rounded-full blur-3xl opacity-30 animate-pulse"></div>
-          <div className="absolute w-96 h-96 bottom-0 left-0 bg-cyan-50 rounded-full blur-3xl opacity-30 animate-pulse delay-1000"></div>
-          <div className="absolute w-64 h-64 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-purple-50 rounded-full blur-3xl opacity-20 animate-pulse delay-500"></div>
-        </div>
+      {/* ===== 2. FEATURES SECTION ===== */}
+      <section ref={featuresRef} className="py-24 features-section bg-gray-50">
+        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div className="mb-16 text-center">
+            <div className="inline-flex items-center px-4 py-2 mb-4 text-sm font-medium text-blue-700 rounded-full bg-blue-50">
+              <Target className="w-4 h-4 mr-2" />
+              Why Choose SilanPay
+            </div>
+            <h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
+              Built for Modern Businesses
+            </h2>
+            <p className="max-w-3xl mx-auto text-xl text-gray-600">
+              Everything you need to accept payments, manage transactions, and
+              grow your business - all in one powerful platform.
+            </p>
+          </div>
 
-        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8 relative z-10">
-          <div className="grid items-center grid-cols-1 gap-12 lg:grid-cols-2">
-            {/* Left Content */}
-            <div ref={settlementContentRef} className="space-y-8">
-              <div className="inline-flex items-center px-4 py-2 rounded-full bg-blue-50 text-blue-600">
-                <Clock className="w-4 h-4 mr-2" />
-                <span className="text-sm font-semibold">Rapid Settlement System</span>
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            {features.map((feature, index) => (
+              <div
+                key={index}
+                className="p-8 transition-all duration-300 transform bg-white shadow-lg feature-card rounded-2xl hover:shadow-xl hover:-translate-y-2"
+              >
+                <div className="flex items-center justify-center mb-6 bg-blue-100 w-14 h-14 rounded-xl">
+                  <feature.icon className="text-blue-600 w-7 h-7" />
+                </div>
+                <h3 className="mb-4 text-xl font-bold text-gray-900">
+                  {feature.title}
+                </h3>
+                <p className="leading-relaxed text-gray-600">
+                  {feature.description}
+                </p>
               </div>
-              
-              <h2 className="text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
-                Get Paid Faster with{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-cyan-500">
-                  T+0 & T+1
-                </span>{" "}
-                Settlement
-              </h2>
-              
-              <p className="text-xl text-gray-600 leading-relaxed">
-                Experience lightning-fast settlements. Your funds are credited to your account within the same day or next business day of transaction.
-              </p>
+            ))}
+          </div>
+        </div>
+      </section>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {[
-                  {
-                    title: "Instant Settlement",
-                    description: "Get T+0 settlement for selected payment methods",
-                    icon: Zap,
-                    color: "bg-green-50 text-green-600"
-                  },
-                  {
-                    title: "Next Day Funds",
-                    description: "T+1 settlement for all other transactions",
-                    icon: CalendarDays,
-                    color: "bg-blue-50 text-blue-600"
-                  },
-                  {
-                    title: "Auto Reconciliation",
-                    description: "Automated matching and settlement process",
-                    icon: RefreshCw,
-                    color: "bg-purple-50 text-purple-600"
-                  },
-                  {
-                    title: "Real-time Tracking",
-                    description: "Monitor settlement status 24/7",
-                    icon: Activity,
-                    color: "bg-amber-50 text-amber-600"
-                  }
-                ].map((feature, index) => (
-                  <div 
-                    key={index}
-                    className="p-6 rounded-xl bg-white shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-                  >
-                    <div className={`w-12 h-12 rounded-lg ${feature.color} flex items-center justify-center mb-4`}>
-                      <feature.icon className="w-6 h-6" />
+      {/* ===== 3. SERVICES SECTION ===== */}
+      <section ref={servicesRef} className="py-24 bg-white">
+        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div className="mb-16 text-center">
+            <div className="inline-flex items-center px-4 py-2 mb-4 text-sm font-medium text-green-700 rounded-full bg-green-50">
+              <Rocket className="w-4 h-4 mr-2" />
+              Our Services
+            </div>
+            <h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
+              Complete Payment Solutions
+            </h2>
+            <p className="max-w-3xl mx-auto text-xl text-gray-600">
+              From UPI payments to enterprise solutions, we have everything you
+              need to handle payments efficiently.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+            {services.map((service, index) => (
+              <div
+                key={index}
+                className="p-8 transition-all duration-300 transform group bg-gray-50 rounded-2xl hover:bg-white hover:shadow-xl hover:-translate-y-2"
+              >
+                <div className="flex items-center justify-center w-16 h-16 mb-6 transition-colors duration-300 bg-blue-600 rounded-xl group-hover:bg-blue-700">
+                  <service.icon className="w-8 h-8 text-white" />
+                </div>
+                <h3 className="mb-4 text-xl font-bold text-gray-900">
+                  {service.title}
+                </h3>
+                <p className="mb-6 leading-relaxed text-gray-600">
+                  {service.description}
+                </p>
+                <div className="mb-4 font-semibold text-blue-600">
+                  {service.price}
+                </div>
+                <Link
+                  to="/contact"
+                  className="inline-flex items-center font-medium text-blue-600 transition-colors hover:text-blue-700"
+                >
+                  Learn More
+                  <ChevronRight className="w-4 h-4 ml-1" />
+                </Link>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ===== 4. HOW IT WORKS SECTION ===== */}
+      <section className="py-24 bg-white">
+        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div className="mb-16 text-center">
+            <div className="inline-flex items-center px-4 py-2 mb-4 text-sm font-medium text-blue-700 rounded-full bg-blue-50">
+              <Rocket className="w-4 h-4 mr-2" />
+              Integration Process
+            </div>
+            <h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
+              Get Started in 3 Simple Steps
+            </h2>
+            <p className="max-w-3xl mx-auto text-xl text-gray-600">
+              From registration to first transaction - complete setup in under
+              10 minutes
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8 mb-16 lg:grid-cols-3">
+            {[
+              {
+                step: "01",
+                title: "Sign Up & Verify",
+                description:
+                  "Create your account with business details. Complete KYC verification instantly using Aadhaar and PAN.",
+                details: [
+                  "Email verification",
+                  "Business documents upload",
+                  "Bank account linking",
+                ],
+                time: "3 minutes",
+                icon: Users,
+              },
+              {
+                step: "02",
+                title: "API Integration",
+                description:
+                  "Copy your API keys and integrate using our SDKs. Test in sandbox mode before going live.",
+                details: [
+                  "Get API credentials",
+                  "Choose SDK (Node/PHP/Python)",
+                  "Test transactions",
+                ],
+                time: "5 minutes",
+                icon: Code,
+              },
+              {
+                step: "03",
+                title: "Go Live",
+                description:
+                  "Switch to production mode and start accepting real payments. Monitor everything from dashboard.",
+                details: [
+                  "Enable live mode",
+                  "Configure webhooks",
+                  "Start accepting payments",
+                ],
+                time: "2 minutes",
+                icon: CheckCircle,
+              },
+            ].map((step, index) => (
+              <div key={index} className="relative">
+                <div className="h-full p-8 transition-all duration-300 border border-gray-200 bg-gray-50 rounded-2xl hover:border-blue-300">
+                  <div className="flex items-center justify-between mb-6">
+                    <div className="text-5xl font-bold text-blue-100">
+                      {step.step}
                     </div>
-                    <h3 className="text-lg font-semibold text-gray-900 mb-2">{feature.title}</h3>
-                    <p className="text-gray-600">{feature.description}</p>
+                    <div className="flex items-center justify-center bg-blue-600 w-14 h-14 rounded-xl">
+                      <step.icon className="text-white w-7 h-7" />
+                    </div>
                   </div>
-                ))}
+                  <h3 className="mb-3 text-2xl font-bold text-gray-900">
+                    {step.title}
+                  </h3>
+                  <p className="mb-6 leading-relaxed text-gray-600">
+                    {step.description}
+                  </p>
+                  <ul className="mb-6 space-y-2">
+                    {step.details.map((detail, idx) => (
+                      <li
+                        key={idx}
+                        className="flex items-center text-sm text-gray-700"
+                      >
+                        <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mr-3"></div>
+                        {detail}
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="inline-flex items-center px-3 py-1 text-sm font-medium text-blue-700 bg-blue-100 rounded-full">
+                    <Clock className="w-4 h-4 mr-2" />
+                    {step.time}
+                  </div>
+                </div>
+                {index < 2 && (
+                  <div className="absolute hidden transform -translate-y-1/2 lg:block top-1/2 -right-4">
+                    <ArrowRight className="w-8 h-8 text-blue-300" />
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+
+          {/* Code Example */}
+          <div className="max-w-4xl p-8 mx-auto bg-gray-900 rounded-2xl">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center space-x-2">
+                <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+                <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+                <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+              </div>
+              <span className="text-sm text-gray-400">Example Integration</span>
+            </div>
+            <pre className="overflow-x-auto text-sm text-green-400">
+              {`const silanpay = require('silanpay');
+
+// Initialize with API key
+silanpay.configure({
+  apiKey: 'your_api_key_here',
+  environment: 'production'
+});
+
+// Create payment
+const payment = await silanpay.payments.create({
+  amount: 1000,
+  currency: 'INR',
+  email: 'customer@example.com',
+  phone: '9876543210'
+});`}
+            </pre>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== 5. ADVANCED FEATURES SECTION ===== */}
+      <section className="py-24 bg-gray-50">
+        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div className="mb-16 text-center">
+            <div className="inline-flex items-center px-4 py-2 mb-4 text-sm font-medium text-blue-700 rounded-full bg-blue-50">
+              <Zap className="w-4 h-4 mr-2" />
+              Powerful Features
+            </div>
+            <h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
+              Everything You Need to Succeed
+            </h2>
+            <p className="max-w-3xl mx-auto text-xl text-gray-600">
+              Built-in tools and features that help you grow your business
+              faster
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8 mb-16 md:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                icon: Shield,
+                title: "Advanced Security",
+                description:
+                  "Multi-layer security with AI-powered fraud detection and real-time risk monitoring",
+                features: [
+                  "PCI DSS Level 1 certified",
+                  "256-bit SSL encryption",
+                  "Two-factor authentication",
+                ],
+                badge: "Bank-Grade",
+                color: "blue",
+              },
+              {
+                icon: BarChart3,
+                title: "Smart Dashboard",
+                description:
+                  "Intuitive analytics dashboard with real-time insights and customizable reports",
+                features: [
+                  "Live transaction monitoring",
+                  "Revenue analytics",
+                  "Custom report builder",
+                ],
+                badge: "Real-Time",
+                color: "green",
+              },
+              {
+                icon: Repeat,
+                title: "Auto Reconciliation",
+                description:
+                  "Automated settlement reconciliation that saves hours of manual work",
+                features: [
+                  "Instant settlement matching",
+                  "Discrepancy alerts",
+                  "Automated reporting",
+                ],
+                badge: "Automated",
+                color: "purple",
+              },
+              {
+                icon: Bell,
+                title: "Smart Notifications",
+                description:
+                  "Multi-channel alerts for transactions, settlements, and important events",
+                features: [
+                  "Email & SMS alerts",
+                  "Webhook integration",
+                  "Custom notification rules",
+                ],
+                badge: "Instant",
+                color: "orange",
+              },
+              {
+                icon: Users,
+                title: "Team Management",
+                description:
+                  "Role-based access control with detailed permissions for team members",
+                features: [
+                  "Multi-user accounts",
+                  "Custom role creation",
+                  "Activity logs & audit trail",
+                ],
+                badge: "Collaborative",
+                color: "indigo",
+              },
+              {
+                icon: TrendingUp,
+                title: "Business Intelligence",
+                description:
+                  "AI-powered insights to optimize payment success rates and revenue",
+                features: [
+                  "Success rate optimization",
+                  "Customer behavior analysis",
+                  "Predictive analytics",
+                ],
+                badge: "AI-Powered",
+                color: "pink",
+              },
+            ].map((feature, index) => (
+              <div
+                key={index}
+                className="relative p-6 transition-all duration-300 bg-white border-2 border-gray-200 rounded-2xl hover:border-blue-400 hover:shadow-xl group"
+              >
+                <div
+                  className={`absolute top-4 right-4 px-3 py-1 bg-${feature.color}-100 text-${feature.color}-700 text-xs font-bold rounded-full`}
+                >
+                  {feature.badge}
+                </div>
+                <div
+                  className={`flex items-center justify-center w-14 h-14 mb-4 bg-gradient-to-br from-${feature.color}-50 to-${feature.color}-100 rounded-xl group-hover:scale-110 transition-transform duration-300`}
+                >
+                  <feature.icon
+                    className={`w-7 h-7 text-${feature.color}-600`}
+                  />
+                </div>
+                <h3 className="mb-3 text-xl font-bold text-gray-900">
+                  {feature.title}
+                </h3>
+                <p className="mb-4 leading-relaxed text-gray-600">
+                  {feature.description}
+                </p>
+                <ul className="space-y-2">
+                  {feature.features.map((item, idx) => (
+                    <li
+                      key={idx}
+                      className="flex items-center text-sm text-gray-700"
+                    >
+                      <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mr-3"></div>
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+
+          {/* Integration & Support */}
+          <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
+            {/* Quick Integration */}
+            <div className="p-8 bg-white border-2 border-gray-200 rounded-2xl">
+              <div className="flex items-center mb-4">
+                <div className="flex items-center justify-center w-12 h-12 mr-4 rounded-xl bg-gradient-to-br from-blue-50 to-blue-100">
+                  <Code className="w-6 h-6 text-blue-600" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold text-gray-900">
+                    Quick Integration
+                  </h3>
+                  <p className="text-sm text-gray-600">Go live in minutes</p>
+                </div>
+              </div>
+              <div className="p-4 mb-4 rounded-lg bg-gray-50">
+                <pre className="overflow-x-auto text-xs text-gray-800">
+                  {`// Initialize SilanPay
+import SilanPay from 'silanpay-sdk';
+
+const silanpay = new SilanPay({
+  apiKey: 'your_api_key',
+  environment: 'production'
+});
+
+// Create payment
+const payment = await silanpay.createPayment({
+  amount: 1000,
+  currency: 'INR',
+  orderId: 'ORD123',
+  customer: {
+    name: 'John Doe',
+    email: 'john@example.com',
+    phone: '+919876543210'
+  }
+});`}
+                </pre>
+              </div>
+              <div className="flex items-center justify-between text-sm">
+                <span className="font-medium text-gray-700">
+                  Available SDKs:
+                </span>
+                <div className="flex space-x-2">
+                  <span className="px-3 py-1 text-xs font-semibold text-blue-700 bg-blue-100 rounded-full">
+                    Node.js
+                  </span>
+                  <span className="px-3 py-1 text-xs font-semibold text-green-700 bg-green-100 rounded-full">
+                    PHP
+                  </span>
+                  <span className="px-3 py-1 text-xs font-semibold text-yellow-700 bg-yellow-100 rounded-full">
+                    Python
+                  </span>
+                </div>
               </div>
             </div>
 
-            {/* Right Content - Interactive Settlement Card */}
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-400/10 to-cyan-400/10 rounded-3xl transform rotate-6 blur"></div>
-              <div ref={settlementCardRef} className="relative p-8 rounded-2xl bg-white shadow-2xl border border-gray-100">
-                <div className="space-y-6">
-                  {/* Settlement Time Display */}
-                  <div className="text-center space-y-4">
-                    <div className="inline-flex items-center px-4 py-2 rounded-full bg-green-50 text-green-600">
-                      <span className="animate-pulse mr-2">●</span>
-                      <span className="font-medium">Processing Live</span>
+            {/* 24/7 Support */}
+            <div className="p-8 text-white bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl">
+              <div className="flex items-center mb-4">
+                <div className="flex items-center justify-center w-12 h-12 mr-4 bg-white/20 rounded-xl">
+                  <Heart className="w-6 h-6 text-white" />
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold">24/7 Support</h3>
+                  <p className="text-sm text-blue-100">We're here to help</p>
+                </div>
+              </div>
+              <p className="mb-6 text-blue-50">
+                Get instant support from our expert team anytime, anywhere.
+                We're committed to your success.
+              </p>
+              <div className="space-y-3">
+                <div className="flex items-center p-3 rounded-lg bg-white/10 backdrop-blur-sm">
+                  <Phone className="w-5 h-5 mr-3" />
+                  <div>
+                    <div className="text-sm font-semibold">Phone Support</div>
+                    <div className="text-xs text-blue-100">
+                      Average response: 30 seconds
                     </div>
-                    <div className="text-5xl font-bold bg-gradient-to-r from-blue-600 to-cyan-500 text-transparent bg-clip-text">
-                      T+0 & T+1
-                    </div>
-                    <div className="text-xl text-gray-600">Settlement Time</div>
                   </div>
-
-                  {/* Animated Progress Timeline */}
-                  <div className="space-y-4 pt-6">
-                    {[
-                      { time: "10:00 AM", status: "Payment Received", amount: "₹25,000" },
-                      { time: "10:01 AM", status: "Processing", amount: "In Progress" },
-                      { time: "10:15 AM", status: "Settlement Initiated", amount: "Pending" },
-                      { time: "11:00 AM", status: "Funds Available", amount: "Completed" }
-                    ].map((step, index) => (
-                      <div key={index} className="flex items-center space-x-4">
-                        <div className="w-16 text-sm text-gray-500">{step.time}</div>
-                        <div className="w-3 h-3 rounded-full bg-green-400 animate-pulse"></div>
-                        <div className="flex-1">
-                          <div className="text-sm font-medium text-gray-900">{step.status}</div>
-                          <div className="text-sm text-gray-500">{step.amount}</div>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Real-time Stats */}
-                  <div className="grid grid-cols-2 gap-4 pt-6">
-                    <div className="p-4 rounded-xl bg-gray-50">
-                      <div className="text-sm text-gray-500">Today's Settlements</div>
-                      <div className="text-2xl font-bold text-gray-900">₹12.4M</div>
-                      <div className="text-sm text-green-600">+12.5%</div>
+                </div>
+                <div className="flex items-center p-3 rounded-lg bg-white/10 backdrop-blur-sm">
+                  <MessageCircle className="w-5 h-5 mr-3" />
+                  <div>
+                    <div className="text-sm font-semibold">Live Chat</div>
+                    <div className="text-xs text-blue-100">
+                      Instant assistance available
                     </div>
-                    <div className="p-4 rounded-xl bg-gray-50">
-                      <div className="text-sm text-gray-500">Success Rate</div>
-                      <div className="text-2xl font-bold text-gray-900">99.9%</div>
-                      <div className="text-sm text-green-600">+0.5%</div>
+                  </div>
+                </div>
+                <div className="flex items-center p-3 rounded-lg bg-white/10 backdrop-blur-sm">
+                  <Mail className="w-5 h-5 mr-3" />
+                  <div>
+                    <div className="text-sm font-semibold">Email Support</div>
+                    <div className="text-xs text-blue-100">
+                      Response within 2 hours
                     </div>
                   </div>
                 </div>
@@ -1137,804 +916,835 @@ useEffect(() => {
         </div>
       </section>
 
-      {/* ===== GET TO KNOW OUR STORY ===== */}
-      {/* <section className="py-16 bg-white">
-        <div className="px-4 mx-auto text-center max-w-7xl sm:px-6 lg:px-8">
-          <h2 className="mb-4 text-3xl font-bold text-gray-900">
-            Get to Know Our Story
-          </h2>
-          <p className="max-w-3xl mx-auto mb-12 text-lg text-gray-600">
-            We're a team of passionate professionals dedicated to delivering
-            exceptional results and creating meaningful experiences for our
-            clients.
-          </p>
-
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
-            {[
-              { number: "100+", label: "Payment Modes", icon: CreditCard },
-              { number: "500+", label: "Happy Customers", icon: Smile },
-              { number: "100%", label: "Safe And Secure", icon: Shield },
-              {
-                number: "98%",
-                label: "Transaction Success Rates",
-                icon: ArrowLeftRight,
-              },
-            ].map((stat, index) => {
-              const IconComponent = stat.icon;
-              return (
-                <div
-                  key={index}
-                  className={`bg-white rounded-xl shadow-lg p-8 border ${
-                    index === 0 ? "" : "border-gray-100"
-                  }`}
-                  style={
-                    index === 0
-                      ? { borderColor: "#228DCE", borderWidth: "2px" }
-                      : {}
-                  }
-                >
-                  <div
-                    className="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full"
-                    style={{ backgroundColor: "#228DCE" }}
-                  >
-                    <IconComponent className="w-8 h-8 text-white" />
-                  </div>
-                  <div className="mb-2 text-3xl font-bold text-gray-900">
-                    {stat.number}
-                  </div>
-                  <div className="text-gray-600">{stat.label}</div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section> */}
-
-
-
-      {/* ===== ABOUT US COMPONENT ===== */}
-      <AboutUs />
-
-      {/* ===== MISSION, VISION & CORE VALUES ===== */}
-      {/* <section className="py-20 bg-white">
+      {/* ===== 6. ADVANCED PAYMENT FEATURES ===== */}
+      <section className="py-24 bg-white">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="mb-16 text-center">
-            <h2 className="mb-6 text-4xl font-bold text-gray-900">
-              Our Mission & Vision
+            <div className="inline-flex items-center px-4 py-2 mb-4 text-sm font-medium text-indigo-700 rounded-full bg-indigo-50">
+              <Sparkles className="w-4 h-4 mr-2" />
+              Advanced Capabilities
+            </div>
+            <h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
+              Next-Generation Payment Technology
             </h2>
             <p className="max-w-3xl mx-auto text-xl text-gray-600">
-              Driving innovation in digital payments to create a more connected
-              and efficient financial ecosystem
+              Cutting-edge features that give you a competitive advantage
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-12 mb-16 lg:grid-cols-2">
-            <div
-              className="p-8 rounded-2xl"
-              style={{
-                background:
-                  "linear-gradient(135deg, #e8f4fb 0%, #d4ebf7 100%)",
-              }}
-            >
-              <h3 className="mb-4 text-2xl font-bold text-gray-900">
-                Our Vision
-              </h3>
-              <p className="text-lg leading-relaxed text-gray-600">
-                To create a cashless economy where every business, regardless of
-                size, can access secure, reliable and innovative digital payment
-                solutions that drive growth and financial inclusion.
+          {/* Main Features Grid */}
+          <div className="grid grid-cols-1 gap-8 mb-16 md:grid-cols-2">
+            {/* Feature 1: Instant Settlement */}
+            <div className="relative p-8 overflow-hidden transition-all duration-300 border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl hover:border-blue-400 group">
+              <div className="absolute top-0 right-0 w-32 h-32 -mt-16 -mr-16 transition-transform duration-500 rounded-full bg-blue-200/30 group-hover:scale-150"></div>
+              <div className="relative">
+                <div className="inline-flex items-center justify-center w-16 h-16 mb-4 bg-white shadow-lg rounded-2xl">
+                  <Zap className="w-8 h-8 text-blue-600" />
+                </div>
+                <h3 className="mb-3 text-2xl font-bold text-gray-900">
+                  Instant Settlement
+                </h3>
+                <p className="mb-6 leading-relaxed text-gray-700">
+                  Get your money in real-time. No more waiting for T+1 or T+2
+                  days. Settlement happens instantly to your bank account.
+                </p>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="p-3 bg-white/80 rounded-xl backdrop-blur-sm">
+                    <div className="text-2xl font-bold text-blue-600">
+                      0 min
+                    </div>
+                    <div className="text-sm text-gray-600">Settlement Time</div>
+                  </div>
+                  <div className="p-3 bg-white/80 rounded-xl backdrop-blur-sm">
+                    <div className="text-2xl font-bold text-blue-600">24/7</div>
+                    <div className="text-sm text-gray-600">Availability</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Feature 2: Dynamic Routing */}
+            <div className="relative p-8 overflow-hidden transition-all duration-300 border-2 border-purple-200 bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl hover:border-purple-400 group">
+              <div className="absolute top-0 right-0 w-32 h-32 -mt-16 -mr-16 transition-transform duration-500 rounded-full bg-purple-200/30 group-hover:scale-150"></div>
+              <div className="relative">
+                <div className="inline-flex items-center justify-center w-16 h-16 mb-4 bg-white shadow-lg rounded-2xl">
+                  <Target className="w-8 h-8 text-purple-600" />
+                </div>
+                <h3 className="mb-3 text-2xl font-bold text-gray-900">
+                  Smart Payment Routing
+                </h3>
+                <p className="mb-6 leading-relaxed text-gray-700">
+                  AI-powered routing automatically selects the best payment
+                  gateway for each transaction to maximize success rates.
+                </p>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="p-3 bg-white/80 rounded-xl backdrop-blur-sm">
+                    <div className="text-2xl font-bold text-purple-600">
+                      +18%
+                    </div>
+                    <div className="text-sm text-gray-600">Success Rate</div>
+                  </div>
+                  <div className="p-3 bg-white/80 rounded-xl backdrop-blur-sm">
+                    <div className="text-2xl font-bold text-purple-600">
+                      Auto
+                    </div>
+                    <div className="text-sm text-gray-600">Optimization</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Feature 3: Recurring Payments */}
+            <div className="relative p-8 overflow-hidden transition-all duration-300 border-2 border-green-200 bg-gradient-to-br from-green-50 to-teal-50 rounded-3xl hover:border-green-400 group">
+              <div className="absolute top-0 right-0 w-32 h-32 -mt-16 -mr-16 transition-transform duration-500 rounded-full bg-green-200/30 group-hover:scale-150"></div>
+              <div className="relative">
+                <div className="inline-flex items-center justify-center w-16 h-16 mb-4 bg-white shadow-lg rounded-2xl">
+                  <Repeat className="w-8 h-8 text-green-600" />
+                </div>
+                <h3 className="mb-3 text-2xl font-bold text-gray-900">
+                  Subscription Management
+                </h3>
+                <p className="mb-6 leading-relaxed text-gray-700">
+                  Complete subscription billing system with automatic retries,
+                  dunning management, and flexible pricing models.
+                </p>
+                <div className="space-y-2">
+                  <div className="flex items-center text-sm text-gray-700">
+                    <div className="w-2 h-2 mr-3 bg-green-600 rounded-full"></div>
+                    Daily, weekly, monthly, yearly plans
+                  </div>
+                  <div className="flex items-center text-sm text-gray-700">
+                    <div className="w-2 h-2 mr-3 bg-green-600 rounded-full"></div>
+                    Automated invoice generation
+                  </div>
+                  <div className="flex items-center text-sm text-gray-700">
+                    <div className="w-2 h-2 mr-3 bg-green-600 rounded-full"></div>
+                    Trial period & proration support
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Feature 4: Split Payments */}
+            <div className="relative p-8 overflow-hidden transition-all duration-300 border-2 border-orange-200 bg-gradient-to-br from-orange-50 to-red-50 rounded-3xl hover:border-orange-400 group">
+              <div className="absolute top-0 right-0 w-32 h-32 -mt-16 -mr-16 transition-transform duration-500 rounded-full bg-orange-200/30 group-hover:scale-150"></div>
+              <div className="relative">
+                <div className="inline-flex items-center justify-center w-16 h-16 mb-4 bg-white shadow-lg rounded-2xl">
+                  <ArrowLeftRight className="w-8 h-8 text-orange-600" />
+                </div>
+                <h3 className="mb-3 text-2xl font-bold text-gray-900">
+                  Multi-Party Split
+                </h3>
+                <p className="mb-6 leading-relaxed text-gray-700">
+                  Split payments instantly between multiple vendors, partners,
+                  or accounts with customizable rules and ratios.
+                </p>
+                <div className="space-y-2">
+                  <div className="flex items-center text-sm text-gray-700">
+                    <div className="w-2 h-2 mr-3 bg-orange-600 rounded-full"></div>
+                    Instant multi-account transfer
+                  </div>
+                  <div className="flex items-center text-sm text-gray-700">
+                    <div className="w-2 h-2 mr-3 bg-orange-600 rounded-full"></div>
+                    Percentage or fixed amount splits
+                  </div>
+                  <div className="flex items-center text-sm text-gray-700">
+                    <div className="w-2 h-2 mr-3 bg-orange-600 rounded-full"></div>
+                    Perfect for marketplaces
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Additional Features */}
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            <div className="p-6 border border-gray-200 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl">
+              <div className="flex items-center mb-4">
+                <div className="flex items-center justify-center w-10 h-10 mr-3 bg-white rounded-xl">
+                  <QrCode className="w-5 h-5 text-gray-700" />
+                </div>
+                <h4 className="font-bold text-gray-900">Dynamic QR Codes</h4>
+              </div>
+              <p className="text-sm text-gray-600">
+                Generate unique QR codes for each transaction with auto-expiry
+                and amount validation.
               </p>
             </div>
 
-            <div className="p-8 bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl">
-              <h3 className="mb-4 text-2xl font-bold text-gray-900">
-                Our Mission
-              </h3>
-              <p className="text-lg leading-relaxed text-gray-600">
-                At Silansoftware Private Limited, our mission is to
-                revolutionize the payment ecosystem by providing secure,
-                seamless, and innovative payment solutions that empower
-                businesses to grow, expand, and succeed in the digital economy.
+            <div className="p-6 border border-gray-200 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl">
+              <div className="flex items-center mb-4">
+                <div className="flex items-center justify-center w-10 h-10 mr-3 bg-white rounded-xl">
+                  <Smartphone className="w-5 h-5 text-gray-700" />
+                </div>
+                <h4 className="font-bold text-gray-900">Payment Links</h4>
+              </div>
+              <p className="text-sm text-gray-600">
+                Share payment links via SMS, email, or WhatsApp. No coding
+                required, instant setup.
+              </p>
+            </div>
+
+            <div className="p-6 border border-gray-200 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl">
+              <div className="flex items-center mb-4">
+                <div className="flex items-center justify-center w-10 h-10 mr-3 bg-white rounded-xl">
+                  <RefreshCw className="w-5 h-5 text-gray-700" />
+                </div>
+                <h4 className="font-bold text-gray-900">Auto Refunds</h4>
+              </div>
+              <p className="text-sm text-gray-600">
+                Instant automated refunds with customizable rules and approval
+                workflows.
               </p>
             </div>
           </div>
 
-          <div className="mb-12 text-center">
-            <h3 className="mb-4 text-3xl font-bold text-gray-900">
-              Our Core Values
-            </h3>
-            <p className="text-lg text-gray-600">
-              The principles that guide everything we do
+          {/* CTA Section */}
+          <div className="mt-16 text-center">
+            <div className="inline-block p-8 shadow-2xl bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl">
+              <h3 className="mb-3 text-2xl font-bold text-white">
+                Ready to Experience Advanced Features?
+              </h3>
+              <p className="mb-6 text-blue-100">
+                Start using these powerful capabilities today
+              </p>
+              <Link
+                to="/register"
+                className="inline-flex items-center px-8 py-4 font-bold text-blue-600 transition-all duration-300 bg-white shadow-lg rounded-xl hover:bg-gray-100 hover:shadow-xl"
+              >
+                Get Started Now
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ===== 7. SMART FEATURES & AUTOMATION ===== */}
+      <section ref={partnersRef} className="py-24 bg-gray-50">
+        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div className="mb-16 text-center">
+            <div className="inline-flex items-center px-4 py-2 mb-4 text-sm font-medium text-purple-700 rounded-full bg-purple-50">
+              <Rocket className="w-4 h-4 mr-2" />
+              Smart Automation
+            </div>
+            <h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
+              Intelligent Features That Work For You
+            </h2>
+            <p className="max-w-3xl mx-auto text-xl text-gray-600">
+              Powerful automation and smart features to streamline your payment
+              operations
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
-            {[
-              {
-                title: "Innovative Payment Solutions",
-                description:
-                  "We are committed to delivering cutting-edge, reliable payment gateway services that cater to the evolving needs of businesses of all sizes. By leveraging advanced technology, we ensure fast and secure transactions.",
-                icon: Rocket,
-                color: "from-purple-50 to-violet-50",
-              },
-              {
-                title: "Focus on Security",
-                description:
-                  "Security is at the core of everything we do. Our top priority is safeguarding every transaction, ensuring that all payment data is encrypted and protected against fraud and cyber threats.",
-                icon: Lock,
-                color: "from-red-50 to-pink-50",
-              },
-              {
-                title: "Customer-Centric Approach",
-                description:
-                  "We aim to build long-lasting relationships with our clients by providing personalized, user-friendly payment solutions that enhance customer experience.",
-                icon: Heart,
-                color: "from-blue-50 to-cyan-50",
-              },
-              {
-                title: "Seamless Integration",
-                description:
-                  "Our platform is designed to integrate effortlessly with a wide range of business models, offering easy API integrations for merchants, retailers, and developers.",
-                icon: LinkIcon,
-                color: "from-green-50 to-teal-50",
-              },
-            ].map((value, index) => {
-              const IconComponent = value.icon;
-              return (
-                <div
-                  key={index}
-                  className={`bg-gradient-to-br ${value.color} rounded-2xl p-8 border border-gray-100`}
-                >
-                  <div className="flex items-start space-x-4">
-                    <div
-                      className="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-full"
-                      style={{ backgroundColor: "#228DCE" }}
-                    >
-                      <IconComponent className="w-6 h-6 text-white" />
+          {/* Main Features */}
+          <div className="grid grid-cols-1 gap-8 mb-16 lg:grid-cols-2">
+            {/* Smart Routing */}
+            <div className="relative overflow-hidden transition-all duration-300 bg-white border-2 border-gray-200 rounded-3xl hover:border-purple-400 group">
+              <div className="absolute top-0 right-0 w-40 h-40 -mt-20 -mr-20 transition-transform duration-500 bg-purple-100 rounded-full opacity-50 group-hover:scale-150"></div>
+              <div className="relative p-8">
+                <div className="flex items-start justify-between mb-6">
+                  <div className="flex items-center justify-center w-16 h-16 shadow-lg bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl">
+                    <Target className="w-8 h-8 text-white" />
+                  </div>
+                  <span className="px-4 py-1 text-xs font-bold text-purple-700 bg-purple-100 rounded-full">
+                    AI-Powered
+                  </span>
+                </div>
+                <h3 className="mb-4 text-2xl font-bold text-gray-900">
+                  Intelligent Payment Routing
+                </h3>
+                <p className="mb-6 leading-relaxed text-gray-600">
+                  Automatically route transactions through the most optimal
+                  payment gateway based on success rates, costs, and performance
+                  metrics.
+                </p>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                    <span className="text-sm font-medium text-gray-700">
+                      Success Rate Increase
+                    </span>
+                    <span className="text-lg font-bold text-purple-600">
+                      +25%
+                    </span>
+                  </div>
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                    <span className="text-sm font-medium text-gray-700">
+                      Cost Optimization
+                    </span>
+                    <span className="text-lg font-bold text-purple-600">
+                      -15%
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Auto Retry */}
+            <div className="relative overflow-hidden transition-all duration-300 bg-white border-2 border-gray-200 rounded-3xl hover:border-blue-400 group">
+              <div className="absolute top-0 right-0 w-40 h-40 -mt-20 -mr-20 transition-transform duration-500 bg-blue-100 rounded-full opacity-50 group-hover:scale-150"></div>
+              <div className="relative p-8">
+                <div className="flex items-start justify-between mb-6">
+                  <div className="flex items-center justify-center w-16 h-16 shadow-lg bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl">
+                    <RefreshCw className="w-8 h-8 text-white" />
+                  </div>
+                  <span className="px-4 py-1 text-xs font-bold text-blue-700 bg-blue-100 rounded-full">
+                    Automated
+                  </span>
+                </div>
+                <h3 className="mb-4 text-2xl font-bold text-gray-900">
+                  Smart Retry Mechanism
+                </h3>
+                <p className="mb-6 leading-relaxed text-gray-600">
+                  Automatically retry failed transactions with intelligent
+                  timing and alternate payment methods to maximize recovery
+                  rates.
+                </p>
+                <div className="space-y-3">
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                    <span className="text-sm font-medium text-gray-700">
+                      Recovery Rate
+                    </span>
+                    <span className="text-lg font-bold text-blue-600">35%</span>
+                  </div>
+                  <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
+                    <span className="text-sm font-medium text-gray-700">
+                      Retry Attempts
+                    </span>
+                    <span className="text-lg font-bold text-blue-600">
+                      3-5x
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Real-time Monitoring */}
+            <div className="relative overflow-hidden transition-all duration-300 bg-white border-2 border-gray-200 rounded-3xl hover:border-green-400 group">
+              <div className="absolute top-0 right-0 w-40 h-40 -mt-20 -mr-20 transition-transform duration-500 bg-green-100 rounded-full opacity-50 group-hover:scale-150"></div>
+              <div className="relative p-8">
+                <div className="flex items-start justify-between mb-6">
+                  <div className="flex items-center justify-center w-16 h-16 shadow-lg bg-gradient-to-br from-green-500 to-green-600 rounded-2xl">
+                    <Activity className="w-8 h-8 text-white" />
+                  </div>
+                  <span className="px-4 py-1 text-xs font-bold text-green-700 bg-green-100 rounded-full">
+                    Real-Time
+                  </span>
+                </div>
+                <h3 className="mb-4 text-2xl font-bold text-gray-900">
+                  Live Transaction Monitoring
+                </h3>
+                <p className="mb-6 leading-relaxed text-gray-600">
+                  Monitor all transactions in real-time with instant alerts for
+                  suspicious activities, failures, or anomalies.
+                </p>
+                <div className="space-y-3">
+                  <div className="flex items-center p-3 text-sm text-gray-700 rounded-lg bg-gray-50">
+                    <CheckCircle className="flex-shrink-0 w-5 h-5 mr-3 text-green-500" />
+                    Instant fraud detection & alerts
+                  </div>
+                  <div className="flex items-center p-3 text-sm text-gray-700 rounded-lg bg-gray-50">
+                    <CheckCircle className="flex-shrink-0 w-5 h-5 mr-3 text-green-500" />
+                    Live dashboard with KPIs
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Webhooks & APIs */}
+            <div className="relative overflow-hidden transition-all duration-300 bg-white border-2 border-gray-200 rounded-3xl hover:border-orange-400 group">
+              <div className="absolute top-0 right-0 w-40 h-40 -mt-20 -mr-20 transition-transform duration-500 bg-orange-100 rounded-full opacity-50 group-hover:scale-150"></div>
+              <div className="relative p-8">
+                <div className="flex items-start justify-between mb-6">
+                  <div className="flex items-center justify-center w-16 h-16 shadow-lg bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl">
+                    <Code className="w-8 h-8 text-white" />
+                  </div>
+                  <span className="px-4 py-1 text-xs font-bold text-orange-700 bg-orange-100 rounded-full">
+                    Developer-Ready
+                  </span>
+                </div>
+                <h3 className="mb-4 text-2xl font-bold text-gray-900">
+                  Advanced Webhook System
+                </h3>
+                <p className="mb-6 leading-relaxed text-gray-600">
+                  Get real-time updates for every transaction event with our
+                  reliable webhook system and comprehensive APIs.
+                </p>
+                <div className="space-y-3">
+                  <div className="flex items-center p-3 text-sm text-gray-700 rounded-lg bg-gray-50">
+                    <CheckCircle className="flex-shrink-0 w-5 h-5 mr-3 text-orange-500" />
+                    99.99% delivery guarantee
+                  </div>
+                  <div className="flex items-center p-3 text-sm text-gray-700 rounded-lg bg-gray-50">
+                    <CheckCircle className="flex-shrink-0 w-5 h-5 mr-3 text-orange-500" />
+                    20+ event types supported
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Additional Smart Features */}
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
+            <div className="p-6 transition-all duration-300 bg-white border-2 border-gray-200 rounded-2xl hover:border-indigo-300">
+              <div className="flex items-center justify-center w-12 h-12 mb-4 bg-indigo-100 rounded-xl">
+                <Shield className="w-6 h-6 text-indigo-600" />
+              </div>
+              <h4 className="mb-2 text-lg font-bold text-gray-900">
+                Fraud Prevention
+              </h4>
+              <p className="mb-4 text-sm text-gray-600">
+                AI-powered fraud detection with real-time risk scoring and
+                automatic blocking
+              </p>
+              <div className="flex items-center text-sm font-semibold text-indigo-600">
+                <span>99.8% Accuracy</span>
+              </div>
+            </div>
+
+            <div className="p-6 transition-all duration-300 bg-white border-2 border-gray-200 rounded-2xl hover:border-pink-300">
+              <div className="flex items-center justify-center w-12 h-12 mb-4 bg-pink-100 rounded-xl">
+                <BarChart3 className="w-6 h-6 text-pink-600" />
+              </div>
+              <h4 className="mb-2 text-lg font-bold text-gray-900">
+                Predictive Analytics
+              </h4>
+              <p className="mb-4 text-sm text-gray-600">
+                Forecast transaction volumes, identify trends, and optimize your
+                payment strategy
+              </p>
+              <div className="flex items-center text-sm font-semibold text-pink-600">
+                <span>ML-Powered Insights</span>
+              </div>
+            </div>
+
+            <div className="p-6 transition-all duration-300 bg-white border-2 border-gray-200 rounded-2xl hover:border-teal-300">
+              <div className="flex items-center justify-center w-12 h-12 mb-4 bg-teal-100 rounded-xl">
+                <Zap className="w-6 h-6 text-teal-600" />
+              </div>
+              <h4 className="mb-2 text-lg font-bold text-gray-900">
+                Instant Settlements
+              </h4>
+              <p className="mb-4 text-sm text-gray-600">
+                Get your money instantly with our real-time settlement system -
+                no waiting period
+              </p>
+              <div className="flex items-center text-sm font-semibold text-teal-600">
+                <span>24/7 Available</span>
+              </div>
+            </div>
+          </div>
+
+          
+        </div>
+      </section>
+
+      {/* ===== 8. ABOUT SECTION ===== */}
+      <section ref={aboutRef} className="py-24 bg-white">
+        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div className="grid items-center grid-cols-1 gap-16 lg:grid-cols-2">
+            <div>
+              <div className="inline-flex items-center px-4 py-2 mb-6 text-sm font-medium text-orange-700 rounded-full bg-orange-50">
+                <Heart className="w-4 h-4 mr-2" />
+                About SilanPay
+              </div>
+              <h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
+                Built by Developers, for Developers
+              </h2>
+              <p className="mb-8 text-xl leading-relaxed text-gray-600">
+                We understand the challenges of building payment systems because
+                we've been there. That's why we created SilanPay - to make
+                payments simple, secure, and scalable for every business.
+              </p>
+
+              <div className="grid grid-cols-1 gap-6 mb-8 md:grid-cols-2">
+                {[
+                  {
+                    icon: Rocket,
+                    title: "Innovation First",
+                    description: "Cutting-edge payment technology",
+                  },
+                  {
+                    icon: Shield,
+                    title: "Security Focus",
+                    description: "Bank-grade security standards",
+                  },
+                  {
+                    icon: Users,
+                    title: "Customer Centric",
+                    description: "24/7 dedicated support",
+                  },
+                  {
+                    icon: Globe,
+                    title: "Global Ready",
+                    description: "Built for worldwide scale",
+                  },
+                ].map((value, index) => (
+                  <div key={index} className="flex items-start space-x-3">
+                    <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 bg-blue-100 rounded-lg">
+                      <value.icon className="w-5 h-5 text-blue-600" />
                     </div>
                     <div>
-                      <h4 className="mb-3 text-xl font-bold text-gray-900">
+                      <h4 className="mb-1 font-semibold text-gray-900">
                         {value.title}
                       </h4>
-                      <p className="leading-relaxed text-gray-600">
+                      <p className="text-sm text-gray-600">
                         {value.description}
                       </p>
                     </div>
                   </div>
-                </div>
-              );
-            })}
-          </div>
-        </div>
-      </section> */}
-
-      {/* ===== OUR PRODUCTS ===== */}
-      {/* <section className="py-16 bg-gray-50">
-        <div className="px-4 mx-auto text-center max-w-7xl sm:px-6 lg:px-8">
-          <h2 className="mb-4 text-3xl font-bold text-gray-900">
-            Innovative solutions designed to streamline your business operations
-            and enhance customer experience.
-          </h2>
-        </div>
-      </section> */}
-
-      {/* ===== UNLOCK BUSINESS GROWTH ===== */}
-      <section className="py-15 bg-gray-50">
-        <div className="px-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div className="mb-8 text-center">
-            <h2 className="mb-4 text-5xl font-bold text-gray-900">
-              Unlock access to{" "}
-              <span style={{ color: "#228DCE" }}>
-                limitless business growth
-              </span>
-            </h2>
-            <p className="max-w-2xl mx-auto text-lg text-gray-600">
-              We're more than a payments partner. Get smoother payment processes
-              and offer an outstanding experience.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 gap-5 mb-4 md:grid-cols-2 lg:grid-cols-4">
-            {[
-              {
-                name: "Realtime Analytics",
-                icon: BarChart3,
-                color: "bg-[#e8f4fb]",
-              },
-              {
-                name: "Instant Refunds",
-                icon: RefreshCw,
-                color: "bg-green-100",
-              },
-              {
-                name: "Advanced Fraud Protection",
-                icon: Shield,
-                color: "bg-red-100",
-              },
-              {
-                name: "QR Code Payments",
-                icon: Smartphone,
-                color: "bg-purple-100",
-              },
-              {
-                name: "UPI Integration",
-                icon: Building2,
-                color: "bg-orange-100",
-              },
-              {
-                name: "Webhook Integration",
-                icon: LinkIcon,
-                color: "bg-cyan-100",
-              },
-              { name: "Mobile SDK", icon: Code, color: "bg-pink-100" },
-              {
-                name: "White-label Solutions",
-                icon: Tag,
-                color: "bg-indigo-100",
-              },
-            ].map((feature, index) => {
-              const IconComponent = feature.icon;
-              return (
-                <div
-                  key={index}
-                  className="p-6 transition-shadow duration-300 bg-white border border-gray-100 shadow-md rounded-xl hover:shadow-lg"
-                >
-                  <div
-                    className={`w-12 h-12 ${feature.color} rounded-lg flex items-center justify-center mb-4`}
-                  >
-                    <IconComponent className="w-6 h-6 text-gray-700" />
-                  </div>
-                  <h4 className="font-semibold text-gray-900">
-                    {feature.name}
-                  </h4>
-                </div>
-              );
-            })}
-          </div>
-
-          {/* <div className="p-8 bg-white border border-gray-100 shadow-xl rounded-2xl">
-            <h3 className="mb-6 text-2xl font-bold text-gray-900">
-              Payment Dashboard
-            </h3>
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-              <div className="space-y-4">
-                <h4 className="font-semibold text-gray-900">
-                  Realtime transaction monitoring
-                </h4>
-                <div className="space-y-2">
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-600">Success Rate</span>
-                    <span
-                      className="font-semibold"
-                      style={{ color: "#228DCE" }}
-                    >
-                      98.5%
-                    </span>
-                  </div>
-                  <div className="w-full h-2 bg-gray-200 rounded-full">
-                    <div
-                      className="h-2 rounded-full"
-                      style={{ width: "98.5%", backgroundColor: "#228DCE" }}
-                    ></div>
-                  </div>
-                </div>
+                ))}
               </div>
-              <div className="space-y-4">
-                <h4 className="font-semibold text-gray-900">
-                  Revenue Analytics
-                </h4>
-                <div className="text-2xl font-bold" style={{ color: "#228DCE" }}>
-                  ₹3.1M
+
+              <Link
+                to="/about"
+                className="inline-flex items-center font-semibold text-blue-600 transition-colors hover:text-blue-700"
+              >
+                Learn more about our story
+                <ChevronRight className="w-5 h-5 ml-1" />
+              </Link>
+            </div>
+
+            <div className="relative">
+              <div className="absolute inset-0 transform bg-gradient-to-r from-blue-400 to-purple-500 rounded-3xl rotate-6 opacity-20"></div>
+              <div className="relative p-8 bg-white shadow-2xl rounded-3xl">
+                <div className="text-center">
+                  <div className="flex items-center justify-center w-20 h-20 mx-auto mb-6 bg-blue-600 rounded-2xl">
+                    <Building2 className="w-10 h-10 text-white" />
+                  </div>
+                  <h3 className="mb-4 text-2xl font-bold text-gray-900">
+                    Silansoftware Pvt. Ltd.
+                  </h3>
+                  <p className="mb-8 text-gray-600">
+                    Plot No-741, 2nd Floor, Jayadev Vihar, Bhubaneswar, Odisha
+                    751013
+                  </p>
+                  <div className="grid grid-cols-2 gap-4 text-center">
+                    <div className="p-4 bg-gray-50 rounded-xl">
+                      <div className="text-2xl font-bold text-blue-600">
+                        2020
+                      </div>
+                      <div className="text-sm text-gray-600">Founded</div>
+                    </div>
+                    <div className="p-4 bg-gray-50 rounded-xl">
+                      <div className="text-2xl font-bold text-blue-600">
+                        50+
+                      </div>
+                      <div className="text-sm text-gray-600">Team Members</div>
+                    </div>
+                  </div>
                 </div>
-                <div className="text-sm" style={{ color: "#228DCE" }}>
-                  +12% from last month
-                </div>
-              </div>
-              <div className="space-y-4">
-                <h4 className="font-semibold text-gray-900">
-                  Active Transactions
-                </h4>
-                <div className="text-2xl font-bold" style={{ color: "#228DCE" }}>
-                  1,247
-                </div>
-                <div className="text-sm text-gray-600">Processing now</div>
               </div>
             </div>
-          </div> */}
-        </div>
-      </section>
-
-      {/* ===== BUILT FOR FINTECHS ===== */}
-      <section className="py-16 bg-white">
-        <div className="px-4 mx-auto text-center max-w-7xl sm:px-6 lg:px-8">
-          <h2 className="mb-4 text-4xl font-bold text-gray-900">
-            Built for fintechs.{" "}
-            <span style={{ color: "#228DCE" }}>Trusted by Businesses.</span>
-          </h2>
-
-          <div className="grid grid-cols-1 gap-8 mt-12 md:grid-cols-2 lg:grid-cols-3">
-            {[
-              {
-                title: "Lending",
-                description: "Smart disbursement + automated EMI collection",
-                icon: CreditCard,
-              },
-              {
-                title: "Marketplaces",
-                description:
-                  "Virtual account mapping + instant vendor settlement",
-                icon: Store,
-              },
-              {
-                title: "D2C",
-                description:
-                  "Subscription collections + digital soundbox confirmations",
-                icon: Package,
-              },
-              {
-                title: "SaaS Platform",
-                description:
-                  "Invoice-based collections + bill tagging & reconciliation",
-                icon: Monitor,
-              },
-              {
-                title: "E-commerce",
-                description:
-                  "Secure payments with fraud control and instant settlement",
-                icon: ShoppingCart,
-              },
-              {
-                title: "EduTech",
-                description:
-                  "Your data is securely encrypted. Customise dashboards to focus on what matters most to you.",
-                icon: GraduationCap,
-              },
-            ].map((item, index) => {
-              const IconComponent = item.icon;
-              return (
-                <div
-                  key={index}
-                  className="p-8 transition-shadow duration-300 bg-white border border-gray-100 shadow-lg rounded-xl hover:shadow-xl"
-                >
-                  <div className="text-center">
-                    <div
-                      className="flex items-center justify-center w-16 h-16 mx-auto mb-4 rounded-full"
-                      style={{ backgroundColor: "#e8f4fb" }}
-                    >
-                      <IconComponent
-                        className="w-8 h-8"
-                        style={{ color: "#228DCE" }}
-                      />
-                    </div>
-                    <h3 className="mb-3 text-xl font-bold text-gray-900">
-                      {item.title}
-                    </h3>
-                    <p className="text-sm leading-relaxed text-gray-600">
-                      {item.description}
-                    </p>
-                  </div>
-                </div>
-              );
-            })}
           </div>
         </div>
       </section>
 
-      {/* ===== FINAL CTA SECTION ===== */}
-      <section className="py-20" style={{ backgroundColor: "#228DCE" }}>
-        <div className="px-4 mx-auto text-center max-w-7xl sm:px-6 lg:px-8">
-          <h2 className="mb-4 text-3xl font-bold text-white">
-            Elevate Your Business with SilanPay
-          </h2>
-          <p className="max-w-2xl mx-auto mb-8 text-xl" style={{ color: "#e8f4fb" }}>
-            Join 10,000+ businesses that trust SilanPay for lightning-fast,
-            secure payment processing with QR code integration.
-          </p>
-
-          <div className="flex flex-col items-center justify-center mb-8 space-y-4 md:flex-row md:space-y-0 md:space-x-8">
-            {["Fast Integration", "99.9% Uptime", "24/7 Support"].map(
-              (feature, index) => (
-                <div
-                  key={index}
-                  className="flex items-center space-x-2 text-white"
-                >
-                  <CheckCircle size={20} />
-                  <span>{feature}</span>
-                </div>
-              )
-            )}
-          </div>
-        </div>
-      </section>
-
-      {/* ===== CONTACT & SUPPORT SECTION ===== */}
-      <section className="py-1" style={{ backgroundColor: "#228DCE" }}>
+      {/* ===== 9. CONTACT SECTION ===== */}
+      <section ref={contactRef} className="py-24 bg-gray-50">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div className="mb-12 text-center">
-            <h2 className="mb-4 text-3xl font-bold text-white">
+          <div className="mb-16 text-center">
+            <div className="inline-flex items-center px-4 py-2 mb-4 text-sm font-medium text-red-700 rounded-full bg-red-50">
+              <Phone className="w-4 h-4 mr-2" />
+              Get In Touch
+            </div>
+            <h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
               Ready to Get Started?
             </h2>
-            <p className="mb-8 text-xl" style={{ color: "#e8f4fb" }}>
-              Get in touch with our team for personalized assistance and support
+            <p className="max-w-3xl mx-auto text-xl text-gray-600">
+              Have questions? Our team is here to help you get started with
+              SilanPay.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 mb-12 md:grid-cols-3">
-            <div className="text-center">
-              <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-white rounded-full bg-opacity-20">
-                <Phone className="w-8 h-8 text-white" />
+          <div className="grid max-w-5xl grid-cols-1 gap-8 mx-auto md:grid-cols-3">
+            <div className="p-8 text-center bg-white shadow-lg rounded-2xl">
+              <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-blue-100 rounded-2xl">
+                <Phone className="w-8 h-8 text-blue-600" />
               </div>
-              <h3 className="mb-2 text-xl font-semibold text-white">
+              <h3 className="mb-4 text-xl font-bold text-gray-900">
                 Phone Support
               </h3>
-              <p className="mb-2" style={{ color: "#e8f4fb" }}>
-                +91 98765 43210
+              <p className="mb-4 text-gray-600">
+                Get instant help from our support team
               </p>
-              <p className="text-sm" style={{ color: "#d4ebf7" }}>
-                Mon-Fri, 9AM-6PM IST
+              <p className="text-lg font-semibold text-blue-600">
+                +91 89842 89279
               </p>
+              <p className="mt-2 text-sm text-gray-500">Mon-Fri, 9AM-6PM IST</p>
             </div>
-            <div className="text-center">
-              <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-white rounded-full bg-opacity-20">
-                <Mail className="w-8 h-8 text-white" />
+
+            <div className="p-8 text-center bg-white shadow-lg rounded-2xl">
+              <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-green-100 rounded-2xl">
+                <Mail className="w-8 h-8 text-green-600" />
               </div>
-              <h3 className="mb-2 text-xl font-semibold text-white">
-                Email Support
-              </h3>
-              <p className="mb-2" style={{ color: "#e8f4fb" }}>
+              <h3 className="mb-4 text-xl font-bold text-gray-900">Email Us</h3>
+              <p className="mb-4 text-gray-600">Send us your queries anytime</p>
+              <p className="text-lg font-semibold text-green-600">
                 info@silanpay.com
               </p>
-              <p className="text-sm" style={{ color: "#d4ebf7" }}>
-                24/7 Response
-              </p>
+              <p className="mt-2 text-sm text-gray-500">24/7 Response</p>
             </div>
-            <div className="text-center">
-              <div className="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-white rounded-full bg-opacity-20">
-                <MessageCircle className="w-8 h-8 text-white" />
+
+            <div className="p-8 text-center bg-white shadow-lg rounded-2xl">
+              <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-purple-100 rounded-2xl">
+                <MessageCircle className="w-8 h-8 text-purple-600" />
               </div>
-              <h3 className="mb-2 text-xl font-semibold text-white">
+              <h3 className="mb-4 text-xl font-bold text-gray-900">
                 Live Chat
               </h3>
-              <p className="mb-2" style={{ color: "#e8f4fb" }}>
-                Available 24/7
+              <p className="mb-4 text-gray-600">
+                Chat with our experts instantly
               </p>
-              <p className="text-sm" style={{ color: "#d4ebf7" }}>
-                Instant Support
+              <button className="px-6 py-2 font-semibold text-white transition-colors bg-purple-600 rounded-lg hover:bg-purple-700">
+                Start Chat
+              </button>
+              <p className="mt-2 text-sm text-gray-500">Available 24/7</p>
+            </div>
+          </div>
+
+          <div className="max-w-4xl p-8 mx-auto mt-16 bg-white shadow-xl rounded-3xl md:p-12">
+            <div className="mb-8 text-center">
+              <h3 className="mb-2 text-2xl font-bold text-gray-900">
+                Visit Our Office
+              </h3>
+              <p className="text-gray-600">Come meet us in person</p>
+            </div>
+            <div className="text-center">
+              <div className="inline-flex items-center justify-center w-16 h-16 mb-4 bg-orange-100 rounded-2xl">
+                <Building2 className="w-8 h-8 text-orange-600" />
+              </div>
+              <p className="mb-2 text-lg font-medium text-gray-900">
+                Silansoftware Private Limited
               </p>
+              <p className="text-gray-600">
+                Plot No-741, 2nd Floor, Jayadev Vihar
+              </p>
+              <p className="text-gray-600">Bhubaneswar, Odisha 751013</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* ===== FOOTER ===== */}
-<footer>
-  {/* Dark Background Section */}
-  <div style={{ backgroundColor: "#212439" }}>
-    <div className="px-4 py-16 mx-auto max-w-7xl sm:px-6 lg:px-8">
-      <div className="grid grid-cols-1 gap-12 md:grid-cols-3">
-        {/* Products */}
-        <div>
-          <h4
-            className="mb-4 text-lg font-bold"
-            style={{ color: "#228DCE" }}
-          >
-            Products
-            <div
-              className="w-8 h-0.5 mt-1"
-              style={{ backgroundColor: "#228DCE" }}
-            ></div>
-          </h4>
-          <ul className="space-y-3 text-sm text-gray-300">
-            <li>
-              <Link
-                to="/upi-payments"
-                className="transition-colors hover:text-[#228DCE]"
-              >
-                UPI Payments
+      <footer className="text-white bg-gray-900">
+        {/* Main Footer Content */}
+        <div className="px-4 py-16 mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
+            {/* Company Info */}
+            <div className="md:col-span-2">
+              <Link to="/" className="flex items-center mb-6 space-x-2">
+                <img
+                  src="/silanpaylogo.png"
+                  alt="SilanPay logo"
+                  className="w-auto h-10"
+                />
               </Link>
-            </li>
-            <li>
-              <Link
-                to="#"
-                className="transition-colors hover:text-[#228DCE]"
-              >
-                IMPS Transfer
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="#"
-                className="transition-colors hover:text-[#228DCE]"
-              >
-                API Integration
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="#"
-                className="transition-colors hover:text-[#228DCE]"
-              >
-                Wallet
-              </Link>
-            </li>
-          </ul>
+              <p className="max-w-md mb-6 text-gray-300">
+                Empowering businesses with secure, fast, and reliable payment
+                solutions. Join thousands of merchants who trust SilanPay for
+                their payment needs.
+              </p>
+              <div className="flex space-x-4">
+                <div className="flex items-center justify-center w-10 h-10 bg-blue-600 rounded-full">
+                  <Phone className="w-5 h-5" />
+                </div>
+                <div className="flex items-center justify-center w-10 h-10 bg-green-600 rounded-full">
+                  <Mail className="w-5 h-5" />
+                </div>
+                <div className="flex items-center justify-center w-10 h-10 bg-purple-600 rounded-full">
+                  <MessageCircle className="w-5 h-5" />
+                </div>
+              </div>
+            </div>
+
+            {/* Products */}
+            <div>
+              <h4 className="mb-6 text-lg font-semibold text-white">
+                Products
+              </h4>
+              <ul className="space-y-3">
+                {[
+                  "UPI Payments",
+                  "QR Code Payments",
+                  "Payment Gateway",
+                  "API Integration",
+                  "Instant Payouts",
+                ].map((item, index) => (
+                  <li key={index}>
+                    <Link
+                      to="#"
+                      className="text-gray-300 transition-colors hover:text-blue-400"
+                    >
+                      {item}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Company */}
+            <div>
+              <h4 className="mb-6 text-lg font-semibold text-white">Company</h4>
+              <ul className="space-y-3">
+                {[
+                  { name: "About Us", to: "/about-us" },
+                  { name: "Contact Us", to: "/contact-us" },
+                  { name: "Privacy Policy", to: "/privacy-policy" },
+                  { name: "Terms & Conditions", to: "/terms" },
+                  { name: "Refund Policy", to: "/refund-policy" },
+                ].map((item, index) => (
+                  <li key={index}>
+                    <Link
+                      to={item.to}
+                      className="text-gray-300 transition-colors hover:text-blue-400"
+                    >
+                      {item.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
 
-        {/* Company */}
-        <div>
-          <h4
-            className="mb-4 text-lg font-bold"
-            style={{ color: "#228DCE" }}
-          >
-            Company
-            <div
-              className="w-8 h-0.5 mt-1"
-              style={{ backgroundColor: "#228DCE" }}
-            ></div>
-          </h4>
-          <ul className="space-y-3 text-sm text-gray-300">
-            <li>
-              <Link
-                to="/about-us"
-                className="transition-colors hover:text-[#228DCE]"
-              >
-                About Us
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/contact-us"
-                className="transition-colors hover:text-[#228DCE]"
-              >
-                Contact Us
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/terms"
-                className="transition-colors hover:text-[#228DCE]"
-              >
-                Terms & Conditions
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/privacy-policy"
-                className="transition-colors hover:text-[#228DCE]"
-              >
-                Privacy Policy
-              </Link>
-            </li>
-            <li>
-              <Link
-                to="/refund-policy"
-                className="transition-colors hover:text-[#228DCE]"
-              >
-                Refund Policy
-              </Link>
-            </li>
-          </ul>
+        {/* Certificates Section */}
+        <div className="py-12 border-t border-gray-800">
+          <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div className="mb-8 text-center">
+              <h3 className="mb-2 text-xl font-semibold text-white">
+                Certifications & Recognitions
+              </h3>
+              <p className="text-gray-400">
+                We are recognized by leading organizations in India
+              </p>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-center gap-8">
+              {[
+                {
+                  src: "/certificates/startupodisa.png",
+                  alt: "Startup Odisha",
+                  href: "https://startupodisha.gov.in/",
+                },
+                {
+                  src: "/certificates/digitaindia.png",
+                  alt: "Digital India",
+                  href: "https://www.digitalindia.gov.in/",
+                },
+                {
+                  src: "/certificates/isocertificate.png",
+                  alt: "ISO",
+                  href: "https://www.iso.org/home.html",
+                },
+                {
+                  src: "/certificates/msme.png",
+                  alt: "MSME Certified",
+                  href: "https://www.msme.gov.in/",
+                },
+              ].map((cert, index) => (
+                <a
+                  key={index}
+                  href={cert.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="transition-opacity duration-300 opacity-60 hover:opacity-100"
+                >
+                  <img
+                    src={cert.src}
+                    alt={cert.alt}
+                    className="object-contain w-auto h-16"
+                  />
+                </a>
+              ))}
+            </div>
+          </div>
         </div>
 
-        {/* Developers */}
-        <div>
-          <h4
-            className="mb-4 text-lg font-bold"
-            style={{ color: "#228DCE" }}
-          >
-            Developers
-            <div
-              className="w-8 h-0.5 mt-1"
-              style={{ backgroundColor: "#228DCE" }}
-            ></div>
-          </h4>
-          <ul className="space-y-3 text-sm text-gray-300">
-            <li>
-              <Link
-                to="#"
-                className="transition-colors hover:text-[#228DCE]"
-              >
-                API Documentation
-              </Link>
-            </li>
-          </ul>
+        {/* Bottom Section */}
+        <div className="py-8 border-t border-gray-800">
+          <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+            <div className="flex flex-col items-center justify-between md:flex-row">
+              <div className="mb-4 text-sm text-gray-400 md:mb-0">
+                © 2025 Silansoftware Private Limited. All Rights Reserved.
+              </div>
+              <div className="text-sm text-center text-gray-400 md:text-right">
+                Plot No-741, 2nd Floor, Jayadev Vihar
+                <br />
+                Bhubaneswar, Odisha 751013
+                <br />
+                Phone: +91-89842 89279
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  </div>
-
-  {/* ===== CERTIFICATES & BADGES SECTION ===== */}
-  <div className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] bg-gradient-to-r from-slate-900 via-blue-900 to-slate-900 border-t border-blue-700 py-8">
-    <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-      <div className="text-center mb-6">
-        <h3 className="text-lg font-bold text-white mb-2">
-          Certifications & Recognitions
-        </h3>
-        <p className="text-sm text-gray-300">
-          We are recognized by leading organizations in India
-        </p>
-      </div>
-
-      {/* Certificates Grid */}
-      <div className="flex flex-wrap items-center justify-center gap-6 md:gap-8">
-        {/* DPIIT Startup India */}
-        <div className="flex items-center justify-center">
-          <a
-            href="https://startupodisha.gov.in/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group"
-          >
-            <img
-              src="/certificates/startupodisa.png"
-              alt="Startup Odisha"
-              className="h-16 md:h-20 object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300"
-            />
-          </a>
-        </div>
-
-        {/* Digital India */}
-        <div className="flex items-center justify-center">
-          <a
-            href="https://www.digitalindia.gov.in/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group"
-          >
-            <img
-              src="/certificates/digitaindia.png"
-              alt="Digital India"
-              className="h-16 md:h-20 object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300"
-            />
-          </a>
-        </div>
-
-        {/* Make In India */}
-        <div className="flex items-center justify-center">
-          <a
-            href="https://www.iso.org/home.html"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group"
-          >
-            <img
-              src="/certificates/isocertificate.png"
-              alt="ISO"
-              className="h-16 md:h-20 object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300"
-            />
-          </a>
-        </div>
-
-        {/* MSME Registration */}
-        <div className="flex items-center justify-center">
-          <a
-            href="https://www.msme.gov.in/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group"
-          >
-            <img
-              src="/certificates/msme.png"
-              alt="MSME Certified"
-              className="h-16 md:h-20 object-contain opacity-80 group-hover:opacity-100 transition-opacity duration-300"
-            />
-          </a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  {/* Company Info - Logo Right, Address Left - White Background Full Width */}
-  <div
-    className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] bg-white border-t"
-    style={{ borderColor: "rgba(0, 0, 0, 0.1)" }}
-  >
-    <div className="px-4 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
-      <div className="flex flex-col items-center justify-between md:flex-row">
-        {/* Address on Left */}
-        <div className="mb-4 text-sm text-center text-gray-700 md:text-left md:mb-0">
-          <p>📍 Plot No-741, 2nd Floor, Jayadev Vihar, Bhubaneswar, Odisha 751013</p>
-          <p>📞 Call: +91-89842 89279</p>
-          <p>🏢 Silansoftware Private Limited</p>
-        </div>
-
-        {/* Logo on Right */}
-        <div className="flex items-center">
-          <Link to="/" className="flex items-center gap-2">
-            <img
-              src="/silanpaylogo.png"
-              alt="SilanPay logo"
-              className="object-contain w-auto h-10 sm:h-12"
-            />
-          </Link>
-        </div>
-      </div>
-    </div>
-  </div>
-  
-  {/* Copyright - Full Width with Pay Color */}
-  <div
-    className="w-screen relative left-1/2 right-1/2 -ml-[50vw] -mr-[50vw] text-sm text-center"
-    style={{
-      backgroundColor: "#228DCE",
-      borderColor: "rgba(255, 255, 255, 0.2)",
-    }}
-  >
-    <div className="px-4 py-8 mx-auto max-w-7xl sm:px-6 lg:px-8">
-      <p style={{ color: "rgba(255, 255, 255, 0.9)" }}>
-        &copy; 2025{" "}
-        <Link
-          to="https://www.silansoft.com/"
-          className="text-white hover:underline transition-colors"
-        >
-          Silansoftware Private Limited
-        </Link>
-        . All Rights Reserved.
-      </p>
-    </div>
-  </div>
-</footer>
-
+      </footer>
 
       {/* ===== SCROLL TO TOP BUTTON ===== */}
       <ScrollToTop />
 
-      <style>{`
-        /* subtle float used elsewhere */
+      {/* Custom Styles */}
+      <style jsx>{`
+        /* Animation delays for staggered effects */
+        .animation-delay-2000 {
+          animation-delay: 2s;
+        }
+
+        .animation-delay-4000 {
+          animation-delay: 4s;
+        }
+
+        /* Smooth scrolling */
+        html {
+          scroll-behavior: smooth;
+        }
+
+        /* Custom animations */
+        @keyframes slideInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
         @keyframes float {
-          0%, 100% { transform: translateY(0px); }
-          50% { transform: translateY(-20px); }
+          0%,
+          100% {
+            transform: translateY(0px);
+          }
+          50% {
+            transform: translateY(-10px);
+          }
         }
 
-        /* Unlock section entrance animation */
-        @keyframes unlock-entrance {
-          0% { opacity: 0; transform: translateY(18px) scale(0.995); }
-          60% { opacity: 1; transform: translateY(-6px) scale(1.002); }
-          100% { opacity: 1; transform: translateY(0) scale(1); }
+        .hero-content {
+          animation: slideInUp 0.8s ease-out;
         }
 
-        /* Dashboard initial pop */
-        @keyframes dashboard-entrance {
-          0% { opacity: 0; transform: translateY(20px) scale(0.98); }
-          100% { opacity: 1; transform: translateY(0) scale(1); }
+        .animate-float {
+          animation: float 3s ease-in-out infinite;
         }
 
-        /* Gentle float for the dashboard once visible */
-        @keyframes dashboard-float {
-          0%, 100% { transform: translateY(0); }
-          50% { transform: translateY(-10px); }
+        /* Hover effects */
+        .feature-card:hover {
+          transform: translateY(-8px);
         }
 
-        /* Unlock cards base styles */
-        .unlock-card {
-          opacity: 0;
-          transform-origin: center;
-          animation: unlock-entrance 700ms cubic-bezier(.2,.9,.2,1) forwards;
-          transition: box-shadow 220ms ease, transform 220ms ease;
+        .stat-item:hover {
+          transform: scale(1.05);
         }
 
-        /* Slight hover lift */
-        .unlock-card:hover {
-          transform: translateY(-6px) scale(1.01);
-          box-shadow: 0 18px 40px rgba(15, 23, 42, 0.12);
-        }
-
-        /* Dashboard card enters slightly later and then floats */
-        .dashboard-card {
-          opacity: 0;
-          /* first run entrance, then start floating (float has a delay) */
-          animation: dashboard-entrance 850ms cubic-bezier(.2,.9,.2,1) 140ms forwards,
-                     dashboard-float 4s ease-in-out infinite 1200ms;
-        }
-
-        /* Respect reduced motion */
+        /* Responsive animations */
         @media (prefers-reduced-motion: reduce) {
-          * { scroll-behavior: auto !important; }
-          .unlock-card, .dashboard-card, .bg-blob { animation: none !important; transition: none !important; }
-        }
-
-        @media (prefers-reduced-motion: no-preference) {
-          * { scroll-behavior: smooth; }
+          * {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+          }
         }
       `}</style>
     </div>
