@@ -1004,10 +1004,10 @@ const LandingPage = () => {
       >
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="mb-10 text-center sm:mb-12 md:mb-16">
-            <div className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 mb-3 sm:mb-4 text-xs sm:text-sm font-medium text-blue-700 rounded-full bg-blue-50 badge-animate">
+            {/* <div className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 mb-3 sm:mb-4 text-xs sm:text-sm font-medium text-blue-700 rounded-full bg-blue-50 badge-animate">
               <Target className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
               Why Choose SilanPay
-            </div>
+            </div> */}
             <h2 className="px-4 mb-4 text-2xl font-bold text-gray-900 sm:mb-6 sm:text-3xl md:text-4xl lg:text-5xl section-heading">
               Built for Modern Businesses
             </h2>
@@ -1055,10 +1055,10 @@ const LandingPage = () => {
       <section ref={servicesRef} className="py-24 bg-white services-section">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="mb-10 text-center sm:mb-12 md:mb-16">
-            <div className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 mb-3 sm:mb-4 text-xs sm:text-sm font-medium text-green-700 rounded-full bg-green-50 badge-animate">
+            {/* <div className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 mb-3 sm:mb-4 text-xs sm:text-sm font-medium text-green-700 rounded-full bg-green-50 badge-animate">
               <Rocket className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
               Our Services
-            </div>
+            </div> */}
             <h2 className="px-4 mb-4 text-2xl font-bold text-gray-900 sm:mb-6 sm:text-3xl md:text-4xl lg:text-5xl section-heading">
               Complete Payment Solutions
             </h2>
@@ -1114,10 +1114,10 @@ const LandingPage = () => {
       <section className="py-12 bg-white sm:py-16 md:py-20 lg:py-24 how-it-works-section">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="mb-10 text-center sm:mb-12 md:mb-16">
-            <div className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 mb-3 sm:mb-4 text-xs sm:text-sm font-medium text-blue-700 rounded-full bg-blue-50 badge-animate">
+            {/* <div className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 mb-3 sm:mb-4 text-xs sm:text-sm font-medium text-blue-700 rounded-full bg-blue-50 badge-animate">
               <Rocket className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
               Integration Process
-            </div>
+            </div> */}
             <h2 className="px-4 mb-4 text-2xl font-bold text-gray-900 sm:mb-6 sm:text-3xl md:text-4xl lg:text-5xl section-heading">
               Get Started in 3 Simple Steps
             </h2>
@@ -1245,10 +1245,10 @@ const payment = await silanpay.payments.create({
       <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gray-50">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="mb-10 text-center sm:mb-12 md:mb-16">
-            <div className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 mb-3 sm:mb-4 text-xs sm:text-sm font-medium text-blue-700 rounded-full bg-blue-50">
+            {/* <div className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 mb-3 sm:mb-4 text-xs sm:text-sm font-medium text-blue-700 rounded-full bg-blue-50">
               <Zap className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
               Powerful Features
-            </div>
+            </div> */}
             <h2 className="px-4 mb-4 text-2xl font-bold text-gray-900 sm:mb-6 sm:text-3xl md:text-4xl lg:text-5xl">
               Everything You Need to Succeed
             </h2>
@@ -1485,10 +1485,10 @@ const payment = await silanpay.createPayment({
       <section className="py-12 bg-white sm:py-16 md:py-20 lg:py-24">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="mb-10 text-center sm:mb-12 md:mb-16">
-            <div className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 mb-3 sm:mb-4 text-xs sm:text-sm font-medium text-indigo-700 rounded-full bg-indigo-50">
+            {/* <div className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 mb-3 sm:mb-4 text-xs sm:text-sm font-medium text-indigo-700 rounded-full bg-indigo-50">
               <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
               Advanced Capabilities
-            </div>
+            </div> */}
             <h2 className="px-4 mb-4 text-2xl font-bold text-gray-900 sm:mb-6 sm:text-3xl md:text-4xl lg:text-5xl">
               Next-Generation Payment Technology
             </h2>
@@ -1670,10 +1670,10 @@ const payment = await silanpay.createPayment({
       <section ref={partnersRef} className="py-24 bg-gray-50">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="mb-16 text-center">
-            <div className="inline-flex items-center px-4 py-2 mb-4 text-sm font-medium text-purple-700 rounded-full bg-purple-50">
+            {/* <div className="inline-flex items-center px-4 py-2 mb-4 text-sm font-medium text-purple-700 rounded-full bg-purple-50">
               <Rocket className="w-4 h-4 mr-2" />
               Smart Automation
-            </div>
+            </div> */}
             <h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
               Intelligent Features That Work For You
             </h2>
@@ -1888,10 +1888,10 @@ const payment = await silanpay.createPayment({
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="grid items-center grid-cols-1 gap-16 lg:grid-cols-2">
             <div>
-              <div className="inline-flex items-center px-4 py-2 mb-6 text-sm font-medium text-orange-700 rounded-full bg-orange-50">
+              {/* <div className="inline-flex items-center px-4 py-2 mb-6 text-sm font-medium text-orange-700 rounded-full bg-orange-50">
                 <Heart className="w-4 h-4 mr-2" />
                 About SilanPay
-              </div>
+              </div> */}
               <h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
                 Built by Developers, for Developers
               </h2>
@@ -1988,10 +1988,10 @@ const payment = await silanpay.createPayment({
       <section ref={contactRef} className="py-24 bg-gray-50 contact-section">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="mb-16 text-center">
-            <div className="inline-flex items-center px-4 py-2 mb-4 text-sm font-medium text-red-700 rounded-full bg-red-50 badge-animate">
+            {/* <div className="inline-flex items-center px-4 py-2 mb-4 text-sm font-medium text-red-700 rounded-full bg-red-50 badge-animate">
               <Phone className="w-4 h-4 mr-2" />
               Get In Touch
-            </div>
+            </div> */}
             <h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl section-heading">
               Ready to Get Started?
             </h2>
