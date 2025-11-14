@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+// import QRCode from ".../components/public";
 import { Link } from "react-router-dom";
 import {
   CheckCircle,
@@ -71,6 +72,8 @@ const LandingPage = () => {
   const partnersRef = useRef(null);
   const aboutRef = useRef(null);
   const contactRef = useRef(null);
+
+  const qrCode = "/QR CODE.jpg";
 
   // Animate counters on mount
   useEffect(() => {
@@ -172,26 +175,26 @@ const LandingPage = () => {
     {
       icon: QrCode,
       title: "QR Code Payments",
-      description: "Dynamic and static QR codes for instant payment collection",
-      price: "Starting at ₹999/month",
+      description:
+        "Dynamic and static QR codes for instant payment collection in minutes with no setup required",
     },
     {
       icon: Smartphone,
       title: "UPI Integration",
-      description: "Complete UPI payment gateway integration with all apps",
-      price: "Starting at ₹1,499/month",
+      description:
+        "Complete UPI payment gateway integration with all apps including Google Pay, PhonePe, Paytm, and more",
     },
     {
       icon: CreditCard,
       title: "Payment Gateway",
-      description: "Full-featured payment gateway supporting all major cards",
-      price: "Starting at ₹2,999/month",
+      description:
+        "Full-featured payment gateway supporting all major cards and wallets including Visa, Mastercard, and more",
     },
     {
       icon: Building2,
       title: "Enterprise Solutions",
-      description: "Custom payment solutions for large enterprises",
-      price: "Custom pricing",
+      description:
+        "Custom payment solutions for large enterprises and busine with advanced reporting and analytics",
     },
   ];
 
@@ -654,7 +657,12 @@ const LandingPage = () => {
                           <div className="p-4 space-y-3 border-2 border-purple-200 rounded-lg bg-purple-50 animate-fadeIn">
                             <div className="flex items-center justify-center">
                               <div className="p-3 bg-white rounded-lg shadow-md">
-                                <QrCode className="w-20 h-20 text-purple-600" />
+                                {/* <QrCode className="w-20 h-20 text-purple-600" /> */}
+                                <img
+                                  src={qrCode}
+                                  alt="QR Code"
+                                  className="w-20 h-20"
+                                />
                               </div>
                             </div>
                             <div className="text-center">
@@ -809,7 +817,7 @@ const LandingPage = () => {
                       <div className="grid grid-cols-3 gap-4 pt-4 border-t border-gray-100">
                         <div className="text-center">
                           <div className="text-lg font-bold text-blue-600">
-                            1K+
+                            10K+
                           </div>
                           <div className="text-xs text-gray-500">Merchants</div>
                         </div>
