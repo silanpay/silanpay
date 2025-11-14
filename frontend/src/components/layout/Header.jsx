@@ -143,7 +143,6 @@ const Header = () => {
   const navLinks = [
     { name: "Products", href: "#", hasDropdown: true },
     { name: "Developers", href: "#", hasDropdown: true },
-    { name: "About Us", href: "/about-us", hasDropdown: false },
   ];
 
   const headerBgClass = isScrolled
