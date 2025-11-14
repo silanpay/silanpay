@@ -57,6 +57,12 @@ gsap.registerPlugin(ScrollTrigger);
 const LandingPage = () => {
   const [activeTab, setActiveTab] = useState(0);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null);
+  const [counters, setCounters] = useState({
+    customers: 0,
+    uptime: 0,
+    processed: 0,
+    support: 0,
+  });
 
   // Animation refs
   const heroRef = useRef(null);
@@ -66,12 +72,64 @@ const LandingPage = () => {
   const aboutRef = useRef(null);
   const contactRef = useRef(null);
 
+  // Animate counters on mount
+  useEffect(() => {
+    const duration = 2000; // 2 seconds
+    const steps = 60;
+    const interval = duration / steps;
+
+    let currentStep = 0;
+    const timer = setInterval(() => {
+      currentStep++;
+      const progress = currentStep / steps;
+
+      setCounters({
+        customers: Math.floor(10000 * progress),
+        uptime: Math.floor(99.9 * progress * 10) / 10,
+        processed: Math.floor(100 * progress),
+        support: progress >= 1 ? 24 : Math.floor(24 * progress),
+      });
+
+      if (currentStep >= steps) {
+        clearInterval(timer);
+        setCounters({
+          customers: 10000,
+          uptime: 99.9,
+          processed: 100,
+          support: 24,
+        });
+      }
+    }, interval);
+
+    return () => clearInterval(timer);
+  }, []);
+
   // Data for various sections
   const stats = [
-    { number: "10K+", label: "Happy Customers", icon: Users },
-    { number: "99.9%", label: "Uptime", icon: Activity },
-    { number: "₹100Cr+", label: "Processed", icon: TrendingUp },
-    { number: "24/7", label: "Support", icon: Clock },
+    {
+      number:
+        counters.customers >= 10000
+          ? "10K+"
+          : `${Math.floor(counters.customers / 1000)}K+`,
+      label: "Happy Customers",
+      icon: Users,
+    },
+    {
+      number: `${counters.uptime.toFixed(1)}%`,
+      label: "Uptime",
+      icon: Activity,
+    },
+    {
+      number:
+        counters.processed >= 100 ? "₹100Cr+" : `₹${counters.processed}Cr+`,
+      label: "Processed",
+      icon: TrendingUp,
+    },
+    {
+      number: counters.support >= 24 ? "24/7" : `${counters.support}/7`,
+      label: "Support",
+      icon: Clock,
+    },
   ];
 
   const features = [
@@ -205,44 +263,213 @@ const LandingPage = () => {
   // GSAP Animations
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Hero section animation
+      // Hero section animation with parallax
       gsap.fromTo(
         ".hero-content",
         { opacity: 0, y: 50 },
-        { opacity: 1, y: 0, duration: 1, stagger: 0.2 }
+        { opacity: 1, y: 0, duration: 1, stagger: 0.2, ease: "power3.out" }
       );
 
-      // Stats animation on scroll
+      // Payment card float animation
+      gsap.to(".payment-card", {
+        y: -10,
+        duration: 2,
+        repeat: -1,
+        yoyo: true,
+        ease: "power1.inOut",
+      });
+
+      // Stats animation on scroll with bounce
       gsap.fromTo(
         ".stat-item",
-        { opacity: 0, scale: 0.8 },
+        { opacity: 0, scale: 0.5, y: 30 },
         {
           opacity: 1,
           scale: 1,
-          duration: 0.6,
-          stagger: 0.1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: "back.out(1.7)",
           scrollTrigger: {
             trigger: ".stats-section",
-            start: "top 80%",
+            start: "top 85%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse",
           },
         }
       );
 
-      // Features animation
+      // Features section cards with stagger
       gsap.fromTo(
         ".feature-card",
-        { opacity: 0, y: 30 },
+        { opacity: 0, y: 50, scale: 0.9 },
         {
           opacity: 1,
           y: 0,
-          duration: 0.6,
-          stagger: 0.1,
+          scale: 1,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: "power3.out",
           scrollTrigger: {
             trigger: ".features-section",
-            start: "top 80%",
+            start: "top 75%",
+            end: "bottom 20%",
+            toggleActions: "play none none reverse",
           },
         }
       );
+
+      // Services cards slide in from sides
+      gsap.fromTo(
+        ".service-card",
+        { opacity: 0, x: -50, rotateY: -15 },
+        {
+          opacity: 1,
+          x: 0,
+          rotateY: 0,
+          duration: 0.8,
+          stagger: 0.1,
+          ease: "power2.out",
+          scrollTrigger: {
+            trigger: ".services-section",
+            start: "top 75%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      // How It Works section
+      gsap.fromTo(
+        ".step-card",
+        { opacity: 0, scale: 0.8, rotateX: -20 },
+        {
+          opacity: 1,
+          scale: 1,
+          rotateX: 0,
+          duration: 0.7,
+          stagger: 0.2,
+          ease: "back.out(1.5)",
+          scrollTrigger: {
+            trigger: ".how-it-works-section",
+            start: "top 75%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      // Pricing cards pop in
+      gsap.fromTo(
+        ".pricing-card",
+        { opacity: 0, scale: 0.7, y: 50 },
+        {
+          opacity: 1,
+          scale: 1,
+          y: 0,
+          duration: 0.8,
+          stagger: 0.15,
+          ease: "elastic.out(1, 0.5)",
+          scrollTrigger: {
+            trigger: ".pricing-section",
+            start: "top 75%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      // Testimonials slide in
+      gsap.fromTo(
+        ".testimonial-card",
+        { opacity: 0, x: 100, rotateY: 45 },
+        {
+          opacity: 1,
+          x: 0,
+          rotateY: 0,
+          duration: 0.8,
+          stagger: 0.2,
+          ease: "power3.out",
+          scrollTrigger: {
+            trigger: ".testimonials-section",
+            start: "top 75%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      // Contact cards bounce in
+      gsap.fromTo(
+        ".contact-card",
+        { opacity: 0, y: 60, scale: 0.8 },
+        {
+          opacity: 1,
+          y: 0,
+          scale: 1,
+          duration: 0.7,
+          stagger: 0.15,
+          ease: "back.out(2)",
+          scrollTrigger: {
+            trigger: ".contact-section",
+            start: "top 75%",
+            toggleActions: "play none none reverse",
+          },
+        }
+      );
+
+      // Section headings fade in from top
+      gsap.utils.toArray(".section-heading").forEach((heading) => {
+        gsap.fromTo(
+          heading,
+          { opacity: 0, y: -30 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power2.out",
+            scrollTrigger: {
+              trigger: heading,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      });
+
+      // Badges and icons rotate in
+      gsap.utils.toArray(".badge-animate").forEach((badge) => {
+        gsap.fromTo(
+          badge,
+          { opacity: 0, scale: 0, rotate: -180 },
+          {
+            opacity: 1,
+            scale: 1,
+            rotate: 0,
+            duration: 0.6,
+            ease: "back.out(1.7)",
+            scrollTrigger: {
+              trigger: badge,
+              start: "top 85%",
+              toggleActions: "play none none reverse",
+            },
+          }
+        );
+      });
+
+      // Button hover effect with GSAP
+      gsap.utils.toArray(".cta-button").forEach((button) => {
+        button.addEventListener("mouseenter", () => {
+          gsap.to(button, {
+            scale: 1.05,
+            duration: 0.3,
+            ease: "power2.out",
+          });
+        });
+        button.addEventListener("mouseleave", () => {
+          gsap.to(button, {
+            scale: 1,
+            duration: 0.3,
+            ease: "power2.out",
+          });
+        });
+      });
     });
 
     return () => ctx.revert();
@@ -255,7 +482,7 @@ const LandingPage = () => {
       {/* ===== 1. HERO SECTION ===== */}
       <section
         ref={heroRef}
-        className="relative -mt-1 overflow-hidden bg-white"
+        className="relative -mt-16 overflow-hidden bg-white"
       >
         {/* Subtle Background Pattern */}
         <div className="absolute inset-0 bg-gradient-to-br from-gray-50 to-white">
@@ -264,8 +491,8 @@ const LandingPage = () => {
 
         {/* Content Container */}
         <div className="relative z-10 px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div className="h-[calc(100vh-4rem)] flex items-center">
-            <div className="grid items-center w-full grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-12">
+          <div className="min-h-[calc(100vh-4rem)] flex items-center pt-20 pb-12 md:pt-24 md:pb-16">
+            <div className="grid items-center w-full grid-cols-1 gap-8 md:gap-10 lg:grid-cols-2 lg:gap-12">
               {/* Left Side - Content */}
               <div className="space-y-6 text-center lg:text-left">
                 {/* Trust Badge */}
@@ -275,7 +502,7 @@ const LandingPage = () => {
                 </div>
 
                 {/* Main Heading */}
-                <h1 className="text-4xl font-bold leading-tight text-gray-900 sm:text-5xl lg:text-6xl hero-content">
+                <h1 className="text-3xl font-bold leading-tight text-gray-900 sm:text-4xl md:text-5xl lg:text-6xl hero-content">
                   Secure Payments
                   <span className="block text-blue-600">Made Simple</span>
                 </h1>
@@ -288,48 +515,56 @@ const LandingPage = () => {
                 </p>
 
                 {/* CTA Buttons */}
-                <div className="flex flex-col justify-center gap-4 sm:flex-row lg:justify-start hero-content">
+                <div className="flex flex-col justify-center gap-3 sm:gap-4 sm:flex-row lg:justify-start hero-content">
                   <Link
                     to="/register"
-                    className="inline-flex items-center justify-center px-8 py-4 bg-blue-600 text-white text-lg font-semibold rounded-xl hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5"
+                    className="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 bg-blue-600 text-white text-base sm:text-lg font-semibold rounded-xl hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 button-ripple cta-button"
                   >
                     Get Started Free
-                    <ArrowRight className="w-5 h-5 ml-2" />
+                    <ArrowRight className="w-4 h-4 ml-2 sm:w-5 sm:h-5" />
                   </Link>
-                  
                 </div>
 
                 {/* Trust Indicators */}
-                <div className="grid grid-cols-2 gap-6 pt-8 lg:grid-cols-4 hero-content">
+                <div className="grid grid-cols-2 gap-4 pt-6 sm:gap-6 sm:pt-8 lg:grid-cols-4 hero-content">
                   {stats.map((stat, index) => (
-                    <div key={index} className="text-center lg:text-left">
-                      <div className="flex items-center justify-center w-12 h-12 mx-auto mb-2 bg-blue-100 rounded-lg lg:mx-0">
-                        <stat.icon className="w-6 h-6 text-blue-600" />
+                    <div
+                      key={index}
+                      className={`text-center lg:text-left stat-item animate-fadeInUp delay-${
+                        (index + 1) * 100
+                      }`}
+                    >
+                      <div className="flex items-center justify-center w-10 h-10 mx-auto mb-2 transition-all duration-300 bg-blue-100 rounded-lg sm:w-12 sm:h-12 lg:mx-0 animate-pulse">
+                        <stat.icon className="w-5 h-5 text-blue-600 transition-transform duration-300 sm:w-6 sm:h-6 group-hover:scale-110" />
                       </div>
-                      <div className="text-2xl font-bold text-gray-900">
+                      <div className="text-xl font-bold text-gray-900 sm:text-2xl">
                         {stat.number}
                       </div>
-                      <div className="text-sm text-gray-600">{stat.label}</div>
+                      <div className="text-xs text-gray-600 sm:text-sm">
+                        {stat.label}
+                      </div>
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Right Side - Professional Payment Card */}
-              <div className="flex justify-center lg:justify-end">
-                <div className="relative w-full max-w-sm">
+              <div className="flex justify-center mt-8 lg:justify-end lg:mt-0">
+                <div className="relative w-full max-w-sm mx-auto payment-card lg:mx-0">
                   {/* Card Container */}
-                  <div className="overflow-hidden bg-white border border-gray-100 shadow-xl rounded-2xl">
+                  <div className="overflow-hidden transition-all duration-500 transform bg-white border border-gray-100 shadow-xl hover:shadow-2xl rounded-xl sm:rounded-2xl hover:scale-105">
                     {/* Card Header */}
-                    <div className="p-4 text-white bg-gradient-to-r from-blue-600 to-blue-700">
-                      <div className="flex items-center justify-between mb-3">
+                    <div className="p-3 text-white sm:p-4 bg-gradient-to-r from-blue-600 to-blue-700">
+                      <div className="flex items-center justify-between mb-2 sm:mb-3">
                         <div className="flex items-center space-x-2">
-                          <div className="flex items-center justify-center w-8 h-8 rounded-lg bg-white/20">
-                            <CreditCard className="w-4 h-4" />
+                          <div className="flex items-center justify-center rounded-lg w-7 h-7 sm:w-8 sm:h-8 bg-white/20">
+                            <CreditCard className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
                           </div>
                           <div>
-                            <h3 className="font-bold">SilanPay</h3>
-                            <p className="text-xs text-blue-100">
+                            <h3 className="text-sm font-bold sm:text-base">
+                              SilanPay
+                            </h3>
+                            <p className="text-[10px] sm:text-xs text-blue-100">
                               Payment Gateway
                             </p>
                           </div>
@@ -351,11 +586,11 @@ const LandingPage = () => {
 
                     {/* Payment Methods */}
                     <div className="p-4">
-                      <h4 className="mb-3 text-sm font-semibold text-center text-gray-900">
+                      <h4 className="mb-2 text-xs font-semibold text-center text-gray-900 sm:mb-3 sm:text-sm">
                         Supported Payment Methods
                       </h4>
 
-                      <div className="grid grid-cols-3 gap-2 mb-4">
+                      <div className="grid grid-cols-3 gap-1.5 sm:gap-2 mb-3 sm:mb-4">
                         {[
                           {
                             icon: QrCode,
@@ -534,20 +769,19 @@ const LandingPage = () => {
                               More Payment Options
                             </p>
                             <div className="space-y-2">
-                              {[
-                                "EMI Options",
-                                "Pay Later",
-                              ].map((option, idx) => (
-                                <div
-                                  key={idx}
-                                  className="flex items-center justify-between px-3 py-2 bg-white border border-gray-300 rounded-lg"
-                                >
-                                  <span className="text-xs font-medium text-gray-700">
-                                    {option}
-                                  </span>
-                                  <ChevronRight className="w-4 h-4 text-gray-400" />
-                                </div>
-                              ))}
+                              {["EMI Options", "Pay Later"].map(
+                                (option, idx) => (
+                                  <div
+                                    key={idx}
+                                    className="flex items-center justify-between px-3 py-2 bg-white border border-gray-300 rounded-lg"
+                                  >
+                                    <span className="text-xs font-medium text-gray-700">
+                                      {option}
+                                    </span>
+                                    <ChevronRight className="w-4 h-4 text-gray-400" />
+                                  </div>
+                                )
+                              )}
                             </div>
                           </div>
                         )}
@@ -606,36 +840,198 @@ const LandingPage = () => {
         </div>
       </section>
 
-      {/* ===== 2. FEATURES SECTION ===== */}
-      <section ref={featuresRef} className="py-24 features-section bg-gray-50">
+      {/* ===== CERTIFICATES SECTION ===== */}
+      <section className="py-4 overflow-hidden border-gray-200 sm:py-6 bg-gray-50 border-y">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div className="mb-16 text-center">
-            <div className="inline-flex items-center px-4 py-2 mb-4 text-sm font-medium text-blue-700 rounded-full bg-blue-50">
-              <Target className="w-4 h-4 mr-2" />
+          <div className="mb-3 text-center sm:mb-4">
+            <p className="text-[10px] font-medium tracking-wider text-gray-500 uppercase sm:text-xs">
+              Certifications & Recognitions
+            </p>
+          </div>
+
+          <div className="relative">
+            {/* Scrolling container */}
+            <div className="flex animate-scroll-slow">
+              {/* First set of certificates */}
+              {[
+                {
+                  src: "/certificates/startupodisa.png",
+                  alt: "Startup Odisha",
+                  href: "https://startupodisha.gov.in/",
+                },
+                {
+                  src: "/certificates/digitaindia.png",
+                  alt: "Digital India",
+                  href: "https://www.digitalindia.gov.in/",
+                },
+                {
+                  src: "/certificates/isocertificate.png",
+                  alt: "ISO",
+                  href: "https://www.iso.org/home.html",
+                },
+                {
+                  src: "/certificates/msme.png",
+                  alt: "MSME Certified",
+                  href: "https://www.msme.gov.in/",
+                },
+              ].map((cert, index) => (
+                <a
+                  key={`first-${index}`}
+                  href={cert.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-shrink-0 px-4 transition-all duration-300 sm:px-6 group hover:scale-105"
+                >
+                  <div className="p-2 transition-all bg-white rounded-lg shadow-sm sm:p-3 group-hover:shadow-md">
+                    <img
+                      src={cert.src}
+                      alt={cert.alt}
+                      className="object-contain w-auto h-8 transition-opacity opacity-60 sm:h-10 grayscale group-hover:grayscale-0 group-hover:opacity-100"
+                    />
+                  </div>
+                </a>
+              ))}
+              {/* Duplicate set for seamless loop */}
+              {[
+                {
+                  src: "/certificates/startupodisa.png",
+                  alt: "Startup Odisha",
+                  href: "https://startupodisha.gov.in/",
+                },
+                {
+                  src: "/certificates/digitaindia.png",
+                  alt: "Digital India",
+                  href: "https://www.digitalindia.gov.in/",
+                },
+                {
+                  src: "/certificates/isocertificate.png",
+                  alt: "ISO",
+                  href: "https://www.iso.org/home.html",
+                },
+                {
+                  src: "/certificates/msme.png",
+                  alt: "MSME Certified",
+                  href: "https://www.msme.gov.in/",
+                },
+              ].map((cert, index) => (
+                <a
+                  key={`second-${index}`}
+                  href={cert.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-shrink-0 px-4 transition-all duration-300 sm:px-6 group hover:scale-105"
+                >
+                  <div className="p-2 transition-all bg-white rounded-lg shadow-sm sm:p-3 group-hover:shadow-md">
+                    <img
+                      src={cert.src}
+                      alt={cert.alt}
+                      className="object-contain w-auto h-8 transition-opacity opacity-60 sm:h-10 grayscale group-hover:grayscale-0 group-hover:opacity-100"
+                    />
+                  </div>
+                </a>
+              ))}
+              {/* Duplicate set 3 for seamless loop */}
+              {[
+                {
+                  src: "/certificates/startupodisa.png",
+                  alt: "Startup Odisha",
+                  href: "https://startupodisha.gov.in/",
+                },
+                {
+                  src: "/certificates/digitaindia.png",
+                  alt: "Digital India",
+                  href: "https://www.digitalindia.gov.in/",
+                },
+                {
+                  src: "/certificates/isocertificate.png",
+                  alt: "ISO",
+                  href: "https://www.iso.org/home.html",
+                },
+                {
+                  src: "/certificates/msme.png",
+                  alt: "MSME Certified",
+                  href: "https://www.msme.gov.in/",
+                },
+              ].map((cert, index) => (
+                <a
+                  key={`third-${index}`}
+                  href={cert.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex-shrink-0 px-4 transition-all duration-300 sm:px-6 group hover:scale-105"
+                >
+                  <div className="p-2 transition-all bg-white rounded-lg shadow-sm sm:p-3 group-hover:shadow-md">
+                    <img
+                      src={cert.src}
+                      alt={cert.alt}
+                      className="object-contain w-auto h-8 transition-opacity opacity-60 sm:h-10 grayscale group-hover:grayscale-0 group-hover:opacity-100"
+                    />
+                  </div>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
+        @keyframes scroll-slow {
+          from {
+            transform: translateX(0);
+          }
+          to {
+            transform: translateX(-33.333%);
+          }
+        }
+        
+        .animate-scroll-slow {
+          animation: scroll-slow 30s linear infinite;
+        }
+        
+        .animate-scroll-slow:hover {
+          animation-play-state: paused;
+        }
+      `,
+        }}
+      />
+
+      {/* ===== 2. FEATURES SECTION ===== */}
+      <section
+        ref={featuresRef}
+        className="py-12 sm:py-16 md:py-20 lg:py-24 features-section bg-gray-50"
+      >
+        <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+          <div className="mb-10 text-center sm:mb-12 md:mb-16">
+            <div className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 mb-3 sm:mb-4 text-xs sm:text-sm font-medium text-blue-700 rounded-full bg-blue-50 badge-animate">
+              <Target className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
               Why Choose SilanPay
             </div>
-            <h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
+            <h2 className="px-4 mb-4 text-2xl font-bold text-gray-900 sm:mb-6 sm:text-3xl md:text-4xl lg:text-5xl section-heading">
               Built for Modern Businesses
             </h2>
-            <p className="max-w-3xl mx-auto text-xl text-gray-600">
+            <p className="max-w-3xl px-4 mx-auto text-base text-gray-600 sm:text-lg md:text-xl">
               Everything you need to accept payments, manage transactions, and
               grow your business - all in one powerful platform.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
             {features.map((feature, index) => (
               <div
                 key={index}
-                className="p-8 transition-all duration-300 transform bg-white shadow-lg feature-card rounded-2xl hover:shadow-xl hover:-translate-y-2"
+                className={`p-6 transition-all duration-300 transform bg-white shadow-lg sm:p-8 feature-card card-glow rounded-xl sm:rounded-2xl hover:shadow-xl hover:-translate-y-2 animate-fadeInUp delay-${
+                  ((index % 6) + 1) * 100
+                }`}
               >
-                <div className="flex items-center justify-center mb-6 bg-blue-100 w-14 h-14 rounded-xl">
-                  <feature.icon className="text-blue-600 w-7 h-7" />
+                <div className="flex items-center justify-center w-12 h-12 mb-4 transition-transform duration-300 bg-blue-100 sm:mb-6 sm:w-14 sm:h-14 rounded-xl group-hover:scale-110 animate-scaleIn">
+                  <feature.icon className="w-6 h-6 text-blue-600 transition-all duration-300 sm:w-7 sm:h-7 group-hover:rotate-6" />
                 </div>
-                <h3 className="mb-4 text-xl font-bold text-gray-900">
+                <h3 className="mb-3 text-lg font-bold text-gray-900 sm:mb-4 sm:text-xl">
                   {feature.title}
                 </h3>
-                <p className="leading-relaxed text-gray-600">
+                <p className="text-sm leading-relaxed text-gray-600 sm:text-base">
                   {feature.description}
                 </p>
               </div>
@@ -643,48 +1039,48 @@ const LandingPage = () => {
           </div>
 
           {/* View All Features Button */}
-          <div className="mt-12 text-center">
+          <div className="mt-8 text-center sm:mt-10 md:mt-12 animate-fadeInUp delay-600">
             <Link
               to="/features"
-              className="inline-flex items-center px-8 py-4 text-lg font-semibold text-white transition-all duration-300 transform bg-blue-600 rounded-xl hover:bg-blue-700 hover:scale-105 hover:shadow-xl"
+              className="inline-flex items-center px-6 py-3 text-base font-semibold text-white transition-all duration-300 transform bg-blue-600 button-ripple sm:px-8 sm:py-4 sm:text-lg rounded-xl hover:bg-blue-700 hover:scale-105 hover:shadow-xl"
             >
               View All Features
-              <ArrowRight className="w-5 h-5 ml-2" />
+              <ArrowRight className="w-4 h-4 ml-2 sm:w-5 sm:h-5" />
             </Link>
           </div>
         </div>
       </section>
 
       {/* ===== 3. SERVICES SECTION ===== */}
-      <section ref={servicesRef} className="py-24 bg-white">
+      <section ref={servicesRef} className="py-24 bg-white services-section">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div className="mb-16 text-center">
-            <div className="inline-flex items-center px-4 py-2 mb-4 text-sm font-medium text-green-700 rounded-full bg-green-50">
-              <Rocket className="w-4 h-4 mr-2" />
+          <div className="mb-10 text-center sm:mb-12 md:mb-16">
+            <div className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 mb-3 sm:mb-4 text-xs sm:text-sm font-medium text-green-700 rounded-full bg-green-50 badge-animate">
+              <Rocket className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
               Our Services
             </div>
-            <h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
+            <h2 className="px-4 mb-4 text-2xl font-bold text-gray-900 sm:mb-6 sm:text-3xl md:text-4xl lg:text-5xl section-heading">
               Complete Payment Solutions
             </h2>
-            <p className="max-w-3xl mx-auto text-xl text-gray-600">
+            <p className="max-w-3xl px-4 mx-auto text-base text-gray-600 sm:text-lg md:text-xl">
               From UPI payments to enterprise solutions, we have everything you
               need to handle payments efficiently.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
+          <div className="grid grid-cols-1 gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {services.map((service, index) => (
               <div
                 key={index}
-                className="p-8 transition-all duration-300 transform group bg-gray-50 rounded-2xl hover:bg-white hover:shadow-xl hover:-translate-y-2"
+                className="p-6 transition-all duration-500 transform sm:p-8 group bg-gray-50 rounded-xl sm:rounded-2xl hover:bg-white hover:shadow-2xl hover:-translate-y-3 service-card card-glow"
               >
-                <div className="flex items-center justify-center w-16 h-16 mb-6 transition-colors duration-300 bg-blue-600 rounded-xl group-hover:bg-blue-700">
-                  <service.icon className="w-8 h-8 text-white" />
+                <div className="flex items-center justify-center mb-4 transition-all duration-300 bg-blue-600 w-14 h-14 sm:w-16 sm:h-16 sm:mb-6 rounded-xl group-hover:bg-blue-700 group-hover:rotate-6 group-hover:scale-110">
+                  <service.icon className="text-white w-7 h-7 sm:w-8 sm:h-8" />
                 </div>
-                <h3 className="mb-4 text-xl font-bold text-gray-900">
+                <h3 className="mb-3 text-lg font-bold text-gray-900 sm:mb-4 sm:text-xl">
                   {service.title}
                 </h3>
-                <p className="mb-6 leading-relaxed text-gray-600">
+                <p className="mb-4 text-sm leading-relaxed text-gray-600 sm:mb-6 sm:text-base">
                   {service.description}
                 </p>
                 <div className="mb-4 font-semibold text-blue-600">
@@ -702,36 +1098,36 @@ const LandingPage = () => {
           </div>
 
           {/* View All Services Button */}
-          <div className="mt-12 text-center">
+          <div className="mt-8 text-center sm:mt-10 md:mt-12">
             <Link
               to="/services"
-              className="inline-flex items-center px-8 py-4 text-lg font-semibold text-white transition-all duration-300 transform bg-blue-600 rounded-xl hover:bg-blue-700 hover:scale-105 hover:shadow-xl"
+              className="inline-flex items-center px-6 py-3 text-base font-semibold text-white transition-all duration-300 transform bg-blue-600 sm:px-8 sm:py-4 sm:text-lg rounded-xl hover:bg-blue-700 hover:scale-105 hover:shadow-xl"
             >
               View All Services
-              <ArrowRight className="w-5 h-5 ml-2" />
+              <ArrowRight className="w-4 h-4 ml-2 sm:w-5 sm:h-5" />
             </Link>
           </div>
         </div>
       </section>
 
       {/* ===== 4. HOW IT WORKS SECTION ===== */}
-      <section className="py-24 bg-white">
+      <section className="py-12 bg-white sm:py-16 md:py-20 lg:py-24 how-it-works-section">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div className="mb-16 text-center">
-            <div className="inline-flex items-center px-4 py-2 mb-4 text-sm font-medium text-blue-700 rounded-full bg-blue-50">
-              <Rocket className="w-4 h-4 mr-2" />
+          <div className="mb-10 text-center sm:mb-12 md:mb-16">
+            <div className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 mb-3 sm:mb-4 text-xs sm:text-sm font-medium text-blue-700 rounded-full bg-blue-50 badge-animate">
+              <Rocket className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
               Integration Process
             </div>
-            <h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
+            <h2 className="px-4 mb-4 text-2xl font-bold text-gray-900 sm:mb-6 sm:text-3xl md:text-4xl lg:text-5xl section-heading">
               Get Started in 3 Simple Steps
             </h2>
-            <p className="max-w-3xl mx-auto text-xl text-gray-600">
+            <p className="max-w-3xl px-4 mx-auto text-base text-gray-600 sm:text-lg md:text-xl">
               From registration to first transaction - complete setup in under
               10 minutes
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 mb-16 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 mb-10 sm:gap-8 sm:mb-12 md:mb-16 md:grid-cols-2 lg:grid-cols-3">
             {[
               {
                 step: "01",
@@ -774,7 +1170,7 @@ const LandingPage = () => {
               },
             ].map((step, index) => (
               <div key={index} className="relative">
-                <div className="h-full p-8 transition-all duration-300 border border-gray-200 bg-gray-50 rounded-2xl hover:border-blue-300">
+                <div className="h-full p-8 transition-all duration-500 border border-gray-200 bg-gray-50 rounded-2xl hover:border-blue-300 hover:shadow-2xl hover:-translate-y-2 step-card">
                   <div className="flex items-center justify-between mb-6">
                     <div className="text-5xl font-bold text-blue-100">
                       {step.step}
@@ -846,23 +1242,23 @@ const payment = await silanpay.payments.create({
       </section>
 
       {/* ===== 5. ADVANCED FEATURES SECTION ===== */}
-      <section className="py-24 bg-gray-50">
+      <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gray-50">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div className="mb-16 text-center">
-            <div className="inline-flex items-center px-4 py-2 mb-4 text-sm font-medium text-blue-700 rounded-full bg-blue-50">
-              <Zap className="w-4 h-4 mr-2" />
+          <div className="mb-10 text-center sm:mb-12 md:mb-16">
+            <div className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 mb-3 sm:mb-4 text-xs sm:text-sm font-medium text-blue-700 rounded-full bg-blue-50">
+              <Zap className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
               Powerful Features
             </div>
-            <h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
+            <h2 className="px-4 mb-4 text-2xl font-bold text-gray-900 sm:mb-6 sm:text-3xl md:text-4xl lg:text-5xl">
               Everything You Need to Succeed
             </h2>
-            <p className="max-w-3xl mx-auto text-xl text-gray-600">
+            <p className="max-w-3xl px-4 mx-auto text-base text-gray-600 sm:text-lg md:text-xl">
               Built-in tools and features that help you grow your business
               faster
             </p>
           </div>
 
-          <div className="grid grid-cols-1 gap-8 mb-16 md:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-1 gap-6 mb-10 sm:gap-8 sm:mb-12 md:mb-16 md:grid-cols-2 lg:grid-cols-3">
             {[
               {
                 icon: Shield,
@@ -1086,17 +1482,17 @@ const payment = await silanpay.createPayment({
       </section>
 
       {/* ===== 6. ADVANCED PAYMENT FEATURES ===== */}
-      <section className="py-24 bg-white">
+      <section className="py-12 bg-white sm:py-16 md:py-20 lg:py-24">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div className="mb-16 text-center">
-            <div className="inline-flex items-center px-4 py-2 mb-4 text-sm font-medium text-indigo-700 rounded-full bg-indigo-50">
-              <Sparkles className="w-4 h-4 mr-2" />
+          <div className="mb-10 text-center sm:mb-12 md:mb-16">
+            <div className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 mb-3 sm:mb-4 text-xs sm:text-sm font-medium text-indigo-700 rounded-full bg-indigo-50">
+              <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
               Advanced Capabilities
             </div>
-            <h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
+            <h2 className="px-4 mb-4 text-2xl font-bold text-gray-900 sm:mb-6 sm:text-3xl md:text-4xl lg:text-5xl">
               Next-Generation Payment Technology
             </h2>
-            <p className="max-w-3xl mx-auto text-xl text-gray-600">
+            <p className="max-w-3xl px-4 mx-auto text-base text-gray-600 sm:text-lg md:text-xl">
               Cutting-edge features that give you a competitive advantage
             </p>
           </div>
@@ -1589,14 +1985,14 @@ const payment = await silanpay.createPayment({
       </section>
 
       {/* ===== 9. CONTACT SECTION ===== */}
-      <section ref={contactRef} className="py-24 bg-gray-50">
+      <section ref={contactRef} className="py-24 bg-gray-50 contact-section">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="mb-16 text-center">
-            <div className="inline-flex items-center px-4 py-2 mb-4 text-sm font-medium text-red-700 rounded-full bg-red-50">
+            <div className="inline-flex items-center px-4 py-2 mb-4 text-sm font-medium text-red-700 rounded-full bg-red-50 badge-animate">
               <Phone className="w-4 h-4 mr-2" />
               Get In Touch
             </div>
-            <h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
+            <h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl section-heading">
               Ready to Get Started?
             </h2>
             <p className="max-w-3xl mx-auto text-xl text-gray-600">
@@ -1606,7 +2002,7 @@ const payment = await silanpay.createPayment({
           </div>
 
           <div className="grid max-w-5xl grid-cols-1 gap-8 mx-auto md:grid-cols-3">
-            <div className="p-8 text-center bg-white shadow-lg rounded-2xl">
+            <div className="p-8 text-center transition-all duration-500 bg-white shadow-lg rounded-2xl hover:shadow-2xl hover:-translate-y-2 contact-card">
               <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-blue-100 rounded-2xl">
                 <Phone className="w-8 h-8 text-blue-600" />
               </div>
@@ -1622,7 +2018,7 @@ const payment = await silanpay.createPayment({
               <p className="mt-2 text-sm text-gray-500">Mon-Fri, 9AM-6PM IST</p>
             </div>
 
-            <div className="p-8 text-center bg-white shadow-lg rounded-2xl">
+            <div className="p-8 text-center transition-all duration-500 bg-white shadow-lg rounded-2xl hover:shadow-2xl hover:-translate-y-2 contact-card">
               <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-green-100 rounded-2xl">
                 <Mail className="w-8 h-8 text-green-600" />
               </div>
@@ -1634,7 +2030,7 @@ const payment = await silanpay.createPayment({
               <p className="mt-2 text-sm text-gray-500">24/7 Response</p>
             </div>
 
-            <div className="p-8 text-center bg-white shadow-lg rounded-2xl">
+            <div className="p-8 text-center transition-all duration-500 bg-white shadow-lg rounded-2xl hover:shadow-2xl hover:-translate-y-2 contact-card">
               <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-purple-100 rounded-2xl">
                 <MessageCircle className="w-8 h-8 text-purple-600" />
               </div>
@@ -1651,9 +2047,9 @@ const payment = await silanpay.createPayment({
             </div>
           </div>
 
-          <div className="max-w-4xl p-8 mx-auto mt-16 bg-white shadow-xl rounded-3xl md:p-12">
-            <div className="mb-8 text-center">
-              <h3 className="mb-2 text-2xl font-bold text-gray-900">
+          <div className="max-w-4xl p-6 mx-auto mt-10 bg-white shadow-xl sm:mt-12 md:mt-16 rounded-2xl sm:rounded-3xl sm:p-8 md:p-12">
+            <div className="mb-6 text-center sm:mb-8">
+              <h3 className="mb-2 text-xl font-bold text-gray-900 sm:text-2xl">
                 Visit Our Office
               </h3>
               <p className="text-gray-600">Come meet us in person</p>
@@ -1677,41 +2073,41 @@ const payment = await silanpay.createPayment({
       {/* ===== FOOTER ===== */}
       <footer className="text-white bg-gray-900">
         {/* Main Footer Content */}
-        <div className="px-4 py-16 mx-auto max-w-7xl sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 gap-8 md:grid-cols-4">
+        <div className="px-4 py-12 mx-auto max-w-7xl sm:px-6 sm:py-16 lg:px-8">
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-4">
             {/* Company Info */}
-            <div className="md:col-span-2">
-              <Link to="/" className="flex items-center mb-6 space-x-2">
+            <div className="sm:col-span-2 lg:col-span-2">
+              <Link to="/" className="flex items-center mb-4 space-x-2 sm:mb-6">
                 <img
                   src="/silanpaylogo.png"
                   alt="SilanPay logo"
-                  className="w-auto h-10"
+                  className="w-auto h-8 sm:h-10"
                 />
               </Link>
-              <p className="max-w-md mb-6 text-gray-300">
+              <p className="max-w-md mb-4 text-sm text-gray-300 sm:mb-6 sm:text-base">
                 Empowering businesses with secure, fast, and reliable payment
                 solutions. Join thousands of merchants who trust SilanPay for
                 their payment needs.
               </p>
-              <div className="flex space-x-4">
-                <div className="flex items-center justify-center w-10 h-10 bg-blue-600 rounded-full">
-                  <Phone className="w-5 h-5" />
+              <div className="flex space-x-3 sm:space-x-4">
+                <div className="flex items-center justify-center bg-blue-600 rounded-full w-9 h-9 sm:w-10 sm:h-10">
+                  <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
-                <div className="flex items-center justify-center w-10 h-10 bg-green-600 rounded-full">
-                  <Mail className="w-5 h-5" />
+                <div className="flex items-center justify-center bg-green-600 rounded-full w-9 h-9 sm:w-10 sm:h-10">
+                  <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
-                <div className="flex items-center justify-center w-10 h-10 bg-purple-600 rounded-full">
-                  <MessageCircle className="w-5 h-5" />
+                <div className="flex items-center justify-center bg-purple-600 rounded-full w-9 h-9 sm:w-10 sm:h-10">
+                  <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
                 </div>
               </div>
             </div>
 
             {/* Products */}
             <div>
-              <h4 className="mb-6 text-lg font-semibold text-white">
+              <h4 className="mb-4 text-base font-semibold text-white sm:mb-6 sm:text-lg">
                 Products
               </h4>
-              <ul className="space-y-3">
+              <ul className="space-y-2 text-sm sm:space-y-3 sm:text-base">
                 {[
                   "UPI Payments",
                   "QR Code Payments",
@@ -1733,8 +2129,10 @@ const payment = await silanpay.createPayment({
 
             {/* Company */}
             <div>
-              <h4 className="mb-6 text-lg font-semibold text-white">Company</h4>
-              <ul className="space-y-3">
+              <h4 className="mb-4 text-base font-semibold text-white sm:mb-6 sm:text-lg">
+                Company
+              </h4>
+              <ul className="space-y-2 text-sm sm:space-y-3 sm:text-base">
                 {[
                   { name: "About Us", to: "/about-us" },
                   { name: "Contact Us", to: "/contact-us" },
@@ -1756,67 +2154,14 @@ const payment = await silanpay.createPayment({
           </div>
         </div>
 
-        {/* Certificates Section */}
-        <div className="py-12 border-t border-gray-800">
-          <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <div className="mb-8 text-center">
-              <h3 className="mb-2 text-xl font-semibold text-white">
-                Certifications & Recognitions
-              </h3>
-              <p className="text-gray-400">
-                We are recognized by leading organizations in India
-              </p>
-            </div>
-
-            <div className="flex flex-wrap items-center justify-center gap-8">
-              {[
-                {
-                  src: "/certificates/startupodisa.png",
-                  alt: "Startup Odisha",
-                  href: "https://startupodisha.gov.in/",
-                },
-                {
-                  src: "/certificates/digitaindia.png",
-                  alt: "Digital India",
-                  href: "https://www.digitalindia.gov.in/",
-                },
-                {
-                  src: "/certificates/isocertificate.png",
-                  alt: "ISO",
-                  href: "https://www.iso.org/home.html",
-                },
-                {
-                  src: "/certificates/msme.png",
-                  alt: "MSME Certified",
-                  href: "https://www.msme.gov.in/",
-                },
-              ].map((cert, index) => (
-                <a
-                  key={index}
-                  href={cert.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition-opacity duration-300 opacity-60 hover:opacity-100"
-                >
-                  <img
-                    src={cert.src}
-                    alt={cert.alt}
-                    className="object-contain w-auto h-16"
-                  />
-                </a>
-              ))}
-            </div>
-          </div>
-        </div>
-
         {/* Bottom Section */}
-        <div className="py-8 border-t border-gray-800">
+        <div className="py-6 border-t border-gray-800 sm:py-8">
           <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <div className="flex flex-col items-center justify-between md:flex-row">
-              <div className="mb-4 text-sm text-gray-400 md:mb-0">
+            <div className="flex flex-col items-center justify-between space-y-4 sm:space-y-0 md:flex-row">
+              <div className="text-xs text-center text-gray-400 sm:text-sm md:text-left">
                 © 2025 Silansoftware Private Limited. All Rights Reserved.
               </div>
-              <div className="text-sm text-center text-gray-400 md:text-right">
+              <div className="text-xs text-center text-gray-400 sm:text-sm md:text-right">
                 Plot No-741, 2nd Floor, Jayadev Vihar
                 <br />
                 Bhubaneswar, Odisha 751013
@@ -1831,8 +2176,9 @@ const payment = await silanpay.createPayment({
       {/* ===== SCROLL TO TOP BUTTON ===== */}
       <ScrollToTop />
 
-      {/* Custom Styles */}
-      <style jsx>{`
+      <style
+        dangerouslySetInnerHTML={{
+          __html: `
         /* Animation delays for staggered effects */
         .animation-delay-2000 {
           animation-delay: 2s;
@@ -1880,6 +2226,68 @@ const payment = await silanpay.createPayment({
           }
         }
 
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        @keyframes fadeInLeft {
+          from {
+            opacity: 0;
+            transform: translateX(-30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes fadeInRight {
+          from {
+            opacity: 0;
+            transform: translateX(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+
+        @keyframes scaleIn {
+          from {
+            opacity: 0;
+            transform: scale(0.9);
+          }
+          to {
+            opacity: 1;
+            transform: scale(1);
+          }
+        }
+
+        @keyframes pulse {
+          0%, 100% {
+            opacity: 1;
+          }
+          50% {
+            opacity: 0.8;
+          }
+        }
+
+        @keyframes shimmer {
+          0% {
+            background-position: -1000px 0;
+          }
+          100% {
+            background-position: 1000px 0;
+          }
+        }
+
         .hero-content {
           animation: slideInUp 0.8s ease-out;
         }
@@ -1892,24 +2300,142 @@ const payment = await silanpay.createPayment({
           animation: fadeIn 0.4s ease-out;
         }
 
+        .animate-fadeInUp {
+          animation: fadeInUp 0.6s ease-out;
+        }
+
+        .animate-fadeInLeft {
+          animation: fadeInLeft 0.6s ease-out;
+        }
+
+        .animate-fadeInRight {
+          animation: fadeInRight 0.6s ease-out;
+        }
+
+        .animate-scaleIn {
+          animation: scaleIn 0.5s ease-out;
+        }
+
+        .animate-pulse {
+          animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Staggered animation delays */
+        .delay-100 { animation-delay: 0.1s; }
+        .delay-200 { animation-delay: 0.2s; }
+        .delay-300 { animation-delay: 0.3s; }
+        .delay-400 { animation-delay: 0.4s; }
+        .delay-500 { animation-delay: 0.5s; }
+        .delay-600 { animation-delay: 0.6s; }
+
         /* Hover effects */
+        .feature-card {
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
         .feature-card:hover {
-          transform: translateY(-8px);
+          transform: translateY(-8px) scale(1.02);
+          box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .stat-item {
+          transition: all 0.3s ease;
         }
 
         .stat-item:hover {
-          transform: scale(1.05);
+          transform: scale(1.05) translateY(-4px);
+        }
+
+        /* Gradient animation */
+        .gradient-animate {
+          background: linear-gradient(45deg, #3B82F6, #8B5CF6, #EC4899, #3B82F6);
+          background-size: 300% 300%;
+          animation: gradient 8s ease infinite;
+        }
+
+        @keyframes gradient {
+          0% { background-position: 0% 50%; }
+          50% { background-position: 100% 50%; }
+          100% { background-position: 0% 50%; }
+        }
+
+        /* Shimmer effect */
+        .shimmer {
+          background: linear-gradient(to right, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%);
+          background-size: 1000px 100%;
+          animation: shimmer 3s infinite;
+        }
+
+        /* Card hover glow */
+        .card-glow {
+          transition: all 0.3s ease;
+          position: relative;
+        }
+
+        .card-glow::before {
+          content: '';
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          border-radius: inherit;
+          opacity: 0;
+          transition: opacity 0.3s ease;
+          background: linear-gradient(45deg, rgba(59, 130, 246, 0.1), rgba(139, 92, 246, 0.1));
+        }
+
+        .card-glow:hover::before {
+          opacity: 1;
+        }
+
+        /* Button ripple effect */
+        .button-ripple {
+          position: relative;
+          overflow: hidden;
+        }
+
+        .button-ripple::after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 0;
+          height: 0;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.5);
+          transform: translate(-50%, -50%);
+          transition: width 0.6s, height 0.6s;
+        }
+
+        .button-ripple:hover::after {
+          width: 300px;
+          height: 300px;
         }
 
         /* Responsive animations */
         @media (prefers-reduced-motion: reduce) {
-          * {
+          *,
+          *::before,
+          *::after {
             animation-duration: 0.01ms !important;
             animation-iteration-count: 1 !important;
             transition-duration: 0.01ms !important;
           }
         }
-      `}</style>
+
+        @media (max-width: 768px) {
+          .hero-content {
+            animation-duration: 0.6s;
+          }
+          
+          .feature-card:hover {
+            transform: translateY(-4px) scale(1.01);
+          }
+        }
+      `,
+        }}
+      />
     </div>
   );
 };
