@@ -14,8 +14,8 @@ const LoginPage = () => {
     adminCode: "",
   });
 
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
-  const API_KEY = import.meta.env.VITE_API_KEY;
+  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+  const API_KEY = import.meta.env.VITE_ADMIN_API_KEY;
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -85,7 +85,7 @@ const LoginPage = () => {
         localStorage.setItem("adminToken", data.token);
         localStorage.setItem("adminUser", JSON.stringify(data.user));
         toast.success(`Welcome ${data.user.name}!`);
-        navigate("/");
+        navigate("/dashboard");
       } else {
         toast.error(data.message || "Invalid credentials");
       }
