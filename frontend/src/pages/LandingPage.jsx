@@ -2165,16 +2165,9 @@ const payment = await silanpay.createPayment({
         {/* Bottom Section */}
         <div className="py-6 border-t border-gray-800 sm:py-8">
           <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-            <div className="flex flex-col items-center justify-between space-y-4 sm:space-y-0 md:flex-row">
-              <div className="text-xs text-center text-gray-400 sm:text-sm md:text-left">
+            <div className="flex flex-col items-center justify-center">
+              <div className="text-xs text-center text-gray-400 sm:text-sm">
                 © 2025 Silansoftware Private Limited. All Rights Reserved.
-              </div>
-              <div className="text-xs text-center text-gray-400 sm:text-sm md:text-right">
-                Plot No-741, 2nd Floor, Jayadev Vihar
-                <br />
-                Bhubaneswar, Odisha 751013
-                <br />
-                Phone: +91-89842 89279
               </div>
             </div>
           </div>
