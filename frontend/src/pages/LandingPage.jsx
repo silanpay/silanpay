@@ -56,6 +56,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 const LandingPage = () => {
   const [activeTab, setActiveTab] = useState(0);
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(null);
 
   // Animation refs
   const heroRef = useRef(null);
@@ -270,7 +271,7 @@ const LandingPage = () => {
                 {/* Trust Badge */}
                 <div className="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-700 border border-blue-100 rounded-full bg-blue-50 hero-content">
                   <Shield className="w-4 h-4 mr-2" />
-                  Trusted by 10,000+ Businesses
+                  Trusted by 1,000+ Businesses
                 </div>
 
                 {/* Main Heading */}
@@ -295,13 +296,7 @@ const LandingPage = () => {
                     Get Started Free
                     <ArrowRight className="w-5 h-5 ml-2" />
                   </Link>
-                  <Link
-                    to="/demo"
-                    className="inline-flex items-center justify-center px-8 py-4 text-lg font-semibold text-blue-600 transition-all duration-300 bg-white border-2 border-blue-600 rounded-xl hover:bg-blue-50"
-                  >
-                    <PlayCircle className="w-5 h-5 mr-2" />
-                    View Demo
-                  </Link>
+                  
                 </div>
 
                 {/* Trust Indicators */}
@@ -366,32 +361,47 @@ const LandingPage = () => {
                             icon: QrCode,
                             name: "QR",
                             color: "text-purple-600",
+                            id: "qr",
                           },
                           {
                             icon: Smartphone,
                             name: "UPI",
                             color: "text-blue-600",
+                            id: "upi",
                           },
                           {
                             icon: CreditCard,
                             name: "Cards",
                             color: "text-green-600",
+                            id: "cards",
                           },
                           {
                             icon: WalletIcon,
                             name: "Wallets",
                             color: "text-orange-600",
+                            id: "wallets",
                           },
                           {
                             icon: Building2,
                             name: "Banking",
                             color: "text-cyan-600",
+                            id: "banking",
                           },
-                          { icon: Globe, name: "More", color: "text-gray-600" },
+                          {
+                            icon: Globe,
+                            name: "More",
+                            color: "text-gray-600",
+                            id: "more",
+                          },
                         ].map((method, index) => (
-                          <div
+                          <button
                             key={index}
-                            className="p-2 text-center transition-colors rounded-lg bg-gray-50 hover:bg-gray-100"
+                            onClick={() => setSelectedPaymentMethod(method.id)}
+                            className={`p-2 text-center transition-all rounded-lg cursor-pointer ${
+                              selectedPaymentMethod === method.id
+                                ? "bg-blue-100 border-2 border-blue-500 shadow-md"
+                                : "bg-gray-50 hover:bg-gray-100 border-2 border-transparent"
+                            }`}
                           >
                             <method.icon
                               className={`w-5 h-5 ${method.color} mx-auto mb-1`}
@@ -399,36 +409,173 @@ const LandingPage = () => {
                             <div className="text-xs font-medium text-gray-700">
                               {method.name}
                             </div>
-                          </div>
+                          </button>
                         ))}
                       </div>
 
-                      {/* Key Features */}
-                      <div className="mb-4 space-y-2">
-                        {[
-                          { icon: Zap, text: "Instant Processing" },
-                          { icon: Shield, text: "Secure Transactions" },
-                          { icon: Clock, text: "24/7 Support" },
-                        ].map((feature, index) => (
-                          <div
-                            key={index}
-                            className="flex items-center space-x-3"
-                          >
-                            <div className="flex items-center justify-center w-8 h-8 bg-green-100 rounded-lg">
-                              <feature.icon className="w-4 h-4 text-green-600" />
+                      {/* Dynamic Content Area */}
+                      <div className="mb-4 min-h-[120px] transition-all duration-300">
+                        {selectedPaymentMethod === "qr" && (
+                          <div className="p-4 space-y-3 border-2 border-purple-200 rounded-lg bg-purple-50 animate-fadeIn">
+                            <div className="flex items-center justify-center">
+                              <div className="p-3 bg-white rounded-lg shadow-md">
+                                <QrCode className="w-20 h-20 text-purple-600" />
+                              </div>
                             </div>
-                            <span className="text-sm font-medium text-gray-700">
-                              {feature.text}
-                            </span>
+                            <div className="text-center">
+                              <p className="text-sm font-semibold text-gray-800">
+                                Scan QR Code
+                              </p>
+                              <p className="text-xs text-gray-600">
+                                Quick & secure payment
+                              </p>
+                            </div>
                           </div>
-                        ))}
+                        )}
+
+                        {selectedPaymentMethod === "upi" && (
+                          <div className="p-4 space-y-3 border-2 border-blue-200 rounded-lg bg-blue-50 animate-fadeIn">
+                            <div className="space-y-2">
+                              <label className="text-sm font-semibold text-gray-800">
+                                Enter UPI ID
+                              </label>
+                              <input
+                                type="text"
+                                placeholder="yourname@upi"
+                                className="w-full px-3 py-2 text-sm border-2 border-blue-300 rounded-lg focus:outline-none focus:border-blue-500"
+                              />
+                            </div>
+                            <button className="w-full px-4 py-2 text-sm font-semibold text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700">
+                              Verify UPI ID
+                            </button>
+                          </div>
+                        )}
+
+                        {selectedPaymentMethod === "cards" && (
+                          <div className="p-4 space-y-3 border-2 border-green-200 rounded-lg bg-green-50 animate-fadeIn">
+                            <div className="flex items-center justify-around mb-2">
+                              <div className="px-3 py-1 text-xs font-semibold text-white bg-blue-600 rounded">
+                                VISA
+                              </div>
+                              <div className="px-3 py-1 text-xs font-semibold text-white bg-orange-600 rounded">
+                                MasterCard
+                              </div>
+                              <div className="px-3 py-1 text-xs font-semibold text-white bg-purple-600 rounded">
+                                RuPay
+                              </div>
+                            </div>
+                            <div className="space-y-2">
+                              <input
+                                type="text"
+                                placeholder="Card Number"
+                                className="w-full px-3 py-2 text-sm border-2 border-green-300 rounded-lg focus:outline-none focus:border-green-500"
+                              />
+                              <div className="flex gap-2">
+                                <input
+                                  type="text"
+                                  placeholder="MM/YY"
+                                  className="flex-1 px-3 py-2 text-sm border-2 border-green-300 rounded-lg focus:outline-none focus:border-green-500"
+                                />
+                                <input
+                                  type="text"
+                                  placeholder="CVV"
+                                  className="flex-1 px-3 py-2 text-sm border-2 border-green-300 rounded-lg focus:outline-none focus:border-green-500"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        )}
+
+                        {selectedPaymentMethod === "wallets" && (
+                          <div className="p-4 space-y-3 border-2 border-orange-200 rounded-lg bg-orange-50 animate-fadeIn">
+                            <p className="text-sm font-semibold text-center text-gray-800">
+                              Select Wallet
+                            </p>
+                            <div className="grid grid-cols-2 gap-2">
+                              {[
+                                "Paytm",
+                                "PhonePe",
+                                "Google Pay",
+                                "Amazon Pay",
+                              ].map((wallet, idx) => (
+                                <button
+                                  key={idx}
+                                  className="px-3 py-2 text-xs font-semibold text-gray-700 transition-colors bg-white border-2 border-orange-300 rounded-lg hover:bg-orange-100"
+                                >
+                                  {wallet}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {selectedPaymentMethod === "banking" && (
+                          <div className="p-4 space-y-3 border-2 rounded-lg border-cyan-200 bg-cyan-50 animate-fadeIn">
+                            <label className="text-sm font-semibold text-gray-800">
+                              Select Your Bank
+                            </label>
+                            <select className="w-full px-3 py-2 text-sm border-2 rounded-lg border-cyan-300 focus:outline-none focus:border-cyan-500">
+                              <option>Choose Bank</option>
+                              <option>State Bank of India</option>
+                              <option>HDFC Bank</option>
+                              <option>ICICI Bank</option>
+                              <option>Axis Bank</option>
+                              <option>Kotak Mahindra Bank</option>
+                            </select>
+                            <button className="w-full px-4 py-2 text-sm font-semibold text-white transition-colors rounded-lg bg-cyan-600 hover:bg-cyan-700">
+                              Continue to Net Banking
+                            </button>
+                          </div>
+                        )}
+
+                        {selectedPaymentMethod === "more" && (
+                          <div className="p-4 space-y-3 border-2 border-gray-200 rounded-lg bg-gray-50 animate-fadeIn">
+                            <p className="text-sm font-semibold text-center text-gray-800">
+                              More Payment Options
+                            </p>
+                            <div className="space-y-2">
+                              {[
+                                "EMI Options",
+                                "Pay Later",
+                              ].map((option, idx) => (
+                                <div
+                                  key={idx}
+                                  className="flex items-center justify-between px-3 py-2 bg-white border border-gray-300 rounded-lg"
+                                >
+                                  <span className="text-xs font-medium text-gray-700">
+                                    {option}
+                                  </span>
+                                  <ChevronRight className="w-4 h-4 text-gray-400" />
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {!selectedPaymentMethod && (
+                          <div className="flex items-center justify-center h-[120px] text-center animate-fadeIn">
+                            <div className="space-y-2">
+                              <div className="flex justify-center">
+                                <div className="p-3 bg-gray-100 rounded-full">
+                                  <CreditCard className="w-8 h-8 text-gray-400" />
+                                </div>
+                              </div>
+                              <p className="text-sm font-medium text-gray-600">
+                                Select a payment method above
+                              </p>
+                              <p className="text-xs text-gray-500">
+                                Click to see how it works
+                              </p>
+                            </div>
+                          </div>
+                        )}
                       </div>
 
                       {/* Bottom Stats */}
                       <div className="grid grid-cols-3 gap-4 pt-4 border-t border-gray-100">
                         <div className="text-center">
                           <div className="text-lg font-bold text-blue-600">
-                            10K+
+                            1K+
                           </div>
                           <div className="text-xs text-gray-500">Merchants</div>
                         </div>
@@ -494,6 +641,17 @@ const LandingPage = () => {
               </div>
             ))}
           </div>
+
+          {/* View All Features Button */}
+          <div className="mt-12 text-center">
+            <Link
+              to="/features"
+              className="inline-flex items-center px-8 py-4 text-lg font-semibold text-white transition-all duration-300 transform bg-blue-600 rounded-xl hover:bg-blue-700 hover:scale-105 hover:shadow-xl"
+            >
+              View All Features
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Link>
+          </div>
         </div>
       </section>
 
@@ -533,7 +691,7 @@ const LandingPage = () => {
                   {service.price}
                 </div>
                 <Link
-                  to="/contact"
+                  to="/services"
                   className="inline-flex items-center font-medium text-blue-600 transition-colors hover:text-blue-700"
                 >
                   Learn More
@@ -541,6 +699,17 @@ const LandingPage = () => {
                 </Link>
               </div>
             ))}
+          </div>
+
+          {/* View All Services Button */}
+          <div className="mt-12 text-center">
+            <Link
+              to="/services"
+              className="inline-flex items-center px-8 py-4 text-lg font-semibold text-white transition-all duration-300 transform bg-blue-600 rounded-xl hover:bg-blue-700 hover:scale-105 hover:shadow-xl"
+            >
+              View All Services
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Link>
           </div>
         </div>
       </section>
@@ -1098,25 +1267,6 @@ const payment = await silanpay.createPayment({
               </p>
             </div>
           </div>
-
-          {/* CTA Section */}
-          <div className="mt-16 text-center">
-            <div className="inline-block p-8 shadow-2xl bg-gradient-to-r from-blue-600 to-indigo-600 rounded-3xl">
-              <h3 className="mb-3 text-2xl font-bold text-white">
-                Ready to Experience Advanced Features?
-              </h3>
-              <p className="mb-6 text-blue-100">
-                Start using these powerful capabilities today
-              </p>
-              <Link
-                to="/register"
-                className="inline-flex items-center px-8 py-4 font-bold text-blue-600 transition-all duration-300 bg-white shadow-lg rounded-xl hover:bg-gray-100 hover:shadow-xl"
-              >
-                Get Started Now
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Link>
-            </div>
-          </div>
         </div>
       </section>
 
@@ -1334,8 +1484,6 @@ const payment = await silanpay.createPayment({
               </div>
             </div>
           </div>
-
-          
         </div>
       </section>
 
@@ -1721,12 +1869,27 @@ const payment = await silanpay.createPayment({
           }
         }
 
+        @keyframes fadeIn {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
         .hero-content {
           animation: slideInUp 0.8s ease-out;
         }
 
         .animate-float {
           animation: float 3s ease-in-out infinite;
+        }
+
+        .animate-fadeIn {
+          animation: fadeIn 0.4s ease-out;
         }
 
         /* Hover effects */

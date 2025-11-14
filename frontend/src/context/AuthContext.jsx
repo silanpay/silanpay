@@ -3,12 +3,14 @@ import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 
+const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 // Initial State
 const initialState = {
   user: null,
   token: null,
   isAuthenticated: false,
-  isLoading: false,
+  isLoading: true,
   error: null,
 };
 
@@ -36,7 +38,7 @@ const authReducer = (state, action) => {
         error: action.payload,
       };
     case "LOGOUT":
-      return { ...initialState };
+      return { ...initialState, isLoading: false };
     case "UPDATE_USER":
       return { ...state, user: action.payload };
     case "CLEAR_ERROR":
@@ -49,7 +51,7 @@ const authReducer = (state, action) => {
 };
 
 // Create Context
-const AuthContext = createContext();
+const AuthContext = createContext(undefined);
 
 // Auth Provider Component
 export const AuthProvider = ({ children }) => {
@@ -62,26 +64,26 @@ export const AuthProvider = ({ children }) => {
       const token = Cookies.get("auth_token");
       if (token) {
         try {
-          const response = await fetch("/api/auth/verify", {
+          const response = await fetch(`${API_BASE_URL}/api/auth/verify`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },
           });
 
           if (response.ok) {
-            const userData = await response.json();
+            const data = await response.json();
             dispatch({
               type: "AUTH_SUCCESS",
-              payload: { user: userData, token },
+              payload: { user: data, token },
             });
           } else {
             Cookies.remove("auth_token");
-            dispatch({ type: "LOGOUT" });
+            dispatch({ type: "SET_LOADING", payload: false });
           }
         } catch (error) {
           console.error("Token verification failed:", error);
           Cookies.remove("auth_token");
-          dispatch({ type: "LOGOUT" });
+          dispatch({ type: "SET_LOADING", payload: false });
         }
       } else {
         dispatch({ type: "SET_LOADING", payload: false });
@@ -92,14 +94,14 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   // Login function
-  const login = async (credentials) => {
+  const login = async (email, password) => {
     dispatch({ type: "AUTH_START" });
 
     try {
-      const response = await fetch("/api/auth/login", {
+      const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(credentials),
+        body: JSON.stringify({ email, password }),
       });
 
       const data = await response.json();
@@ -115,44 +117,65 @@ export const AuthProvider = ({ children }) => {
 
         dispatch({ type: "AUTH_SUCCESS", payload: { user, token } });
         toast.success("Login successful!");
-
         navigate(user.role === "admin" ? "/admin/dashboard" : "/dashboard");
+        return { success: true };
       } else {
-        dispatch({ type: "AUTH_FAILURE", payload: data.message || "Login failed" });
+        dispatch({
+          type: "AUTH_FAILURE",
+          payload: data.message || "Login failed",
+        });
         toast.error(data.message || "Login failed");
+        return { success: false, message: data.message };
       }
     } catch (error) {
-      dispatch({ type: "AUTH_FAILURE", payload: "Network error. Please try again." });
-      toast.error("Network error. Please try again.");
+      console.error("Login error:", error);
+      const errorMsg = "Network error. Please try again.";
+      dispatch({ type: "AUTH_FAILURE", payload: errorMsg });
+      toast.error(errorMsg);
+      return { success: false, message: errorMsg };
     }
   };
 
   // Register function
-  const register = async (data) => {
+  const register = async (userData) => {
     dispatch({ type: "AUTH_START" });
 
     try {
-      const response = await fetch("/api/auth/register", {
+      const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
+        body: JSON.stringify(userData),
       });
 
-      const responseData = await response.json();
+      const data = await response.json();
 
       if (response.ok) {
-        toast.success("Registration successful! Please check your email.");
-        navigate("/login");
+        const { user, token } = data;
+
+        Cookies.set("auth_token", token, {
+          expires: 30,
+          secure: import.meta.env.MODE === "production",
+          sameSite: "strict",
+        });
+
+        dispatch({ type: "AUTH_SUCCESS", payload: { user, token } });
+        toast.success("Registration successful!");
+        navigate("/dashboard");
+        return { success: true };
       } else {
         dispatch({
           type: "AUTH_FAILURE",
-          payload: responseData.message || "Registration failed",
+          payload: data.message || "Registration failed",
         });
-        toast.error(responseData.message || "Registration failed");
+        toast.error(data.message || "Registration failed");
+        return { success: false, message: data.message };
       }
     } catch (error) {
-      dispatch({ type: "AUTH_FAILURE", payload: "Network error. Please try again." });
-      toast.error("Network error. Please try again.");
+      console.error("Registration error:", error);
+      const errorMsg = "Network error. Please try again.";
+      dispatch({ type: "AUTH_FAILURE", payload: errorMsg });
+      toast.error(errorMsg);
+      return { success: false, message: errorMsg };
     }
   };
 
@@ -164,136 +187,27 @@ export const AuthProvider = ({ children }) => {
     navigate("/");
   };
 
-  // Forgot Password
-  const forgotPassword = async (email) => {
-    try {
-      const response = await fetch("/api/auth/forgot-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email }),
-      });
-
-      const data = await response.json();
-      if (response.ok) toast.success("Password reset link sent!");
-      else toast.error(data.message || "Failed to send reset link");
-    } catch {
-      toast.error("Network error. Please try again.");
-    }
-  };
-
-  // Reset Password
-  const resetPassword = async (token, password) => {
-    try {
-      const response = await fetch("/api/auth/reset-password", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ token, password }),
-      });
-
-      const data = await response.json();
-      if (response.ok) {
-        toast.success("Password reset successful!");
-        navigate("/login");
-      } else toast.error(data.message || "Password reset failed");
-    } catch {
-      toast.error("Network error. Please try again.");
-    }
-  };
-
-  // Update Profile
-  const updateProfile = async (data) => {
-    if (!state.token) return;
-
-    try {
-      const response = await fetch("/api/auth/profile", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${state.token}`,
-        },
-        body: JSON.stringify(data),
-      });
-
-      const responseData = await response.json();
-      if (response.ok) {
-        dispatch({ type: "UPDATE_USER", payload: responseData });
-        toast.success("Profile updated successfully");
-      } else toast.error(responseData.message || "Failed to update profile");
-    } catch {
-      toast.error("Network error. Please try again.");
-    }
-  };
-
-  // Change Password
-  const changePassword = async (currentPassword, newPassword) => {
-    if (!state.token) return;
-
-    try {
-      const response = await fetch("/api/auth/change-password", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${state.token}`,
-        },
-        body: JSON.stringify({ currentPassword, newPassword }),
-      });
-
-      const data = await response.json();
-      if (response.ok) toast.success("Password changed successfully");
-      else toast.error(data.message || "Failed to change password");
-    } catch {
-      toast.error("Network error. Please try again.");
-    }
-  };
-
-  // Clear Error
   const clearError = () => dispatch({ type: "CLEAR_ERROR" });
-
-  // Refresh Token
-  const refreshToken = async () => {
-    if (!state.token) return;
-
-    try {
-      const response = await fetch("/api/auth/refresh", {
-        method: "POST",
-        headers: { Authorization: `Bearer ${state.token}` },
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        Cookies.set("auth_token", data.token, {
-          expires: 30,
-          secure: import.meta.env.MODE === "production",
-          sameSite: "strict",
-        });
-        dispatch({ type: "AUTH_SUCCESS", payload: { user: state.user, token: data.token } });
-      } else logout();
-    } catch (error) {
-      console.error("Token refresh failed:", error);
-      logout();
-    }
-  };
 
   const contextValue = {
     ...state,
     login,
     register,
     logout,
-    forgotPassword,
-    resetPassword,
-    updateProfile,
-    changePassword,
     clearError,
-    refreshToken,
   };
 
-  return <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
+  );
 };
 
-// Custom hook
+// Custom hook to use auth context
 export const useAuth = () => {
   const context = useContext(AuthContext);
-  if (!context) throw new Error("useAuth must be used within an AuthProvider");
+  if (!context) {
+    throw new Error("useAuth must be used within AuthProvider");
+  }
   return context;
 };
 
