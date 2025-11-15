@@ -2061,13 +2061,13 @@ const payment = await silanpay.createPayment({
                   <div className="grid grid-cols-2 gap-4 text-center">
                     <div className="p-4 bg-gray-50 rounded-xl">
                       <div className="text-2xl font-bold text-primary-600">
-                        2020
+                        2015
                       </div>
                       <div className="text-sm text-gray-600">Founded</div>
                     </div>
                     <div className="p-4 bg-gray-50 rounded-xl">
                       <div className="text-2xl font-bold text-primary-600">
-                        50+
+                        20+
                       </div>
                       <div className="text-sm text-gray-600">Team Members</div>
                     </div>
