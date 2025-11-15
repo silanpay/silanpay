@@ -30,6 +30,10 @@ import {
   Phone,
   Mail,
   MessageCircle,
+  Facebook,
+  Twitter,
+  Linkedin,
+  Instagram,
   ShoppingCart,
   QrCode,
   Wallet as WalletIcon,
@@ -499,7 +503,7 @@ const LandingPage = () => {
               {/* Left Side - Content */}
               <div className="space-y-6 text-center lg:text-left">
                 {/* Trust Badge */}
-                <div className="inline-flex items-center px-4 py-2 text-sm font-medium text-blue-700 border border-blue-100 rounded-full bg-blue-50 hero-content">
+                <div className="inline-flex items-center px-4 py-2 text-sm font-medium border rounded-full text-primary-700 border-primary-100 bg-primary-50 hero-content">
                   <Shield className="w-4 h-4 mr-2" />
                   Trusted by 1,000+ Businesses
                 </div>
@@ -507,7 +511,7 @@ const LandingPage = () => {
                 {/* Main Heading */}
                 <h1 className="text-3xl font-bold leading-tight text-gray-900 sm:text-4xl md:text-5xl lg:text-6xl hero-content">
                   Secure Payments
-                  <span className="block text-blue-600">Made Simple</span>
+                  <span className="block text-primary-600">Made Simple</span>
                 </h1>
 
                 {/* Subtitle */}
@@ -521,7 +525,7 @@ const LandingPage = () => {
                 <div className="flex flex-col justify-center gap-3 sm:gap-4 sm:flex-row lg:justify-start hero-content">
                   <Link
                     to="/register"
-                    className="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 bg-blue-600 text-white text-base sm:text-lg font-semibold rounded-xl hover:bg-blue-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 button-ripple cta-button"
+                    className="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 bg-primary-600 text-white text-base sm:text-lg font-semibold rounded-xl hover:bg-primary-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 button-ripple cta-button"
                   >
                     Get Started Free
                     <ArrowRight className="w-4 h-4 ml-2 sm:w-5 sm:h-5" />
@@ -530,24 +534,34 @@ const LandingPage = () => {
 
                 {/* Trust Indicators */}
                 <div className="grid grid-cols-2 gap-4 pt-6 sm:gap-6 sm:pt-8 lg:grid-cols-4 hero-content">
-                  {stats.map((stat, index) => (
-                    <div
-                      key={index}
-                      className={`text-center lg:text-left stat-item animate-fadeInUp delay-${
-                        (index + 1) * 100
-                      }`}
-                    >
-                      <div className="flex items-center justify-center w-10 h-10 mx-auto mb-2 transition-all duration-300 bg-blue-100 rounded-lg sm:w-12 sm:h-12 lg:mx-0 animate-pulse">
-                        <stat.icon className="w-5 h-5 text-blue-600 transition-transform duration-300 sm:w-6 sm:h-6 group-hover:scale-110" />
+                  {stats.map((stat, index) => {
+                    const colors = [
+                      "bg-purple-500",
+                      "bg-emerald-500",
+                      "bg-orange-500",
+                      "bg-rose-500",
+                    ];
+                    return (
+                      <div
+                        key={index}
+                        className={`text-center lg:text-left stat-item animate-fadeInUp delay-${
+                          (index + 1) * 100
+                        }`}
+                      >
+                        <div
+                          className={`flex items-center justify-center w-10 h-10 mx-auto mb-2 transition-all duration-300 rounded-lg shadow-lg ${colors[index]} sm:w-12 sm:h-12 lg:mx-0 animate-pulse`}
+                        >
+                          <stat.icon className="w-5 h-5 text-white transition-transform duration-300 sm:w-6 sm:h-6 group-hover:scale-110" />
+                        </div>
+                        <div className="text-xl font-bold text-gray-900 sm:text-2xl">
+                          {stat.number}
+                        </div>
+                        <div className="text-xs text-gray-600 sm:text-sm">
+                          {stat.label}
+                        </div>
                       </div>
-                      <div className="text-xl font-bold text-gray-900 sm:text-2xl">
-                        {stat.number}
-                      </div>
-                      <div className="text-xs text-gray-600 sm:text-sm">
-                        {stat.label}
-                      </div>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
               </div>
 
@@ -557,7 +571,7 @@ const LandingPage = () => {
                   {/* Card Container */}
                   <div className="overflow-hidden transition-all duration-500 transform bg-white border border-gray-100 shadow-xl hover:shadow-2xl rounded-xl sm:rounded-2xl hover:scale-105">
                     {/* Card Header */}
-                    <div className="p-3 text-white sm:p-4 bg-gradient-to-r from-blue-600 to-blue-700">
+                    <div className="p-3 text-white sm:p-4 bg-primary-500">
                       <div className="flex items-center justify-between mb-2 sm:mb-3">
                         <div className="flex items-center space-x-2">
                           <div className="flex items-center justify-center rounded-lg w-7 h-7 sm:w-8 sm:h-8 bg-white/20">
@@ -567,13 +581,13 @@ const LandingPage = () => {
                             <h3 className="text-sm font-bold sm:text-base">
                               SilanPay
                             </h3>
-                            <p className="text-[10px] sm:text-xs text-blue-100">
+                            <p className="text-[10px] sm:text-xs text-primary-100">
                               Payment Gateway
                             </p>
                           </div>
                         </div>
                         <div className="text-right">
-                          <div className="text-xs text-blue-100">
+                          <div className="text-xs text-primary-100">
                             Success Rate
                           </div>
                           <div className="text-lg font-bold">99.9%</div>
@@ -604,7 +618,7 @@ const LandingPage = () => {
                           {
                             icon: Smartphone,
                             name: "UPI",
-                            color: "text-blue-600",
+                            color: "text-primary-600",
                             id: "upi",
                           },
                           {
@@ -637,7 +651,7 @@ const LandingPage = () => {
                             onClick={() => setSelectedPaymentMethod(method.id)}
                             className={`p-2 text-center transition-all rounded-lg cursor-pointer ${
                               selectedPaymentMethod === method.id
-                                ? "bg-blue-100 border-2 border-blue-500 shadow-md"
+                                ? "bg-primary-100 border-2 border-primary-500 shadow-md"
                                 : "bg-gray-50 hover:bg-gray-100 border-2 border-transparent"
                             }`}
                           >
@@ -677,7 +691,7 @@ const LandingPage = () => {
                         )}
 
                         {selectedPaymentMethod === "upi" && (
-                          <div className="p-4 space-y-3 border-2 border-blue-200 rounded-lg bg-blue-50 animate-fadeIn">
+                          <div className="p-4 space-y-3 border-2 rounded-lg border-primary-200 bg-primary-50 animate-fadeIn">
                             <div className="space-y-2">
                               <label className="text-sm font-semibold text-gray-800">
                                 Enter UPI ID
@@ -685,10 +699,10 @@ const LandingPage = () => {
                               <input
                                 type="text"
                                 placeholder="yourname@upi"
-                                className="w-full px-3 py-2 text-sm border-2 border-blue-300 rounded-lg focus:outline-none focus:border-blue-500"
+                                className="w-full px-3 py-2 text-sm border-2 rounded-lg border-primary-300 focus:outline-none focus:border-primary-500"
                               />
                             </div>
-                            <button className="w-full px-4 py-2 text-sm font-semibold text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700">
+                            <button className="w-full px-4 py-2 text-sm font-semibold text-white transition-colors rounded-lg bg-primary-600 hover:bg-primary-700">
                               Verify UPI ID
                             </button>
                           </div>
@@ -697,7 +711,7 @@ const LandingPage = () => {
                         {selectedPaymentMethod === "cards" && (
                           <div className="p-4 space-y-3 border-2 border-green-200 rounded-lg bg-green-50 animate-fadeIn">
                             <div className="flex items-center justify-around mb-2">
-                              <div className="px-3 py-1 text-xs font-semibold text-white bg-blue-600 rounded">
+                              <div className="px-3 py-1 text-xs font-semibold text-white rounded bg-primary-600">
                                 VISA
                               </div>
                               <div className="px-3 py-1 text-xs font-semibold text-white bg-orange-600 rounded">
@@ -816,7 +830,7 @@ const LandingPage = () => {
                       {/* Bottom Stats */}
                       <div className="grid grid-cols-3 gap-4 pt-4 border-t border-gray-100">
                         <div className="text-center">
-                          <div className="text-lg font-bold text-blue-600">
+                          <div className="text-lg font-bold text-primary-600">
                             10K+
                           </div>
                           <div className="text-xs text-gray-500">Merchants</div>
@@ -1012,7 +1026,7 @@ const LandingPage = () => {
       >
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="mb-10 text-center sm:mb-12 md:mb-16">
-            {/* <div className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 mb-3 sm:mb-4 text-xs sm:text-sm font-medium text-blue-700 rounded-full bg-blue-50 badge-animate">
+            {/* <div className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 mb-3 sm:mb-4 text-xs sm:text-sm font-medium text-primary-700 rounded-full bg-primary-50 badge-animate">
               <Target className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
               Why Choose SilanPay
             </div> */}
@@ -1026,31 +1040,43 @@ const LandingPage = () => {
           </div>
 
           <div className="grid grid-cols-1 gap-6 sm:gap-8 md:grid-cols-2 lg:grid-cols-3">
-            {features.map((feature, index) => (
-              <div
-                key={index}
-                className={`p-6 transition-all duration-300 transform bg-white shadow-lg sm:p-8 feature-card card-glow rounded-xl sm:rounded-2xl hover:shadow-xl hover:-translate-y-2 animate-fadeInUp delay-${
-                  ((index % 6) + 1) * 100
-                }`}
-              >
-                <div className="flex items-center justify-center w-12 h-12 mb-4 transition-transform duration-300 bg-blue-100 sm:mb-6 sm:w-14 sm:h-14 rounded-xl group-hover:scale-110 animate-scaleIn">
-                  <feature.icon className="w-6 h-6 text-blue-600 transition-all duration-300 sm:w-7 sm:h-7 group-hover:rotate-6" />
+            {features.map((feature, index) => {
+              const featureColors = [
+                "bg-primary-600",
+                "bg-teal-600",
+                "bg-indigo-600",
+                "bg-amber-600",
+                "bg-pink-600",
+                "bg-cyan-600",
+              ];
+              return (
+                <div
+                  key={index}
+                  className={`p-6 transition-all duration-300 transform bg-white shadow-lg sm:p-8 feature-card card-glow rounded-xl sm:rounded-2xl hover:shadow-xl hover:-translate-y-2 animate-fadeInUp delay-${
+                    ((index % 6) + 1) * 100
+                  }`}
+                >
+                  <div
+                    className={`flex items-center justify-center w-12 h-12 mb-4 transition-transform duration-300 shadow-lg ${featureColors[index]} sm:mb-6 sm:w-14 sm:h-14 rounded-xl group-hover:scale-110 animate-scaleIn`}
+                  >
+                    <feature.icon className="w-6 h-6 text-white transition-all duration-300 sm:w-7 sm:h-7 group-hover:rotate-6" />
+                  </div>
+                  <h3 className="mb-3 text-lg font-bold text-gray-900 sm:mb-4 sm:text-xl">
+                    {feature.title}
+                  </h3>
+                  <p className="text-sm leading-relaxed text-gray-600 sm:text-base">
+                    {feature.description}
+                  </p>
                 </div>
-                <h3 className="mb-3 text-lg font-bold text-gray-900 sm:mb-4 sm:text-xl">
-                  {feature.title}
-                </h3>
-                <p className="text-sm leading-relaxed text-gray-600 sm:text-base">
-                  {feature.description}
-                </p>
-              </div>
-            ))}
+              );
+            })}
           </div>
 
           {/* View All Features Button */}
           <div className="mt-8 text-center sm:mt-10 md:mt-12 animate-fadeInUp delay-600">
             <Link
               to="/features"
-              className="inline-flex items-center px-6 py-3 text-base font-semibold text-white transition-all duration-300 transform bg-blue-600 button-ripple sm:px-8 sm:py-4 sm:text-lg rounded-xl hover:bg-blue-700 hover:scale-105 hover:shadow-xl"
+              className="inline-flex items-center px-6 py-3 text-base font-semibold text-white transition-all duration-300 transform bg-primary-600 button-ripple cta-button sm:px-8 sm:py-4 sm:text-lg rounded-xl hover:bg-primary-700 hover:scale-105 hover:shadow-xl"
             >
               View All Features
               <ArrowRight className="w-4 h-4 ml-2 sm:w-5 sm:h-5" />
@@ -1077,39 +1103,49 @@ const LandingPage = () => {
           </div>
 
           <div className="grid grid-cols-1 gap-6 sm:gap-8 sm:grid-cols-2 lg:grid-cols-4">
-            {services.map((service, index) => (
-              <div
-                key={index}
-                className="p-6 transition-all duration-500 transform sm:p-8 group bg-gray-50 rounded-xl sm:rounded-2xl hover:bg-white hover:shadow-2xl hover:-translate-y-3 service-card card-glow"
-              >
-                <div className="flex items-center justify-center mb-4 transition-all duration-300 bg-blue-600 w-14 h-14 sm:w-16 sm:h-16 sm:mb-6 rounded-xl group-hover:bg-blue-700 group-hover:rotate-6 group-hover:scale-110">
-                  <service.icon className="text-white w-7 h-7 sm:w-8 sm:h-8" />
-                </div>
-                <h3 className="mb-3 text-lg font-bold text-gray-900 sm:mb-4 sm:text-xl">
-                  {service.title}
-                </h3>
-                <p className="mb-4 text-sm leading-relaxed text-gray-600 sm:mb-6 sm:text-base">
-                  {service.description}
-                </p>
-                <div className="mb-4 font-semibold text-blue-600">
-                  {service.price}
-                </div>
-                <Link
-                  to="/services"
-                  className="inline-flex items-center font-medium text-blue-600 transition-colors hover:text-blue-700"
+            {services.map((service, index) => {
+              const serviceColors = [
+                "bg-violet-600",
+                "bg-lime-600",
+                "bg-fuchsia-600",
+                "bg-sky-600",
+              ];
+              return (
+                <div
+                  key={index}
+                  className="p-6 transition-all duration-500 transform sm:p-8 group bg-gray-50 rounded-xl sm:rounded-2xl hover:bg-white hover:shadow-2xl hover:-translate-y-3 service-card card-glow"
                 >
-                  Learn More
-                  <ChevronRight className="w-4 h-4 ml-1" />
-                </Link>
-              </div>
-            ))}
+                  <div
+                    className={`flex items-center justify-center mb-4 transition-all duration-300 shadow-lg ${serviceColors[index]} w-14 h-14 sm:w-16 sm:h-16 sm:mb-6 rounded-xl group-hover:rotate-6 group-hover:scale-110`}
+                  >
+                    <service.icon className="text-white w-7 h-7 sm:w-8 sm:h-8" />
+                  </div>
+                  <h3 className="mb-3 text-lg font-bold text-gray-900 sm:mb-4 sm:text-xl">
+                    {service.title}
+                  </h3>
+                  <p className="mb-4 text-sm leading-relaxed text-gray-600 sm:mb-6 sm:text-base">
+                    {service.description}
+                  </p>
+                  <div className="mb-4 font-semibold text-primary-600">
+                    {service.price}
+                  </div>
+                  <Link
+                    to="/services"
+                    className="inline-flex items-center font-medium transition-colors text-primary-600 hover:text-primary-700"
+                  >
+                    Learn More
+                    <ChevronRight className="w-4 h-4 ml-1" />
+                  </Link>
+                </div>
+              );
+            })}
           </div>
 
           {/* View All Services Button */}
           <div className="mt-8 text-center sm:mt-10 md:mt-12">
             <Link
               to="/services"
-              className="inline-flex items-center px-6 py-3 text-base font-semibold text-white transition-all duration-300 transform bg-blue-600 sm:px-8 sm:py-4 sm:text-lg rounded-xl hover:bg-blue-700 hover:scale-105 hover:shadow-xl"
+              className="inline-flex items-center px-6 py-3 text-base font-semibold text-white transition-all duration-300 transform bg-primary-600 button-ripple cta-button sm:px-8 sm:py-4 sm:text-lg rounded-xl hover:bg-primary-700 hover:scale-105 hover:shadow-xl"
             >
               View All Services
               <ArrowRight className="w-4 h-4 ml-2 sm:w-5 sm:h-5" />
@@ -1122,7 +1158,7 @@ const LandingPage = () => {
       <section className="py-12 bg-white sm:py-16 md:py-20 lg:py-24 how-it-works-section">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="mb-10 text-center sm:mb-12 md:mb-16">
-            {/* <div className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 mb-3 sm:mb-4 text-xs sm:text-sm font-medium text-blue-700 rounded-full bg-blue-50 badge-animate">
+            {/* <div className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 mb-3 sm:mb-4 text-xs sm:text-sm font-medium text-primary-700 rounded-full bg-primary-50 badge-animate">
               <Rocket className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
               Integration Process
             </div> */}
@@ -1149,6 +1185,7 @@ const LandingPage = () => {
                 ],
                 time: "3 minutes",
                 icon: Users,
+                color: "bg-red-600",
               },
               {
                 step: "02",
@@ -1162,6 +1199,7 @@ const LandingPage = () => {
                 ],
                 time: "5 minutes",
                 icon: Code,
+                color: "bg-green-600",
               },
               {
                 step: "03",
@@ -1175,15 +1213,18 @@ const LandingPage = () => {
                 ],
                 time: "2 minutes",
                 icon: CheckCircle,
+                color: "bg-yellow-600",
               },
             ].map((step, index) => (
               <div key={index} className="relative">
-                <div className="h-full p-8 transition-all duration-500 border border-gray-200 bg-gray-50 rounded-2xl hover:border-blue-300 hover:shadow-2xl hover:-translate-y-2 step-card">
+                <div className="h-full p-8 transition-all duration-500 border border-gray-200 bg-gray-50 rounded-2xl hover:border-primary-300 hover:shadow-2xl hover:-translate-y-2 step-card">
                   <div className="flex items-center justify-between mb-6">
-                    <div className="text-5xl font-bold text-blue-100">
+                    <div className="text-5xl font-bold text-primary-100">
                       {step.step}
                     </div>
-                    <div className="flex items-center justify-center bg-blue-600 w-14 h-14 rounded-xl">
+                    <div
+                      className={`flex items-center justify-center shadow-lg ${step.color} w-14 h-14 rounded-xl`}
+                    >
                       <step.icon className="text-white w-7 h-7" />
                     </div>
                   </div>
@@ -1199,19 +1240,19 @@ const LandingPage = () => {
                         key={idx}
                         className="flex items-center text-sm text-gray-700"
                       >
-                        <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mr-3"></div>
+                        <div className="w-1.5 h-1.5 bg-primary-600 rounded-full mr-3"></div>
                         {detail}
                       </li>
                     ))}
                   </ul>
-                  <div className="inline-flex items-center px-3 py-1 text-sm font-medium text-blue-700 bg-blue-100 rounded-full">
+                  <div className="inline-flex items-center px-3 py-1 text-sm font-medium rounded-full text-primary-700 bg-primary-100">
                     <Clock className="w-4 h-4 mr-2" />
                     {step.time}
                   </div>
                 </div>
                 {index < 2 && (
                   <div className="absolute hidden transform -translate-y-1/2 lg:block top-1/2 -right-4">
-                    <ArrowRight className="w-8 h-8 text-blue-300" />
+                    <ArrowRight className="w-8 h-8 text-primary-300" />
                   </div>
                 )}
               </div>
@@ -1253,14 +1294,14 @@ const payment = await silanpay.payments.create({
       <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gray-50">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="mb-10 text-center sm:mb-12 md:mb-16">
-            {/* <div className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 mb-3 sm:mb-4 text-xs sm:text-sm font-medium text-blue-700 rounded-full bg-blue-50">
+            {/* <div className="inline-flex items-center px-3 py-1.5 sm:px-4 sm:py-2 mb-3 sm:mb-4 text-xs sm:text-sm font-medium text-primary-700 rounded-full bg-primary-50 badge-animate">
               <Zap className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
               Powerful Features
             </div> */}
-            <h2 className="px-4 mb-4 text-2xl font-bold text-gray-900 sm:mb-6 sm:text-3xl md:text-4xl lg:text-5xl">
+            <h2 className="px-4 mb-4 text-2xl font-bold text-gray-900 sm:mb-6 sm:text-3xl md:text-4xl lg:text-5xl section-heading">
               Everything You Need to Succeed
             </h2>
-            <p className="max-w-3xl px-4 mx-auto text-base text-gray-600 sm:text-lg md:text-xl">
+            <p className="max-w-3xl px-4 mx-auto text-base text-gray-600 sm:text-lg md:text-xl animate-fadeInUp">
               Built-in tools and features that help you grow your business
               faster
             </p>
@@ -1280,6 +1321,7 @@ const payment = await silanpay.payments.create({
                 ],
                 badge: "Bank-Grade",
                 color: "blue",
+                iconBg: "bg-indigo-600",
               },
               {
                 icon: BarChart3,
@@ -1293,6 +1335,7 @@ const payment = await silanpay.payments.create({
                 ],
                 badge: "Real-Time",
                 color: "green",
+                iconBg: "bg-emerald-600",
               },
               {
                 icon: Repeat,
@@ -1306,6 +1349,7 @@ const payment = await silanpay.payments.create({
                 ],
                 badge: "Automated",
                 color: "purple",
+                iconBg: "bg-purple-600",
               },
               {
                 icon: Bell,
@@ -1319,6 +1363,7 @@ const payment = await silanpay.payments.create({
                 ],
                 badge: "Instant",
                 color: "orange",
+                iconBg: "bg-orange-600",
               },
               {
                 icon: Users,
@@ -1332,6 +1377,7 @@ const payment = await silanpay.payments.create({
                 ],
                 badge: "Collaborative",
                 color: "indigo",
+                iconBg: "bg-cyan-600",
               },
               {
                 icon: TrendingUp,
@@ -1345,23 +1391,23 @@ const payment = await silanpay.payments.create({
                 ],
                 badge: "AI-Powered",
                 color: "pink",
+                iconBg: "bg-pink-600",
               },
             ].map((feature, index) => (
               <div
                 key={index}
-                className="relative p-6 transition-all duration-300 bg-white border-2 border-gray-200 rounded-2xl hover:border-blue-400 hover:shadow-xl group"
+                className="relative p-6 transition-all duration-500 bg-white border-2 border-gray-200 rounded-2xl hover:border-primary-400 hover:shadow-2xl hover:-translate-y-2 group card-glow animate-fadeInUp"
+                style={{ animationDelay: `${index * 0.1}s` }}
               >
                 <div
-                  className={`absolute top-4 right-4 px-3 py-1 bg-${feature.color}-100 text-${feature.color}-700 text-xs font-bold rounded-full`}
+                  className={`absolute top-4 right-4 px-3 py-1 bg-${feature.color}-100 text-${feature.color}-700 text-xs font-bold rounded-full animate-pulse`}
                 >
                   {feature.badge}
                 </div>
                 <div
-                  className={`flex items-center justify-center w-14 h-14 mb-4 bg-gradient-to-br from-${feature.color}-50 to-${feature.color}-100 rounded-xl group-hover:scale-110 transition-transform duration-300`}
+                  className={`flex items-center justify-center w-14 h-14 mb-4 ${feature.iconBg} rounded-xl group-hover:scale-110 group-hover:rotate-6 transition-all duration-300 shadow-lg`}
                 >
-                  <feature.icon
-                    className={`w-7 h-7 text-${feature.color}-600`}
-                  />
+                  <feature.icon className="text-white w-7 h-7" />
                 </div>
                 <h3 className="mb-3 text-xl font-bold text-gray-900">
                   {feature.title}
@@ -1375,7 +1421,7 @@ const payment = await silanpay.payments.create({
                       key={idx}
                       className="flex items-center text-sm text-gray-700"
                     >
-                      <div className="w-1.5 h-1.5 bg-blue-600 rounded-full mr-3"></div>
+                      <div className="w-1.5 h-1.5 bg-primary-600 rounded-full mr-3"></div>
                       {item}
                     </li>
                   ))}
@@ -1387,10 +1433,10 @@ const payment = await silanpay.payments.create({
           {/* Integration & Support */}
           <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
             {/* Quick Integration */}
-            <div className="p-8 bg-white border-2 border-gray-200 rounded-2xl">
+            <div className="p-8 transition-all duration-500 bg-white border-2 border-gray-200 rounded-2xl hover:shadow-2xl hover:-translate-y-2 animate-fadeInLeft card-glow">
               <div className="flex items-center mb-4">
-                <div className="flex items-center justify-center w-12 h-12 mr-4 rounded-xl bg-gradient-to-br from-blue-50 to-blue-100">
-                  <Code className="w-6 h-6 text-blue-600" />
+                <div className="flex items-center justify-center w-12 h-12 mr-4 transition-transform duration-300 bg-teal-600 shadow-lg rounded-xl hover:scale-110 hover:rotate-6">
+                  <Code className="w-6 h-6 text-white" />
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold text-gray-900">
@@ -1427,7 +1473,7 @@ const payment = await silanpay.createPayment({
                   Available SDKs:
                 </span>
                 <div className="flex space-x-2">
-                  <span className="px-3 py-1 text-xs font-semibold text-blue-700 bg-blue-100 rounded-full">
+                  <span className="px-3 py-1 text-xs font-semibold rounded-full text-primary-700 bg-primary-100">
                     Node.js
                   </span>
                   <span className="px-3 py-1 text-xs font-semibold text-green-700 bg-green-100 rounded-full">
@@ -1441,17 +1487,17 @@ const payment = await silanpay.createPayment({
             </div>
 
             {/* 24/7 Support */}
-            <div className="p-8 text-white bg-gradient-to-br from-blue-600 to-blue-700 rounded-2xl">
+            <div className="p-8 text-white transition-all duration-500 bg-primary-500 rounded-2xl hover:shadow-2xl hover:-translate-y-2 hover:scale-105 animate-fadeInRight">
               <div className="flex items-center mb-4">
-                <div className="flex items-center justify-center w-12 h-12 mr-4 bg-white/20 rounded-xl">
+                <div className="flex items-center justify-center w-12 h-12 mr-4 transition-transform duration-300 bg-white/20 rounded-xl hover:scale-110 hover:rotate-6 animate-pulse">
                   <Heart className="w-6 h-6 text-white" />
                 </div>
                 <div>
                   <h3 className="text-2xl font-bold">24/7 Support</h3>
-                  <p className="text-sm text-blue-100">We're here to help</p>
+                  <p className="text-sm text-primary-100">We're here to help</p>
                 </div>
               </div>
-              <p className="mb-6 text-blue-50">
+              <p className="mb-6 text-primary-50">
                 Get instant support from our expert team anytime, anywhere.
                 We're committed to your success.
               </p>
@@ -1460,7 +1506,7 @@ const payment = await silanpay.createPayment({
                   <Phone className="w-5 h-5 mr-3" />
                   <div>
                     <div className="text-sm font-semibold">Phone Support</div>
-                    <div className="text-xs text-blue-100">
+                    <div className="text-xs text-primary-100">
                       Average response: 30 seconds
                     </div>
                   </div>
@@ -1469,7 +1515,7 @@ const payment = await silanpay.createPayment({
                   <MessageCircle className="w-5 h-5 mr-3" />
                   <div>
                     <div className="text-sm font-semibold">Live Chat</div>
-                    <div className="text-xs text-blue-100">
+                    <div className="text-xs text-primary-100">
                       Instant assistance available
                     </div>
                   </div>
@@ -1478,7 +1524,7 @@ const payment = await silanpay.createPayment({
                   <Mail className="w-5 h-5 mr-3" />
                   <div>
                     <div className="text-sm font-semibold">Email Support</div>
-                    <div className="text-xs text-blue-100">
+                    <div className="text-xs text-primary-100">
                       Response within 2 hours
                     </div>
                   </div>
@@ -1497,10 +1543,10 @@ const payment = await silanpay.createPayment({
               <Sparkles className="w-3 h-3 sm:w-4 sm:h-4 mr-1.5 sm:mr-2" />
               Advanced Capabilities
             </div> */}
-            <h2 className="px-4 mb-4 text-2xl font-bold text-gray-900 sm:mb-6 sm:text-3xl md:text-4xl lg:text-5xl">
+            <h2 className="px-4 mb-4 text-2xl font-bold text-gray-900 section-heading sm:mb-6 sm:text-3xl md:text-4xl lg:text-5xl">
               Next-Generation Payment Technology
             </h2>
-            <p className="max-w-3xl px-4 mx-auto text-base text-gray-600 sm:text-lg md:text-xl">
+            <p className="max-w-3xl px-4 mx-auto text-base text-gray-600 animate-fadeInUp sm:text-lg md:text-xl">
               Cutting-edge features that give you a competitive advantage
             </p>
           </div>
@@ -1508,11 +1554,11 @@ const payment = await silanpay.createPayment({
           {/* Main Features Grid */}
           <div className="grid grid-cols-1 gap-8 mb-16 md:grid-cols-2">
             {/* Feature 1: Instant Settlement */}
-            <div className="relative p-8 overflow-hidden transition-all duration-300 border-2 border-blue-200 bg-gradient-to-br from-blue-50 to-indigo-50 rounded-3xl hover:border-blue-400 group">
-              <div className="absolute top-0 right-0 w-32 h-32 -mt-16 -mr-16 transition-transform duration-500 rounded-full bg-blue-200/30 group-hover:scale-150"></div>
+            <div className="relative p-8 overflow-hidden transition-all duration-500 border-2 border-primary-200 bg-primary-50 rounded-3xl hover:border-primary-400 hover:shadow-2xl hover:-translate-y-2 group animate-fadeInLeft card-glow">
+              <div className="absolute top-0 right-0 w-32 h-32 -mt-16 -mr-16 transition-transform duration-500 rounded-full bg-primary-200/30 group-hover:scale-150"></div>
               <div className="relative">
-                <div className="inline-flex items-center justify-center w-16 h-16 mb-4 bg-white shadow-lg rounded-2xl">
-                  <Zap className="w-8 h-8 text-blue-600" />
+                <div className="inline-flex items-center justify-center w-16 h-16 mb-4 transition-transform duration-300 shadow-lg bg-amber-600 group-hover:scale-110 group-hover:rotate-6 rounded-2xl">
+                  <Zap className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="mb-3 text-2xl font-bold text-gray-900">
                   Instant Settlement
@@ -1523,13 +1569,15 @@ const payment = await silanpay.createPayment({
                 </p>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="p-3 bg-white/80 rounded-xl backdrop-blur-sm">
-                    <div className="text-2xl font-bold text-blue-600">
+                    <div className="text-2xl font-bold text-primary-600">
                       0 min
                     </div>
                     <div className="text-sm text-gray-600">Settlement Time</div>
                   </div>
                   <div className="p-3 bg-white/80 rounded-xl backdrop-blur-sm">
-                    <div className="text-2xl font-bold text-blue-600">24/7</div>
+                    <div className="text-2xl font-bold text-primary-600">
+                      24/7
+                    </div>
                     <div className="text-sm text-gray-600">Availability</div>
                   </div>
                 </div>
@@ -1537,11 +1585,11 @@ const payment = await silanpay.createPayment({
             </div>
 
             {/* Feature 2: Dynamic Routing */}
-            <div className="relative p-8 overflow-hidden transition-all duration-300 border-2 border-purple-200 bg-gradient-to-br from-purple-50 to-pink-50 rounded-3xl hover:border-purple-400 group">
+            <div className="relative p-8 overflow-hidden transition-all duration-500 border-2 border-purple-200 bg-purple-50 rounded-3xl hover:border-purple-400 hover:shadow-2xl hover:-translate-y-2 group animate-fadeInRight card-glow">
               <div className="absolute top-0 right-0 w-32 h-32 -mt-16 -mr-16 transition-transform duration-500 rounded-full bg-purple-200/30 group-hover:scale-150"></div>
               <div className="relative">
-                <div className="inline-flex items-center justify-center w-16 h-16 mb-4 bg-white shadow-lg rounded-2xl">
-                  <Target className="w-8 h-8 text-purple-600" />
+                <div className="inline-flex items-center justify-center w-16 h-16 mb-4 transition-transform duration-300 shadow-lg bg-fuchsia-600 group-hover:scale-110 group-hover:rotate-6 rounded-2xl">
+                  <Target className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="mb-3 text-2xl font-bold text-gray-900">
                   Smart Payment Routing
@@ -1568,11 +1616,14 @@ const payment = await silanpay.createPayment({
             </div>
 
             {/* Feature 3: Recurring Payments */}
-            <div className="relative p-8 overflow-hidden transition-all duration-300 border-2 border-green-200 bg-gradient-to-br from-green-50 to-teal-50 rounded-3xl hover:border-green-400 group">
+            <div
+              className="relative p-8 overflow-hidden transition-all duration-500 border-2 border-green-200 bg-green-50 rounded-3xl hover:border-green-400 hover:shadow-2xl hover:-translate-y-2 group animate-fadeInLeft card-glow"
+              style={{ animationDelay: "0.2s" }}
+            >
               <div className="absolute top-0 right-0 w-32 h-32 -mt-16 -mr-16 transition-transform duration-500 rounded-full bg-green-200/30 group-hover:scale-150"></div>
               <div className="relative">
-                <div className="inline-flex items-center justify-center w-16 h-16 mb-4 bg-white shadow-lg rounded-2xl">
-                  <Repeat className="w-8 h-8 text-green-600" />
+                <div className="inline-flex items-center justify-center w-16 h-16 mb-4 transition-transform duration-300 shadow-lg bg-lime-600 group-hover:scale-110 group-hover:rotate-6 rounded-2xl">
+                  <Repeat className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="mb-3 text-2xl font-bold text-gray-900">
                   Subscription Management
@@ -1599,11 +1650,14 @@ const payment = await silanpay.createPayment({
             </div>
 
             {/* Feature 4: Split Payments */}
-            <div className="relative p-8 overflow-hidden transition-all duration-300 border-2 border-orange-200 bg-gradient-to-br from-orange-50 to-red-50 rounded-3xl hover:border-orange-400 group">
+            <div
+              className="relative p-8 overflow-hidden transition-all duration-500 border-2 border-orange-200 bg-orange-50 rounded-3xl hover:border-orange-400 hover:shadow-2xl hover:-translate-y-2 group animate-fadeInRight card-glow"
+              style={{ animationDelay: "0.2s" }}
+            >
               <div className="absolute top-0 right-0 w-32 h-32 -mt-16 -mr-16 transition-transform duration-500 rounded-full bg-orange-200/30 group-hover:scale-150"></div>
               <div className="relative">
-                <div className="inline-flex items-center justify-center w-16 h-16 mb-4 bg-white shadow-lg rounded-2xl">
-                  <ArrowLeftRight className="w-8 h-8 text-orange-600" />
+                <div className="inline-flex items-center justify-center w-16 h-16 mb-4 transition-transform duration-300 shadow-lg bg-rose-600 group-hover:scale-110 group-hover:rotate-6 rounded-2xl">
+                  <ArrowLeftRight className="w-8 h-8 text-white" />
                 </div>
                 <h3 className="mb-3 text-2xl font-bold text-gray-900">
                   Multi-Party Split
@@ -1632,10 +1686,12 @@ const payment = await silanpay.createPayment({
 
           {/* Additional Features */}
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            <div className="p-6 border border-gray-200 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl">
+            <div className="p-6 border border-gray-200 bg-gray-50 rounded-2xl">
               <div className="flex items-center mb-4">
                 <div className="flex items-center justify-center w-10 h-10 mr-3 bg-white rounded-xl">
-                  <QrCode className="w-5 h-5 text-gray-700" />
+                  <div className="flex items-center justify-center w-8 h-8 mr-2 rounded-lg shadow-md bg-violet-600">
+                    <QrCode className="w-5 h-5 text-white" />
+                  </div>
                 </div>
                 <h4 className="font-bold text-gray-900">Dynamic QR Codes</h4>
               </div>
@@ -1645,10 +1701,12 @@ const payment = await silanpay.createPayment({
               </p>
             </div>
 
-            <div className="p-6 border border-gray-200 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl">
+            <div className="p-6 border border-gray-200 bg-gray-50 rounded-2xl">
               <div className="flex items-center mb-4">
                 <div className="flex items-center justify-center w-10 h-10 mr-3 bg-white rounded-xl">
-                  <Smartphone className="w-5 h-5 text-gray-700" />
+                  <div className="flex items-center justify-center w-8 h-8 mr-2 rounded-lg shadow-md bg-emerald-600">
+                    <Smartphone className="w-5 h-5 text-white" />
+                  </div>
                 </div>
                 <h4 className="font-bold text-gray-900">Payment Links</h4>
               </div>
@@ -1658,10 +1716,12 @@ const payment = await silanpay.createPayment({
               </p>
             </div>
 
-            <div className="p-6 border border-gray-200 bg-gradient-to-br from-gray-50 to-gray-100 rounded-2xl">
+            <div className="p-6 border border-gray-200 bg-gray-50 rounded-2xl">
               <div className="flex items-center mb-4">
                 <div className="flex items-center justify-center w-10 h-10 mr-3 bg-white rounded-xl">
-                  <RefreshCw className="w-5 h-5 text-gray-700" />
+                  <div className="flex items-center justify-center w-8 h-8 mr-2 rounded-lg shadow-md bg-amber-600">
+                    <RefreshCw className="w-5 h-5 text-white" />
+                  </div>
                 </div>
                 <h4 className="font-bold text-gray-900">Auto Refunds</h4>
               </div>
@@ -1678,14 +1738,14 @@ const payment = await silanpay.createPayment({
       <section ref={partnersRef} className="py-24 bg-gray-50">
         <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
           <div className="mb-16 text-center">
-            {/* <div className="inline-flex items-center px-4 py-2 mb-4 text-sm font-medium text-purple-700 rounded-full bg-purple-50">
+            {/* <div className="inline-flex items-center px-4 py-2 mb-4 text-sm font-medium text-purple-700 rounded-full bg-purple-50 badge-animate">
               <Rocket className="w-4 h-4 mr-2" />
               Smart Automation
             </div> */}
-            <h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
+            <h2 className="mb-6 text-4xl font-bold text-gray-900 section-heading md:text-5xl">
               Intelligent Features That Work For You
             </h2>
-            <p className="max-w-3xl mx-auto text-xl text-gray-600">
+            <p className="max-w-3xl mx-auto text-xl text-gray-600 animate-fadeInUp">
               Powerful automation and smart features to streamline your payment
               operations
             </p>
@@ -1694,14 +1754,14 @@ const payment = await silanpay.createPayment({
           {/* Main Features */}
           <div className="grid grid-cols-1 gap-8 mb-16 lg:grid-cols-2">
             {/* Smart Routing */}
-            <div className="relative overflow-hidden transition-all duration-300 bg-white border-2 border-gray-200 rounded-3xl hover:border-purple-400 group">
+            <div className="relative overflow-hidden transition-all duration-500 bg-white border-2 border-gray-200 rounded-3xl hover:border-purple-400 hover:shadow-2xl hover:-translate-y-2 group animate-fadeInUp card-glow">
               <div className="absolute top-0 right-0 w-40 h-40 -mt-20 -mr-20 transition-transform duration-500 bg-purple-100 rounded-full opacity-50 group-hover:scale-150"></div>
               <div className="relative p-8">
                 <div className="flex items-start justify-between mb-6">
-                  <div className="flex items-center justify-center w-16 h-16 shadow-lg bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl">
+                  <div className="flex items-center justify-center w-16 h-16 transition-transform duration-300 bg-indigo-600 shadow-lg rounded-2xl group-hover:rotate-6 group-hover:scale-110">
                     <Target className="w-8 h-8 text-white" />
                   </div>
-                  <span className="px-4 py-1 text-xs font-bold text-purple-700 bg-purple-100 rounded-full">
+                  <span className="px-4 py-1 text-xs font-bold text-purple-700 transition-all duration-300 bg-purple-100 rounded-full animate-pulse">
                     AI-Powered
                   </span>
                 </div>
@@ -1735,14 +1795,17 @@ const payment = await silanpay.createPayment({
             </div>
 
             {/* Auto Retry */}
-            <div className="relative overflow-hidden transition-all duration-300 bg-white border-2 border-gray-200 rounded-3xl hover:border-blue-400 group">
-              <div className="absolute top-0 right-0 w-40 h-40 -mt-20 -mr-20 transition-transform duration-500 bg-blue-100 rounded-full opacity-50 group-hover:scale-150"></div>
+            <div
+              className="relative overflow-hidden transition-all duration-500 bg-white border-2 border-gray-200 rounded-3xl hover:border-primary-400 hover:shadow-2xl hover:-translate-y-2 group animate-fadeInUp card-glow"
+              style={{ animationDelay: "0.1s" }}
+            >
+              <div className="absolute top-0 right-0 w-40 h-40 -mt-20 -mr-20 transition-transform duration-500 rounded-full opacity-50 bg-primary-100 group-hover:scale-150"></div>
               <div className="relative p-8">
                 <div className="flex items-start justify-between mb-6">
-                  <div className="flex items-center justify-center w-16 h-16 shadow-lg bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl">
+                  <div className="flex items-center justify-center w-16 h-16 transition-transform duration-300 shadow-lg bg-sky-600 rounded-2xl group-hover:rotate-6 group-hover:scale-110">
                     <RefreshCw className="w-8 h-8 text-white" />
                   </div>
-                  <span className="px-4 py-1 text-xs font-bold text-blue-700 bg-blue-100 rounded-full">
+                  <span className="px-4 py-1 text-xs font-bold transition-all duration-300 rounded-full text-primary-700 bg-primary-100 animate-pulse">
                     Automated
                   </span>
                 </div>
@@ -1759,13 +1822,15 @@ const payment = await silanpay.createPayment({
                     <span className="text-sm font-medium text-gray-700">
                       Recovery Rate
                     </span>
-                    <span className="text-lg font-bold text-blue-600">35%</span>
+                    <span className="text-lg font-bold text-primary-600">
+                      35%
+                    </span>
                   </div>
                   <div className="flex items-center justify-between p-3 rounded-lg bg-gray-50">
                     <span className="text-sm font-medium text-gray-700">
                       Retry Attempts
                     </span>
-                    <span className="text-lg font-bold text-blue-600">
+                    <span className="text-lg font-bold text-primary-600">
                       3-5x
                     </span>
                   </div>
@@ -1774,14 +1839,17 @@ const payment = await silanpay.createPayment({
             </div>
 
             {/* Real-time Monitoring */}
-            <div className="relative overflow-hidden transition-all duration-300 bg-white border-2 border-gray-200 rounded-3xl hover:border-green-400 group">
+            <div
+              className="relative overflow-hidden transition-all duration-500 bg-white border-2 border-gray-200 rounded-3xl hover:border-green-400 hover:shadow-2xl hover:-translate-y-2 group animate-fadeInUp card-glow"
+              style={{ animationDelay: "0.2s" }}
+            >
               <div className="absolute top-0 right-0 w-40 h-40 -mt-20 -mr-20 transition-transform duration-500 bg-green-100 rounded-full opacity-50 group-hover:scale-150"></div>
               <div className="relative p-8">
                 <div className="flex items-start justify-between mb-6">
-                  <div className="flex items-center justify-center w-16 h-16 shadow-lg bg-gradient-to-br from-green-500 to-green-600 rounded-2xl">
+                  <div className="flex items-center justify-center w-16 h-16 transition-transform duration-300 bg-green-600 shadow-lg rounded-2xl group-hover:rotate-6 group-hover:scale-110">
                     <Activity className="w-8 h-8 text-white" />
                   </div>
-                  <span className="px-4 py-1 text-xs font-bold text-green-700 bg-green-100 rounded-full">
+                  <span className="px-4 py-1 text-xs font-bold text-green-700 transition-all duration-300 bg-green-100 rounded-full animate-pulse">
                     Real-Time
                   </span>
                 </div>
@@ -1806,14 +1874,17 @@ const payment = await silanpay.createPayment({
             </div>
 
             {/* Webhooks & APIs */}
-            <div className="relative overflow-hidden transition-all duration-300 bg-white border-2 border-gray-200 rounded-3xl hover:border-orange-400 group">
+            <div
+              className="relative overflow-hidden transition-all duration-500 bg-white border-2 border-gray-200 rounded-3xl hover:border-orange-400 hover:shadow-2xl hover:-translate-y-2 group animate-fadeInUp card-glow"
+              style={{ animationDelay: "0.3s" }}
+            >
               <div className="absolute top-0 right-0 w-40 h-40 -mt-20 -mr-20 transition-transform duration-500 bg-orange-100 rounded-full opacity-50 group-hover:scale-150"></div>
               <div className="relative p-8">
                 <div className="flex items-start justify-between mb-6">
-                  <div className="flex items-center justify-center w-16 h-16 shadow-lg bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl">
+                  <div className="flex items-center justify-center w-16 h-16 transition-transform duration-300 bg-orange-600 shadow-lg rounded-2xl group-hover:rotate-6 group-hover:scale-110">
                     <Code className="w-8 h-8 text-white" />
                   </div>
-                  <span className="px-4 py-1 text-xs font-bold text-orange-700 bg-orange-100 rounded-full">
+                  <span className="px-4 py-1 text-xs font-bold text-orange-700 transition-all duration-300 bg-orange-100 rounded-full animate-pulse">
                     Developer-Ready
                   </span>
                 </div>
@@ -1840,9 +1911,9 @@ const payment = await silanpay.createPayment({
 
           {/* Additional Smart Features */}
           <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-            <div className="p-6 transition-all duration-300 bg-white border-2 border-gray-200 rounded-2xl hover:border-indigo-300">
-              <div className="flex items-center justify-center w-12 h-12 mb-4 bg-indigo-100 rounded-xl">
-                <Shield className="w-6 h-6 text-indigo-600" />
+            <div className="p-6 transition-all duration-500 bg-white border-2 border-gray-200 rounded-2xl hover:border-indigo-300 hover:shadow-xl hover:-translate-y-2 animate-fadeInUp card-glow">
+              <div className="flex items-center justify-center w-12 h-12 mb-4 transition-transform duration-300 bg-purple-600 shadow-lg rounded-xl hover:rotate-6 hover:scale-110">
+                <Shield className="w-6 h-6 text-white" />
               </div>
               <h4 className="mb-2 text-lg font-bold text-gray-900">
                 Fraud Prevention
@@ -1856,9 +1927,12 @@ const payment = await silanpay.createPayment({
               </div>
             </div>
 
-            <div className="p-6 transition-all duration-300 bg-white border-2 border-gray-200 rounded-2xl hover:border-pink-300">
-              <div className="flex items-center justify-center w-12 h-12 mb-4 bg-pink-100 rounded-xl">
-                <BarChart3 className="w-6 h-6 text-pink-600" />
+            <div
+              className="p-6 transition-all duration-500 bg-white border-2 border-gray-200 rounded-2xl hover:border-pink-300 hover:shadow-xl hover:-translate-y-2 animate-fadeInUp card-glow"
+              style={{ animationDelay: "0.1s" }}
+            >
+              <div className="flex items-center justify-center w-12 h-12 mb-4 transition-transform duration-300 shadow-lg bg-rose-600 rounded-xl hover:rotate-6 hover:scale-110">
+                <BarChart3 className="w-6 h-6 text-white" />
               </div>
               <h4 className="mb-2 text-lg font-bold text-gray-900">
                 Predictive Analytics
@@ -1872,9 +1946,12 @@ const payment = await silanpay.createPayment({
               </div>
             </div>
 
-            <div className="p-6 transition-all duration-300 bg-white border-2 border-gray-200 rounded-2xl hover:border-teal-300">
-              <div className="flex items-center justify-center w-12 h-12 mb-4 bg-teal-100 rounded-xl">
-                <Zap className="w-6 h-6 text-teal-600" />
+            <div
+              className="p-6 transition-all duration-500 bg-white border-2 border-gray-200 rounded-2xl hover:border-teal-300 hover:shadow-xl hover:-translate-y-2 animate-fadeInUp card-glow"
+              style={{ animationDelay: "0.2s" }}
+            >
+              <div className="flex items-center justify-center w-12 h-12 mb-4 transition-transform duration-300 shadow-lg bg-cyan-600 rounded-xl hover:rotate-6 hover:scale-110">
+                <Zap className="w-6 h-6 text-white" />
               </div>
               <h4 className="mb-2 text-lg font-bold text-gray-900">
                 Instant Settlements
@@ -1915,26 +1992,36 @@ const payment = await silanpay.createPayment({
                     icon: Rocket,
                     title: "Innovation First",
                     description: "Cutting-edge payment technology",
+                    bg: "bg-orange-600",
                   },
                   {
                     icon: Shield,
                     title: "Security Focus",
                     description: "Bank-grade security standards",
+                    bg: "bg-primary-600",
                   },
                   {
                     icon: Users,
                     title: "Customer Centric",
                     description: "24/7 dedicated support",
+                    bg: "bg-green-600",
                   },
                   {
                     icon: Globe,
                     title: "Global Ready",
                     description: "Built for worldwide scale",
+                    bg: "bg-purple-600",
                   },
                 ].map((value, index) => (
-                  <div key={index} className="flex items-start space-x-3">
-                    <div className="flex items-center justify-center flex-shrink-0 w-10 h-10 bg-blue-100 rounded-lg">
-                      <value.icon className="w-5 h-5 text-blue-600" />
+                  <div
+                    key={index}
+                    className="flex items-start space-x-3 animate-fadeInUp"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <div
+                      className={`flex items-center justify-center flex-shrink-0 w-10 h-10 transition-transform duration-300 rounded-lg shadow-lg ${value.bg} hover:scale-110 hover:rotate-6`}
+                    >
+                      <value.icon className="w-5 h-5 text-white" />
                     </div>
                     <div>
                       <h4 className="mb-1 font-semibold text-gray-900">
@@ -1950,18 +2037,18 @@ const payment = await silanpay.createPayment({
 
               <Link
                 to="/about"
-                className="inline-flex items-center font-semibold text-blue-600 transition-colors hover:text-blue-700"
+                className="inline-flex items-center font-semibold transition-all duration-300 text-primary-600 hover:text-primary-700 hover:translate-x-2 animate-fadeInLeft"
               >
                 Learn more about our story
-                <ChevronRight className="w-5 h-5 ml-1" />
+                <ChevronRight className="w-5 h-5 ml-1 transition-transform duration-300 group-hover:translate-x-1" />
               </Link>
             </div>
 
             <div className="relative">
-              <div className="absolute inset-0 transform bg-gradient-to-r from-blue-400 to-purple-500 rounded-3xl rotate-6 opacity-20"></div>
-              <div className="relative p-8 bg-white shadow-2xl rounded-3xl">
+              <div className="absolute inset-0 transform bg-primary-400 rounded-3xl rotate-6 opacity-20 animate-float"></div>
+              <div className="relative p-8 bg-white shadow-2xl rounded-3xl animate-scaleIn">
                 <div className="text-center">
-                  <div className="flex items-center justify-center w-20 h-20 mx-auto mb-6 bg-blue-600 rounded-2xl">
+                  <div className="flex items-center justify-center w-20 h-20 mx-auto mb-6 transition-transform duration-300 bg-teal-600 shadow-xl rounded-2xl hover:rotate-12 hover:scale-110 animate-pulse">
                     <Building2 className="w-10 h-10 text-white" />
                   </div>
                   <h3 className="mb-4 text-2xl font-bold text-gray-900">
@@ -1973,13 +2060,13 @@ const payment = await silanpay.createPayment({
                   </p>
                   <div className="grid grid-cols-2 gap-4 text-center">
                     <div className="p-4 bg-gray-50 rounded-xl">
-                      <div className="text-2xl font-bold text-blue-600">
+                      <div className="text-2xl font-bold text-primary-600">
                         2020
                       </div>
                       <div className="text-sm text-gray-600">Founded</div>
                     </div>
                     <div className="p-4 bg-gray-50 rounded-xl">
-                      <div className="text-2xl font-bold text-blue-600">
+                      <div className="text-2xl font-bold text-primary-600">
                         50+
                       </div>
                       <div className="text-sm text-gray-600">Team Members</div>
@@ -2011,8 +2098,8 @@ const payment = await silanpay.createPayment({
 
           <div className="grid max-w-5xl grid-cols-1 gap-8 mx-auto md:grid-cols-3">
             <div className="p-8 text-center transition-all duration-500 bg-white shadow-lg rounded-2xl hover:shadow-2xl hover:-translate-y-2 contact-card">
-              <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-blue-100 rounded-2xl">
-                <Phone className="w-8 h-8 text-blue-600" />
+              <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 shadow-lg bg-sky-600 rounded-2xl">
+                <Phone className="w-8 h-8 text-white" />
               </div>
               <h3 className="mb-4 text-xl font-bold text-gray-900">
                 Phone Support
@@ -2020,15 +2107,15 @@ const payment = await silanpay.createPayment({
               <p className="mb-4 text-gray-600">
                 Get instant help from our support team
               </p>
-              <p className="text-lg font-semibold text-blue-600">
+              <p className="text-lg font-semibold text-primary-600">
                 +91 89842 89279
               </p>
               <p className="mt-2 text-sm text-gray-500">Mon-Fri, 9AM-6PM IST</p>
             </div>
 
             <div className="p-8 text-center transition-all duration-500 bg-white shadow-lg rounded-2xl hover:shadow-2xl hover:-translate-y-2 contact-card">
-              <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-green-100 rounded-2xl">
-                <Mail className="w-8 h-8 text-green-600" />
+              <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 shadow-lg bg-lime-600 rounded-2xl">
+                <Mail className="w-8 h-8 text-white" />
               </div>
               <h3 className="mb-4 text-xl font-bold text-gray-900">Email Us</h3>
               <p className="mb-4 text-gray-600">Send us your queries anytime</p>
@@ -2039,8 +2126,8 @@ const payment = await silanpay.createPayment({
             </div>
 
             <div className="p-8 text-center transition-all duration-500 bg-white shadow-lg rounded-2xl hover:shadow-2xl hover:-translate-y-2 contact-card">
-              <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 bg-purple-100 rounded-2xl">
-                <MessageCircle className="w-8 h-8 text-purple-600" />
+              <div className="flex items-center justify-center w-16 h-16 mx-auto mb-6 shadow-lg bg-fuchsia-600 rounded-2xl">
+                <MessageCircle className="w-8 h-8 text-white" />
               </div>
               <h3 className="mb-4 text-xl font-bold text-gray-900">
                 Live Chat
@@ -2048,7 +2135,7 @@ const payment = await silanpay.createPayment({
               <p className="mb-4 text-gray-600">
                 Chat with our experts instantly
               </p>
-              <button className="px-6 py-2 font-semibold text-white transition-colors bg-purple-600 rounded-lg hover:bg-purple-700">
+              <button className="px-6 py-2 font-semibold text-white transition-all duration-300 bg-purple-600 rounded-lg hover:bg-purple-700 hover:scale-105 button-ripple cta-button animate-scaleIn">
                 Start Chat
               </button>
               <p className="mt-2 text-sm text-gray-500">Available 24/7</p>
@@ -2063,8 +2150,8 @@ const payment = await silanpay.createPayment({
               <p className="text-gray-600">Come meet us in person</p>
             </div>
             <div className="text-center">
-              <div className="inline-flex items-center justify-center w-16 h-16 mb-4 bg-orange-100 rounded-2xl">
-                <Building2 className="w-8 h-8 text-orange-600" />
+              <div className="inline-flex items-center justify-center w-16 h-16 mb-4 shadow-lg bg-amber-600 rounded-2xl">
+                <Building2 className="w-8 h-8 text-white" />
               </div>
               <p className="mb-2 text-lg font-medium text-gray-900">
                 Silansoftware Private Limited
@@ -2086,11 +2173,12 @@ const payment = await silanpay.createPayment({
             {/* Company Info */}
             <div className="sm:col-span-2 lg:col-span-2">
               <Link to="/" className="flex items-center mb-4 space-x-2 sm:mb-6">
-                <img
+                {/* <img
                   src="/silanpaylogo.png"
                   alt="SilanPay logo"
                   className="w-auto h-8 sm:h-10"
-                />
+                /> */}
+                <span className="text-4xl font-bold text-white">SilanPay</span>
               </Link>
               <p className="max-w-md mb-4 text-sm text-gray-300 sm:mb-6 sm:text-base">
                 Empowering businesses with secure, fast, and reliable payment
@@ -2098,15 +2186,46 @@ const payment = await silanpay.createPayment({
                 their payment needs.
               </p>
               <div className="flex space-x-3 sm:space-x-4">
-                <div className="flex items-center justify-center bg-blue-600 rounded-full w-9 h-9 sm:w-10 sm:h-10">
-                  <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
-                </div>
-                <div className="flex items-center justify-center bg-green-600 rounded-full w-9 h-9 sm:w-10 sm:h-10">
-                  <Mail className="w-4 h-4 sm:w-5 sm:h-5" />
-                </div>
-                <div className="flex items-center justify-center bg-purple-600 rounded-full w-9 h-9 sm:w-10 sm:h-10">
+                <a
+                  href="https://wa.me/918984289279"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center transition-colors bg-green-600 rounded-full hover:bg-green-700 w-9 h-9 sm:w-10 sm:h-10"
+                >
                   <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
-                </div>
+                </a>
+                <a
+                  href="https://www.facebook.com/SilanSoftware"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center transition-colors bg-blue-600 rounded-full hover:bg-blue-700 w-9 h-9 sm:w-10 sm:h-10"
+                >
+                  <Facebook className="w-4 h-4 sm:w-5 sm:h-5" />
+                </a>
+                <a
+                  href="https://x.com/SilanSoftware/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center transition-colors rounded-full bg-sky-500 hover:bg-sky-600 w-9 h-9 sm:w-10 sm:h-10"
+                >
+                  <Twitter className="w-4 h-4 sm:w-5 sm:h-5" />
+                </a>
+                <a
+                  href="https://www.linkedin.com/company/silanpay/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center transition-colors bg-blue-700 rounded-full hover:bg-blue-800 w-9 h-9 sm:w-10 sm:h-10"
+                >
+                  <Linkedin className="w-4 h-4 sm:w-5 sm:h-5" />
+                </a>
+                <a
+                  href="https://www.instagram.com/silan_software_official/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center transition-colors bg-pink-600 rounded-full hover:bg-pink-700 w-9 h-9 sm:w-10 sm:h-10"
+                >
+                  <Instagram className="w-4 h-4 sm:w-5 sm:h-5" />
+                </a>
               </div>
             </div>
 
@@ -2126,7 +2245,7 @@ const payment = await silanpay.createPayment({
                   <li key={index}>
                     <Link
                       to="#"
-                      className="text-gray-300 transition-colors hover:text-blue-400"
+                      className="text-gray-300 transition-colors hover:text-primary-400"
                     >
                       {item}
                     </Link>
@@ -2151,7 +2270,7 @@ const payment = await silanpay.createPayment({
                   <li key={index}>
                     <Link
                       to={item.to}
-                      className="text-gray-300 transition-colors hover:text-blue-400"
+                      className="text-gray-300 transition-colors hover:text-primary-400"
                     >
                       {item.name}
                     </Link>
