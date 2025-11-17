@@ -1,88 +1,40 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcryptjs");
+const crypto = require("crypto");
 
-const userSchema = new mongoose.Schema(
+const UserSchema = new mongoose.Schema(
   {
-    name: {
-      type: String,
-      required: [true, "Name is required"],
-      trim: true,
-      minlength: [2, "Name must be at least 2 characters"],
-    },
-    email: {
-      type: String,
-      required: [true, "Email is required"],
-      unique: true,
-      lowercase: true,
-      trim: true,
-      match: [/^\S+@\S+\.\S+$/, "Please enter a valid email"],
-    },
-    password: {
-      type: String,
-      required: [true, "Password is required"],
-      minlength: [6, "Password must be at least 6 characters"],
-      select: false, // Don't include password in queries by default
-    },
-    role: {
-      type: String,
-      enum: ["user", "admin"],
-      default: "user",
-    },
-    apiKey: {
-      type: String,
-      unique: true,
-      sparse: true, // Allow null values for non-admin users
-    },
-    isActive: {
-      type: Boolean,
-      default: true,
-    },
-    lastLogin: {
-      type: Date,
-    },
-    createdAt: {
-      type: Date,
-      default: Date.now,
-    },
-    updatedAt: {
-      type: Date,
-      default: Date.now,
-    },
+    name: { type: String, required: true, trim: true },
+    email: { type: String, required: true, unique: true, lowercase: true, trim: true },
+    password: { type: String, required: true, select: false },
+    phone: { type: String },
+    role: { type: String, enum: ["user", "admin"], default: "user" },
+    isActive: { type: Boolean, default: true },
+    lastLogin: { type: Date },
+    apiKey: { type: String }, // optional per-user API key
   },
-  {
-    timestamps: true,
-  }
+  { timestamps: true }
 );
 
-// Hash password before saving
-userSchema.pre("save", async function (next) {
-  if (!this.isModified("password")) return next();
-
-  try {
-    const salt = await bcrypt.genSalt(12);
-    this.password = await bcrypt.hash(this.password, salt);
-    next();
-  } catch (error) {
-    next(error);
-  }
+// Hash password before save
+UserSchema.pre("save", async function (next) {
+  const user = this;
+  if (!user.isModified("password")) return next();
+  const salt = await bcrypt.genSalt(10);
+  user.password = await bcrypt.hash(user.password, salt);
+  next();
 });
 
-// Method to compare passwords
-userSchema.methods.comparePassword = async function (candidatePassword) {
-  try {
-    return await bcrypt.compare(candidatePassword, this.password);
-  } catch (error) {
-    throw new Error("Password comparison failed");
-  }
+// Instance method to compare password
+UserSchema.methods.comparePassword = function (candidatePassword) {
+  return bcrypt.compare(candidatePassword, this.password);
 };
 
-// Generate API Key for users
-userSchema.methods.generateApiKey = function () {
-  const crypto = require("crypto");
-  this.apiKey = `sk_${crypto.randomBytes(32).toString("hex")}`;
-  return this.apiKey;
+// Generate simple API key and save to user
+UserSchema.methods.generateApiKey = function () {
+  const key = crypto.randomBytes(32).toString("hex");
+  this.apiKey = key;
+  return key;
 };
 
-const User = mongoose.model("User", userSchema);
-
-module.exports = User;
+module.exports = mongoose.model("User", UserSchema);
