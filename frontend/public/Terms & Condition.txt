@@ -1,0 +1,1233 @@
+﻿# Terms of Use
+
+ 
+## Introduction and Terms of Use
+
+ 
+These Terms and Conditions ("Terms of Use") govern your access to and use of the website 
+www.silansoftware.com, along with any affiliated domains, subdomains, software, APIs, 
+services, content, platforms, or mobile applications (collectively referred to as the 
+"Platform"), operated by SILAN SOFTWARE PRIVATE LIMITED (hereinafter referred to as 
+"SILAN SOFTWARE", "Company", "We", "Our", or "Us").
+
+ 
+Any individual or entity accessing, browsing, or otherwise utilizing the Platform, whether or 
+not registered for any services offered herein (hereinafter referred to as the "User", 
+"Seller", "Client", or "You"), shall be deemed to have unconditionally agreed to and 
+accepted these Terms of Use. This includes, by reference, our Privacy Policy, KYC/AML 
+Policy, and any other policy or document referenced herein (collectively, the "Policies"). 
+Together, these constitute a legally binding and enforceable agreement between you and 
+SILAN SOFTWARE.
+
+ 
+The Terms of Use shall apply in addition to any separate, written agreements entered into 
+by the User and SILAN SOFTWARE for specific services. In case of any inconsistency, the 
+terms of such separate agreements shall prevail to the extent of the inconsistency.
+
+ 
+*IMPORTANT NOTICE:* The User expressly acknowledges and agrees that execution of 
+transactions on the SILAN SOFTWARE Platform does not guarantee settlement of funds to 
+the User’s designated account unless and until the Know Your Customer (KYC) obligations 
+are fulfilled in strict compliance with the directives, circulars, and guidelines issued by the 
+Reserve Bank of India (RBI) and as may be interpreted and applied by SILAN SOFTWARE. In 
+the event of incomplete or unsatisfactory KYC compliance, SILAN SOFTWARE reserves the 
+right, at its sole discretion, to withhold, delay, or reverse settlement of such funds to the 
+originating source account, without incurring any liability whatsoever.
+
+ 
+By continuing to use the Platform or any of its features, you signify your acceptance of 
+these Terms of Use. If you do not agree to these terms, you must immediately cease all 
+usage of the Platform. You may formally accept these Terms of Use by either:
+- Clicking “Accept” or “Agree” wherever such option is made available through the Platform’s 
+user interface, or
+- By continued use or access of the services offered by SILAN SOFTWARE, which shall be 
+deemed as constructively accepted, these terms.
+
+
+
+ 
+Or
+
+ 
+By accessing, testing, or utilizing any functionality of the services provided by SILAN 
+SOFTWARE PRIVATE LIMITED ("SILAN SOFTWARE"), you, the user (hereinafter referred to as 
+the "User"), expressly acknowledge and agree to be bound by these Terms of Use, which 
+shall be deemed a legally binding agreement between you and SILAN SOFTWARE. For these 
+Terms, "User" shall include any individual or legal entity who has accepted these Terms on 
+their behalf or behalf of a third party, as applicable under the context.
+
+ 
+It is hereby clarified that the Privacy Policy, provided separately and accessible via our 
+official channels, constitutes an inseparable part of these Terms of Use and must be 
+interpreted and read in conjunction with them. The invalidity, illegality, or unenforceability 
+of any individual provision within these Terms shall in no manner affect the validity or 
+enforceability of the remaining provisions. In the event any clause is held to be void or 
+unenforceable, the remaining provisions shall continue in full force and effect, and shall 
+remain binding upon the User.
+
+ 
+SILAN SOFTWARE reserves the unilateral right, at its sole discretion, to modify, update, or 
+amend these Terms of Use at any time without any prior notice. The most current version 
+shall be made publicly available, and any amendments shall become effective immediately 
+upon publication. Continued usage of the website or the services thereafter shall constitute 
+conclusive acceptance of the revised Terms by the User, superseding all prior versions.
+
+ 
+The User agrees that it is their sole responsibility to remain informed and compliant with all 
+applicable laws, regulations, and guidelines relevant to their use of the services. This 
+includes, but is not limited to, the Reserve Bank of India’s Guidelines on Regulation of 
+Payment Aggregators and Payment Gateways, the Payment and Settlement Systems Act, 
+2007, the Prevention of Money Laundering Act, 2002, and the Know Your Customer (KYC) / 
+Anti-Money Laundering (AML) / Combating the Financing of Terrorism (CFT) norms issued 
+by the Department of Regulation, Reserve Bank of India (collectively referred to as the "KYC 
+GUIDELINES").
+
+ 
+Use of the services signifies your continued and irrevocable consent to be governed by 
+these Terms in their entirety. If you do not agree with these Terms, you are advised to 
+refrain from accessing or using any part of the services provided by SILAN SOFTWARE.
+
+ 
+## ACKNOWLEDGMENT AND ACCEPTANCE OF TERMS OF SERVICE
+
+
+
+ 
+This Terms of Service Agreement (hereinafter referred to as the "Agreement") constitutes a 
+legally binding contract between you ("User") and SILAN SOFTWARE PRIVATE LIMITED 
+(hereinafter referred to as “SILAN SOFTWARE”), governing your access to and use of all 
+services, websites, products, and features provided under the SILAN SOFTWARE platform. 
+By accessing or using the services of SILAN SOFTWARE—whether as a registered member 
+("Member") or an unregistered visitor ("Visitor")—you acknowledge that you have read, 
+understood, and agree to be bound by the terms and conditions set forth herein. 
+Collectively, both Members and Visitors shall be referred to as "Users."
+
+ 
+SILAN SOFTWARE reserves the right to amend or revise this Agreement at its sole 
+discretion. Continued use of the SILAN SOFTWARE services after any modification has been 
+posted for a minimum period of thirty (30) calendar days shall constitute your binding 
+acceptance of such changes. Therefore, it is the responsibility of the User to review this 
+Agreement periodically to remain informed of any modifications.
+
+ 
+The services offered ("the Services") are subject to the operational rules, privacy policies, 
+and other regulatory frameworks as may be published or amended by SILAN SOFTWARE 
+from time to time, which shall form an integral part of this Agreement. This Agreement 
+supersedes any prior understandings or agreements, whether written or oral, relating to 
+the subject matter herein.
+
+ 
+By completing the registration process and clicking the "Submit" or equivalent button, you 
+expressly signify your agreement to be legally bound by the terms of this Agreement and 
+all applicable laws and regulations. This Agreement is divided into two distinct sections: 
+Part One sets forth the terms governing usage of SILAN SOFTWARE Services, while Part 
+Two outlines additional legal provisions, including but not limited to limitations of liability 
+and mandatory arbitration for dispute resolution.
+
+ 
+You may not access or use the SILAN SOFTWARE Services unless you unconditionally accept 
+all of the terms and conditions stipulated in this Agreement.
+
+ 
+## Terms and Conditions Governing the Use of Services
+
+ 
+### 1. Definitions
+
+ 
+For the purpose of this Agreement, the following terms shall have the meanings specified 
+
+
+
+below:
+
+ 
+1.1. "Acquiring Banks" refers to various banks, financial institutions, and payment system 
+providers duly defined and licensed by the Payment and Settlement Systems Act of 2007.
+
+ 
+1.2. "Acquiring Bank Services" refers to the payment gateway system and services provided 
+by Acquiring Banks, including, but not limited to, (i) routing of internet-based Valid 
+transactions, (ii) provision of various internet-based services such as Net Banking, (iii) 
+provision of authentication and authorization services to third-party clearing houses, and 
+(iv) settlement services for payment instructions initiated by customers.
+
+ 
+1.3. "Authentication" refers to the process by which Acquiring Banks validate the 
+Customer’s identification.
+
+ 
+1.4. "Business Days" means any day when the Acquiring Banks are operational in India, 
+excluding Saturdays, Sundays, and any days declared as holidays by the relevant 
+authorities, including SILAN SOFTWARE.
+
+ 
+1.5. "Chargeback" means the reversal of the value of a Customer Charge concerning a 
+Transaction, including instances of alleged fraud, duplicate processing, or any other 
+reasons as per the applicable rules set by RBI and SILAN SOFTWARE. It also includes any 
+debits made to SILAN SOFTWARE’s bank account to recover the Customer Charge value in 
+cases where there are insufficient funds in the Nodal Account.
+
+ 
+1.6. "Completion of Transaction" refers to the completion of a transaction as processed by 
+SILAN SOFTWARE, or upon the receipt of the Proof of Delivery as required.
+
+ 
+1.7. "Confidential Information" includes any information, whether oral, written, or in any 
+other form, related to this Agreement that is deemed confidential, including technical, 
+financial, business, and other proprietary information. Confidential Information must be 
+identified and reduced to writing within thirty (30) days from disclosure.
+
+ 
+1.8. "Customer" refers to an individual or legal entity that purchases products or services 
+through your website, mobile application, or any other acceptable payment method 
+facilitated by SILAN SOFTWARE.
+
+ 
+
+
+
+1.9. "Customer Bank Account" refers to the Customer's bank account with the Issuing 
+Institution.
+
+ 
+1.10. "Customer Wallet" refers to a digital prepaid instrument authorized under the 
+Payment and Settlement Systems Act of 2007, held by the Customer with the Issuing 
+Institution.
+
+ 
+1.11. "Customer Charge" refers to the total cost of the Products purchased by the 
+Customer, including shipping charges (if applicable) and any other associated fees, taxes, 
+or charges.
+
+ 
+1.12. "Delivery" refers to the transfer of goods to the Customer either through a courier 
+service or other method, or the provision of services within the stipulated Delivery Due 
+Date.
+
+ 
+1.13. "Delivery Due Date" is the date by which you must deliver the products to the 
+Customer, as specified on your Website or communicated to the Customer.
+
+ 
+1.14. "EMI" refers to equated monthly installment payment plans provided by Issuing 
+Institutions, as facilitated by SILAN SOFTWARE.
+
+ 
+1.15. "Issuing Institution" refers to the financial institution or entity issuing a Customer 
+Wallet or Net Banking account to the Customer.
+
+ 
+1.16. "IVR System" refers to the interactive voice response platform provided by SILAN 
+SOFTWARE that enables Customers to make payments over the phone.
+
+ 
+1.17. "Merchant Bank Account" refers to the bank account nominated by you for the 
+settlement of funds received from Customers.
+
+ 
+1.18. "Merchant Site" refers to your website or mobile application that facilitates the sale of 
+Products to Customers, hosted and operated in conjunction with SILAN SOFTWARE.
+
+ 
+1.19. "Mobile Application" refers to the software application you provide, designed to allow 
+
+
+
+Customers to browse and purchase products on their mobile devices.
+
+ 
+1.20. "Mobile SDK" refers to the proprietary software development kit developed by SILAN 
+SOFTWARE for mobile applications.
+
+ 
+1.21. "Net Banking Account" refers to the account provided by the Issuing Institution that 
+allows a Customer to perform banking transactions over the internet.
+
+ 
+1.22. "Nodal Account" refers to an account maintained by SILAN SOFTWARE with a bank for 
+pooling funds collected from Customers and facilitating settlements after deducting any 
+applicable fees, as mandated by RBI guidelines.
+
+ 
+1.23. "Nodal Bank" refers to the bank(s) designated by SILAN SOFTWARE for handling the 
+Nodal Account.
+
+ 
+1.24. "Outstanding Amount" refers to any amounts due from you to SILAN SOFTWARE, 
+Acquiring Banks, or Customers arising from losses, penalties, chargebacks, or other claims 
+related to transactions processed through the platform.
+
+ 
+1.25. "Payment Mechanism" refers to the various methods through which payments can be 
+processed, including internet banking and other payment modes as specified by SILAN 
+SOFTWARE.
+
+ 
+1.26. "SILAN SOFTWARE Account" refers to the merchant account you maintain with SILAN 
+SOFTWARE for the provision of payment gateway services.
+
+ 
+1.27. "SILAN SOFTWARE Site" refers to the website provided by SILAN SOFTWARE, through 
+which services are delivered to you and your Customers.
+
+ 
+1.28. "Products" refers to the goods and services offered by you for sale on your Merchant 
+Site.
+
+ 
+1.29. "Proof of Delivery" refers to legitimate documentation verifying that the Products 
+were delivered to the Customer.
+
+
+
+ 
+1.30. "RBI" refers to the Reserve Bank of India, the regulatory authority for payment 
+systems in India.
+
+ 
+1.31. "Reserve" refers to the interest-free, refundable funds you provide to SILAN 
+SOFTWARE for transaction settlement purposes.
+
+ 
+1.32. "Settlement Amount" refers to the amount payable to you after deductions for fees, 
+chargebacks, and other costs as per the Transaction Discount Rate (TDR).
+
+ 
+1.33. "Transaction" refers to a payment request initiated by the Customer for the purchase 
+of Products from your Merchant Site.
+
+ 
+1.34. "Transaction Discount Rate" or "TDR" refers to the rate applicable to each transaction, 
+as outlined in the relevant agreement.
+
+ 
+1.35. "Upgraded Mobile Application" refers to your mobile application integrated with the 
+Mobile SDK provided by SILAN SOFTWARE.
+
+ 
+### 1.2 User Registration And Obligations
+
+ 
+As a prerequisite for accessing and utilizing the services (“The Service”) offered by SILAN 
+SOFTWARE, you (hereinafter referred to as “The User”) hereby acknowledge and agree to 
+the following terms and obligations regarding registration, account management, and 
+usage conduct:
+
+ 
+1. *Registration Accuracy and Maintenance*  
+
+   The User agrees to submit truthful, accurate, complete, and current information as 
+prompted during the registration process (collectively referred to as “Registration 
+Information”). Furthermore, the User undertakes to maintain and update this information 
+promptly to ensure it remains accurate and complete at all times. In the event any 
+information is found to be false, misleading, outdated, or incomplete, SILAN SOFTWARE 
+reserves the absolute right to suspend, terminate, or refuse the User’s access to current or 
+future use of The Service without prior notice.
+
+ 
+
+
+
+2. *Account Integrity*  
+   The User shall maintain only a single registered account with SILAN SOFTWARE and shall 
+
+not create or use multiple accounts. Unauthorized creation of multiple accounts may lead 
+to immediate termination of all associated accounts and access privileges. The User 
+expressly consents to SILAN SOFTWARE’s right to utilize anonymized and aggregate 
+Registration Information for the purpose of marketing, analytics, service enhancement, 
+advertising targeting, and content personalization. The User also consents to be contacted 
+by SILAN SOFTWARE regarding new features, service updates, promotional offers, and 
+marketing communications.
+
+ 
+3. *Compliance and Prohibited Conduct*  
+
+   By using The Service, The User agrees not to engage in any activity that is unlawful, 
+unethical, or in violation of applicable laws and regulations, including but not limited to:  
+
+   - Obstructing or interfering with the access, use, or enjoyment of The Service by other 
+users.  
+
+   - Violating any applicable local, state, national, or international law, regulation, or code of 
+conduct.  
+
+   - Impersonating any individual or entity or misrepresenting affiliation with any person or 
+organization.  
+
+   - Disrupting or damaging the Service infrastructure, connected networks, or breaching 
+security protocols.  
+
+   - Engaging in unsolicited communications, including spam, junk mail, chain letters, or 
+pyramid schemes.  
+
+   - Posting, transmitting, or distributing any content that is unlawful, defamatory, obscene, 
+abusive, harassing, offensive, or otherwise objectionable.  
+
+   - Uploading content that infringes upon any third party’s intellectual property rights unless 
+legally authorized.  
+
+   - Introducing viruses, malware, or any harmful code designed to interrupt or harm the 
+Service.  
+
+   - Stalking, harassing, or collecting personal data of other users without consent.  
+   - Engaging in unauthorized advertising, commercial solicitation, or sale of goods and 
+
+services.  
+   - Reproducing, duplicating, or exploiting any portion of The Service for commercial gain 
+
+without express written permission.  
+   - Causing harm to minors or uploading content in breach of legal, contractual, or fiduciary 
+
+duties.
+
+ 
+4. *Consent to Data Use*  
+
+   By completing the registration process and accessing The Service, The User authorizes 
+SILAN SOFTWARE to store, process, and, where necessary, share Registration Information 
+with affiliated partners or service providers, in accordance with applicable data protection 
+laws and the organization’s Privacy Policy.
+
+
+
+ 
+### 1.3 USER ACCOUNT CREDENTIALS, PASSWORD, AND SECURITY MEASURES
+
+ 
+As part of the registration process to access and utilize the services provided by SILAN 
+SOFTWARE, the user is required to submit accurate, current, and complete information as 
+prompted by the registration interface. Upon successful submission, the user shall be 
+prompted to create a unique username and a confidential password. The user shall bear 
+full and exclusive responsibility for maintaining the security and confidentiality of their 
+account credentials. SILAN SOFTWARE strongly advises users to routinely update their 
+passwords and follow system-generated security guidelines to protect account integrity.
+
+ 
+The user hereby agrees not to use the account credentials of any other individual or entity, 
+nor to disclose their password to any third party under any circumstances. The user 
+acknowledges and accepts that they are solely accountable for all activities and 
+transactions executed through their account, whether authorized or otherwise. In the 
+event of any unauthorized access, misuse, or breach of account security, the user agrees to 
+promptly notify SILAN SOFTWARE without delay.
+
+ 
+Failure to comply with these terms may result in the user being held liable for any losses or 
+damages incurred by SILAN SOFTWARE or any affected third parties. The company shall not 
+be held responsible for any loss, damage, or liability arising from unauthorized use of a 
+user’s account. Furthermore, users are obligated to log out of their accounts at the 
+conclusion of each session to mitigate the risk of unauthorized access. Any attempt to 
+access another individual's account without prior authorization is strictly prohibited and 
+may constitute a violation of applicable laws.
+
+ 
+### 1.4 DATA SECURITY AND PRIVACY COMPLIANCE
+
+ 
+SILAN SOFTWARE shall not be held liable for any loss, corruption, alteration, or deletion of 
+data or information submitted, transmitted, or stored by the user through the platform. 
+The collection, use, storage, and disclosure of personal or sensitive information provided by 
+users during the course of accessing or using the website shall be governed strictly in 
+accordance with the terms outlined in our Privacy Policy. By accessing or registering on this 
+platform, the user consents to the collection and processing of their information as 
+described therein. Users are advised to review the Privacy Policy carefully to understand 
+their rights and obligations regarding data handling and protection. SILAN SOFTWARE 
+disclaims any responsibility for events arising due to unauthorized access, breach, or 
+misuse of data not attributable to its negligence or failure to maintain reasonable security 
+measures.
+
+
+
+ 
+### 1.5 ELIGIBILITY, APPROVAL, AND REGISTRATION FOR ACCESS
+
+ 
+To access and utilize the services provided by SILAN SOFTWARE, it is imperative that you, at 
+the time of registration, accurately disclose the specific business category and sub-category 
+under which the services will be employed. Such services may only be availed through your 
+designated and registered merchant platform ("Merchant Site"). You expressly 
+acknowledge and agree that any intended change in the purpose or scope of use of the 
+SILAN SOFTWARE Services must be communicated in writing and shall remain subject to 
+prior review and formal approval by SILAN SOFTWARE. Furthermore, your ability to access 
+the SILAN SOFTWARE Services and the services of associated financial institutions, 
+including but not limited to the Acquiring Banks and the Nodal Bank, is conditional upon 
+your successful registration and receipt of requisite approvals from SILAN SOFTWARE, the 
+respective Acquiring Banks, and the Nodal Bank.
+
+ 
+Your acceptance of these Terms and Conditions constitutes your agreement to furnish all 
+documentation, information, and compliance materials as may be reasonably required by 
+SILAN SOFTWARE, both during the initial registration process and on an ongoing basis, 
+including post-activation of your merchant account. SILAN SOFTWARE retains the right to 
+request additional documentation at any time to verify your identity, the accuracy of the 
+information provided, the legitimacy of your business operations, and the identity and 
+legitimacy of your customers. This may include, but is not limited to, customer verification 
+reports containing personal or business identifiers.
+
+ 
+Should you fail to provide sufficient, accurate, or complete information as requested, SILAN 
+SOFTWARE reserves the right to deny, suspend, or terminate your access to the services 
+and to close your merchant account without further notice. Moreover, you acknowledge 
+and agree that SILAN SOFTWARE, the Acquiring Banks, and the Nodal Bank each possess 
+the unfettered right to rescind any prior approval or consent, whether before or after the 
+commencement of service delivery, without incurring any liability to you.
+
+ 
+### 1.6 OUR RELATIONSHIP WITH YOU
+
+ 
+SILAN SOFTWARE acts as a facilitator, enabling individuals and legal entities to accept 
+payments initiated by their customers on their respective websites or mobile applications, 
+directed to the SILAN SOFTWARE site, or via various approved payment mechanisms such 
+as Net Banking and other acceptable payment modes.
+
+ 
+
+
+
+SILAN SOFTWARE is a software platform (“Software Application”) supported by the SILAN 
+SOFTWARE website. In its role, SILAN SOFTWARE serves as an intermediary, establishing a 
+connection between the Merchant Site and the relevant Acquiring Banks via the Software 
+Application and the SILAN SOFTWARE website, to facilitate payments of Customer Charges 
+for Transactions carried out through the Merchant's website, using the services of the 
+Acquiring Banks (“Internet Payment Gateway”). To fulfill this role, SILAN SOFTWARE has 
+entered into agreements with various Acquiring Banks, Nodal Banks, financial institutions, 
+and other software providers engaged in offering IT services, including but not limited to 
+internet-based electronic commerce, internet payment gateway services, and electronic 
+software distribution systems. These partnerships allow for the routing of internet-based 
+Transactions, provision of net banking facilities, Authorization from Financial Institutions or 
+other third-party clearing houses, and settlement of payment instructions initiated by the 
+Buyers.
+
+ 
+The Transactions are solely between you and your Customers, with SILAN SOFTWARE acting 
+exclusively as an intermediary. It is expressly stated that SILAN SOFTWARE is NOT (i) a 
+payment system provider as defined under the Payment and Settlement Systems Act, 2007, 
+(ii) a banking company as per the Banking Regulation Act, 1949, nor (iii) a non-banking 
+financial company under the Reserve Bank of India Act, 1938.
+
+ 
+The relationship between SILAN SOFTWARE and you is based on a principal-to-principal 
+agreement. No provision in this agreement shall be construed as creating any association, 
+partnership, joint venture, principal-agent, master-servant, or employer-employee 
+relationship between SILAN SOFTWARE and you, nor between any affiliates or subsidiaries 
+of either party. Moreover, neither party shall possess any rights, powers, or authority, 
+whether express or implied, to establish any duty or obligation on behalf of the other. 
+SILAN SOFTWARE maintains no direct or indirect interest in your business operations or the 
+products offered/marketed on the Merchant Site. SILAN SOFTWARE provides its services to 
+you as an independent entity and according to the terms and conditions outlined in this 
+Agreement. SILAN SOFTWARE does not maintain any direct relationship with the 
+Customers, and all actions taken under this Agreement that affect Customers are based on 
+your instructions. You assume full responsibility for your Customers, and neither SILAN 
+SOFTWARE nor any Acquiring Bank nor any party connected to SILAN SOFTWARE or the 
+Acquiring Banks shall bear any liability towards the Customers. You agree to fully indemnify 
+SILAN SOFTWARE and the Acquiring Bank at all times in respect of any such matters.
+
+ 
+### 1.7 CONNECTIVITY AND INTEGRITY OF HOTLINK
+
+ 
+You shall bear full responsibility, at your own expense, for providing and maintaining all 
+necessary equipment, software, and facilities to establish and sustain the connection 
+
+
+
+between the Merchant website software and the Software Application.
+
+ 
+You must take all required precautions and implement measures as prescribed by SILAN 
+SOFTWARE from time to time to ensure that the security and integrity of the link between 
+the Merchant Site and the Internet Payment Gateway ("Hotlink") remain uncompromised. 
+You are obligated to ensure that all Customers accessing the Hotlink are directed to the 
+Internet Payment Gateway without interruption. Additionally, you must deploy adequate 
+encryption protocols and robust security mechanisms to prevent unauthorized access or 
+hacking attempts targeting Customer information and related data. Furthermore, you shall 
+comply with the security practices and procedures outlined in the Information Technology 
+Act, 2000, and its associated rules and regulations, as well as the guidelines issued by the 
+Reserve Bank of India (RBI) or any other applicable regulatory authority.
+
+ 
+In the event of any loss, damage, or claim incurred by you, SILAN SOFTWARE, or the 
+Acquiring Bank as a result of a breach of the Hotlink due to inadequate security measures 
+on your part—whether from you, your employees, contractors, agents, or from the 
+Merchant Site itself—you shall bear the full financial responsibility. You agree to indemnify, 
+defend, and hold harmless SILAN SOFTWARE and the Acquiring Banks from any claims, 
+actions, damages, or losses arising out of or concerning such incidents.
+
+ 
+Additionally, you are required to routinely verify the integrity of the Hotlink at such 
+intervals as specified by SILAN SOFTWARE and the Acquiring Banks. You must provide the 
+necessary reports and conduct tests as may be requested by SILAN SOFTWARE or the 
+Acquiring Banks to ensure continuous compliance with these requirements.
+
+ 
+### 1.8 AUTHORIZATION AND AUTHENTICATION OF TRANSACTIONS
+
+ 
+The Acquiring Bank shall authenticate, authorize, and process the payment instructions 
+provided by the Customers on the Merchant's Website concerning the Transactions, subject 
+to the fulfillment of the valid criteria set forth by the Acquiring Banks as may be amended 
+from time to time. Upon successful authorization, the approved Customer Charge will be 
+transferred from the Customer's Bank Account or Wallet to the Nodal Account.
+
+ 
+SILAN SOFTWARE and the Acquiring Banks may, at their sole discretion, reject any 
+Transaction authorization initiated by the Customer for reasons including, but not limited 
+to, risk management protocols, suspicion of fraudulent or illegal activities, the sale of 
+prohibited items, the use of compromised, the use of blacklisted or in compliance with the 
+applicable regulations, guidelines, or directives issued by the Reserve Bank of India (RBI), 
+
+
+
+Acquiring Banks, Issuing Institutions, and any other governing laws, rules, or regulations in 
+force within the territory of India.
+
+ 
+You hereby acknowledge that, as part of its risk management framework, SILAN SOFTWARE 
+or the Acquiring Banks retain the right to impose limitations or restrictions on transaction 
+size, amount, and monthly volume at any given time. These restrictions may include, but 
+are not limited to, limits on the number of purchases permitted on an individual net 
+banking account within a specified period, rejection of payments for Customer Orders 
+originating from accounts with a history of suspicious or questionable charges, or 
+Transactions exhibiting unusual monetary value. Furthermore, as an added security 
+measure, SILAN SOFTWARE reserves the right to block any account numbers or 
+Transactions related to blacklisted customers, IP addresses, devices, geographic locations, 
+or any other such entities or criteria deemed necessary for effective risk mitigation.
+
+ 
+### 1.9 IT ACT, 2000 COMPLIANCE AND USER OBLIGATIONS
+
+ 
+In compliance with the Information Technology Act, 2000 and the rules promulgated 
+thereunder, specifically Rule 3 of the Rules framed under Section 79(2) read with Section 
+87(2)(zg) of the Act, SILAN SOFTWARE strictly prohibits its users from hosting, displaying, 
+uploading, modifying, publishing, transmitting, updating, or sharing any content that:
+
+ 
+1. Belongs to a third party and for which the user has no legal right or authorization.
+2. Is grossly harmful, harassing, blasphemous, defamatory, obscene, pornographic, 
+pedophilic, libelous, an invasion of another's privacy, hateful, racially or ethnically 
+objectionable, disparaging, promotes money laundering, gambling, or any content that is 
+illegal or otherwise unlawful in any form.
+3. Causes harm to minors in any manner.
+4. Infringes on any patent, trademark, copyright, or other proprietary rights of any person 
+or entity.
+5. Violates any prevailing law or statutory regulation in force.
+6. Deliberately deceives or misleads the recipient regarding the origin of communications, 
+or disseminates information that is offensive, threatening, or menacing.
+7. Impersonates another person or entity.
+8. Contains harmful software viruses or any computer code, files, or programs designed to 
+disrupt, destroy, or restrict the normal functionality of any computer resource or system.
+9. Endangers the unity, integrity, defense, security, or sovereignty of India, adversely affects 
+its relations with foreign states, threatens public order, or instigates the commission of any 
+cognizable offence. Furthermore, it should not obstruct the investigation of any offence or 
+insult any other nation.
+
+
+
+ 
+By using the services of SILAN SOFTWARE, the user acknowledges and agrees to adhere to 
+these obligations, understanding that any violation may result in legal action and 
+suspension of access to the services.
+
+ 
+### 1.10 YOUR AUTHORIZATION
+
+ 
+By entering into this Agreement and accepting its terms, you hereby grant SILAN 
+SOFTWARE the irrevocable authorization to hold, receive, disburse, and settle funds on 
+your behalf. This authorization includes, but is not limited to, the facilitation of electronic 
+funds transfers between the Acquiring Banks and SILAN SOFTWARE’s Nodal Account for the 
+processing of each Transaction you initiate. Subsequently, you authorize SILAN SOFTWARE 
+to transfer the Settlement Amount, as received from your Customers, to the Merchant Bank 
+Account you have designated for this purpose during the registration process. This 
+authorization shall remain in full force and effect until such time as your SILAN SOFTWARE 
+account is closed or terminated, at which point the authorization will be automatically 
+revoked.
+
+ 
+### 1.11 FEES AND PAYMENT TERMS
+
+ 
+In exchange for the services provided by SILAN SOFTWARE, you agree to pay SILAN 
+SOFTWARE a Transaction Discount Rate (“TDR”). The TDR shall be deducted by SILAN 
+SOFTWARE from the Customer Charge that is payable to you in relation to each completed 
+transaction. You are responsible for paying all fees as outlined on the Website in 
+connection with the specific services you have selected. SILAN SOFTWARE reserves the 
+right to periodically revise the TDR and will notify you of any such changes within a 
+reasonable timeframe. Additionally, you agree to pay SILAN SOFTWARE: (i) a non-
+refundable one-time setup fee, and (ii) an Annual Maintenance Charge, which is payable in 
+advance on an annual basis. SILAN SOFTWARE retains the right to deduct the setup fee and 
+Annual Maintenance Charges from the Settlement Amount owed to you. Furthermore, as 
+part of the licensing agreement concerning the Mobile SDK, you agree to pay SILAN 
+SOFTWARE a royalty (“Royalty”).
+
+ 
+### 1.12 TERMS OF PAYMENT TO MERCHANT
+
+ 
+Subject to the provisions of this Agreement, SILAN SOFTWARE shall endeavor to instruct 
+the Nodal Bank to remit the Settlement Amount from the Nodal Account to your 
+designated Bank Account within the timeframe prescribed by the Reserve Bank of India 
+
+
+
+(RBI), commencing from the date of completion of the Transaction. In the event that you 
+elect to utilize SILAN SOFTWARE Services, the Transaction shall be deemed complete only 
+upon the receipt of the Customer Charge in the Nodal Account from the Acquiring Banks 
+and subsequent reconciliation of the same by the Acquiring Banks, SILAN SOFTWARE, and 
+the Nodal Bank ("SILAN SOFTWARE Completion of Transaction").
+
+ 
+Should you opt for SILAN SOFTWARE Services which require Proof of Delivery for any 
+Transaction(s), the Transaction shall be concluded only upon the submission of Proof of 
+Delivery by you (as per the prescribed format by SILAN SOFTWARE) and confirmation from 
+the respective Customer. If the Customer fails to confirm delivery within three (3) days from 
+the date of submission of Proof of Delivery by you, such delivery shall be deemed 
+confirmed, and the Transaction shall be considered complete ("SILAN SOFTWARE 
+Completion of Transaction"). The transfer of the Settlement Amount to the Merchant Bank 
+Account shall be contingent upon reconciliation of the Customer Charge by the Acquiring 
+Banks, SILAN SOFTWARE, and the Nodal Bank following the actual receipt of the Customer 
+Charge into the Nodal Account.
+
+ 
+You shall bear sole responsibility for any payments related to refunds and Chargebacks, 
+and SILAN SOFTWARE shall not be liable for any claims, disputes, penalties, or liabilities 
+arising in connection with such refunds or Chargebacks to either you or the Customer. You 
+agree to indemnify and hold SILAN SOFTWARE harmless against any claims, disputes, 
+penalties, costs, and expenses arising, whether directly or indirectly, in relation to refunds 
+or Chargebacks for all Transactions initiated through the Merchant Site.
+
+ 
+Notwithstanding any other provisions in this Agreement, you acknowledge and agree that 
+SILAN SOFTWARE, the Acquiring Bank, and the Nodal Bank reserve the right to reject 
+payments related to any Customer Charge for reasons including, but not limited to, 
+unlawful or erroneous Transactions, Chargebacks, refunds, fraud, suspicious activities, 
+issues related to Authentication and Authorization, overpayments due to mathematical 
+errors, penalties incurred, delivery issues, Customer Charge disputes, or non-compliance 
+with the requirements of SILAN SOFTWARE, the Acquiring Banks, and the financial 
+Association.
+
+ 
+In the event of rejection of payment for a Customer Charge, Chargeback, refund, or other 
+Outstanding Amounts owed to SILAN SOFTWARE, the Acquiring Bank, or the Customer, 
+SILAN SOFTWARE or the Acquiring Bank reserve the right to reverse any credit extended to 
+the Merchant Bank Account or offset the rejected payment amount, Chargeback, refund, or 
+Outstanding Amount against the Settlement Amount payable to you. Additionally, SILAN 
+SOFTWARE and the Acquiring Banks may deduct such payment amounts from future 
+Settlement Amounts due to you for subsequent Transactions.
+
+
+
+ 
+All Settlement Amounts owed to you under this Agreement may be suspended or delayed 
+at the discretion of SILAN SOFTWARE, the Acquiring Banks, and the Nodal Bank if any of the 
+following conditions arise: (a) you, your Customer, or a third party engages in fraud or 
+violates any applicable laws or legal requirements; (b) SILAN SOFTWARE or the Acquiring 
+Banks have reasonable grounds to suspect fraudulent activities against the Customers, 
+SILAN SOFTWARE, the Acquiring Banks, or any third party by you, your Customers, or any 
+other related parties; (c) you exhibit excessive Chargebacks or present high Chargeback 
+and refund risk; (d) there is consistent non-delivery or delayed delivery of Products to 
+Customers; or (e) for any other legitimate reason deemed appropriate by SILAN SOFTWARE 
+or the Acquiring Banks.
+
+ 
+### 1.13 RESERVE – Financial Security and Withholding Rights
+
+ 
+You hereby acknowledge and agree that SILAN SOFTWARE PRIVATE LIMITED (“SILAN 
+SOFTWARE”) reserves the right, at its sole discretion and at any time, to temporarily 
+suspend or delay any payments due to you or to require the establishment and 
+maintenance of a monetary reserve (“Reserve”) in such amount as may be reasonably 
+determined by SILAN SOFTWARE. This Reserve may be required as a measure to secure the 
+fulfillment of your payment obligations under this Agreement and may be imposed for 
+reasons including, but not limited to: elevated chargeback ratios, credit exposure, refund or 
+overdraft risks, issues pertaining to non-delivery of goods or services, the sale of prohibited 
+or regulated items, unpaid service or maintenance fees, or any other circumstances that 
+reasonably indicate the potential for non-performance or financial instability in connection 
+with your use of the SILAN SOFTWARE services.
+
+ 
+Failure to provide the Reserve within seven (7) days from receipt of written notice shall 
+entitle SILAN SOFTWARE, without further obligation of notice, to suspend or terminate any 
+settlement payouts or restrict access to SILAN SOFTWARE services. The Reserve may be 
+applied, at the discretion of SILAN SOFTWARE, towards the satisfaction of any outstanding 
+obligations, including but not limited to, amounts owed to SILAN SOFTWARE, acquiring 
+banks, or your customers.
+
+ 
+In the event that the settlement proceeds and the Reserve are insufficient to cover your 
+total outstanding liability, you shall be required to immediately remit the remaining 
+balance to SILAN SOFTWARE and the acquiring bank upon demand. Interest shall accrue on 
+such outstanding sums at the rate of 1.5% per month, calculated daily, commencing from 
+the date of demand until full payment is made. The right of SILAN SOFTWARE to apply the 
+Reserve and enforce such set-off rights shall be without prejudice to, and in addition to, 
+any other legal or equitable remedies available under applicable law.
+
+
+
+ 
+Furthermore, you agree to indemnify and reimburse SILAN SOFTWARE for all reasonable 
+costs and expenses incurred in relation to the recovery of such dues, including but not 
+limited to attorney’s fees, legal expenses, and collection agency charges.
+
+ 
+### 1.14 CHARGEBACK LIABILITY, RIGHTS, AND REMEDIES
+
+ 
+1. *Right to Recover Chargebacks and Associated Liabilities*  
+
+   In the event that any transaction processed through SILAN SOFTWARE results in a 
+chargeback, SILAN SOFTWARE shall have the absolute and irrevocable right to withhold the 
+full amount of such chargeback, together with any associated fees, fines, penalties, or 
+related costs, by setting aside such sums in a designated Reserve. SILAN SOFTWARE may, at 
+its sole discretion, debit such amounts from the Merchant’s Settlement Amount or Reserve. 
+ 
+
+   Should SILAN SOFTWARE reasonably anticipate that a chargeback may arise in relation to a 
+specific transaction, it shall be entitled to withhold an amount equivalent to the potential 
+chargeback from any payments due to the Merchant under this Agreement until one of the 
+following occurs:  
+
+   (a) a chargeback is formally assessed by reason of a customer dispute, in which case the 
+withheld funds shall be retained by SILAN SOFTWARE;  
+
+   (b) the lapse of any statutory or regulatory timeframe, or the expiration of time limits 
+stipulated under Rules within which the customer may initiate a chargeback; or  
+
+   (c) SILAN SOFTWARE determines, at its sole discretion, that the risk of chargeback no 
+longer exists.  
+
+   In circumstances where recovery of the chargeback amount proves unsuccessful, the 
+Merchant shall remain unconditionally liable to remit the full chargeback sum to SILAN 
+SOFTWARE immediately upon demand. The Merchant agrees to bear all legal and collection 
+costs, including but not limited to attorneys’ fees and related expenses, incurred by SILAN 
+SOFTWARE in the recovery of unpaid or outstanding amounts.
+
+ 
+2. *Management of Excessive Chargebacks*  
+
+   Should SILAN SOFTWARE, in its sole and absolute discretion, determine that the Merchant 
+is incurring an excessive volume of chargebacks, SILAN SOFTWARE shall be entitled to 
+implement additional control measures and conditions with respect to the processing of 
+transactions. These may include, but are not limited to:  
+
+   (a) the imposition of revised or increased processing fees;  
+   (b) the establishment or augmentation of a Reserve in an amount deemed sufficient to 
+
+cover anticipated chargebacks and ancillary costs;  
+   (c) the deferral or delay of settlement payouts; and  
+   (d) the suspension or immediate termination of services provided under this Agreement.
+
+
+
+ 
+3. *Resolution and Contestation of Disputed Transactions*  
+
+   Upon receipt of a chargeback notification concerning a transaction, SILAN SOFTWARE shall 
+promptly notify the Merchant of the same. The Merchant shall be required to conduct an 
+internal investigation and, within five (5) calendar days of receiving such notice, shall 
+provide SILAN SOFTWARE with a written response, stating either of the following:  
+
+   i. A formal request instructing SILAN SOFTWARE to refund the transaction amount to the 
+customer (“Refund Request”), or;  
+
+   ii. A comprehensive rebuttal explaining the legitimacy of the transaction, accompanied by 
+all relevant documentary evidence necessary to dispute the chargeback.  
+
+   Failure by the Merchant to respond within the stipulated timeframe, or submission of 
+inadequate or unsatisfactory evidence, shall entitle SILAN SOFTWARE to treat the 
+chargeback as valid. In such an event, SILAN SOFTWARE shall be authorized to recover the 
+chargeback amount from future Settlement Amounts, the Reserve (if any), or any other 
+receivables. In the event of insufficient funds, the Merchant shall be liable to remit the 
+unrecovered portion forthwith upon demand.  
+
+   It is expressly acknowledged and agreed by the Parties that any Transaction Discount Rate 
+(TDR) or fee levied by SILAN SOFTWARE in respect of a confirmed transaction shall not be 
+refunded, irrespective of whether such transaction is subsequently disputed, refunded, 
+charged back, or reversed.
+
+ 
+### 1.15 Terms Of EMI Facility
+
+ 
+You acknowledge and agree that in order to avail the Equated Monthly Installment (“EMI”) 
+services extended by a financial institution or issuing bank, you must obtain explicit 
+approval from such institution. The provision of EMI services shall be governed entirely by 
+the terms and conditions of the respective bank and SILAN SOFTWARE PRIVATE LIMITED 
+(“SILAN SOFTWARE”), and shall be offered strictly at their discretion. It shall be your sole 
+responsibility to ensure that, during the course of any transaction, the Customer also 
+accepts and consents to such applicable terms and conditions related to EMI offerings.
+
+ 
+You further acknowledge that, at the time of completing a transaction, the full transaction 
+amount shall be charged to the Customer. SILAN SOFTWARE shall, within two (2) Business 
+Days from the date of completion of the transaction, forward the relevant transaction 
+details to the concerned bank for conversion into EMI. Once submitted, EMI transactions 
+shall be deemed irrevocable and cannot be cancelled or reversed under any circumstances.
+
+ 
+In the event that EMI payment options are extended to Customers, you shall ensure that 
+products or services are delivered only after receipt of approval from the Issuing 
+Institution. SILAN SOFTWARE shall not be held liable for any claim, loss, or dispute arising 
+
+
+
+from the Issuing Institution’s refusal to approve the EMI facility, regardless of whether the 
+Settlement Amount is retained in the Nodal Bank account or already remitted to your 
+designated Merchant Bank Account. Any grievances related to rejection of the EMI 
+application must be addressed by the Customer directly with the Issuing Institution.
+
+ 
+You explicitly understand that the conversion of transactions into EMI shall be facilitated 
+through an offline mechanism. The Issuing Institution shall endeavor, on a best-effort 
+basis, to convert the eligible transactions into EMI within five (5) Business Days of 
+submission. You shall further ensure the availability of an accurate EMI calculator on the 
+Merchant Site to transparently communicate the EMI breakdown and applicable interest 
+rates to the Customer.
+
+ 
+You also acknowledge that the Issuing Institution reserves the sole and absolute right to 
+amend the terms of the EMI facility, or to suspend or withdraw the EMI offering at any 
+time, without prior notice. Neither SILAN SOFTWARE nor any Acquiring Bank shall bear any 
+liability for non-conversion of a transaction into EMI, or for any failure to notify you or the 
+Customer regarding the rejection of the EMI request by the Issuing Institution.
+
+ 
+### 1.16 Fulfilment and Delivery Obligations
+
+ 
+The Merchant hereby agrees and undertakes that dispatch or rendering of any goods or 
+services (hereinafter referred to as “Products”) to the Customer shall only be effected 
+subsequent to the receipt of an express transaction confirmation from SILAN SOFTWARE. 
+Such confirmation shall be deemed valid only upon successful receipt of corresponding 
+authorization and transaction confirmation from the relevant Acquiring Bank by SILAN 
+SOFTWARE. The Merchant expressly acknowledges and accepts that SILAN SOFTWARE 
+bears no liability whatsoever for any transaction that has not been confirmed to SILAN 
+SOFTWARE by the respective Acquiring Bank.
+
+ 
+The Merchant shall maintain verifiable and legally admissible Proof of Delivery for every 
+Transaction initiated via the Merchant’s platform for a minimum retention period of one (1) 
+year from the date of actual delivery of the Product. Such Proof of Delivery shall remain 
+accessible and subject to inspection by SILAN SOFTWARE, the Acquiring Bank, and the 
+designated Nodal Bank during standard business hours on any working day.
+
+ 
+Notwithstanding any provision to the contrary within this Agreement, the Merchant 
+acknowledges that SILAN SOFTWARE, the Acquiring Bank, and the Nodal Bank shall have 
+the irrevocable right to request and examine Proof of Delivery at any time, whether prior to 
+
+
+
+or subsequent to the disbursement of the Settlement Amount into the Merchant’s 
+designated bank account. Failure to furnish valid Proof of Delivery as stipulated herein may 
+result in a reversal of the respective Customer Charge or a rejection thereof, at the sole 
+discretion of SILAN SOFTWARE and the Acquiring Bank.
+
+ 
+The Merchant further agrees to execute delivery of the Product strictly within the timeline 
+(hereinafter referred to as the “Delivery Due Date”) as specified at the time the transaction 
+is consummated on the Merchant’s platform. In the event that the Merchant is unable to 
+fulfil delivery, whether in part or in full, by the stated Delivery Due Date, the Merchant shall 
+promptly notify the Customer and initiate a full or partial refund of the Customer Charge in 
+accordance with the Customer’s instructions.
+
+ 
+All risks associated with the delivery of Products, including but not limited to damage, 
+delay, non-fulfilment, or quality disputes, shall be borne exclusively by the Merchant. Any 
+claims or disputes arising out of or in connection with such matters shall be resolved 
+directly between the Merchant and the Customer, and under no circumstances shall SILAN 
+SOFTWARE, the Acquiring Bank, or any of their affiliates be named as a party to such 
+disputes or held liable in relation thereto.
+
+ 
+### 1.17 REFUNDS AND RETURNS POLICY
+
+ 
+By using the services provided by SILAN SOFTWARE, you hereby agree to adhere to and 
+process any returns, refunds, or adjustments for Products sold and payments collected via 
+the Merchant Site in full compliance with this Agreement, the directives of the Acquiring 
+Banks, and the applicable Financial Institutions Rules. In this regard, you are obligated to: 
+(a) uphold a reasonable and transparent refund, cancellation, or adjustment policy; (b) duly 
+inform Buyers of the return or cancellation policy; (c) refrain from issuing cash refunds to 
+Buyers for transactions, unless mandated by law; and (d) ensure that no cash or equivalent 
+items of value are accepted as part of sale refund.
+
+ 
+The refund or adjustment amount must encompass any taxes associated with the 
+transaction and must not exceed the total value displayed on the original sales record, 
+except for the precise amount necessary to reimburse the Customer for postage costs 
+incurred when returning merchandise. In instances where the Customer opts for returns 
+and requests an unequal exchange of Products (e.g., differing sales prices), a credit must 
+be issued for the entire value of the returned Products, and a new sale must be processed 
+for any newly selected Products. Please be advised that, should your refund policy be 
+restrictive or fail to meet Customer expectations, you may still face a chargeback related to 
+such transactions.
+
+
+
+ 
+### 1.18 CUSTOMER SUPPORT
+
+ 
+All customer service matters relating to transactions, products sold on your Merchant Site, 
+including but not limited to customer charges, order fulfillment, order cancellations, 
+returns, refunds, adjustments, rebates, functionality and warranty inquiries, technical 
+support, and feedback regarding experiences with your personnel, policies, or processes, 
+shall remain your sole responsibility. In providing customer support, you shall at all times 
+present yourself as a separate and independent entity from SILAN SOFTWARE.
+
+ 
+You are obligated to provide customer support during all business days. This support must 
+include appropriate means for customers to contact you, including, but not limited to, 
+email address and telephone number, in the event the customer has inquiries regarding 
+the nature or quality of the product or the procedures for resolving disputes. Under no 
+circumstances shall SILAN SOFTWARE be held responsible for providing customer support 
+to customers or any third parties.
+
+ 
+## Merchant Risk Assessment and Liability
+
+ 
+SILAN SOFTWARE reserves the right to conduct periodic and ongoing risk assessments 
+(hereinafter referred to as "Risk Assessment") during the term of this Agreement. These 
+Risk Assessments are undertaken to evaluate the integrity of your business operations, 
+transactions, and overall compliance with applicable legal and regulatory standards. The 
+Risk Assessment will be performed for, but not limited to, the following purposes:
+
+ 
+1. To verify that your business is duly constituted and operates in accordance with 
+legitimate and lawful practices.
+2. To assess that adequate safeguards are in place to ensure the protection and security of 
+Customer Data, in compliance with applicable data protection laws and industry standards.
+3. To evaluate and investigate any instances of fraud, default, or discrepancies relating to 
+the Transactions on your Merchant Site.
+4. To provide SILAN SOFTWARE with any assurances it may reasonably require regarding its 
+exposure under this Agreement and any related agreements with Acquiring Banks and 
+financial institutions.
+
+ 
+You agree to cooperate fully by providing all reasonable assistance and necessary 
+information to SILAN SOFTWARE in the execution of such Risk Assessments. Furthermore, 
+we may periodically obtain additional reports to ensure your continued adherence to the 
+
+
+
+terms and conditions of this Agreement. By accepting this Agreement, you authorize SILAN 
+SOFTWARE to collect, share, and exchange information about your business and 
+Transactions with relevant Acquiring Banks, Issuing Institutions, financial institutions, and 
+government authorities. This includes sharing data regarding (a) your Transactions for 
+regulatory compliance, including Know Your Customer (KYC) regulations, (b) information 
+necessary for the ongoing management and maintenance of the Service, (c) to update 
+customer records and better serve you, and (d) to support SILAN SOFTWARE’s internal risk 
+management processes.
+
+ 
+Should a Risk Assessment reveal, or if we reasonably determine at any point, that you 
+present a material credit risk or otherwise pose an increased risk to SILAN SOFTWARE's 
+exposure under this Agreement, we reserve the right to take any of the following actions:
+
+ 
+1. Terminate this Agreement with immediate effect.
+2. Suspend or defer any payments due to you for a period deemed necessary by SILAN 
+SOFTWARE to mitigate the identified risk, with such deferred payments potentially being 
+applied towards any amounts owed by you under this Agreement.
+3. In the event of fraudulent activities, whether directly by you or in collusion with others, 
+or if any fraudulent Transactions are identified, SILAN SOFTWARE will report such activities 
+to relevant governmental or law enforcement authorities.
+
+ 
+By agreeing to these terms, you acknowledge and accept the possibility of such Risk 
+Assessments and the actions SILAN SOFTWARE may take in response to potential risks, as 
+outlined herein.
+
+ 
+### 1.20 SECURITY DEPOSIT AS RESERVE
+
+ 
+At any time, SILAN SOFTWARE reserves the right to request the Seller to provide an 
+interest-free, refundable security deposit to be held as a reserve ("Reserve"), ensuring the 
+Seller's compliance with their payment obligations under this Agreement. The Seller agrees 
+to furnish such a security deposit upon request, as determined by SILAN SOFTWARE from 
+time to time. SILAN SOFTWARE may suspend or delay Payments to the Seller or request a 
+security deposit for reasons including, but not limited to, elevated chargeback risk, refund 
+activity, non-payment of maintenance fees, or any other indicators of performance issues 
+related to the Seller's use of the Service. The security deposit will be set at an amount 
+deemed reasonable by SILAN SOFTWARE, based on anticipated chargebacks, returns, 
+unshipped products, unfulfilled services, or credit risks, in accordance with the Seller's 
+processing history and a Risk Assessment, or as determined by Payment System Providers.
+
+
+
+ 
+SILAN SOFTWARE reserves the right to adjust the amount of the security deposit, either 
+increasing, decreasing, or removing it entirely, at its sole discretion. This may be influenced 
+by the Seller’s payment history, a credit review, the amount of any arbitration award, or 
+court judgment rendered against the Seller in favor of SILAN SOFTWARE, or as deemed 
+necessary by SILAN SOFTWARE or the Payment System Providers. Should the Seller fail to 
+provide the requested security deposit within five (5) days of receiving a notice from SILAN 
+SOFTWARE, the Seller’s account may be suspended or terminated without further notice.
+
+ 
+The Reserve may be utilized by SILAN SOFTWARE to recover losses, costs, damages, 
+chargebacks, returns, penalties, or other expenses incurred by SILAN SOFTWARE, the 
+Buyers, or Payment System Providers due to fraud, misconduct, negligence, service 
+deficiencies, or any other circumstances as determined by SILAN SOFTWARE. This may 
+include deductions for any outstanding Fees owed by the Seller to SILAN SOFTWARE.
+
+ 
+The security deposit will be refunded to the Seller after a period of 180 days from the 
+Seller's last transaction date, provided that the Seller’s account is closed and no 
+outstanding or negative balances remain.
+
+ 
+### 1.21 Inspection and Audit Rights
+
+ 
+You are required to maintain and retain accurate records of periodic checks in the manner 
+prescribed by SILAN SOFTWARE and the Acquiring Banks. SILAN SOFTWARE and the 
+Acquiring Banks reserve the right to audit and inspect your records, statements, and 
+related documents to ensure compliance with your obligations under this Agreement at 
+intervals or times deemed appropriate by SILAN SOFTWARE and the Acquiring Banks. 
+Furthermore, SILAN SOFTWARE and the Acquiring Banks may inspect your business 
+premises. In the event that you refuse or obstruct such inspections, SILAN SOFTWARE 
+reserves the right to immediately suspend or terminate your account. Additionally, SILAN 
+SOFTWARE retains the authority to suspend or terminate the services of any user who 
+provides inaccurate, misleading, or incomplete information, or fails to meet the registration 
+requirements outlined for the SILAN SOFTWARE Account. Any refusal of inspection or 
+failure to comply with the terms and conditions stipulated in this Agreement may result in 
+the immediate suspension or termination of your access to SILAN SOFTWARE Services.
+
+ 
+### 1.22 YOUR RESPONSIBILITIES
+
+ 
+By entering into this Agreement, you hereby represent, warrant, undertake, and covenant 
+
+
+
+as follows:
+
+ 
+1. You shall diligently fulfill all Transactions placed on the Merchant Site in strict adherence 
+to the terms and conditions specified therein, and in compliance with the instructions of 
+the Customer. You shall ensure that Delivery is completed in accordance with the 
+Customer's specifications, on or before the agreed Delivery Due Date.
+2. You shall refrain from offering out-of-stock Products for sale. You assume full 
+responsibility for the quality, efficiency, and merchantability of the Products. Furthermore, 
+the rates displayed on the Merchant Site shall be inclusive of all applicable taxes.
+3. You shall comply with all relevant laws, rules, regulations, and guidelines in the offering 
+of Products or the collection of Payments on your Merchant Site. You will ensure that all 
+necessary approvals, licenses, and registrations required under applicable laws, rules, and 
+regulations are obtained and maintained in full effect. You shall not engage in any activities 
+through the SILAN SOFTWARE Services or offer Products in violation of any law or legal 
+requirement in any applicable jurisdiction and shall indemnify SILAN SOFTWARE for all 
+liabilities arising in this regard.
+4. You shall not offer any Products that are illegal, offensive, or banned as per the list 
+provided in Schedule A, or in violation of applicable laws, rules, or regulations of any 
+jurisdiction from where the Customers avail the Products. Additionally, you shall adhere to 
+and ensure Customer compliance with all guidelines, rules, and regulations issued by the 
+Reserve Bank of India (RBI), SILAN SOFTWARE, Acquiring Banks, or Financial Institutions. 
+SILAN SOFTWARE reserves the right to suspend Settlement Amounts and Services until you 
+cease offering such prohibited Products or comply with applicable laws and regulations. In 
+the event of a breach of this clause, SILAN SOFTWARE may terminate this Agreement 
+without notice.
+5. You shall display appropriate cancellation policies, refund policies, privacy policies, 
+disclaimers, disclosures, and terms of use related to the Merchant Site, the Products 
+provided by you, and the terms of payment by the Customer (collectively referred to as 
+“Merchant Terms and Conditions”). Before accepting any instructions from Customers, you 
+shall ensure that they have accepted all Merchant Terms and Conditions. SILAN SOFTWARE 
+reserves the right to inspect and review the Merchant Terms and Conditions at any time.
+6. If you provide a One Click Checkout option, you acknowledge that SILAN SOFTWARE shall 
+store the valid data of Customers on its servers.
+7. If you opt for the One Click Checkout API, you shall take full responsibility for the security 
+of Customer data, ensuring it is not shared with third parties without the consent of SILAN 
+SOFTWARE and the Customer. You shall prevent unauthorized use or disclosure of this data 
+and accept full liability for any breach, indemnifying SILAN SOFTWARE accordingly. If 
+incorrect Customer data is used, or if a Customer’s account is compromised, you shall be 
+fully liable for the transactions, and SILAN SOFTWARE shall bear no liability. You shall also 
+maintain a privacy policy for handling Customer data and make this policy publicly 
+available on the Merchant Site.
+8. You shall possess the legal rights and title to sell the Products offered to Customers via 
+SILAN SOFTWARE Services.
+
+
+
+9. You shall resolve any Customer complaints or dissatisfaction with Products at your own 
+cost and expense, taking necessary corrective actions promptly.
+10. You shall maintain industry-standard service levels, ensuring that Products paid for on 
+the Merchant Site are delivered to Customers in a timely manner and in accordance with 
+the highest standards.
+11. You agree to display such notices, disclaimers, or warranties as required by SILAN 
+SOFTWARE or the Acquiring Bank, and shall comply with such requests without delay.
+12. You shall be solely responsible for the accuracy and validity of all information, pricing, 
+and charges related to the Products offered on the Merchant Site.
+13. You shall bear the responsibility for payment of all applicable taxes, surcharges, levies, 
+and withholdings related to the Customer Charge and SILAN SOFTWARE Services provided 
+under this Agreement.
+14. As you utilize the Acquiring Bank Services and Financial Institutions Services, you shall 
+comply with all applicable rules, guidelines, and instructions issued by the Acquiring Banks 
+or Financial Institutions. Failure to comply with these regulations may result in fines, 
+penalties, or charges imposed on SILAN SOFTWARE, for which you shall indemnify SILAN 
+SOFTWARE in full.
+15. By opting for SILAN SOFTWARE Services, you and your Customers agree to be bound by 
+SILAN SOFTWARE’s terms and conditions as available on the official website (https://
+silansoftware.com). You shall ensure that both you and your Customers comply with these 
+terms and conditions.
+16. You shall not engage in any activities that interfere with, disrupt, or damage the 
+servers, networks, or services of any third parties, including SILAN SOFTWARE, Acquiring 
+Banks, or Financial Institutions.
+17. You shall not request or input any confidential account information from Customers 
+without proper authorization. Any violation of this may constitute a breach of trust 
+between you, SILAN SOFTWARE, and the Acquiring Banks.
+18. You shall keep all Customer information submitted via the Merchant Site confidential. 
+Customer data shall only be used for the completion of the transaction and shall not be 
+shared with third parties. You are responsible for adhering to data privacy regulations as 
+applicable.
+19. You shall promptly inform SILAN SOFTWARE of any changes in your business structure, 
+including changes in directors, partners, trustees, or addresses, within seven (7) business 
+days of such changes.
+20. You shall not engage in activities that harm the business, reputation, or brand of SILAN 
+SOFTWARE, Acquiring Banks, or Financial Institutions.
+21. You agree to clearly indicate which Acquiring Banks or Financial Institutions’ payment 
+mechanisms are accepted on the Merchant Site, ensuring proper visibility and adherence 
+to any relevant guidelines.
+22. You shall be responsible for resolving all customer disputes related to accounts and 
+providing necessary assistance to SILAN SOFTWARE, Acquiring Banks, or Financial 
+Institutions in handling such disputes.
+23. You authorize SILAN SOFTWARE to share transaction data and Customer information 
+with the respective Acquiring Banks and Financial Institutions as required.
+
+
+
+24. You shall ensure that your Merchant Site does not contain any harmful, defamatory, 
+obscene, or unlawful material that could damage the reputation of SILAN SOFTWARE, the 
+Acquiring Banks, Financial Institutions, or any third parties.
+25. You acknowledge that SILAN SOFTWARE reserves the right to suspend payments or 
+Services immediately in the event you fail to comply with the terms and conditions set forth 
+in this Agreement.
+
+ 
+### 1.23 Privacy and Confidentiality
+
+ 
+At SILAN SOFTWARE, we prioritize the protection of your privacy. By entering into this 
+Agreement, you acknowledge that you have thoroughly reviewed, understood, and 
+accepted our Privacy Policy. As part of using our Services, you may have access to sensitive 
+information regarding Customers. You are legally bound to maintain the confidentiality of 
+such data and use it solely in relation to the provision of our Services. Under no 
+circumstances shall you disclose, share, or distribute this information to any third party, 
+nor shall you utilize it for marketing purposes, unless you have received explicit consent 
+from the Customer in question. Any violation of this provision may result in legal actions, 
+including but not limited to the termination of services, and potential claims for damages.
+
+ 
+### 1.24 DISCLOSURES AND NOTIFICATIONS
+
+ 
+You acknowledge and agree that SILAN SOFTWARE may provide any disclosures and 
+notices required by applicable laws, as well as other pertinent information regarding your 
+SILAN SOFTWARE Account, through electronic means. These may be posted on our official 
+website or delivered via email to the address provided by you during registration. You 
+further consent that such electronic disclosures and no
