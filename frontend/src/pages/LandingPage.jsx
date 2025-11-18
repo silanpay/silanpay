@@ -736,7 +736,7 @@ const LandingPage = () => {
                     to="/register"
                     className="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 bg-primary-600 text-white text-base sm:text-lg font-semibold rounded-xl hover:bg-primary-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 button-ripple cta-button"
                   >
-                    Get Started Free 100
+                    Get Started Free
                     <ArrowRight className="w-4 h-4 ml-2 sm:w-5 sm:h-5" />
                   </Link>
                 </div>
