@@ -137,7 +137,7 @@ const Header = () => {
     { name: "API & SDKs", icon: Code, href: "/api-sdks" },
     { name: "Webhooks", icon: Zap, href: "/webhooks" },
     { name: "Plugins", icon: Package, href: "/plugins" },
-    { name: "Documentation", icon: FileText, href: "/documentation" },
+    { name: "Document", icon: FileText, href: "/document" },
   ];
 
   const navLinks = [
