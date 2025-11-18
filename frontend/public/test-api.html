@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>API Test</title>
+  </head>
+  <body>
+    <h1>Testing Backend API</h1>
+    <button onclick="testAPI()">Test Register Step 1</button>
+    <pre id="result"></pre>
+
+    <script>
+      async function testAPI() {
+        const result = document.getElementById("result");
+        result.textContent = "Testing...";
+
+        try {
+          const response = await fetch(
+            "http://localhost:5000/api/auth/register/step1",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                email: "test@test.com",
+                password: "test123456",
+              }),
+            }
+          );
+
+          const data = await response.json();
+          result.textContent = "Success!\n" + JSON.stringify(data, null, 2);
+        } catch (error) {
+          result.textContent = "Error: " + error.message;
+        }
+      }
+    </script>
+  </body>
+</html>

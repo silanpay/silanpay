@@ -1,4 +1,8 @@
-import React, { useState } from "react";
+const fs = require("fs");
+const path = require("path");
+
+// ForgotPasswordPage Content
+const forgotPasswordContent = `import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Mail, Lock, Eye, EyeOff, ArrowRight, ArrowLeft, CheckCircle, AlertCircle, Clock } from "lucide-react";
 import toast from "react-hot-toast";
@@ -33,14 +37,14 @@ const ForgotPasswordPage = () => {
       setEmailError("Email is required");
       return;
     }
-    if (!/^\S+@\S+\.\S+$/.test(email)) {
+    if (!/^\\S+@\\S+\\.\\S+$/.test(email)) {
       setEmailError("Invalid email format");
       return;
     }
 
     setIsLoading(true);
     try {
-      const response = await fetch(`${API_URL}/api/auth/forgot-password`, {
+      const response = await fetch(\`\${API_URL}/api/auth/forgot-password\`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -62,17 +66,17 @@ const ForgotPasswordPage = () => {
   };
 
   const handleOtpChange = (index, value) => {
-    if (!/^\d*$/.test(value)) return;
+    if (!/^\\d*$/.test(value)) return;
     const newOtp = [...otp];
     newOtp[index] = value;
     setOtp(newOtp);
-    if (value && index < 5) document.getElementById(`forgot-otp-${index + 1}`)?.focus();
+    if (value && index < 5) document.getElementById(\`forgot-otp-\${index + 1}\`)?.focus();
   };
 
   const handleOtpPaste = (e) => {
     e.preventDefault();
     const pastedData = e.clipboardData.getData("text").slice(0, 6);
-    if (!/^\d{6}$/.test(pastedData)) return;
+    if (!/^\\d{6}$/.test(pastedData)) return;
     setOtp(pastedData.split(""));
   };
 
@@ -86,7 +90,7 @@ const ForgotPasswordPage = () => {
 
     setIsLoading(true);
     try {
-      const response = await fetch(`${API_URL}/api/auth/forgot-password/verify-otp`, {
+      const response = await fetch(\`\${API_URL}/api/auth/forgot-password/verify-otp\`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, otp: otpValue }),
@@ -125,7 +129,7 @@ const ForgotPasswordPage = () => {
 
     setIsLoading(true);
     try {
-      const response = await fetch(`${API_URL}/api/auth/reset-password`, {
+      const response = await fetch(\`\${API_URL}/api/auth/reset-password\`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, newPassword }),
@@ -147,7 +151,7 @@ const ForgotPasswordPage = () => {
   const formatTime = (seconds) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, "0")}`;
+    return \`\${mins}:\${secs.toString().padStart(2, "0")}\`;
   };
 
   return (
@@ -184,7 +188,7 @@ const ForgotPasswordPage = () => {
                       setEmail(e.target.value);
                       setEmailError("");
                     }}
-                    className={`block w-full pl-10 pr-3 py-3 border ${emailError ? "border-red-300" : "border-gray-300"} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+                    className={\`block w-full pl-10 pr-3 py-3 border \${emailError ? "border-red-300" : "border-gray-300"} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent\`}
                     placeholder="you@example.com"
                   />
                 </div>
@@ -241,7 +245,7 @@ const ForgotPasswordPage = () => {
                 {otp.map((digit, index) => (
                   <input
                     key={index}
-                    id={`forgot-otp-${index}`}
+                    id={\`forgot-otp-\${index}\`}
                     type="text"
                     maxLength="1"
                     value={digit}
@@ -287,7 +291,7 @@ const ForgotPasswordPage = () => {
                   onClick={async () => {
                     setIsLoading(true);
                     try {
-                      const response = await fetch(`${API_URL}/api/auth/forgot-password`, {
+                      const response = await fetch(\`\${API_URL}/api/auth/forgot-password\`, {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ email }),
@@ -349,7 +353,7 @@ const ForgotPasswordPage = () => {
                       setNewPassword(e.target.value);
                       setPasswordError("");
                     }}
-                    className={`block w-full pl-10 pr-12 py-3 border ${passwordError ? "border-red-300" : "border-gray-300"} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+                    className={\`block w-full pl-10 pr-12 py-3 border \${passwordError ? "border-red-300" : "border-gray-300"} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent\`}
                     placeholder="••••••••"
                   />
                   <button
@@ -377,7 +381,7 @@ const ForgotPasswordPage = () => {
                       setConfirmPassword(e.target.value);
                       setPasswordError("");
                     }}
-                    className={`block w-full pl-10 pr-3 py-3 border ${passwordError ? "border-red-300" : "border-gray-300"} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent`}
+                    className={\`block w-full pl-10 pr-3 py-3 border \${passwordError ? "border-red-300" : "border-gray-300"} rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent\`}
                     placeholder="••••••••"
                   />
                 </div>
@@ -415,3 +419,17 @@ const ForgotPasswordPage = () => {
 };
 
 export default ForgotPasswordPage;
+`;
+
+// Write files
+const forgotPath = path.join(
+  __dirname,
+  "frontend",
+  "src",
+  "pages",
+  "ForgotPasswordPage.jsx"
+);
+fs.writeFileSync(forgotPath, forgotPasswordContent, "utf8");
+console.log("✅ Created ForgotPasswordPage.jsx");
+
+console.log("\\n✅ All auth pages created successfully!");
