@@ -446,7 +446,7 @@ const RegisterPage = () => {
               Already have an account?{" "}
               <Link
                 to="/login"
-                className="font-semibold text-purple-600 transition-colors hover:text-purple-500"
+                className="text-sm font-medium text-blue-600 transition-colors hover:text-blue-500"
               >
                 Sign in
               </Link>
@@ -456,13 +456,13 @@ const RegisterPage = () => {
 
         <p className="text-xs text-center text-gray-500">
           By creating an account, you agree to our{" "}
-          <Link to="/terms" className="text-purple-600 hover:text-purple-500">
+          <Link to="/terms" className="text-sm text-blue-600 transition-colors hover:text-blue-500">
             Terms
           </Link>{" "}
           and{" "}
           <Link
             to="/privacy-policy"
-            className="text-purple-600 hover:text-purple-500"
+            className="text-sm text-blue-600 transition-colors hover:text-blue-500"
           >
             Privacy Policy
           </Link>
