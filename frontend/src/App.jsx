@@ -40,6 +40,7 @@ import SoundBoxPage from "./pages/SoundBoxPage";
 import ApiSdksPage from "./pages/ApiSdksPage";
 import WebhooksPage from "./pages/WebhooksPage";
 import PluginsPage from "./pages/PluginsPage";
+import Document from "./pages/Document";
 
 // Components
 import ProtectedRoute from "./components/common/ProtectedRoute";
@@ -127,6 +128,7 @@ function App() {
                       <Route path="/api-sdks" element={<ApiSdksPage />} />
                       <Route path="/webhooks" element={<WebhooksPage />} />
                       <Route path="/plugins" element={<PluginsPage />} />
+                      <Route path="/document" element={<Document />} />
 
                       {/* Payment Gateway (Public) */}
                       <Route
