@@ -719,7 +719,7 @@ const LandingPage = () => {
 
                 {/* Main Heading */}
                 <h1 className="text-3xl font-bold leading-tight text-gray-900 sm:text-4xl md:text-5xl lg:text-6xl hero-content">
-                  Secure Payments
+                  Secure Payments 100%
                   <span className="block text-primary-600">Made Simple</span>
                 </h1>
 
