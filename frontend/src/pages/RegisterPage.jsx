@@ -135,9 +135,14 @@ const RegisterPage = () => {
       <div className="w-full max-w-md space-y-8">
         <div className="text-center">
           <Link to="/" className="inline-block">
-            <h1 className="text-4xl font-bold text-transparent bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text">
+            {/* <h1 className="text-4xl font-bold text-transparent bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text">
               SilanPay
-            </h1>
+            </h1> */}
+            <img
+              src="/silanpaylogo.png"
+              alt="QR Code.jpg"
+              className="w-40 mt-0"
+            />
           </Link>
           <h2 className="mt-6 text-3xl font-bold text-gray-900">
             Create Your Account
@@ -390,7 +395,7 @@ const RegisterPage = () => {
             <button
               type="submit"
               disabled={isSubmitting || authLoading}
-              className="flex items-center justify-center w-full px-4 py-3 text-base font-semibold text-white transition-all duration-200 border border-transparent rounded-lg shadow-lg bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 disabled:opacity-50 disabled:cursor-not-allowed hover:shadow-xl"
+              className="flex items-center justify-center w-full px-4 py-3 sm:px-8 sm:py-4 bg-primary-600 text-white text-base sm:text-lg font-semibold rounded-xl hover:bg-primary-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 button-ripple cta-button"
             >
               {isSubmitting || authLoading ? (
                 <>
