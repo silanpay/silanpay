@@ -740,7 +740,7 @@ const LandingPage = () => {
                     <ArrowRight className="w-4 h-4 ml-2 sm:w-5 sm:h-5" />
                   </Link>
                 </div>
-
+                
                 {/* Trust Indicators */}
                 <div className="grid grid-cols-2 gap-4 pt-6 sm:gap-6 sm:pt-8 lg:grid-cols-4 hero-content">
                   {stats.map((stat, index) => {
