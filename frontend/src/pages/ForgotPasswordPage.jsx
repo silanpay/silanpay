@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Mail, Lock, Eye, EyeOff, ArrowRight, ArrowLeft, CheckCircle, AlertCircle, Clock } from "lucide-react";
 import toast from "react-hot-toast";
+import { buildApiUrl } from "../config/api";
 
 const ForgotPasswordPage = () => {
   const navigate = useNavigate();
@@ -16,8 +17,6 @@ const ForgotPasswordPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [passwordError, setPasswordError] = useState("");
-
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
   React.useEffect(() => {
     if (step === 2 && otpTimer > 0) {
@@ -40,7 +39,7 @@ const ForgotPasswordPage = () => {
 
     setIsLoading(true);
     try {
-      const response = await fetch(`${API_URL}/api/auth/forgot-password`, {
+      const response = await fetch(buildApiUrl("/auth/forgot-password"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email }),
@@ -86,7 +85,7 @@ const ForgotPasswordPage = () => {
 
     setIsLoading(true);
     try {
-      const response = await fetch(`${API_URL}/api/auth/forgot-password/verify-otp`, {
+      const response = await fetch(buildApiUrl("/auth/forgot-password/verify-otp"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, otp: otpValue }),
@@ -125,7 +124,7 @@ const ForgotPasswordPage = () => {
 
     setIsLoading(true);
     try {
-      const response = await fetch(`${API_URL}/api/auth/reset-password`, {
+      const response = await fetch(buildApiUrl("/auth/reset-password"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, newPassword }),
@@ -287,7 +286,7 @@ const ForgotPasswordPage = () => {
                   onClick={async () => {
                     setIsLoading(true);
                     try {
-                      const response = await fetch(`${API_URL}/api/auth/forgot-password`, {
+                      const response = await fetch(buildApiUrl("/auth/forgot-password"), {
                         method: "POST",
                         headers: { "Content-Type": "application/json" },
                         body: JSON.stringify({ email }),

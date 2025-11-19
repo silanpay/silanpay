@@ -27,3 +27,8 @@ Thumbs.db
 .vscode/
 .idea/
 *.swp
+
+# PowerShell Scripts (Deployment)
+*.ps1
+deploy.ps1
+stop-all.ps1

@@ -18,6 +18,7 @@ import {
   Clock,
 } from "lucide-react";
 import toast from "react-hot-toast";
+import { buildApiUrl } from "../config/api";
 
 const RegisterPage = () => {
   const navigate = useNavigate();
@@ -49,7 +50,6 @@ const RegisterPage = () => {
   });
   const [step3Errors, setStep3Errors] = useState({});
   const [photoPreview, setPhotoPreview] = useState(null);
-  const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
   // Safe JSON parser
   const safeJson = async (res) => {
@@ -104,8 +104,7 @@ const RegisterPage = () => {
     setIsLoading(true);
 
     try {
-      const url = `${API_URL}/api/auth/register/step1`;
-      const response = await fetch(url, {
+      const response = await fetch(buildApiUrl("/auth/register/step1"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -170,7 +169,7 @@ const RegisterPage = () => {
     }
     setIsLoading(true);
     try {
-      const response = await fetch(`${API_URL}/api/auth/register/verify-otp`, {
+      const response = await fetch(buildApiUrl("/auth/register/verify-otp"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: step1Data.email, otp: otpValue }),
@@ -196,7 +195,7 @@ const RegisterPage = () => {
     if (!canResendOtp) return;
     setIsLoading(true);
     try {
-      const response = await fetch(`${API_URL}/api/auth/register/resend-otp`, {
+      const response = await fetch(buildApiUrl("/auth/register/resend-otp"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: step1Data.email }),
@@ -267,7 +266,7 @@ const RegisterPage = () => {
     }
     setIsLoading(true);
     try {
-      const response = await fetch(`${API_URL}/api/auth/register/complete`, {
+      const response = await fetch(buildApiUrl("/auth/register/complete"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

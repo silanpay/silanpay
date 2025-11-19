@@ -22,10 +22,14 @@ const transporter = nodemailer.createTransport({
 // In-memory OTP store (DEV only — use Redis in production)
 const otpStore = new Map();
 
+const normalizeEmail = (email) => (typeof email === "string" ? email.trim().toLowerCase() : "");
+const getResetOtpKey = (email) => `reset_${normalizeEmail(email)}`;
+
 /* ---------------- Step 1: Initial Registration - Send OTP ---------------- */
 router.post("/register/step1", async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const email = normalizeEmail(req.body.email);
+    const { password } = req.body;
 
     if (!email || !password) {
       return res.status(400).json({ success: false, message: "Email and password are required" });
@@ -91,7 +95,8 @@ router.post("/register/step1", async (req, res) => {
 /* ---------------- Step 2: Verify OTP ---------------- */
 router.post("/register/verify-otp", async (req, res) => {
   try {
-    const { email, otp } = req.body;
+    const email = normalizeEmail(req.body.email);
+    const { otp } = req.body;
 
     if (!email || !otp) {
       return res.status(400).json({ success: false, message: "Email and OTP are required" });
@@ -125,7 +130,7 @@ router.post("/register/verify-otp", async (req, res) => {
 /* ---------------- Resend OTP ---------------- */
 router.post("/register/resend-otp", async (req, res) => {
   try {
-    const { email } = req.body;
+    const email = normalizeEmail(req.body.email);
 
     if (!email) return res.status(400).json({ success: false, message: "Email is required" });
 
@@ -172,8 +177,8 @@ router.post("/register/resend-otp", async (req, res) => {
 /* ---------------- Step 3: Complete Registration with Full Profile ---------------- */
 router.post("/register/complete", async (req, res) => {
   try {
+    const email = normalizeEmail(req.body.email);
     const {
-      email,
       firstName,
       lastName,
       phone,
@@ -245,6 +250,9 @@ router.post("/register/complete", async (req, res) => {
       },
     });
 
+    user.$locals = user.$locals || {};
+    user.$locals.passwordAlreadyHashed = true;
+
     if (typeof user.generateApiKey === "function") user.generateApiKey();
     await user.save();
 
@@ -276,14 +284,14 @@ router.post("/register/complete", async (req, res) => {
 /* ---------------- Forgot Password - Send OTP ---------------- */
 router.post("/forgot-password", async (req, res) => {
   try {
-    const { email } = req.body;
+    const email = normalizeEmail(req.body.email);
     if (!email) return res.status(400).json({ success: false, message: "Email is required" });
 
     const user = await User.findOne({ email });
     if (!user) return res.status(404).json({ success: false, message: "Email not registered" });
 
     const otp = crypto.randomInt(100000, 999999).toString();
-    otpStore.set(`reset_${email}`, { otp, expiresAt: Date.now() + 5 * 60 * 1000, verified: false });
+    otpStore.set(getResetOtpKey(email), { otp, expiresAt: Date.now() + 5 * 60 * 1000, verified: false });
 
     const mailOptions = {
       from: process.env.EMAIL_USER || "noreply@silanpay.com",
@@ -317,21 +325,22 @@ router.post("/forgot-password", async (req, res) => {
 /* ---------------- Verify Reset OTP ---------------- */
 router.post("/forgot-password/verify-otp", async (req, res) => {
   try {
-    const { email, otp } = req.body;
+    const email = normalizeEmail(req.body.email);
+    const { otp } = req.body;
     if (!email || !otp) return res.status(400).json({ success: false, message: "Email and OTP are required" });
 
-    const storedData = otpStore.get(`reset_${email}`);
+    const storedData = otpStore.get(getResetOtpKey(email));
     if (!storedData) return res.status(400).json({ success: false, message: "OTP expired or invalid" });
 
     if (Date.now() > storedData.expiresAt) {
-      otpStore.delete(`reset_${email}`);
+      otpStore.delete(getResetOtpKey(email));
       return res.status(400).json({ success: false, message: "OTP expired" });
     }
 
     if (storedData.otp !== otp) return res.status(400).json({ success: false, message: "Invalid OTP" });
 
     storedData.verified = true;
-    otpStore.set(`reset_${email}`, storedData);
+    otpStore.set(getResetOtpKey(email), storedData);
     return res.json({ success: true, message: "OTP verified successfully" });
   } catch (error) {
     console.error("OTP verification error:", error);
@@ -342,10 +351,11 @@ router.post("/forgot-password/verify-otp", async (req, res) => {
 /* ---------------- Reset Password ---------------- */
 router.post("/reset-password", async (req, res) => {
   try {
-    const { email, newPassword } = req.body;
+    const email = normalizeEmail(req.body.email);
+    const { newPassword } = req.body;
     if (!email || !newPassword) return res.status(400).json({ success: false, message: "Email and new password are required" });
 
-    const storedData = otpStore.get(`reset_${email}`);
+    const storedData = otpStore.get(getResetOtpKey(email));
     if (!storedData || !storedData.verified) return res.status(400).json({ success: false, message: "OTP not verified" });
 
     if (newPassword.length < 6) return res.status(400).json({ success: false, message: "Password must be at least 6 characters" });
@@ -354,9 +364,11 @@ router.post("/reset-password", async (req, res) => {
     if (!user) return res.status(404).json({ success: false, message: "User not found" });
 
     user.password = await bcrypt.hash(newPassword, 10);
+    user.$locals = user.$locals || {};
+    user.$locals.passwordAlreadyHashed = true;
     await user.save();
 
-    otpStore.delete(`reset_${email}`);
+    otpStore.delete(getResetOtpKey(email));
     return res.json({ success: true, message: "Password reset successfully" });
   } catch (error) {
     console.error("Reset password error:", error);
@@ -367,7 +379,8 @@ router.post("/reset-password", async (req, res) => {
 /* ---------------- Login (user) ---------------- */
 router.post("/login", async (req, res) => {
   try {
-    const { email, password } = req.body;
+    const email = normalizeEmail(req.body.email);
+    const { password } = req.body;
     if (!email || !password) return res.status(400).json({ success: false, message: "Email and password are required" });
 
     const user = await User.findOne({ email }).select("+password");
@@ -392,7 +405,8 @@ router.post("/login", async (req, res) => {
 /* ---------------- Admin Login (public route) ---------------- */
 router.post("/admin-login", async (req, res) => {
   try {
-    const { email, password, adminCode } = req.body;
+    const email = normalizeEmail(req.body.email);
+    const { password, adminCode } = req.body;
     if (!email || !password || !adminCode) return res.status(400).json({ success: false, message: "All fields are required" });
 
     if (adminCode !== process.env.ADMIN_SECRET) return res.status(403).json({ success: false, message: "Invalid admin secret code" });

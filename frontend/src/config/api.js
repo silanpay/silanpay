@@ -1,23 +1,37 @@
 // API Configuration
-export const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+const DEFAULT_API_URL = "http://localhost:5000";
+
+const rawApiUrl = (import.meta.env.VITE_API_URL || DEFAULT_API_URL).trim();
+const trimmedApiUrl = rawApiUrl.replace(/\/+$/, "");
+const apiSuffixRegex = /\/api$/i;
+const hasApiSuffix = apiSuffixRegex.test(trimmedApiUrl);
+
+const API_HOST_URL = hasApiSuffix ? trimmedApiUrl.replace(apiSuffixRegex, "") : trimmedApiUrl;
+const API_BASE_URL = hasApiSuffix ? trimmedApiUrl : `${trimmedApiUrl}/api`;
+
+export const API_URL = API_HOST_URL;
+export const API_BASE = API_BASE_URL;
+
+export const buildApiUrl = (path = "") => {
+  const cleanPath = path ? (path.startsWith("/") ? path : `/${path}`) : "";
+  return `${API_BASE}${cleanPath}`;
+};
 
 export const API_ENDPOINTS = {
-  // Auth endpoints
   AUTH: {
-    REGISTER_STEP1: `${API_URL}/api/auth/register/step1`,
-    REGISTER_VERIFY_OTP: `${API_URL}/api/auth/register/verify-otp`,
-    REGISTER_RESEND_OTP: `${API_URL}/api/auth/register/resend-otp`,
-    REGISTER_COMPLETE: `${API_URL}/api/auth/register/complete`,
-    LOGIN: `${API_URL}/api/auth/login`,
-    ADMIN_LOGIN: `${API_URL}/api/auth/admin-login`,
-    FORGOT_PASSWORD: `${API_URL}/api/auth/forgot-password`,
-    FORGOT_PASSWORD_VERIFY: `${API_URL}/api/auth/forgot-password/verify-otp`,
-    RESET_PASSWORD: `${API_URL}/api/auth/reset-password`,
-    ME: `${API_URL}/api/auth/me`,
-    VERIFY: `${API_URL}/api/auth/verify`,
+    REGISTER_STEP1: buildApiUrl("/auth/register/step1"),
+    REGISTER_VERIFY_OTP: buildApiUrl("/auth/register/verify-otp"),
+    REGISTER_RESEND_OTP: buildApiUrl("/auth/register/resend-otp"),
+    REGISTER_COMPLETE: buildApiUrl("/auth/register/complete"),
+    LOGIN: buildApiUrl("/auth/login"),
+    ADMIN_LOGIN: buildApiUrl("/auth/admin-login"),
+    FORGOT_PASSWORD: buildApiUrl("/auth/forgot-password"),
+    FORGOT_PASSWORD_VERIFY: buildApiUrl("/auth/forgot-password/verify-otp"),
+    RESET_PASSWORD: buildApiUrl("/auth/reset-password"),
+    ME: buildApiUrl("/auth/me"),
+    VERIFY: buildApiUrl("/auth/verify"),
   },
-  // Health check
-  HEALTH: `${API_URL}/api/health`,
+  HEALTH: buildApiUrl("/health"),
 };
 
 export const APP_CONFIG = {
@@ -25,4 +39,4 @@ export const APP_CONFIG = {
   VERSION: import.meta.env.VITE_APP_VERSION || "1.0.0",
 };
 
-export default { API_URL, API_ENDPOINTS, APP_CONFIG };
+export default { API_URL, API_BASE, API_ENDPOINTS, APP_CONFIG, buildApiUrl };

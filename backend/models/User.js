@@ -45,6 +45,12 @@ const UserSchema = new mongoose.Schema(
 UserSchema.pre("save", async function (next) {
   const user = this;
   if (!user.isModified("password")) return next();
+
+  if (user.$locals && user.$locals.passwordAlreadyHashed) {
+    delete user.$locals.passwordAlreadyHashed;
+    return next();
+  }
+
   const salt = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(user.password, salt);
   next();

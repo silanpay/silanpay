@@ -1,7 +1,7 @@
 {
-  "name": "silanpay-backend",
+  "name": "silanpay-admin-backend",
   "version": "1.0.0",
-  "description": "SilanPay Backend API with hidden admin access",
+  "description": "SilanPay Admin Backend API",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
@@ -9,8 +9,8 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
-    "payment",
-    "gateway",
+    "admin",
+    "backend",
     "api",
     "silanpay"
   ],
@@ -24,14 +24,9 @@
     "express-rate-limit": "^7.1.5",
     "helmet": "^7.1.0",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^7.6.3",
-    "nodemailer": "^7.0.10"
+    "mongoose": "^7.6.3"
   },
   "devDependencies": {
-    "esbuild": "^0.27.0",
-    "nodemon": "^3.1.11"
-  },
-  "engines": {
-    "node": ">=14.0.0"
+    "nodemon": "^3.0.1"
   }
 }

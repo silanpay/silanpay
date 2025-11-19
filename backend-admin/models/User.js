@@ -17,7 +17,7 @@ const UserSchema = new mongoose.Schema(
     role: { type: String, enum: ["user", "admin"], default: "user" },
     isActive: { type: Boolean, default: true },
     lastLogin: { type: Date },
-    apiKey: { type: String, unique: true, sparse: true },
+    apiKey: { type: String },
     profile: {
       firstName: String,
       lastName: String,
@@ -29,7 +29,7 @@ const UserSchema = new mongoose.Schema(
       city: String,
       state: String,
       pincode: String,
-      photo: String, // base64 encoded
+      photo: String,
       isKYCVerified: { type: Boolean, default: false },
       kycStatus: {
         type: String,
@@ -41,16 +41,17 @@ const UserSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-// Indexes for performance
-UserSchema.index({ email: 1 });
-UserSchema.index({ apiKey: 1 });
-UserSchema.index({ role: 1 });
-
 // Hash password before save
 UserSchema.pre("save", async function (next) {
   const user = this;
   if (!user.isModified("password")) return next();
-  const salt = await bcrypt.genSalt(parseInt(process.env.BCRYPT_ROUNDS) || 10);
+
+  if (user.$locals && user.$locals.passwordAlreadyHashed) {
+    delete user.$locals.passwordAlreadyHashed;
+    return next();
+  }
+
+  const salt = await bcrypt.genSalt(10);
   user.password = await bcrypt.hash(user.password, salt);
   next();
 });
@@ -60,9 +61,10 @@ UserSchema.methods.comparePassword = function (candidatePassword) {
   return bcrypt.compare(candidatePassword, this.password);
 };
 
-// Generate API key
+// Generate simple API key and save to user
 UserSchema.methods.generateApiKey = function () {
-  const key = "sk_" + crypto.randomBytes(32).toString("hex");
+  const key = crypto.randomBytes(32).toString("hex");
+  this.apiKey = key;
   return key;
 };
 

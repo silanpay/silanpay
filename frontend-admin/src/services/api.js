@@ -1,10 +1,9 @@
 import axios from "axios";
-
-const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
+import { API_BASE } from "../config/api";
 const ADMIN_API_KEY = import.meta.env.VITE_ADMIN_API_KEY;
 
 const api = axios.create({
-  baseURL: API_URL,
+  baseURL: API_BASE,
   headers: {
     "Content-Type": "application/json",
   },
@@ -43,8 +42,8 @@ api.interceptors.response.use(
 
 // Auth API
 export const authAPI = {
-  login: (credentials) => api.post("/auth/admin-login", credentials),
-  getMe: () => api.get("/auth/me"),
+  login: (credentials) => api.post("/admin/login", credentials),
+  getMe: () => api.get("/admin/me"),
 };
 
 // Admin API

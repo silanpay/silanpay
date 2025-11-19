@@ -1,96 +1,81 @@
-# SilanPay - Complete Payment Gateway Solution
+# SilanPay - Modern Payment Gateway Platform
 
-A modern, secure, and scalable payment gateway platform built with React (Frontend), React Admin Panel, and Node.js/Express (Backend).
+Welcome to SilanPay, a comprehensive payment gateway solution with microservices architecture.
 
----
+## 📚 Documentation
 
-## 📋 Table of Contents
+- **User Documentation:** [`USER_DOCUMENTATION.md`](USER_DOCUMENTATION.md) - Complete guide for users, registration, and payment features
+- **Admin Documentation:** [`ADMIN_DOCUMENTATION.md`](ADMIN_DOCUMENTATION.md) - Complete guide for administrators, user management, and analytics
 
-1. [Overview](#overview)
-2. [Features](#features)
-3. [Technology Stack](#technology-stack)
-4. [Project Structure](#project-structure)
-5. [Installation & Setup](#installation--setup)
-6. [Configuration](#configuration)
-7. [Running the Application](#running-the-application)
-8. [API Documentation](#api-documentation)
-9. [Admin Panel](#admin-panel)
-10. [Frontend Features](#frontend-features)
-11. [Security](#security)
-12. [Deployment](#deployment)
-13. [Contributing](#contributing)
-14. [License](#license)
+## 🚀 Quick Start
 
----
+```powershell
+# Deploy all services
+.\deploy.ps1
 
-## 🎯 Overview
+# Stop all services
+.\stop-all.ps1
+```
 
-SilanPay is a comprehensive payment gateway solution designed for modern businesses. It provides:
+## 🌐 Services
 
-- **Secure Payment Processing**: Bank-grade security with PCI DSS compliance
-- **Multiple Payment Methods**: UPI, Cards, Wallets, Net Banking
-- **Real-time Analytics**: Live transaction monitoring and reporting
-- **Developer-Friendly APIs**: Easy integration with SDKs
-- **Admin Dashboard**: Complete control panel for managing transactions
+- **User Backend**: http://localhost:5000 - User authentication & payment API
+- **Admin Backend**: http://localhost:5001 - Admin management API
+- **User Frontend**: http://localhost:5173 - User portal
+- **Admin Frontend**: http://localhost:5174 - Admin dashboard
 
----
+## 🔑 Default Admin Credentials
 
-## ✨ Features
+```
+Username: admin
+Password: Admin@123
+Secret Code: SILANPAY2025
+```
 
-### Payment Processing
-- ✅ UPI Payments (QR Code & Intent)
-- ✅ Credit/Debit Cards
-- ✅ Net Banking
-- ✅ Digital Wallets
-- ✅ IMPS/NEFT/RTGS
+> ⚠️ **Change default credentials immediately after first login!**
 
-### Advanced Features
-- ✅ Payment Links
-- ✅ Dynamic QR Codes
-- ✅ Auto Refunds
-- ✅ Smart Routing
-- ✅ Webhook Support
-- ✅ Multi-currency Support
-- ✅ Recurring Payments
-- ✅ Split Payments
+## 📋 Features
 
-### Security
-- ✅ 256-bit SSL Encryption
-- ✅ Two-Factor Authentication
-- ✅ PCI DSS Level 1 Certified
-- ✅ Fraud Detection
-- ✅ Real-time Monitoring
+### User Portal
 
-### Analytics & Reporting
-- ✅ Real-time Dashboard
-- ✅ Transaction Reports
-- ✅ Revenue Analytics
-- ✅ Custom Report Builder
-- ✅ Export (CSV, PDF)
+- 3-step OTP registration
+- Email verification
+- KYC verification
+- UPI payments
+- Payment gateway
+- Smart checkout
+- Wallet services
+- Payouts
+- API & SDKs
 
----
+### Admin Portal
 
-## 🛠 Technology Stack
+- User management (CRUD)
+- Dashboard analytics
+- Transaction monitoring
+- Real-time statistics
+- Bulk user actions
+- Activity logs
+- Export reports
 
-### Frontend (User Portal)
-- **Framework**: React 18 + Vite
-- **Routing**: React Router v6
-- **State Management**: Context API + React Query
-- **UI Library**: Tailwind CSS
-- **Icons**: Lucide React
-- **Animations**: GSAP, Framer Motion
-- **Forms**: React Hook Form
-- **HTTP Client**: Fetch API
+## 🛠️ Tech Stack
 
-### Frontend-Admin (Admin Panel)
-- **Framework**: React 18
-- **Build Tool**: Create React App
-- **Styling**: Tailwind CSS
-- **State**: React Context
-- **Charts**: Recharts/Chart.js
+- **Backend:** Node.js + Express
+- **Frontend:** React 18 + Vite
+- **Database:** MongoDB Atlas
+- **Authentication:** JWT + OTP
+- **Email:** Nodemailer (Gmail SMTP)
+- **Styling:** Tailwind CSS v3
 
-### Backend
-- **Runtime**: Node.js
+## 📦 Installation
+
+1. Clone repository
+2. Run `.\deploy.ps1`
+3. Access user portal at http://localhost:5173
+4. Access admin portal at http://localhost:5174
+
+For detailed setup instructions, see [`USER_DOCUMENTATION.md`](USER_DOCUMENTATION.md) and [`ADMIN_DOCUMENTATION.md`](ADMIN_DOCUMENTATION.md)
+
 - **Framework**: Express.js
 - **Database**: MongoDB
 - **ODM**: Mongoose
@@ -267,6 +252,7 @@ VITE_ENABLE_ANALYTICS=true
 ### Method 1: Manual Start (Recommended for Development)
 
 #### Terminal 1: Start MongoDB
+
 ```bash
 # Windows
 mongod
@@ -276,6 +262,7 @@ sudo service mongodb start
 ```
 
 #### Terminal 2: Start Backend
+
 ```bash
 cd backend
 npm install
@@ -286,6 +273,7 @@ npm run dev
 Backend will run at: `http://localhost:5000`
 
 #### Terminal 3: Start Frontend (User Portal)
+
 ```bash
 cd frontend
 npm install
@@ -295,6 +283,7 @@ npm run dev
 Frontend will run at: `http://localhost:5173`
 
 #### Terminal 4: Start Admin Panel
+
 ```bash
 cd frontend-admin
 npm install
@@ -303,10 +292,10 @@ npm start
 
 Admin Panel will run at: `http://localhost:3000`
 
-
 ## 📡 API Documentation
 
 ### Base URL
+
 ```
 http://localhost:5000/api
 ```
@@ -314,6 +303,7 @@ http://localhost:5000/api
 ### Authentication Endpoints
 
 #### 1. User Registration
+
 ```http
 POST /api/auth/register
 Content-Type: application/json
@@ -327,6 +317,7 @@ Content-Type: application/json
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -341,6 +332,7 @@ Content-Type: application/json
 ```
 
 #### 2. User Login
+
 ```http
 POST /api/auth/login
 Content-Type: application/json
@@ -352,6 +344,7 @@ Content-Type: application/json
 ```
 
 #### 3. Admin Login
+
 ```http
 POST /api/auth/admin-login
 Content-Type: application/json
@@ -364,6 +357,7 @@ x-api-key: your_api_key
 ```
 
 **Response:**
+
 ```json
 {
   "success": true,
@@ -380,6 +374,7 @@ x-api-key: your_api_key
 ### Payment Endpoints
 
 #### 1. Create Payment
+
 ```http
 POST /api/payment/create
 Authorization: Bearer <token>
@@ -398,12 +393,14 @@ Content-Type: application/json
 ```
 
 #### 2. Get Payment Status
+
 ```http
 GET /api/payment/:paymentId
 Authorization: Bearer <token>
 ```
 
 #### 3. Process Refund
+
 ```http
 POST /api/payment/refund
 Authorization: Bearer <token>
@@ -419,12 +416,14 @@ Content-Type: application/json
 ### Admin Endpoints
 
 #### 1. Get Dashboard Stats
+
 ```http
 GET /api/admin/stats
 Authorization: Bearer <admin_token>
 ```
 
 **Response:**
+
 ```json
 {
   "totalUsers": 150,
@@ -435,12 +434,14 @@ Authorization: Bearer <admin_token>
 ```
 
 #### 2. Get All Users
+
 ```http
 GET /api/admin/users
 Authorization: Bearer <admin_token>
 ```
 
 #### 3. Get All Transactions
+
 ```http
 GET /api/admin/transactions?page=1&limit=50
 Authorization: Bearer <admin_token>
@@ -453,6 +454,7 @@ Authorization: Bearer <admin_token>
 ### Access Credentials
 
 **Default Admin Account:**
+
 ```
 Email:      admin@example.com
 Password:   Admin@123456
@@ -464,12 +466,14 @@ Admin Code: ADMIN2024SECRET
 ### Admin Features
 
 #### Dashboard
+
 - Real-time statistics
 - Transaction overview
 - Revenue analytics
 - User activity monitoring
 
 #### User Management
+
 - View all users
 - Edit user details
 - Change user roles (admin/user)
@@ -477,6 +481,7 @@ Admin Code: ADMIN2024SECRET
 - Delete users
 
 #### Transaction Management
+
 - View all transactions
 - Filter by status, date, amount
 - Transaction details
@@ -484,6 +489,7 @@ Admin Code: ADMIN2024SECRET
 - Export reports
 
 #### Settings
+
 - Payment gateway configuration
 - API key management
 - Webhook configuration
@@ -493,12 +499,14 @@ Admin Code: ADMIN2024SECRET
 ### Creating Additional Admins
 
 #### Method 1: Using Script
+
 ```bash
 cd backend
 node scripts/createAdmin.js
 ```
 
 #### Method 2: Using MongoDB
+
 ```javascript
 // Connect to MongoDB and run:
 db.users.insertOne({
@@ -508,7 +516,7 @@ db.users.insertOne({
   role: "admin",
   phone: "1234567890",
   isVerified: true,
-  createdAt: new Date()
+  createdAt: new Date(),
 });
 ```
 
@@ -519,6 +527,7 @@ db.users.insertOne({
 ### User Portal (`http://localhost:5173`)
 
 #### Public Pages
+
 - **Landing Page**: Hero section, features, pricing
 - **About Us**: Company information, mission, values
 - **Contact Us**: Contact form, location map
@@ -528,6 +537,7 @@ db.users.insertOne({
 - **Refund Policy**: Refund terms
 
 #### Protected Pages (After Login)
+
 - **Dashboard**: User dashboard
 - **Payment History**: Transaction history
 - **Payment Gateway**: Create payments
@@ -536,6 +546,7 @@ db.users.insertOne({
 - **Support**: Help and support
 
 #### Authentication Pages
+
 - **Login**: User login
 - **Register**: User registration
 - **Forgot Password**: Password recovery
@@ -544,6 +555,7 @@ db.users.insertOne({
 ### Key Components
 
 #### Header Navigation
+
 ```jsx
 // Dynamic navigation with dropdowns
 - Products (UPI, Cards, QR, etc.)
@@ -553,6 +565,7 @@ db.users.insertOne({
 ```
 
 #### Payment Flow
+
 1. User selects payment method
 2. Enters payment details
 3. System validates and processes
@@ -567,41 +580,45 @@ db.users.insertOne({
 ### Implementation
 
 #### Password Security
+
 ```javascript
 // bcryptjs for password hashing
-const bcrypt = require('bcryptjs');
+const bcrypt = require("bcryptjs");
 const hashedPassword = await bcrypt.hash(password, 10);
 ```
 
 #### JWT Authentication
+
 ```javascript
 // Generate JWT token
 const token = jwt.sign(
   { id: user._id, email: user.email, role: user.role },
   process.env.JWT_SECRET,
-  { expiresIn: '30d' }
+  { expiresIn: "30d" }
 );
 ```
 
 #### CORS Configuration
+
 ```javascript
 // Allow specific origins
 const corsOptions = {
-  origin: ['http://localhost:5173', 'http://localhost:3000'],
+  origin: ["http://localhost:5173", "http://localhost:3000"],
   credentials: true,
-  optionsSuccessStatus: 200
+  optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
 ```
 
 #### Rate Limiting
+
 ```javascript
 // Prevent brute force attacks
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100 // limit each IP to 100 requests per windowMs
+  max: 100, // limit each IP to 100 requests per windowMs
 });
-app.use('/api/', limiter);
+app.use("/api/", limiter);
 ```
 
 ### Security Best Practices
@@ -622,6 +639,7 @@ app.use('/api/', limiter);
 ## 🚢 Deployment
 
 ### Prerequisites
+
 - Domain name
 - SSL certificate
 - Server (VPS/Cloud)
@@ -630,6 +648,7 @@ app.use('/api/', limiter);
 ### Backend Deployment
 
 #### 1. Prepare Environment
+
 ```bash
 # Update .env for production
 NODE_ENV=production
@@ -640,6 +659,7 @@ ADMIN_URL=https://admin.yourdomain.com
 ```
 
 #### 2. Build & Deploy
+
 ```bash
 cd backend
 npm install --production
@@ -647,6 +667,7 @@ npm start
 ```
 
 #### 3. Process Manager (PM2)
+
 ```bash
 npm install -g pm2
 pm2 start server.js --name silanpay-backend
@@ -657,6 +678,7 @@ pm2 startup
 ### Frontend Deployment
 
 #### Build for Production
+
 ```bash
 cd frontend
 npm run build
@@ -664,6 +686,7 @@ npm run build
 ```
 
 #### Deploy to Netlify
+
 ```bash
 # Install Netlify CLI
 npm install -g netlify-cli
@@ -673,6 +696,7 @@ netlify deploy --prod --dir=dist
 ```
 
 #### Deploy to Vercel
+
 ```bash
 # Install Vercel CLI
 npm install -g vercel
@@ -692,6 +716,7 @@ npm run build
 ### Environment Variables (Production)
 
 **Backend:**
+
 ```env
 NODE_ENV=production
 PORT=5000
@@ -701,6 +726,7 @@ API_KEY=production_api_key
 ```
 
 **Frontend:**
+
 ```env
 VITE_API_URL=https://api.yourdomain.com
 VITE_API_KEY=production_api_key
@@ -708,6 +734,7 @@ VITE_ENVIRONMENT=production
 ```
 
 **Admin:**
+
 ```env
 VITE_API_URL=https://api.yourdomain.com
 VITE_API_KEY=production_api_key
@@ -721,6 +748,7 @@ VITE_ADMIN_SECRET=production_admin_secret
 ### Common Issues
 
 #### 1. Backend not starting
+
 ```bash
 # Check MongoDB is running
 mongod --version
@@ -733,15 +761,17 @@ ls backend/.env
 ```
 
 #### 2. CORS errors
+
 ```javascript
 // Update CORS configuration in server.js
 const corsOptions = {
-  origin: ['http://localhost:5173', 'http://localhost:3000'],
-  credentials: true
+  origin: ["http://localhost:5173", "http://localhost:3000"],
+  credentials: true,
 };
 ```
 
 #### 3. MongoDB connection error
+
 ```bash
 # Verify MongoDB URI
 # Check MongoDB is running
@@ -749,6 +779,7 @@ const corsOptions = {
 ```
 
 #### 4. Frontend build errors
+
 ```bash
 # Clear cache
 npm run clean
@@ -765,12 +796,14 @@ npm install
 ### Code Style
 
 #### JavaScript/JSX
+
 - Use ES6+ features
 - Follow Airbnb style guide
 - Use functional components
 - Implement proper error handling
 
 #### CSS
+
 - Use Tailwind utility classes
 - Follow BEM naming for custom CSS
 - Implement responsive design
@@ -793,6 +826,7 @@ git push origin feature/payment-integration
 ```
 
 ### Commit Messages
+
 ```
 feat: Add new feature
 fix: Fix bug
@@ -808,18 +842,21 @@ chore: Update dependencies
 ## 🧪 Testing
 
 ### Backend Tests
+
 ```bash
 cd backend
 npm run test
 ```
 
 ### Frontend Tests
+
 ```bash
 cd frontend
 npm run test
 ```
 
 ### E2E Tests
+
 ```bash
 npm run test:e2e
 ```
@@ -829,6 +866,7 @@ npm run test:e2e
 ## 📊 Performance Optimization
 
 ### Frontend
+
 - Code splitting with React.lazy()
 - Image optimization
 - Lazy loading
@@ -836,6 +874,7 @@ npm run test:e2e
 - Virtual scrolling for large lists
 
 ### Backend
+
 - Database indexing
 - Caching (Redis)
 - Compression (gzip)
@@ -855,6 +894,7 @@ We welcome contributions! Please follow these steps:
 5. Open a Pull Request
 
 ### Contribution Guidelines
+
 - Write clean, maintainable code
 - Follow the existing code style
 - Add tests for new features
@@ -896,6 +936,7 @@ SOFTWARE.
 ## 📧 Support
 
 For support and queries:
+
 - **Email**: support@example.com
 - **Documentation**: [docs.example.com](https://docs.example.com)
 - **GitHub Issues**: [github.com/yourusername/silanpay/issues](https://github.com/yourusername/silanpay/issues)
@@ -914,6 +955,7 @@ For support and queries:
 ## 📈 Roadmap
 
 ### Version 2.0 (Q2 2025)
+
 - [ ] Mobile App (React Native)
 - [ ] Payment Subscriptions
 - [ ] Multi-currency Support
@@ -921,6 +963,7 @@ For support and queries:
 - [ ] AI-powered Fraud Detection
 
 ### Version 2.1 (Q3 2025)
+
 - [ ] Cryptocurrency Support
 - [ ] International Payments
 - [ ] White Label Solution
@@ -943,4 +986,11 @@ For support and queries:
 
 [⭐ Star us on GitHub](https://github.com/yourusername/silanpay) | [🐛 Report Bug](https://github.com/yourusername/silanpay/issues) | [✨ Request Feature](https://github.com/yourusername/silanpay/issues)
 
-</div>
+</div>##  Installation
+
+1. Clone repository
+2. Run `.\deploy.ps1`
+3. Access user portal at http://localhost:5173
+4. Access admin portal at http://localhost:5174
+
+For detailed setup instructions, see [`USER_DOCUMENTATION.md`](USER_DOCUMENTATION.md) and [`ADMIN_DOCUMENTATION.md`](ADMIN_DOCUMENTATION.md)

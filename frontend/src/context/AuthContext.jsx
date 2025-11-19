@@ -2,8 +2,7 @@ import React, { createContext, useContext, useReducer, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
-
-const API_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+import { buildApiUrl } from "../config/api";
 
 // Initial State
 const initialState = {
@@ -64,7 +63,7 @@ export const AuthProvider = ({ children }) => {
       const token = Cookies.get("auth_token");
       if (token) {
         try {
-          const response = await fetch(`${API_BASE_URL}/api/auth/verify`, {
+          const response = await fetch(buildApiUrl("/auth/verify"), {
             headers: {
               Authorization: `Bearer ${token}`,
             },
@@ -98,7 +97,7 @@ export const AuthProvider = ({ children }) => {
     dispatch({ type: "AUTH_START" });
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/auth/login`, {
+      const response = await fetch(buildApiUrl("/auth/login"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -141,7 +140,7 @@ export const AuthProvider = ({ children }) => {
     dispatch({ type: "AUTH_START" });
 
     try {
-      const response = await fetch(`${API_BASE_URL}/api/auth/register`, {
+      const response = await fetch(buildApiUrl("/auth/register"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(userData),
