@@ -42,16 +42,25 @@ import WebhooksPage from "./pages/WebhooksPage";
 import PluginsPage from "./pages/PluginsPage";
 import Document from "./pages/Document";
 
+// Dashboard Layout & Pages
+import DashboardLayout from "./components/layout/DashboardLayout";
+import OverviewPage from "./pages/dashboard/OverviewPage";
+import AnalyticsPage from "./pages/dashboard/AnalyticsPage";
+import CardsPage from "./pages/dashboard/CardsPage";
+import TransactionsPage from "./pages/dashboard/TransactionsPage";
+import SettingsPage from "./pages/dashboard/SettingsPage";
+import OnboardingPage from "./pages/dashboard/OnboardingPage";
+
 // Components
 import ProtectedRoute from "./components/common/ProtectedRoute";
 import ErrorBoundary from "./components/common/ErrorBoundary";
 import ScrollToTop from "./components/common/ScrollToTop";
-import ScrollToTopOnRouteChange from "./components/common/ScrollToTopOnRouteChange"; // ✅ ADD THIS
+import ScrollToTopOnRouteChange from "./components/common/ScrollToTopOnRouteChange";
 
 // Styles
 import "./styles/globals.css";
 
-// ✅ Create a QueryClient instance
+// Create a QueryClient instance
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -68,7 +77,6 @@ function App() {
         <QueryClientProvider client={queryClient}>
           <ThemeProvider>
             <Router>
-              {/* ✅ ADD THIS - Scrolls to top on route change */}
               <ScrollToTopOnRouteChange />
 
               <AuthProvider>
@@ -79,48 +87,24 @@ function App() {
                       <Route path="/" element={<LandingPage />} />
                       <Route path="/login" element={<LoginPage />} />
                       <Route path="/register" element={<RegisterPage />} />
-                      <Route
-                        path="/forgot-password"
-                        element={<ForgotPasswordPage />}
-                      />
-                      <Route
-                        path="/reset-password/:token"
-                        element={<ResetPasswordPage />}
-                      />
+                      <Route path="/forgot-password" element={<ForgotPasswordPage />} />
+                      <Route path="/reset-password/:token" element={<ResetPasswordPage />} />
                       <Route path="/pricing" element={<PricingPage />} />
                       <Route path="/services" element={<ServicesPage />} />
                       <Route path="/features" element={<FeaturesPage />} />
                       <Route path="/docs" element={<DocumentationPage />} />
                       <Route path="/support" element={<SupportPage />} />
                       <Route path="/contact-us" element={<ContactUsPage />} />
-                      <Route
-                        path="/terms"
-                        element={<TermsAndConditionsPage />}
-                      />
-                      <Route
-                        path="/privacy-policy"
-                        element={<PrivacyPolicyPage />}
-                      />
-                      <Route
-                        path="/refund-policy"
-                        element={<RefundPolicyPage />}
-                      />
-                      <Route
-                        path="/upi-payments"
-                        element={<UPIPaymentPage />}
-                      />
+                      <Route path="/terms" element={<TermsAndConditionsPage />} />
+                      <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
+                      <Route path="/refund-policy" element={<RefundPolicyPage />} />
+                      <Route path="/upi-payments" element={<UPIPaymentPage />} />
                       <Route path="/about-us" element={<AboutUsPage />} />
 
                       {/* Product Pages */}
-                      <Route
-                        path="/collection-service"
-                        element={<CollectionServicePage />}
-                      />
+                      <Route path="/collection-service" element={<CollectionServicePage />} />
                       <Route path="/payouts" element={<PayoutsPage />} />
-                      <Route
-                        path="/smart-checkout"
-                        element={<SmartCheckoutPage />}
-                      />
+                      <Route path="/smart-checkout" element={<SmartCheckoutPage />} />
                       <Route path="/wallet" element={<WalletPage />} />
                       <Route path="/sound-box" element={<SoundBoxPage />} />
 
@@ -130,22 +114,32 @@ function App() {
                       <Route path="/plugins" element={<PluginsPage />} />
                       <Route path="/document" element={<Document />} />
 
-                      {/* Payment Gateway (Public) */}
-                      <Route
-                        path="/payments/gateway/:id"
-                        element={<PaymentGatewayPage />}
-                      />
-                      <Route
-                        path="/payments/status/:id"
-                        element={<PaymentStatusPage />}
-                      />
+                      {/* Payment Gateway */}
+                      <Route path="/payments/gateway/:id" element={<PaymentGatewayPage />} />
+                      <Route path="/payments/status/:id" element={<PaymentStatusPage />} />
 
-                      {/* Protected Routes */}
+                      {/* Protected Dashboard Routes */}
                       <Route
                         path="/dashboard"
                         element={
                           <ProtectedRoute>
-                            <Dashboard />
+                            <DashboardLayout />
+                          </ProtectedRoute>
+                        }
+                      >
+                        <Route index element={<OverviewPage />} />
+                        <Route path="analytics" element={<AnalyticsPage />} />
+                        <Route path="cards" element={<CardsPage />} />
+                        <Route path="transactions" element={<TransactionsPage />} />
+                        <Route path="settings" element={<SettingsPage />} />
+                      </Route>
+
+                      {/* Onboarding Route - Separate from Dashboard Layout if needed, or nested */}
+                      <Route
+                        path="/onboarding"
+                        element={
+                          <ProtectedRoute>
+                            <OnboardingPage />
                           </ProtectedRoute>
                         }
                       />
@@ -154,32 +148,14 @@ function App() {
                       <Route path="*" element={<NotFoundPage />} />
                     </Routes>
 
-                    {/* ✅ Scroll to Top Button */}
                     <ScrollToTop />
-
-                    {/* ✅ Toast Notifications */}
                     <Toaster
                       position="top-right"
                       toastOptions={{
                         duration: 3000,
-                        style: {
-                          background: "#363636",
-                          color: "#fff",
-                        },
-                        success: {
-                          duration: 3000,
-                          iconTheme: {
-                            primary: "#10B981",
-                            secondary: "#fff",
-                          },
-                        },
-                        error: {
-                          duration: 3000,
-                          iconTheme: {
-                            primary: "#EF4444",
-                            secondary: "#fff",
-                          },
-                        },
+                        style: { background: "#363636", color: "#fff" },
+                        success: { duration: 3000, iconTheme: { primary: "#10B981", secondary: "#fff" } },
+                        error: { duration: 3000, iconTheme: { primary: "#EF4444", secondary: "#fff" } },
                       }}
                     />
                   </div>

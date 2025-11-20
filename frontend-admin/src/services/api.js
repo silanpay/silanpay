@@ -56,4 +56,12 @@ export const adminAPI = {
   deleteUser: (id) => api.delete(`/admin/users/${id}`),
 };
 
+// Verification API
+export const verificationAPI = {
+  getRequests: () => api.get("/admin/verification/requests"),
+  getUserVerification: (userId) => api.get(`/admin/verification/requests/${userId}`),
+  verifyStep: (userId, stepNumber, data) =>
+    api.patch(`/admin/verification/verify/${userId}/${stepNumber}`, data),
+};
+
 export default api;

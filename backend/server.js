@@ -7,6 +7,11 @@ const rateLimit = require("express-rate-limit");
 
 const authRoutes = require("./routes/auth");
 const adminRoutes = require("./routes/admin");
+const dashboardRoutes = require("./routes/dashboard");
+const transactionRoutes = require("./routes/transactions");
+const cardRoutes = require("./routes/cards");
+const goalRoutes = require("./routes/goals");
+const verificationRoutes = require("./routes/verification");
 const verifyApiKey = require("./middlewares/verifyApiKey");
 
 const app = express();
@@ -25,10 +30,16 @@ app.use(
 // Rate Limiting
 const limiter = rateLimit({
   windowMs: parseInt(process.env.RATE_LIMIT_WINDOW || 15) * 60 * 1000,
-  max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS || 100),
+  max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS || 1000), // Increased to 1000
   message: "Too many requests, please try again later.",
 });
 app.use("/api/", limiter);
+
+// Request Logger
+app.use((req, res, next) => {
+  console.log(`${new Date().toISOString()} - ${req.method} ${req.originalUrl}`);
+  next();
+});
 
 // Body Parser
 app.use(express.json({ limit: "10mb" }));
@@ -46,6 +57,11 @@ mongoose
 // API Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/admin", verifyApiKey, adminRoutes);
+app.use("/api/dashboard", dashboardRoutes);
+app.use("/api/transactions", transactionRoutes);
+app.use("/api/cards", cardRoutes);
+app.use("/api/goals", goalRoutes);
+app.use("/api/verification", verificationRoutes);
 
 // Health Check
 app.get("/api/health", (req, res) =>

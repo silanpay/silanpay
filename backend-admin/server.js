@@ -6,6 +6,7 @@ const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 
 const adminRoutes = require("./routes/admin");
+const verificationRoutes = require("./routes/verification");
 
 const app = express();
 
@@ -27,7 +28,7 @@ app.use(
 // Rate Limiting
 const limiter = rateLimit({
   windowMs: parseInt(process.env.RATE_LIMIT_WINDOW || 15) * 60 * 1000,
-  max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS || 100),
+  max: parseInt(process.env.RATE_LIMIT_MAX_REQUESTS || 1000),
   message: "Too many requests from this IP, please try again later",
 });
 app.use(limiter);
@@ -47,6 +48,7 @@ mongoose
 
 // API Routes
 app.use("/api/admin", adminRoutes);
+app.use("/api/admin/verification", verificationRoutes);
 
 // Health Check
 app.get("/api/health", (req, res) => {

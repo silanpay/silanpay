@@ -12,6 +12,7 @@ import {
   Search,
   Settings,
   Target,
+  Loader2,
 } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 
@@ -27,75 +28,105 @@ const Dashboard = () => {
   const { user, logout } = useAuth();
 
   const [activeSection, setActiveSection] = useState("overview");
+  const [isLoading, setIsLoading] = useState(true);
+  const [dashboardData, setDashboardData] = useState({
+    balance: 0,
+    spending: 0,
+    goals: 0,
+    cards: [],
+    transactions: [],
+  });
   const sectionRefs = useRef({});
+
+  // Simulate loading dashboard data
+  useEffect(() => {
+    const loadDashboardData = async () => {
+      setIsLoading(true);
+      try {
+        // Simulate API call delay
+        await new Promise((resolve) => setTimeout(resolve, 1000));
+
+        // Mock data - Replace with real API calls later
+        setDashboardData({
+          balance: 8262000,
+          spending: 5487000,
+          goals: 6,
+          cards: [
+            {
+              type: "Master Card",
+              currency: "₹",
+              balance: "28,57,200",
+              label: "Domestic",
+              status: "Active",
+              last4: "2879",
+            },
+            {
+              type: "Credit Card",
+              currency: "₹",
+              balance: "12,14,800",
+              label: "Forex",
+              status: "Disabled",
+              last4: "1034",
+            },
+            {
+              type: "Business Card",
+              currency: "₹",
+              balance: "58,62,900",
+              label: "Corporate",
+              status: "Active",
+              last4: "5621",
+            },
+          ],
+          transactions: [
+            {
+              id: "DE254839",
+              customer: "Esther Howard",
+              email: "howard@gmail.com",
+              date: "28 Dec 2025",
+              amount: "₹5,82,479.00",
+              stage: "Success",
+            },
+            {
+              id: "DE254840",
+              customer: "Kristin Watson",
+              email: "watson@gmail.com",
+              date: "14 Feb 2025",
+              amount: "₹2,35,241.00",
+              stage: "Pending",
+            },
+          ],
+        });
+      } catch (error) {
+        console.error("Error loading dashboard data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    loadDashboardData();
+  }, []);
 
   const insightCards = [
     {
       label: "Total Balance",
-      value: "₹82,62,000",
+      value: `₹${(dashboardData.balance / 100000).toFixed(2)}L`,
       delta: "+8% vs last month",
-      accent: "from-indigo-500 to-indigo-600",
+      accent: "from-emerald-500 to-emerald-600",
       icon: DollarSign,
     },
     {
       label: "Total Spending",
-      value: "₹54,87,000",
+      value: `₹${(dashboardData.spending / 100000).toFixed(2)}L`,
       delta: "-2% vs last month",
-      accent: "from-amber-500 to-amber-600",
+      accent: "from-green-500 to-green-600",
       icon: PieChart,
     },
     {
       label: "Active Goals",
-      value: "06",
+      value: dashboardData.goals.toString().padStart(2, '0'),
       delta: "3 milestones this week",
-      accent: "from-emerald-500 to-emerald-600",
+      accent: "from-teal-500 to-teal-600",
       icon: Target,
-    },
-  ];
-
-  const cards = [
-    {
-      type: "Master Card",
-      currency: "₹",
-      balance: "28,57,200",
-      label: "Domestic",
-      status: "Active",
-      last4: "2879",
-    },
-    {
-      type: "Credit Card",
-      currency: "₹",
-      balance: "12,14,800",
-      label: "Forex",
-      status: "Disabled",
-      last4: "1034",
-    },
-    {
-      type: "Business Card",
-      currency: "₹",
-      balance: "58,62,900",
-      label: "Corporate",
-      status: "Active",
-      last4: "5621",
-    },
-  ];
-
-  const transactions = [
-    {
-      id: "DE254839",
-      customer: "Esther Howard",
-      email: "howard@gmail.com",
-      date: "28 Dec 2025",
-      amount: "₹5,82,479.00",
-      stage: "Success",
-    },
-    {
-      id: "DE254840",
-      customer: "Kristin Watson",
-      email: "watson@gmail.com",
-      date: "14 Feb 2025",
-      amount: "₹2,35,241.00",
-      stage: "Pending",
     },
   ];
 
@@ -126,7 +157,7 @@ const Dashboard = () => {
       },
       {
         threshold: 0.3,
-      },
+      }
     );
 
     NAV_ITEMS.forEach((item) => {
@@ -145,13 +176,27 @@ const Dashboard = () => {
     }
   };
 
+  // Loading Skeleton Component
+  const LoadingSkeleton = () => (
+    <div className="flex items-center justify-center w-full min-h-screen bg-slate-950">
+      <div className="flex flex-col items-center gap-4">
+        <Loader2 className="w-12 h-12 text-emerald-500 animate-spin" />
+        <p className="text-slate-400">Loading your dashboard...</p>
+      </div>
+    </div>
+  );
+
+  if (isLoading) {
+    return <LoadingSkeleton />;
+  }
+
   return (
     <div className="w-full min-h-screen bg-slate-950 text-slate-100">
       <div className="flex w-full gap-6 px-4 py-6 lg:px-10">
         {/* Sidebar */}
-        <aside className="sticky top-6 hidden h-[calc(100vh-3rem)] w-64 flex-shrink-0 rounded-3xl bg-slate-900/70 p-6 shadow-2xl shadow-indigo-900/30 lg:block">
+        <aside className="sticky top-6 hidden h-[calc(100vh-3rem)] w-64 flex-shrink-0 rounded-3xl bg-slate-900/70 p-6 shadow-2xl shadow-emerald-900/30 lg:block">
           <div className="flex items-center gap-3 mb-10">
-            <div className="flex items-center justify-center w-12 h-12 text-lg font-semibold text-white rounded-3xl bg-gradient-to-br from-indigo-500 to-purple-500">
+            <div className="flex items-center justify-center w-12 h-12 text-lg font-semibold text-white rounded-3xl bg-gradient-to-br from-emerald-500 to-green-600">
               SP
             </div>
             <div>
@@ -167,11 +212,10 @@ const Dashboard = () => {
               <button
                 key={item.label}
                 onClick={() => handleNavClick(item.id)}
-                className={`flex w-full items-center justify-between rounded-3xl px-4 py-3 text-left text-sm font-medium transition ${
-                  activeSection === item.id
-                    ? "bg-white text-slate-900"
-                    : "text-slate-300 hover:bg-slate-800/60"
-                }`}
+                className={`flex w-full items-center justify-between rounded-3xl px-4 py-3 text-left text-sm font-medium transition ${activeSection === item.id
+                  ? "bg-white text-slate-900"
+                  : "text-slate-300 hover:bg-slate-800/60"
+                  }`}
               >
                 <span className="flex items-center gap-3">
                   <item.icon className="w-4 h-4" />
@@ -181,12 +225,12 @@ const Dashboard = () => {
             ))}
           </nav>
 
-          <div className="p-4 mt-10 rounded-3xl bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500">
+          <div className="p-4 mt-10 rounded-3xl bg-gradient-to-br from-emerald-500 via-green-500 to-teal-500">
             <p className="text-sm font-semibold text-white">Upgrade Pro</p>
-            <p className="mt-1 text-xs text-indigo-100">
+            <p className="mt-1 text-xs text-emerald-100">
               Unlock reminders, AI budgeting and personalised alerts.
             </p>
-            <button className="w-full px-4 py-2 mt-4 text-sm font-semibold text-indigo-900 bg-white rounded-2xl">
+            <button className="w-full px-4 py-2 mt-4 text-sm font-semibold rounded-2xl text-emerald-900 bg-white">
               Get Pro
             </button>
           </div>
@@ -207,7 +251,7 @@ const Dashboard = () => {
             <div>
               <p className="text-sm text-slate-300">Financial Command Center</p>
               <h1 className="text-2xl font-semibold text-white">
-                Hey welcome back, {user?.name ?? "Eleanor"} 👋
+                Hey welcome back, {user?.name || "User"} 👋
               </h1>
             </div>
             <div className="flex items-center flex-1 gap-3 lg:max-w-md">
@@ -221,8 +265,8 @@ const Dashboard = () => {
               <button className="p-3 transition border rounded-3xl border-white/10 text-slate-200 hover:bg-white/10">
                 <Bell className="w-4 h-4" />
               </button>
-              <div className="flex items-center justify-center w-12 h-12 text-lg font-semibold text-white rounded-3xl bg-gradient-to-br from-indigo-500 to-purple-600">
-                {user?.name?.[0] ?? "E"}
+              <div className="flex items-center justify-center w-12 h-12 text-lg font-semibold text-white rounded-3xl bg-gradient-to-br from-emerald-500 to-green-600">
+                {user?.name?.[0]?.toUpperCase() || "U"}
               </div>
             </div>
           </header>
@@ -233,12 +277,12 @@ const Dashboard = () => {
             ref={(el) => {
               sectionRefs.current.overview = el;
             }}
-            className="grid gap-6 md:grid-cols-2 xl:grid-cols-4"
+            className="grid gap-6 md:grid-cols-2 xl:grid-cols-3"
           >
             {insightCards.map((card) => (
               <div
                 key={card.label}
-                className="p-6 border shadow-2xl rounded-3xl border-white/5 bg-slate-900/60 backdrop-blur shadow-indigo-900/30"
+                className="p-6 border shadow-2xl rounded-3xl border-white/5 bg-slate-900/60 backdrop-blur shadow-emerald-900/30"
               >
                 <div className="flex items-center justify-between">
                   <p className="text-sm text-slate-400">{card.label}</p>
@@ -265,7 +309,7 @@ const Dashboard = () => {
               ref={(el) => {
                 sectionRefs.current.analytics = el;
               }}
-              className="p-6 border shadow-2xl rounded-3xl border-white/5 bg-slate-900/60 backdrop-blur shadow-indigo-900/30 xl:col-span-2"
+              className="p-6 border shadow-2xl rounded-3xl border-white/5 bg-slate-900/60 backdrop-blur shadow-emerald-900/30 xl:col-span-2"
             >
               <div className="flex items-center justify-between">
                 <div>
@@ -279,8 +323,8 @@ const Dashboard = () => {
 
               <div className="mt-6">
                 <div className="flex gap-6 text-xs text-slate-500">
-                  <span className="flex items-center gap-1 text-indigo-300">
-                    <span className="w-2 h-2 bg-indigo-400 rounded-full" />
+                  <span className="flex items-center gap-1 text-emerald-300">
+                    <span className="w-2 h-2 rounded-full bg-emerald-400" />
                     Earning
                   </span>
                   <span className="flex items-center gap-1 text-rose-300">
@@ -306,7 +350,7 @@ const Dashboard = () => {
                     d={getPath(monitoringData.earnings)}
                     fill="none"
                     strokeWidth="2.5"
-                    stroke="rgba(79,70,229,0.9)"
+                    stroke="rgba(16,185,129,0.9)"
                   />
                 </svg>
                 <div className="flex justify-between mt-4 text-xs text-slate-500">
@@ -323,16 +367,16 @@ const Dashboard = () => {
               ref={(el) => {
                 sectionRefs.current.cards = el;
               }}
-              className="p-6 space-y-4 border shadow-2xl rounded-3xl border-white/5 bg-slate-900/60 backdrop-blur shadow-indigo-900/30"
+              className="p-6 space-y-4 border shadow-2xl rounded-3xl border-white/5 bg-slate-900/60 backdrop-blur shadow-emerald-900/30"
             >
               <div className="flex items-center justify-between">
                 <p className="text-sm font-semibold text-white">My Cards</p>
-                <button className="px-4 py-2 text-xs font-semibold text-white bg-indigo-500 rounded-3xl shadow-indigo-900/40">
+                <button className="px-4 py-2 text-xs font-semibold text-white rounded-3xl bg-emerald-500 shadow-emerald-900/40">
                   Add New Card
                 </button>
               </div>
               <div className="space-y-4">
-                {cards.map((card) => (
+                {dashboardData.cards.map((card) => (
                   <div
                     key={card.type}
                     className="rounded-3xl border border-white/5 bg-white/[0.03] p-4 shadow-inner shadow-black/20"
@@ -342,11 +386,10 @@ const Dashboard = () => {
                         {card.currency} {card.balance}
                       </p>
                       <span
-                        className={`text-xs font-medium ${
-                          card.status === "Active"
-                            ? "text-emerald-400"
-                            : "text-rose-400"
-                        }`}
+                        className={`text-xs font-medium ${card.status === "Active"
+                          ? "text-emerald-400"
+                          : "text-rose-400"
+                          }`}
                       >
                         {card.status}
                       </span>
@@ -371,7 +414,7 @@ const Dashboard = () => {
             ref={(el) => {
               sectionRefs.current.transactions = el;
             }}
-            className="p-6 border shadow-2xl rounded-3xl border-white/5 bg-slate-900/60 backdrop-blur shadow-indigo-900/30"
+            className="p-6 border shadow-2xl rounded-3xl border-white/5 bg-slate-900/60 backdrop-blur shadow-emerald-900/30"
           >
             <div className="flex items-center justify-between mb-4">
               <div>
@@ -410,7 +453,7 @@ const Dashboard = () => {
                   </tr>
                 </thead>
                 <tbody className="text-slate-200">
-                  {transactions.map((tx) => (
+                  {dashboardData.transactions.map((tx) => (
                     <tr key={tx.id} className="border-t border-white/5">
                       <td className="py-4">{tx.id}</td>
                       <td className="py-4">{tx.customer}</td>
@@ -419,11 +462,10 @@ const Dashboard = () => {
                       <td className="py-4">{tx.amount}</td>
                       <td className="py-4">
                         <span
-                          className={`rounded-full px-3 py-1 text-xs font-medium ${
-                            tx.stage === "Success"
-                              ? "bg-emerald-500/20 text-emerald-300"
-                              : "bg-amber-500/20 text-amber-300"
-                          }`}
+                          className={`rounded-full px-3 py-1 text-xs font-medium ${tx.stage === "Success"
+                            ? "bg-emerald-500/20 text-emerald-300"
+                            : "bg-amber-500/20 text-amber-300"
+                            }`}
                         >
                           {tx.stage}
                         </span>

@@ -73,7 +73,7 @@ export const AuthProvider = ({ children }) => {
             const data = await response.json();
             dispatch({
               type: "AUTH_SUCCESS",
-              payload: { user: data, token },
+              payload: { user: data.user || data, token },
             });
           } else {
             Cookies.remove("auth_token");

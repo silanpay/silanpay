@@ -16,6 +16,7 @@ import DesignPage from "./pages/DesignPage";
 import SettingsPage from "./pages/SettingsPage";
 import AccountSettingsPage from "./pages/AccountSettingsPage";
 import HelpSupportPage from "./pages/HelpSupportPage";
+import VerificationRequests from "./pages/VerificationRequests";
 import ProtectedRoute from "./components/ProtectedRoute";
 import DashboardLayout from "./components/DashboardLayout";
 
@@ -78,6 +79,7 @@ function App() {
           <Route path="setup" element={<SetupPage />} />
           <Route path="design" element={<DesignPage />} />
           <Route path="settings" element={<SettingsPage />} />
+          <Route path="verification" element={<VerificationRequests />} />
 
           {/* Profile Dropdown Routes */}
           <Route path="account-settings" element={<AccountSettingsPage />} />
