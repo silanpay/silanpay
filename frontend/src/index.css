@@ -85,8 +85,22 @@
 }
 
 /* Smooth scrolling */
-html {
-  scroll-behavior: smooth;
+/* Force hide scrollbar everywhere */
+html,
+body,
+#root {
+  overflow-x: hidden !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none !important;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+#root::-webkit-scrollbar,
+*::-webkit-scrollbar {
+  width: 0px !important;
+  height: 0px !important;
+  display: none !important;
 }
 
 /* Custom button hover effects */
@@ -121,23 +135,7 @@ html {
   transform-style: preserve-3d;
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar {
-  width: 8px;
-}
 
-::-webkit-scrollbar-track {
-  background: #f1f5f9;
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(135deg, #10b981, #059669);
-  border-radius: 4px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: linear-gradient(135deg, #059669, #047857);
-}
 
 /* 3D Landing Page Animations */
 @keyframes blob {
